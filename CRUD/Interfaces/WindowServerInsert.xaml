@@ -1,0 +1,19 @@
+﻿<Window x:Class="Desktop___interfaces.Interfaces.WindowServerInsert"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Desktop___interfaces.Interfaces"
+        mc:Ignorable="d"
+        Title="WindowServerInsert" Height="450" Width="800"  ResizeMode="NoResize" Loaded="Window_Loaded">
+    <Grid>
+        <Label Content="Inserir Servidor" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="50"/>
+        <Label Content="Descrição :" HorizontalAlignment="Left" Margin="25,91,0,0" VerticalAlignment="Top" FontSize="20"/>
+        <TextBox x:Name="TextBoxDescri" HorizontalAlignment="Left" Margin="135,91,0,0" Text="Descrição" TextWrapping="Wrap" VerticalAlignment="Top" Width="591" FontSize="18" Height="100" MaxLength="200"/>
+        <Label Content="Observações :" HorizontalAlignment="Left" Margin="25,217,0,0" VerticalAlignment="Top" FontSize="20"/>
+        <TextBox x:Name="TextBoxObvs" HorizontalAlignment="Left" Margin="157,217,0,0" Text="Observações" TextWrapping="Wrap" VerticalAlignment="Top" Width="569" FontSize="18" Height="100" MaxLength="200"/>
+        <Button x:Name="ButtonCancel" Content="Cancelar" HorizontalAlignment="Left" Margin="602,334,0,0" VerticalAlignment="Top" Height="61" Width="124" Click="ButtonCancel_Click" />
+        <Button x:Name="ButtonAction" Content="Inserir" HorizontalAlignment="Left" Margin="430,334,0,0" VerticalAlignment="Top" Height="61" Width="124" Click="ButtonAction_Click"/>
+
+    </Grid>
+</Window>

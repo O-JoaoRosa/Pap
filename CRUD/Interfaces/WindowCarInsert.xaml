@@ -1,0 +1,32 @@
+﻿<Window x:Class="Desktop___interfaces.Interfaces.WindowCarInsert"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Desktop___interfaces.Interfaces"
+        mc:Ignorable="d"
+        Title="Car Inserir" Height="450" Width="850" ResizeMode="NoResize">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Label Content="Descrição :" HorizontalAlignment="Left" Margin="32,123,0,0" VerticalAlignment="Top" FontSize="20"/>
+        <Label Content="Inserir Car" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" FontSize="50"/>
+        <TextBox HorizontalAlignment="Left" Margin="174,118,0,0" Text="Descrição" TextWrapping="Wrap" VerticalAlignment="Top" Width="603" Height="53" FontSize="18" MaxLength="100"/>
+        <Label Content="Reputation Requiered :" HorizontalAlignment="Left" Margin="32,0,0,0" VerticalAlignment="Center" FontSize="20"/>
+        <TextBox HorizontalAlignment="Left" Margin="262,0,0,0" TextWrapping="Wrap" VerticalAlignment="Center" Width="84" FontSize="18" MaxLength="6" Text="0"/>
+        <Label Content="Price :" HorizontalAlignment="Left" Margin="358,0,0,0" VerticalAlignment="Center" FontSize="20" RenderTransformOrigin="0.304,0.583"/>
+        <TextBox HorizontalAlignment="Left" Margin="181,277,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="84" FontSize="18" Text="0.0"/>
+        <Label Content="Max Speed :" HorizontalAlignment="Left" Margin="32,272,0,0" VerticalAlignment="Top" FontSize="20"/>
+        <TextBox HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Center" Width="84" FontSize="18" MaxLength="6" Text="0" RenderTransformOrigin="0.286,0.655" Margin="434,0,0,0" />
+        <Label Content="Mobility :" HorizontalAlignment="Left" Margin="587,272,0,0" VerticalAlignment="Top" FontSize="20" RenderTransformOrigin="0.304,0.583"/>
+        <TextBox HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Width="65" FontSize="18" MaxLength="4" Text="0" RenderTransformOrigin="0.286,0.655" Margin="712,277,0,0" />
+        <Label Content="Acceleration :" HorizontalAlignment="Left" Margin="550,0,0,0" VerticalAlignment="Center" FontSize="20"/>
+        <TextBox HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Center" Width="84" FontSize="18" Text="0.0" RenderTransformOrigin="0.286,0.655" Margin="693,0,0,0" />
+        <Label Content="Drift Force :" HorizontalAlignment="Left" Margin="304,272,0,0" VerticalAlignment="Top" FontSize="20"/>
+        <TextBox HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Width="65" FontSize="18" MaxLength="4" Text="0" RenderTransformOrigin="0.286,0.655" Margin="434,283,0,0"/>
+        <Button x:Name="ButtonCancel" Content="Cancelar" HorizontalAlignment="Left" Margin="640,355,0,0" VerticalAlignment="Top" Height="56" Width="137" Click="ButtonCancel_Click"/>
+        <Button x:Name="ButtonAction" Content="Inserir" HorizontalAlignment="Left" Margin="458,355,0,0" VerticalAlignment="Top" Height="56" Width="137"/>
+
+    </Grid>
+</Window>

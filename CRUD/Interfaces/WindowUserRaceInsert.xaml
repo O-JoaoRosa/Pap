@@ -1,0 +1,27 @@
+﻿<Window x:Class="Desktop___interfaces.Interfaces.WindowUserRaceInsert"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Desktop___interfaces.Interfaces"
+        mc:Ignorable="d"
+        Title="WindowUserRaceInsert" Height="331" Width="800">
+    <Grid>
+        <Label Content="Inserir User-Race" HorizontalAlignment="Center" Margin="0,13,0,0" VerticalAlignment="Top" FontSize="50"/>
+        <ComboBox HorizontalAlignment="Left" Margin="127,127,0,0" VerticalAlignment="Top" Width="235" Height="21"/>
+        <Label Content="Utilizador :" HorizontalAlignment="Left" Margin="17,119,0,0" VerticalAlignment="Top" FontSize="20"/>
+        <ComboBox HorizontalAlignment="Left" Margin="546,127,0,0" VerticalAlignment="Top" Width="235" Height="21"/>
+        <Label Content="Pista de corridas :" HorizontalAlignment="Left" Margin="376,119,0,0" VerticalAlignment="Top" FontSize="20"/>
+        <Label Content="Posicionamento :" HorizontalAlignment="Left" Margin="17,180,0,0" VerticalAlignment="Top" FontSize="20"/>
+        <TextBox HorizontalAlignment="Left" Margin="182,189,0,0" Text="000" TextWrapping="Wrap" VerticalAlignment="Top" Width="48" FontSize="18" MaxLength="3" TextAlignment="Right"/>
+        <Label Content="Dinheiro ganho :" HorizontalAlignment="Left" Margin="244,180,0,0" VerticalAlignment="Top" FontSize="20"/>
+        <TextBox HorizontalAlignment="Left" Margin="406,189,0,0" Text="0" TextWrapping="Wrap" VerticalAlignment="Top" Width="72" FontSize="18" MaxLength="6" TextAlignment="Right"/>
+        <Label Content="Reputação ganha :" HorizontalAlignment="Left" Margin="498,180,0,0" VerticalAlignment="Top" FontSize="20"/>
+        <TextBox HorizontalAlignment="Left" Margin="676,189,0,0" Text="0" TextWrapping="Wrap" VerticalAlignment="Top" Width="72" FontSize="18" MaxLength="6" TextAlignment="Right"/>
+        <DatePicker HorizontalAlignment="Left" Margin="182,255,0,0" VerticalAlignment="Top"/>
+        <Label Content="Data da corrida :" HorizontalAlignment="Left" Margin="17,249,0,0" VerticalAlignment="Top" FontSize="20"/>
+        <Button Content="Cancelar" HorizontalAlignment="Left" Margin="664,243,0,0" VerticalAlignment="Top" Height="48" Width="116" Click="Button_Click"/>
+        <Button Content="Inserir" HorizontalAlignment="Left" Margin="527,243,0,0" VerticalAlignment="Top" Height="48" Width="116"/>
+
+    </Grid>
+</Window>

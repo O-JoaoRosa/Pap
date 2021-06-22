@@ -1,0 +1,60 @@
+﻿<Window x:Class="Desktop___interfaces.Interfaces.WindowCarListar"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Desktop___interfaces.Interfaces"
+        mc:Ignorable="d"
+        Title="WindowCarListar" Height="450" Width="1000" ResizeMode="NoResize">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Label Content="Lista Car" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="50" Height="73"/>
+        <ListView Margin="0,78,0,0" HorizontalAlignment="Center" Width="980" Height="293" VerticalAlignment="Top" >
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="ID" Width="0">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Id}" FontWeight="Bold" HorizontalAlignment="Center" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Descrição" Width="500">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Descri}" HorizontalAlignment="Left" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Rep. Req." Width="155">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding ReputationRequired}" HorizontalAlignment="Left" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Price" Width="155">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Price}" FontWeight="Bold" HorizontalAlignment="Center" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Max Speed" Width="155">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding MaxSpeed}" FontWeight="Bold" HorizontalAlignment="Center" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <Button Content="Cancelar" Margin="883,376,0,16" Click="Button_Click" HorizontalAlignment="Left" Width="107"/>
+        <Button Content="Editar" HorizontalAlignment="Left" Margin="738,376,0,0" Width="108" RenderTransformOrigin="0.069,0.81" Height="42" VerticalAlignment="Top"/>
+        <Button Content="Eliminar" Margin="587,376,0,0" Height="42" VerticalAlignment="Top" HorizontalAlignment="Left" Width="106"/>
+
+    </Grid>
+</Window>

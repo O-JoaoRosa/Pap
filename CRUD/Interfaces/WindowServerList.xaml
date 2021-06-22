@@ -1,0 +1,43 @@
+﻿<Window x:Class="Desktop___interfaces.Interfaces.WindowServerList"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Desktop___interfaces.Interfaces"
+        mc:Ignorable="d"
+        Title="WindowServerList" Height="500" Width="900"  ResizeMode="NoResize" Loaded="Window_Loaded">
+    <Grid>
+        <Label Content="Lista de Servidores" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" FontSize="50"/>
+        <ListView x:Name="ListView" Margin="36,92,35,65">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="ID" Width="0">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Id}" FontWeight="Bold" HorizontalAlignment="Center" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Descrição" Width="400">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Descri}" FontWeight="Bold" HorizontalAlignment="Center" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Observações" Width="420">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Obs}" FontWeight="Bold" HorizontalAlignment="Center" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <Button x:Name="ButtonCancel" Content="Cancelar" HorizontalAlignment="Left" Margin="771,425,0,0" VerticalAlignment="Top" Height="49" Width="94" Click="ButtonCancel_Click"/>
+        <Button x:Name="ButtonEdit" Content="Editar" HorizontalAlignment="Left" Margin="656,425,0,0" VerticalAlignment="Top" Height="49" Width="94" Click="ButtonEdit_Click" />
+        <Button x:Name="ButtonDelete" Content="Eliminar" HorizontalAlignment="Left" Margin="540,425,0,0" VerticalAlignment="Top" Height="49" Width="94" Click="ButtonDelete_Click"/>
+
+    </Grid>
+</Window>

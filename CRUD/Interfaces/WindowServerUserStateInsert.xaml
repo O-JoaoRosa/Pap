@@ -1,0 +1,17 @@
+﻿<Window x:Class="Desktop___interfaces.Interfaces.WindowServerUserStateInsert"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Desktop___interfaces.Interfaces"
+        mc:Ignorable="d"
+        Title="WindowServerUserStateInsert" Height="280" Width="800" ResizeMode="NoResize">
+    <Grid>
+        <Label Content="Inserir o Estado do servidor-User" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="50"/>
+        <Label Content="Descrição :" HorizontalAlignment="Left" Margin="174,111,0,0" VerticalAlignment="Top" FontSize="20" RenderTransformOrigin="0.256,0.576"/>
+        <TextBox HorizontalAlignment="Left" Margin="313,116,0,0" Text="descrião" TextWrapping="Wrap" VerticalAlignment="Top" Width="355" FontSize="18" MaxLength="30"/>
+        <Button Content="Cancelar" HorizontalAlignment="Left" Margin="618,190,0,0" VerticalAlignment="Top" Height="47" Width="148" Click="Button_Click"/>
+        <Button Content="Confirmar" HorizontalAlignment="Left" Margin="428,190,0,0" VerticalAlignment="Top" Height="47" Width="148"/>
+
+    </Grid>
+</Window>

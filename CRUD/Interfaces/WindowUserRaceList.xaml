@@ -1,0 +1,50 @@
+﻿<Window x:Class="Desktop___interfaces.Interfaces.WindowUserRaceList"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Desktop___interfaces.Interfaces"
+        mc:Ignorable="d"
+        Title="WindowUserRaceList" Height="450" Width="800">
+    <Grid>
+        <Label Content="Lista de User-Race" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" FontSize="50" Height="72"/>
+        <ListView HorizontalAlignment="Center" Height="274" Margin="0,87,0,0" VerticalAlignment="Top" Width="692">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="ID" Width="0">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Id}" FontWeight="Bold" HorizontalAlignment="Center" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Utilizador" Width="200">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding user.UserName}" FontWeight="Bold" HorizontalAlignment="Center" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Pista de Corrida" Width="350">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding conecta.Descri}" FontWeight="Bold" HorizontalAlignment="Center" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Datar da corrida" Width="134">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding DateRace}" FontWeight="Bold" HorizontalAlignment="Center" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <Button Content="Cancelar" HorizontalAlignment="Left" Margin="623,366,0,0" VerticalAlignment="Top" Height="49" Width="123" Click="Button_Click"/>
+        <Button Content="Editar" HorizontalAlignment="Left" Margin="477,366,0,0" VerticalAlignment="Top" Height="49" Width="123"/>
+        <Button Content="Eliminar" HorizontalAlignment="Left" Margin="337,366,0,0" VerticalAlignment="Top" Height="49" Width="123"/>
+
+    </Grid>
+</Window>

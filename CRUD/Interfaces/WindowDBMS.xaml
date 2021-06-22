@@ -1,0 +1,29 @@
+﻿<Window x:Class="Desktop___interfaces.Interfaces.WindowDBMS"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:gif="http://wpfanimatedgif.codeplex.com"
+        xmlns:local="clr-namespace:Desktop___interfaces.Interfaces"
+        mc:Ignorable="d"
+Title="Window_DB" Height="400" Width="422" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Loaded="Window_Loaded">
+    <Grid>
+        <Label Content="Base de dados" HorizontalAlignment="Left" Margin="77,10,0,0" VerticalAlignment="Top"  FontSize="36" FontWeight="Bold" Height="63" Width="255"/>
+        <Button x:Name="ButtonBack"  Content="Voltar" Margin="0,0,10,10" Height="48" VerticalAlignment="Bottom" Click="ButtonBack_Click" HorizontalAlignment="Right" Width="90
+                "/>
+        <ComboBox x:Name="DBComboBox" HorizontalAlignment="Right" Margin="0,112,90,0" VerticalAlignment="Top" Width="255" Height="35" FontSize="20" >
+            <ComboBoxItem Content="IBERWEB" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center" />
+            <ComboBoxItem Content="TGPSI WLAN" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+            <ComboBoxItem Content="TGPSI LAN" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+            <ComboBoxItem Content="TGPSI LOCAL ESCOLA" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+            <ComboBoxItem Content="TGPSI LOCAL CASA" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+        </ComboBox>
+        <Button x:Name="ButtonBDtestIBERWEB" Content="IBERWEB" Click="ButtonBDtestIBERWEB_Click" HorizontalAlignment="Left" Margin="79,187,0,0" VerticalAlignment="Top" Width="94" Background="#FFCF0E0E" FontWeight="Normal"/>
+        <Button x:Name="ButtonBDtestWLAN" Content="WLAN" Click="ButtonBDtestWLAN_Click" HorizontalAlignment="Left" Margin="79,219,0,0" VerticalAlignment="Top" Width="94" Background="#FFCF0E0E"/>
+        <Button x:Name="ButtonBDtestLAN" Content="LAN" Click="ButtonBDtestLAN_Click" HorizontalAlignment="Left" Margin="79,250,0,0" VerticalAlignment="Top" Width="94" Background="#FFCF0E0E"/>
+        <Button x:Name="ButtonBDtestLOCALESCOLA" Content="LOCAL ESCOLA" Click="ButtonBDtestLOCALESCOLA_Click" HorizontalAlignment="Left" Margin="79,281,0,0" VerticalAlignment="Top" Width="94" Background="#FFCF0E0E"/>
+        <Button x:Name="ButtonBDtestLOCALCASA" Content="LOCAL CASA" Click="ButtonBDtestLOCALCASA_Click" HorizontalAlignment="Left" Margin="80,311,0,0" VerticalAlignment="Top" Width="94"  Background="#FFCF0E0E"/>
+        <Label Content="DBMS Ativo :" HorizontalAlignment="Right" Margin="0,152,534,0" VerticalAlignment="Top" Foreground="White" FontSize="20" FontWeight="Bold"/>
+        <Button x:Name="ButtonConnect" Content="Conectar" Margin="0,0,116,10" Height="48" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="90" Click="ButtonBDMySqlConnect_Click"/>
+    </Grid>
+</Window>

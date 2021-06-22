@@ -1,0 +1,50 @@
+﻿<Window x:Class="Desktop___interfaces.Interfaces.WindowUserConfigList"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Desktop___interfaces.Interfaces"
+        mc:Ignorable="d"
+        Title="WindowUserConfigList" Height="450" Width="970" ResizeMode="NoResize">
+    <Grid>
+        <Label Content="Lista de Configurações dos utilizadores" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" FontSize="50"/>
+        <ListView HorizontalAlignment="Left" Height="279" Margin="42,92,0,0" VerticalAlignment="Top" Width="892">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="ID" Width="0">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Id}" FontWeight="Bold" HorizontalAlignment="Center" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Descrição" Width="450">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Descri}" HorizontalAlignment="Left" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Utilizador" Width="300">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding contido.UserName}" HorizontalAlignment="Left" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Utilizador" Width="132">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding contido.UserName}" HorizontalAlignment="Left" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <Button Content="Cancelar" HorizontalAlignment="Left" Margin="811,376,0,0" VerticalAlignment="Top" Height="48" Width="123" Click="Button_Click"/>
+        <Button Content="Editar" HorizontalAlignment="Left" Margin="670,376,0,0" VerticalAlignment="Top" Height="48" Width="123"/>
+        <Button Content="Eliminar" HorizontalAlignment="Left" Margin="524,376,0,0" VerticalAlignment="Top" Height="48" Width="123"/>
+
+    </Grid>
+</Window>

@@ -1,0 +1,50 @@
+﻿<Window x:Class="Desktop___interfaces.Interfaces.WindowUserList"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Desktop___interfaces.Interfaces"
+        mc:Ignorable="d"
+        Title="WindowUserList" Height="500" Width="950" ResizeMode="NoResize">
+    <Grid>
+        <Label Content="Lista User" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="50" Margin="0,10,0,0"/>
+        <ListView Height="322" Margin="0,87,0,0" VerticalAlignment="Top" HorizontalAlignment="Center" Width="888">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="ID" Width="0">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Id}" FontWeight="Bold" HorizontalAlignment="Center" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Nome de utilizador" Width="250">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding UserName}" HorizontalAlignment="Left" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Email" Width="500">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Email}" HorizontalAlignment="Left" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Ultima vez online" Width="130">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding LastTimeOnline}" HorizontalAlignment="Left" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <Button Content="Cancelar" HorizontalAlignment="Left" Height="60" Margin="794,414,0,0" VerticalAlignment="Top" Width="125" Click="Button_Click"/>
+        <Button Content="Editar" HorizontalAlignment="Left" Height="60" Margin="644,414,0,0" VerticalAlignment="Top" Width="125"/>
+        <Button Content="Inserir" HorizontalAlignment="Left" Height="60" Margin="494,414,0,0" VerticalAlignment="Top" Width="125"/>
+
+    </Grid>
+</Window>

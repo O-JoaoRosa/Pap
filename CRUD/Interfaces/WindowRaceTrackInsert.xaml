@@ -1,0 +1,23 @@
+﻿<Window x:Class="Desktop___interfaces.Interfaces.WindowRaceTrackInsert"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Desktop___interfaces.Interfaces"
+        mc:Ignorable="d"
+        Title="WindowRaceTrackInsert" Height="380" Width="750" ResizeMode="NoResize">
+    <Grid>
+        <Label Content="Inserir Pista de Corrida" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" FontSize="50"/>
+        <Label Content="Descrição :" HorizontalAlignment="Left" Margin="62,141,0,0" VerticalAlignment="Top" FontSize="20"/>
+        <TextBox HorizontalAlignment="Left" Margin="183,141,0,0" Text="Descrição" TextWrapping="Wrap" VerticalAlignment="Top" Width="497" FontSize="18" MaxLength="50" Height="40"/>
+        <Label Content="Reputação Base :" HorizontalAlignment="Left" Margin="62,204,0,0" VerticalAlignment="Top" FontSize="20"/>
+        <TextBox HorizontalAlignment="Left" Margin="245,209,0,0" Text="0" TextWrapping="Wrap" VerticalAlignment="Top" Width="77" FontSize="18" MaxLength="6" Height="27"/>
+        <Label Content="Dinheiro Base :" HorizontalAlignment="Left" Margin="62,273,0,0" VerticalAlignment="Top" FontSize="20"/>
+        <TextBox HorizontalAlignment="Left" Margin="245,278,0,0" Text="0" TextWrapping="Wrap" VerticalAlignment="Top" Width="77" FontSize="18" MaxLength="6" Height="27"/>
+        <Label Content="Reputação Necessaria :" HorizontalAlignment="Left" Margin="375,204,0,0" VerticalAlignment="Top" FontSize="20"/>
+        <TextBox HorizontalAlignment="Left" Margin="603,209,0,0" Text="0" TextWrapping="Wrap" VerticalAlignment="Top" Width="77" FontSize="18" MaxLength="6" Height="27"/>
+        <Button Content="Cancelar" HorizontalAlignment="Left" Margin="558,269,0,0" VerticalAlignment="Top" Height="45" Width="122" Click="Button_Click"/>
+        <Button Content="Inserir" HorizontalAlignment="Left" Margin="375,269,0,0" VerticalAlignment="Top" Height="45" Width="122"/>
+
+    </Grid>
+</Window>

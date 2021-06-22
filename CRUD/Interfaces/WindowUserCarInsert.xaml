@@ -1,0 +1,28 @@
+﻿<Window x:Class="Desktop___interfaces.Interfaces.WindowUserCarInsert"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Desktop___interfaces.Interfaces"
+        mc:Ignorable="d"
+        Title="WindowUserCarInsert" Height="450" Width="900" ResizeMode="NoResize">
+    <Grid>
+        <Label Content="Inserir uma entidade Carro-Utilizador" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" FontSize="50"/>
+        <Label Content="Roda :" HorizontalAlignment="Left" Margin="35,123,0,0" VerticalAlignment="Top" FontSize="20"/>
+        <ComboBox HorizontalAlignment="Left" Margin="118,130,0,0" VerticalAlignment="Top" Width="747"/>
+        <Label Content="Corpo do Carro :" HorizontalAlignment="Left" Margin="35,0,0,0" VerticalAlignment="Center" FontSize="20"/>
+        <ComboBox HorizontalAlignment="Left" Margin="206,0,0,0" VerticalAlignment="Center" Width="659"/>
+        <Label Content="Power Up :" HorizontalAlignment="Left" Margin="35,267,0,0" VerticalAlignment="Top" FontSize="20"/>
+        <ComboBox HorizontalAlignment="Left" Margin="145,274,0,0" VerticalAlignment="Top" Width="347"/>
+        <CheckBox Content="Esta desbloqueado" HorizontalAlignment="Left" Margin="536,270,0,0" VerticalAlignment="Top" Height="17" Width="108" FontSize="10" RenderTransformOrigin="0.519,0.467">
+            <CheckBox.LayoutTransform>
+                <ScaleTransform ScaleX="2" ScaleY="2"/>
+            </CheckBox.LayoutTransform>
+        </CheckBox>
+        <DatePicker HorizontalAlignment="Left" Margin="243,351,0,0" VerticalAlignment="Top" Height="31" Width="113"/>
+        <Label Content="Data de desbloqueio :" HorizontalAlignment="Left" Margin="35,345,0,0" VerticalAlignment="Top" FontSize="20"/>
+        <Button Content="Inserir" HorizontalAlignment="Left" Margin="536,338,0,0" VerticalAlignment="Top" Height="48" Width="142"/>
+        <Button Content="Cancelar" HorizontalAlignment="Left" Margin="723,338,0,0" VerticalAlignment="Top" Height="48" Width="142" Click="Button_Click"/>
+
+    </Grid>
+</Window>
