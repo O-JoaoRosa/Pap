@@ -5,8 +5,79 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CRUD"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-
+        Title="MainWindow" Height="450" Width="919" ResizeMode="NoResize">
+    <Grid Margin="0,0,0,-6">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Label Content="MainMenu&#xD;&#xA;" HorizontalAlignment="Center" FontSize="65" Margin="0,128,0,128"/>
+        <Menu RenderTransformOrigin="0.502,0.565" Height="27" VerticalAlignment="Top">
+            <MenuItem Header="Ficheiro" Height="26" Width="52" >
+                <MenuItem x:Name="MenuItemDBMS" Header="DBMS" Click="MenuItemDBMS_Click"/>
+            </MenuItem>
+            <MenuItem Header="Car" Width="29">
+                <MenuItem x:Name="MenuItemCarInserir" Header="Inserir" Click="MenuItemCarInserir_Click"/>
+                <MenuItem x:Name="MenuItemCarListar" Header="Listar" Click="MenuItemCarListar_Click"/>
+            </MenuItem>
+            <MenuItem Header="CarBody" Width="54">
+                <MenuItem x:Name="MenuItemCarBodyInserir" Header="Inserir" Click="MenuItemCarBodyInserir_Click"/>
+                <MenuItem x:Name="MenuItemCarBodyListar" Header="Listar" Click="MenuItemCarBodyListar_Click"/>
+            </MenuItem>
+            <MenuItem Header="PowerUP" Width="59">
+                <MenuItem x:Name="MenuItemPowerUpInserir" Header="Inserir" Click="MenuItemPowerUpInserir_Click"/>
+                <MenuItem x:Name="MenuItemPowerUpListar" Header="Listar" Click="MenuItemPowerUpListar_Click"/>
+            </MenuItem>
+            <MenuItem Header="Profile" Width="44">
+                <MenuItem x:Name="MenuItemProfileInserir" Header="Inserir" Click="MenuItemProfileInserir_Click"/>
+                <MenuItem x:Name="ManuItemProfileListar" Header="Listar" Click="ManuItemProfileListar_Click"/>
+            </MenuItem>
+            <MenuItem Header="RaceTrack" Width="63">
+                <MenuItem x:Name="MenuItemRaceTrackInserir" Header="Inserir" Click="MenuItemRaceTrackInserir_Click"/>
+                <MenuItem x:Name="MenuItemRaceTrackList" Header="Listar" Click="MenuItemRaceTrackList_Click"/>
+            </MenuItem>
+            <MenuItem Header="Server" Width="45">
+                <MenuItem x:Name="MenuItemServerInserir" Header="Inserir" Click="MenuItemServerInserir_Click"/>
+                <MenuItem x:Name="MenuItemServerList" Header="Listar" Click="MenuItemServerList_Click"/>
+            </MenuItem>
+            <MenuItem Header="ServerUser" Width="69">
+                <MenuItem x:Name="MenuItemServerUserInserir" Header="Inserir" Click="MenuItemServerUserInserir_Click"/>
+                <MenuItem x:Name="MenuItemServerUserList" Header="Listar" Click="MenuItemServerUserList_Click"/>
+            </MenuItem>
+            <MenuItem Header="ServerUserState" Width="95">
+                <MenuItem x:Name="MenuItemServerUserStateInserir" Header="Inserir" Click="MenuItemServerUserStateInserir_Click"/>
+                <MenuItem x:Name="MenuItemServerUserStateList" Header="Listar" Click="MenuItemServerUserStateList_Click"/>
+            </MenuItem>
+            <MenuItem Header="User" Width="36">
+                <MenuItem x:Name="MenuItemUserInserir" Header="Inserir" Click="MenuItemUserInserir_Click"/>
+                <MenuItem x:Name="MenuItemUserList" Header="Listar" Click="MenuItemUserList_Click"/>
+            </MenuItem>
+            <MenuItem Header="UserCar" Width="52">
+                <MenuItem x:Name="MenuItemUserCarInserir" Header="Inserir" Click="MenuItemUserCarInserir_Click"/>
+                <MenuItem x:Name="MenuItemUserCarList" Header="Listar" Click="MenuItemUserCarList_Click"/>
+            </MenuItem>
+            <MenuItem Header="UserConfig" Width="72">
+                <MenuItem x:Name="MenuItemUserConfigInserir"  Header="Inserir" Click="MenuItemUserConfigInserir_Click"/>
+                <MenuItem x:Name="MenuItemUserConfigList" Header="Listar" Click="MenuItemUserConfigList_Click"/>
+            </MenuItem>
+            <MenuItem Header="UserFriend" Width="70">
+                <MenuItem x:Name="MenuItemUserFriendInserir" Header="Inserir" Click="MenuItemUserFriendInserir_Click"/>
+                <MenuItem x:Name="MenuItemUserFriendList" Header="Listar" Click="MenuItemUserFriendList_Click"/>
+            </MenuItem>
+            <MenuItem Header="UserRace" Width="62">
+                <MenuItem x:Name="MenuItemUserRaceInserir" Header="Inserir" Click="MenuItemUserRaceInserir_Click"/>
+                <MenuItem x:Name="MenuItemUserRaceList" Header="Listar" Click="MenuItemUserRaceList_Click"/>
+            </MenuItem>
+            <MenuItem Header="UserType" Width="62">
+                <MenuItem x:Name="MenuItemUserTypeInserir" Header="Inserir" Click="MenuItemUserTypeInserir_Click"/>
+                <MenuItem x:Name="MenuItemUserTypeList" Header="Listar" Click="MenuItemUserTypeList_Click"/>
+            </MenuItem>
+            <MenuItem Header="Wheel" Width="49">
+                <MenuItem x:Name="MenuItemWheelInserir" Header="Inserir" Click="MenuItemWheelInserir_Click"/>
+                <MenuItem x:Name="MenuItemWheelList" Header="Listar" Click="MenuItemWheelList_Click"/>
+            </MenuItem>
+        </Menu>
     </Grid>
 </Window>
