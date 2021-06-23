@@ -5,9 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Desktop___interfaces.Interfaces"
         mc:Ignorable="d"
-        Title="WindowUserTypeList" Height="450" Width="800">
+        Title="WindowUserTypeList" Height="450" Width="800" Loaded="Window_Loaded">
     <Grid>
-        <ListView HorizontalAlignment="Center" Height="270" VerticalAlignment="Center" Width="696">
+        <ListView x:Name="ListView" HorizontalAlignment="Center" Height="270" VerticalAlignment="Center" Width="694">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="ID" Width="0">
@@ -17,7 +17,7 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Header="Descrição" Width="688">
+                    <GridViewColumn Header="Descrição" Width="686">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding Descri}" FontWeight="Bold" HorizontalAlignment="Center" />
@@ -28,9 +28,9 @@
             </ListView.View>
         </ListView>
         <Label Content="Lista de Tipos de Utilizadores" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="50" Width="657"/>
-        <Button Content="Cancelar" HorizontalAlignment="Left" Margin="658,370,0,0" VerticalAlignment="Top" Height="54" Width="90"/>
-        <Button Content="Editar" HorizontalAlignment="Left" Margin="543,370,0,0" VerticalAlignment="Top" Height="54" Width="90"/>
-        <Button Content="Eliminar" HorizontalAlignment="Left" Margin="431,370,0,0" VerticalAlignment="Top" Height="54" Width="90"/>
+        <Button x:Name="ButtonCancel" Content="Cancelar" HorizontalAlignment="Left" Margin="658,365,0,0" VerticalAlignment="Top" Height="54" Width="90" Click="ButtonCancel_Click"/>
+        <Button x:Name="ButtonEdit" Content="Editar" HorizontalAlignment="Left" Margin="543,365,0,0" VerticalAlignment="Top" Height="54" Width="90" Click="ButtonEdit_Click"/>
+        <Button x:Name="ButtonEliminar" Content="Eliminar" HorizontalAlignment="Left" Margin="431,365,0,0" VerticalAlignment="Top" Height="54" Width="90" Click="ButtonEliminar_Click"/>
 
     </Grid>
 </Window>

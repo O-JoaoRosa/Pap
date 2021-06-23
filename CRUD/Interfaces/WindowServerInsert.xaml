@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="WindowServerInsert" Height="450" Width="800"  ResizeMode="NoResize" Loaded="Window_Loaded">
     <Grid>
-        <Label Content="Inserir Servidor" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="50"/>
+        <Label x:Name="LabelTitle" Content="Inserir Servidor" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="50" Width="425" HorizontalContentAlignment="Center"/>
         <Label Content="Descrição :" HorizontalAlignment="Left" Margin="25,91,0,0" VerticalAlignment="Top" FontSize="20"/>
         <TextBox x:Name="TextBoxDescri" HorizontalAlignment="Left" Margin="135,91,0,0" Text="Descrição" TextWrapping="Wrap" VerticalAlignment="Top" Width="591" FontSize="18" Height="100" MaxLength="200"/>
         <Label Content="Observações :" HorizontalAlignment="Left" Margin="25,217,0,0" VerticalAlignment="Top" FontSize="20"/>

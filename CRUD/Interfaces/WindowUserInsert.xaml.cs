@@ -3,7 +3,6 @@ using Microsoft.Win32;
 using System;
 using System.Windows;
 using System.Windows.Media.Imaging;
-using Desktop___interfaces.ClassesEntidades;
 using Desktop___interfaces.ClassesEntidades.SQL;
 using System.Windows.Media;
 
@@ -31,7 +30,40 @@ namespace Desktop___interfaces.Interfaces
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            //altera a interface para encaixar com a action 
+            switch (dbAction)
+            {
+                case SQL_Connection.SQL_DELETE:
+                    LabelTitle.Content = "Eliminar o User";
+                    TextBoxUserName.Text = userTemp.UserName;
+                    TextBoxMoney.Text = userTemp.Money.ToString();
+                    TextBoxRep.Text = userTemp.Reputation.ToString();
+                    TextBoxPassword.Password = userTemp.Password;
+                    TextBoxEmail.Text = userTemp.Email;
+                    ButtonAction.Content = "Eliminar";
+                    ButtonImagePick.IsEnabled = false;
+                    DatePickerLastTimeOnline.SelectedDate = userTemp.LastTimeOnline;
+                    TextBoxUserName.IsEnabled = false;
+                    TextBoxMoney.IsEnabled = false;
+                    TextBoxRep.IsEnabled = false;
+                    TextBoxPassword.IsEnabled = false;
+                    TextBoxEmail.IsEnabled = false;
+                    ButtonImagePick.IsEnabled = false;
+                    DatePickerLastTimeOnline.IsEnabled = false;
+                    break;
 
+                case SQL_Connection.SQL_UPDATE:
+                    LabelTitle.Content = "Editar o User";
+                    TextBoxUserName.Text = userTemp.UserName;
+                    TextBoxMoney.Text = userTemp.Money.ToString();
+                    TextBoxRep.Text = userTemp.Reputation.ToString();
+                    TextBoxPassword.Password = userTemp.Password;
+                    TextBoxEmail.Text = userTemp.Email;
+                    DatePickerLastTimeOnline.SelectedDate = userTemp.LastTimeOnline;
+                    ButtonAction.Content = "Editar";
+                    break;
+
+            }
         }
 
         private void ButtonCancelar_Click(object sender, RoutedEventArgs e)
@@ -80,9 +112,11 @@ namespace Desktop___interfaces.Interfaces
                     break;
 
                 case SQL_Connection.SQL_DELETE:
+                    ValidaDados();
+
                     //elimina o utilizador escolhido
                     SqlUser.Del(userTemp);
-
+                    this.Close();
                     break;
 
                 case SQL_Connection.SQL_UPDATE:
@@ -90,16 +124,15 @@ namespace Desktop___interfaces.Interfaces
                     //verifica se os dados estão validos ou não
                     if (ValidaDados())
                     {
-                        //insere um novo user na bd
-                        User user = new User(-1, TextBoxUserName.Text,
-                        Validações.EncodePasswordToBase64(TextBoxPassword.Password),
-                        TextBoxEmail.Text,
-                         Convert.ToInt32(TextBoxMoney.Text),
-                        Convert.ToInt32(TextBoxRep.Text),
-                        "ola",
-                        DatePickerLastTimeOnline.SelectedDate.Value
-                        );
-                        SqlUser.Set(user);
+                        //altera os atributos da entidade
+                        userTemp.UserName = TextBoxUserName.Text;
+                        userTemp.Money = Convert.ToInt32(TextBoxMoney.Text);
+                        userTemp.Reputation = Convert.ToInt32(TextBoxRep.Text);
+                        userTemp.Password = TextBoxPassword.Password;
+                        userTemp.Email = TextBoxEmail.Text;
+                        userTemp.LastTimeOnline = (DateTime)DatePickerLastTimeOnline.SelectedDate;
+
+                        SqlUser.Set(userTemp);
                     }
                     break;
             }
@@ -163,21 +196,21 @@ namespace Desktop___interfaces.Interfaces
                         case SQL_Connection.SQL_INSERT:
 
                             //faz uma message box para avisar o utilizador
-                            MessageBox.Show("Server inserido com sucesso", "Sucesso!", MessageBoxButton.OK, MessageBoxImage.Information);
+                            MessageBox.Show("User inserido com sucesso", "Sucesso!", MessageBoxButton.OK, MessageBoxImage.Information);
                             this.Close();
                             return true;
 
                         case SQL_Connection.SQL_DELETE:
 
                             //faz uma message box para avisar o utilizador
-                            MessageBox.Show("Server eliminado com sucesso", "Sucesso!", MessageBoxButton.OK, MessageBoxImage.Information);
+                            MessageBox.Show("User eliminado com sucesso", "Sucesso!", MessageBoxButton.OK, MessageBoxImage.Information);
                             this.Close();
                             return true;
 
                         case SQL_Connection.SQL_UPDATE:
 
                             //faz uma message box para avisar o utilizador
-                            MessageBox.Show("Server atualizado com sucesso", "Sucesso!", MessageBoxButton.OK, MessageBoxImage.Information);
+                            MessageBox.Show("User atualizado com sucesso", "Sucesso!", MessageBoxButton.OK, MessageBoxImage.Information);
                             this.Close();
                             return true;
                     }

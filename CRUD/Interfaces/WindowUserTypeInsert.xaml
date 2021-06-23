@@ -5,13 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Desktop___interfaces.Interfaces"
         mc:Ignorable="d"
-        Title="WindowUserTypeInsert" Height="282" Width="745">
+        Title="WindowUserTypeInsert" Height="282" Width="745" Loaded="Window_Loaded">
     <Grid>
-        <Label Content="Inserir Tipo de Utilizador" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" FontSize="50"/>
+        <Label x:Name="LabelTitulo" Content="Inserir Tipo de Utilizador" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" FontSize="50"/>
         <Label Content="Descrição :" HorizontalAlignment="Left" Margin="35,112,0,0" VerticalAlignment="Top" FontSize="20" Width="104"/>
-        <TextBox HorizontalAlignment="Left" Margin="158,117,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="553" FontSize="18"/>
-        <Button Content="Cancelar" HorizontalAlignment="Left" Margin="614,189,0,0" VerticalAlignment="Top" Height="49" Width="97" Click="Button_Click"/>
-        <Button Content="Inserir" HorizontalAlignment="Left" Margin="485,189,0,0" VerticalAlignment="Top" Height="49" Width="97"/>
+        <TextBox x:Name="TextBoxDescri" HorizontalAlignment="Left" Margin="158,117,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="553" FontSize="18" MaxLength="50"/>
+        <Button x:Name="ButtonCancel" Content="Cancelar" HorizontalAlignment="Left" Margin="614,189,0,0" VerticalAlignment="Top" Height="49" Width="97" Click="ButtonCancel_Click" />
+        <Button x:Name="ButtonAction" Content="Inserir" HorizontalAlignment="Left" Margin="485,189,0,0" VerticalAlignment="Top" Height="49" Width="97" Click="ButtonAction_Click"/>
 
     </Grid>
 </Window>

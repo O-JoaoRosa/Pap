@@ -100,7 +100,6 @@ namespace Desktop___interfaces.Interfaces
                     Window w = new WindowServerInsert(SQL_Connection.SQL_DELETE, serverClickado);
                     w.ShowDialog();
                 }
-
             }
             else
             {
@@ -118,7 +117,5 @@ namespace Desktop___interfaces.Interfaces
             ListView.Items.Clear();                       // Limpa a ListView
             ListView.ItemsSource = SqlServer.GetAll();    // Reassocia a listAlunos à ListView
         }
-
-
     }
 }

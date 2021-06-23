@@ -175,7 +175,7 @@ namespace CRUD
 
         private void MenuItemUserTypeInserir_Click(object sender, RoutedEventArgs e)
         {
-            Window w = new WindowUserTypeInsert();
+            Window w = new WindowUserTypeInsert(null, SQL_Connection.SQL_INSERT);
             w.ShowDialog();
         }
 

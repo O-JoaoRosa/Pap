@@ -39,6 +39,7 @@ namespace Desktop___interfaces.Interfaces
             switch (dbAction)
             {
                 case SQL_DELETE:
+                    LabelTitle.Content = "Eliminar Server";
                     TextBoxDescri.Text = server.Descri;
                     TextBoxObvs.Text = server.Obs;
                     TextBoxDescri.IsEnabled = false;
@@ -46,6 +47,7 @@ namespace Desktop___interfaces.Interfaces
                     ButtonAction.Content = "Eliminar";
                     break;
                 case SQL_UPDATE:
+                    LabelTitle.Content = "Editar Server";
                     TextBoxDescri.Text = server.Descri;
                     TextBoxObvs.Text = server.Obs;
                     TextBoxDescri.IsEnabled = true;
@@ -179,9 +181,6 @@ namespace Desktop___interfaces.Interfaces
             }
             return false;
         }
-
-
         #endregion
-
     }
 }
