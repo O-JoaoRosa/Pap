@@ -11,7 +11,6 @@ namespace CRUD.ClassesEntidades.SQL
 {
     class SqlUserType
     {
-
         #region Dados Locais
 
         private const bool DEBUG_LOCAL = false;       // Ativa debug local

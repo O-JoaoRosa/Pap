@@ -96,7 +96,5 @@ namespace Desktop___interfaces.Interfaces
             ListView.Items.Clear();                       // Limpa a ListView
             ListView.ItemsSource = SqlUser.GetAll();    // Reassocia a listAlunos à ListView
         }
-
-        
     }
 }
