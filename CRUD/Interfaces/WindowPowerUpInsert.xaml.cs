@@ -41,9 +41,14 @@ namespace Desktop___interfaces.Interfaces
             }
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void ButtonAction_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+
+        }
+
+        private void ButtonCancel_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

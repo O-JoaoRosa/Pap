@@ -11,13 +11,13 @@
         <Slider x:Name="SliderTime" HorizontalAlignment="Left" IsSnapToTickEnabled="True" Margin="514,219,0,0" VerticalAlignment="Top" Width="150" Maximum="120" ValueChanged="Slider_ValueChanged" SmallChange="1" Orientation="Horizontal"/>
         <Label Content="Tempo De Carregamento :" HorizontalAlignment="Left" Margin="268,208,0,0" VerticalAlignment="Top" FontSize="20"/>
         <Label Content="Descrição :" HorizontalAlignment="Left" Margin="34,137,0,0" VerticalAlignment="Top" FontSize="20"/>
-        <TextBox HorizontalAlignment="Left" Margin="145,146,0,0" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="544" FontSize="18" MaxLength="50" />
+        <TextBox x:Name="TextBoxDescri" HorizontalAlignment="Left" Margin="145,146,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="544" FontSize="18" MaxLength="50" />
         <Label x:Name="LabelTimeValue" Content="0" HorizontalAlignment="Left" Margin="669,211,0,0" VerticalAlignment="Top" FontSize="18"/>
         <Button Content="Escolher" HorizontalAlignment="Left" Margin="145,209,0,0" VerticalAlignment="Top" Height="37" Width="104" Click="Button_Click"/>
         <Label Content="Imagem :" HorizontalAlignment="Left" Margin="47,208,0,0" VerticalAlignment="Top" FontSize="20"/>
         <Image x:Name="ImagePerfil" HorizontalAlignment="Left" Height="140" Margin="127,270,0,0" VerticalAlignment="Top" Width="138" Source="/Interfaces/download.jfif"/>
-        <Button Content="Cancelar" HorizontalAlignment="Left" Margin="514,358,0,0" VerticalAlignment="Top" Height="47" Width="120" Click="Button_Click_1"/>
-        <Button Content="Inserir" HorizontalAlignment="Left" Margin="352,358,0,0" VerticalAlignment="Top" Height="47" Width="120"/>
+        <Button x:Name="ButtonCancel" Content="Cancelar" HorizontalAlignment="Left" Margin="514,358,0,0" VerticalAlignment="Top" Height="47" Width="120" Click="ButtonCancel_Click" />
+        <Button x:Name="ButtonAction" Content="Inserir" HorizontalAlignment="Left" Margin="352,358,0,0" VerticalAlignment="Top" Height="47" Width="120" Click="ButtonAction_Click" />
 
     </Grid>
 </Window>
