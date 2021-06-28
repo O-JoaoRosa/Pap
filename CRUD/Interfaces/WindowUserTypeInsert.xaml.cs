@@ -3,7 +3,7 @@ using Desktop___interfaces.ClassesEntidades;
 using Desktop___interfaces.ClassesEntidades.SQL;
 using System.Windows;
 using System.Windows.Media;
-using static Desktop___interfaces.ClassesEntidades.SQL_Connection;
+using static CRUD.ClassesEntidades.SQL.SQL_Connection;
 
 namespace Desktop___interfaces.Interfaces
 {

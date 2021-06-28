@@ -4,6 +4,7 @@ using System;
 using System.Windows;
 using System.Windows.Media.Imaging;
 using Desktop___interfaces.ClassesEntidades.SQL;
+using static CRUD.ClassesEntidades.SQL.SQL_Connection;
 using System.Windows.Media;
 
 namespace Desktop___interfaces.Interfaces
@@ -34,7 +35,7 @@ namespace Desktop___interfaces.Interfaces
             //altera a interface para encaixar com a action 
             switch (dbAction)
             {
-                case SQL_Connection.SQL_DELETE:
+                case SQL_DELETE:
                     LabelTitle.Content = "Eliminar o User";
                     TextBoxUserName.Text = userTemp.UserName;
                     TextBoxMoney.Text = userTemp.Money.ToString();
@@ -53,7 +54,7 @@ namespace Desktop___interfaces.Interfaces
                     DatePickerLastTimeOnline.IsEnabled = false;
                     break;
 
-                case SQL_Connection.SQL_UPDATE:
+                case SQL_UPDATE:
                     LabelTitle.Content = "Editar o User";
                     TextBoxUserName.Text = userTemp.UserName;
                     TextBoxMoney.Text = userTemp.Money.ToString();
@@ -96,7 +97,7 @@ namespace Desktop___interfaces.Interfaces
             //muda a operação dependendo da action escolhida
             switch (dbAction)
             {
-                case SQL_Connection.SQL_INSERT:
+                case SQL_INSERT:
 
                     //verifica se os dados estão validos ou não
                     if (ValidaDados())
@@ -114,7 +115,7 @@ namespace Desktop___interfaces.Interfaces
                     }
                     break;
 
-                case SQL_Connection.SQL_DELETE:
+                case SQL_DELETE:
                     ValidaDados();
 
                     //elimina o utilizador escolhido
@@ -122,7 +123,7 @@ namespace Desktop___interfaces.Interfaces
                     this.Close();
                     break;
 
-                case SQL_Connection.SQL_UPDATE:
+                case SQL_UPDATE:
 
                     //verifica se os dados estão validos ou não
                     if (ValidaDados())
@@ -196,21 +197,21 @@ namespace Desktop___interfaces.Interfaces
                 {
                     switch (dbAction)
                     {
-                        case SQL_Connection.SQL_INSERT:
+                        case SQL_INSERT:
 
                             //faz uma message box para avisar o utilizador
                             MessageBox.Show("User inserido com sucesso", "Sucesso!", MessageBoxButton.OK, MessageBoxImage.Information);
                             this.Close();
                             return true;
 
-                        case SQL_Connection.SQL_DELETE:
+                        case SQL_DELETE:
 
                             //faz uma message box para avisar o utilizador
                             MessageBox.Show("User eliminado com sucesso", "Sucesso!", MessageBoxButton.OK, MessageBoxImage.Information);
                             this.Close();
                             return true;
 
-                        case SQL_Connection.SQL_UPDATE:
+                        case SQL_UPDATE:
 
                             //faz uma message box para avisar o utilizador
                             MessageBox.Show("User atualizado com sucesso", "Sucesso!", MessageBoxButton.OK, MessageBoxImage.Information);

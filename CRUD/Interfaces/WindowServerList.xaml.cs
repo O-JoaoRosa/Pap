@@ -1,18 +1,7 @@
-﻿using Desktop___interfaces.ClassesEntidades;
-using Desktop___interfaces.ClassesEntidades.SQL;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using static CRUD.ClassesEntidades.SQL.SQL_Connection;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+using Desktop___interfaces.ClassesEntidades.SQL;
 
 namespace Desktop___interfaces.Interfaces
 {
@@ -67,7 +56,7 @@ namespace Desktop___interfaces.Interfaces
                 if(serverClickado != null)
                 {
                     //abre a janela de edição com a informação necessaria para definir o que fazer
-                    Window w = new WindowServerInsert(SQL_Connection.SQL_UPDATE, serverClickado);
+                    Window w = new WindowServerInsert(SQL_UPDATE, serverClickado);
                     w.ShowDialog();
                 }
             }
@@ -97,7 +86,7 @@ namespace Desktop___interfaces.Interfaces
                 if (serverClickado != null)
                 {
                     //abre a janela de edição com a informação necessaria para definir o que fazer
-                    Window w = new WindowServerInsert(SQL_Connection.SQL_DELETE, serverClickado);
+                    Window w = new WindowServerInsert(SQL_DELETE, serverClickado);
                     w.ShowDialog();
                 }
             }

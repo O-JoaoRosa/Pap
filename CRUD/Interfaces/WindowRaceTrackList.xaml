@@ -5,9 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Desktop___interfaces.Interfaces"
         mc:Ignorable="d"
-        Title="WindowRaceTrackList" Height="450" Width="800" ResizeMode="NoResize">
+        Title="WindowRaceTrackList" Height="470" Width="817" ResizeMode="NoResize" Loaded="Window_Loaded">
     <Grid>
-        <ListView Margin="22,77,23,56">
+        <ListView x:Name="ListView" Margin="22,77,23,72">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="ID" Width="0">
@@ -17,7 +17,7 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Header="Descrição" Width="500">
+                    <GridViewColumn Header="Descrição" Width="497">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding Descri}" HorizontalAlignment="Left" />
@@ -27,7 +27,7 @@
                     <GridViewColumn Header="Reputação necessária" Width="245">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding userType.Descri}" HorizontalAlignment="Left" />
+                                <TextBlock Text="{Binding ReputationRequiered}" HorizontalAlignment="Left" />
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
@@ -35,9 +35,9 @@
             </ListView.View>
         </ListView>
         <Label Content="Lista de Pistas de Corrida" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="50"/>
-        <Button Content="Cancelar" HorizontalAlignment="Left" Margin="660,383,0,0" VerticalAlignment="Top" Height="41" Width="117" Click="Button_Click"/>
-        <Button Content="Editar" HorizontalAlignment="Left" Margin="522,383,0,0" VerticalAlignment="Top" Height="41" Width="117"/>
-        <Button Content="Eliminar" HorizontalAlignment="Left" Margin="385,383,0,0" VerticalAlignment="Top" Height="41" Width="117"/>
+        <Button x:Name="ButtonCancel" Content="Cancelar" HorizontalAlignment="Left" Margin="660,383,0,0" VerticalAlignment="Top" Height="41" Width="117" Click="ButtonCancel_Click"/>
+        <Button x:Name="ButtonEdit" Content="Editar" HorizontalAlignment="Left" Margin="522,383,0,0" VerticalAlignment="Top" Height="41" Width="117" Click="ButtonEdit_Click"/>
+        <Button x:Name="ButtonDel" Content="Eliminar" HorizontalAlignment="Left" Margin="385,383,0,0" VerticalAlignment="Top" Height="41" Width="117" Click="ButtonDel_Click"/>
 
     </Grid>
 </Window>

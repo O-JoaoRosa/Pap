@@ -7,9 +7,9 @@ using System.Text;
 using System.Windows;
 using static CRUD.ClassesEntidades.SQL.SQL_Connection;
 
-namespace Desktop___interfaces.ClassesEntidades.SQL
+namespace CRUD.ClassesEntidades.SQL
 {
-    class SqlUser
+    class SqlWheel
     {
         #region Dados Locais
 
@@ -22,14 +22,14 @@ namespace Desktop___interfaces.ClassesEntidades.SQL
         /// <summary>
         /// Adiciona um novo registo à tabela
         /// </summary>
-        /// <param name="user"></param>
-        static public void Add(User user)
+        /// <param name="wheel"></param>
+        static public void Add(Wheel wheel)
         {
             // Imprime DEBUG para a consola, se DEBUG local e GERAL estiverem ativos
             if (DEBUG_LOCAL)
             {
-                Console.WriteLine("Debug: SQLuser - add() - <----Iniciar Query---->");
-                Console.WriteLine("Debug: SQLuser - add() - DBMS ATIVO: " + DBMS_ACTIVE);
+                Console.WriteLine("Debug: SQLwheel - add() - <----Iniciar Query---->");
+                Console.WriteLine("Debug: SQLwheel - add() - DBMS ATIVO: " + DBMS_ACTIVE);
             }
 
             //Execução do SQL DML sob controlo do try catch
@@ -43,21 +43,17 @@ namespace Desktop___interfaces.ClassesEntidades.SQL
                     using (MySqlCommand sqlCommand = ((MySqlConnection)conn).CreateCommand())
                     {
                         sqlCommand.CommandType = CommandType.Text;
-                        sqlCommand.CommandText = "INSERT INTO user"
-                            + "(UserName,Password,Email,Image,Money,Reputation,LastTimeOnline)"
-                            + "VALUES(@userName, @password, @email, @image, @money, @reputation, @lastTimeOnline);";
-                        sqlCommand.Parameters.Add(new MySqlParameter("@userName", user.UserName));
-                        sqlCommand.Parameters.Add(new MySqlParameter("@password", user.Password));
-                        sqlCommand.Parameters.Add(new MySqlParameter("@email", user.Email));
-                        sqlCommand.Parameters.Add(new MySqlParameter("@image", user.Image));
-                        sqlCommand.Parameters.Add(new MySqlParameter("@money", user.Money));
-                        sqlCommand.Parameters.Add(new MySqlParameter("@reputation", user.Reputation));
-                        sqlCommand.Parameters.Add(new MySqlParameter("@lastTimeOnline", user.LastTimeOnline));
-
+                        sqlCommand.CommandText = "INSERT INTO wheel"
+                            + "(Descri,Price,Paint,CodeName)"
+                            + "VALUES(@descri, @price, @paint, @codeName);";
+                        sqlCommand.Parameters.Add(new MySqlParameter("@descri", wheel.Descri));
+                        sqlCommand.Parameters.Add(new MySqlParameter("@price", wheel.Price));
+                        sqlCommand.Parameters.Add(new MySqlParameter("@paint", wheel.Paint));
+                        sqlCommand.Parameters.Add(new MySqlParameter("@codeName", wheel.CodeName));
                         // Tenta Executar e Se diferente de 1, provoca excessão saltanto para o catch
                         if (sqlCommand.ExecuteNonQuery() != 1)
                         {
-                            throw new InvalidProgramException("SQLuser - add() - mysql: ");
+                            throw new InvalidProgramException("SQLwheel - add() - mysql: ");
                         }
                     }
 
@@ -65,7 +61,7 @@ namespace Desktop___interfaces.ClassesEntidades.SQL
             }
             catch (Exception e)
             {
-                Console.WriteLine("Erro: SQLuser_mors - add() - \n" + e.ToString());
+                Console.WriteLine("Erro: SQLwheel_mors - add() - \n" + e.ToString());
                 MessageBox.Show(
                     "SQLturma - Add() - \n Ocorreram problemas com a ligação à Base de Dados: \n" + e.ToString(),
                     "SQLturma - Add() - Catch", // Título
@@ -85,15 +81,15 @@ namespace Desktop___interfaces.ClassesEntidades.SQL
         /// 2 - Completa a lista principal, preenchendo os obj FK, 
         /// </summary>
         /// <returns>Lista de objetos</returns>
-        static public List<User> GetAll()
+        static public List<Wheel> GetAll()
         {
-            List<User> listaUsers = new List<User>();   // Lista Principal
+            List<Wheel> listaWheels = new List<Wheel>();   // Lista Principal
             String query = "";
 
             if (DEBUG_LOCAL)
             {
-                Console.WriteLine("Debug: SQLuser - getAll() - <----Iniciar Query---->");
-                Console.WriteLine("Debug: SQLuser - getAll() - DBMS ATIVO: " + DBMS_ACTIVE);
+                Console.WriteLine("Debug: SQLwheel - getAll() - <----Iniciar Query---->");
+                Console.WriteLine("Debug: SQLwheel - getAll() - DBMS ATIVO: " + DBMS_ACTIVE);
             }
 
             //Execução do SQL DML sob controlo do try catch
@@ -102,7 +98,7 @@ namespace Desktop___interfaces.ClassesEntidades.SQL
                 // Abre ligação ao DBMS Ativo
                 using (DbConnection conn = OpenConnection())
                 {
-                    query = "SELECT * FROM user;";
+                    query = "SELECT * FROM wheel;";
 
                     // Prepara e executa o SQL DML
                     using (MySqlCommand sqlCommand = new MySqlCommand())
@@ -115,7 +111,7 @@ namespace Desktop___interfaces.ClassesEntidades.SQL
                         // DEBUG
                         if (DEBUG_LOCAL)
                         {
-                            Console.WriteLine("Debug: SQLuser - getAll() - MYSQL - SQLcommand OK");
+                            Console.WriteLine("Debug: SQLwheel - getAll() - MYSQL - SQLcommand OK");
                         }
 
                         // Reader recebe os dados da execução da query
@@ -123,7 +119,7 @@ namespace Desktop___interfaces.ClassesEntidades.SQL
                         {
                             if (DEBUG_LOCAL)
                             {
-                                Console.WriteLine("Debug: SQLuser - getAll() - MYSQL - DATAREADER CRIADO");
+                                Console.WriteLine("Debug: SQLwheel - getAll() - MYSQL - DATAREADER CRIADO");
                             }
 
                             // Extração dos dados do reader para a lista, um a um: registo tabela -> new Obj ->Lista<Objs>
@@ -131,30 +127,27 @@ namespace Desktop___interfaces.ClassesEntidades.SQL
                             {
                                 if (DEBUG_LOCAL)
                                 {
-                                    Console.WriteLine("Debug: SQLuser - getAll(): MYSQL - DATAREADER TEM REGISTOS!");
+                                    Console.WriteLine("Debug: SQLwheel - getAll(): MYSQL - DATAREADER TEM REGISTOS!");
                                 }
 
                                 // Construção do objeto
                                 // Se objeto tem FKs, Não usar SQL***.get() para construir o fk dentro do construtor. gera exceção.
                                 // Criar o obj FK com o Construtor de Id e depois completar o objeto fora do domínio da Connection.
-                                User use = new User(
+                                Wheel wheel = new Wheel(
                                     reader.GetInt32(reader.GetOrdinal("Id")),
-                                    reader["UserName"].ToString(),
-                                    reader["Password"].ToString(),
-                                    reader["Email"].ToString(),
-                                    reader.GetInt32(reader.GetOrdinal("Money")),
-                                    reader.GetInt32(reader.GetOrdinal("Reputation")),
-                                    reader["Image"].ToString(),
-                                    reader.GetDateTime(reader.GetOrdinal("LastTimeOnline"))
+                                    reader.GetInt32(reader.GetOrdinal("Price")),
+                                    reader["Paint"].ToString(),
+                                    reader["Descri"].ToString(),
+                                    reader["CodeName"].ToString()
                                 );
 
-                                listaUsers.Add(use);       //adiciona o obj à lista
+                                listaWheels.Add(wheel);       //adiciona o obj à lista
 
                                 //Debug para Output: Interessa ver o que está a sair do datareader
                                 if (DEBUG_LOCAL)
                                 {
                                     Console.WriteLine(
-                                        "Debug: SQLuser - getAll() - DataReader - MYSQL:"
+                                        "Debug: SQLwheel - getAll() - DataReader - MYSQL:"
                                         + "\n Id->" + reader.GetInt32(reader.GetOrdinal("Id")).ToString()
                                     );
                                 }
@@ -167,15 +160,15 @@ namespace Desktop___interfaces.ClassesEntidades.SQL
             {
                 Console.WriteLine("Erro: SQLuser - getAll() - \n" + e.ToString());
                 MessageBox.Show(
-                    "SQLuser - GetAll() - \n Ocorreram problemas com a ligação à Base de Dados: \n" + e.ToString(),
-                    "SQLuser - GetAll() - Catch",  // Título
+                    "SQLwheel - GetAll() - \n Ocorreram problemas com a ligação à Base de Dados: \n" + e.ToString(),
+                    "SQLwheel - GetAll() - Catch",  // Título
                     MessageBoxButton.OK,            // Botões
                     MessageBoxImage.Error           // Icon
                 );
                 return null;
             }
 
-            return listaUsers;
+            return listaWheels;
         }
 
         /// <summary>
@@ -185,14 +178,14 @@ namespace Desktop___interfaces.ClassesEntidades.SQL
         /// 2 - Completa o objeto, construindo os obj FK existentes
         /// </summary>
         /// <returns>Devolve um objeto preenchido ou NULL</returns>
-        static public User Get(int id)
+        static public Wheel Get(int id)
         {
-            User user = null;
+            Wheel wheel = null;
 
             if (DEBUG_LOCAL)
             {
-                Console.WriteLine("Debug: SQLuser - get() - <----Iniciar Query---->");
-                Console.WriteLine("Debug: SQLuser - get() - DBMS ATIVO: " + DBMS_ACTIVE);
+                Console.WriteLine("Debug: SQLwheel - get() - <----Iniciar Query---->");
+                Console.WriteLine("Debug: SQLwheel - get() - DBMS ATIVO: " + DBMS_ACTIVE);
             }
 
             //Execução do SQL DML sob controlo do try catch
@@ -218,7 +211,7 @@ namespace Desktop___interfaces.ClassesEntidades.SQL
                         {
                             if (DEBUG_LOCAL)
                             {
-                                Console.WriteLine("Debug: SQLuser - get() - MYSQL - DataReader CRIADO: ");
+                                Console.WriteLine("Debug: SQLwheel - get() - MYSQL - DataReader CRIADO: ");
                             }
 
                             // Extração dos dados do reader para a lista, um a um: registo tabela -> new Obj ->Lista<Objs>
@@ -226,31 +219,27 @@ namespace Desktop___interfaces.ClassesEntidades.SQL
                             {
                                 if (DEBUG_LOCAL)
                                 {
-                                    Console.WriteLine("Debug: SQLuser - get() MYSQL: DATAREADER TEM REGISTO!");
+                                    Console.WriteLine("Debug: SQLwheel - get() MYSQL: DATAREADER TEM REGISTO!");
                                 }
 
                                 // Construção do objeto
                                 // Se objeto tem FKs, Não usar SQL***.get() para construir o fk dentro do construtor. gera exceção.
                                 // Criar o obj FK com o Construtor de Id e depois completar o objeto fora do domínio da Connection.
-                                User use = new User(
+                                Wheel whee = new Wheel(
                                    reader.GetInt32(reader.GetOrdinal("Id")),
-                                   reader["UserName"].ToString(),
-                                   reader["Password"].ToString(),
-                                   reader["Email"].ToString(),
-                                   reader.GetInt32(reader.GetOrdinal("Money")),
-                                   reader.GetInt32(reader.GetOrdinal("Reputation")),
-                                   reader["Image"].ToString(),
-                                   reader.GetDateTime(reader.GetOrdinal("LastTimeOnline"))
+                                   reader.GetInt32(reader.GetOrdinal("Price")),
+                                   reader["Paint"].ToString(),
+                                   reader["Descri"].ToString(),
+                                   reader["CodeName"].ToString()
                                );
 
                                 //Debug para Output: Interessa ver o que está a sair do datareader
                                 if (DEBUG_LOCAL)
                                 {
                                     Console.WriteLine(
-                                        "Debug: SQLuser - get() - DataReader - MYSQL:"
+                                        "Debug: SQLwheel - get() - DataReader - MYSQL:"
                                         + "\n Id->" + reader.GetInt32(reader.GetOrdinal("Id")).ToString()
                                         + "\n Descri-> " + reader["Descri"].ToString()
-                                        + "\n Obs-> " + reader["Obs"].ToString()
                                     );
                                 }
                             }
@@ -261,7 +250,7 @@ namespace Desktop___interfaces.ClassesEntidades.SQL
             }
             catch (Exception e)
             {
-                Console.WriteLine("Erro: SQLuser - get() - \n" + e.ToString());
+                Console.WriteLine("Erro: SQLwheel - get() - \n" + e.ToString());
                 MessageBox.Show(
                     "SQLuser - Get() - \n Ocorreram problemas com a ligação à Base de Dados: \n" + e.ToString(),
                     "SQLuser - Get() - Catch", // Título
@@ -271,7 +260,7 @@ namespace Desktop___interfaces.ClassesEntidades.SQL
                 return null;
             }
 
-            return user;
+            return wheel;
         }
 
         #endregion
@@ -281,13 +270,13 @@ namespace Desktop___interfaces.ClassesEntidades.SQL
         /// <summary>
         /// Altera um registo da tabela
         /// </summary>
-        /// <param name="user">Objeto com id a alterar da tabela</param>
-        static public void Set(User user)
+        /// <param name="wheel">Objeto com id a alterar da tabela</param>
+        static public void Set(Wheel wheel)
         {
             if (DEBUG_LOCAL)
             {
-                Console.WriteLine("Debug: SQLuser - set() - <----Iniciar Query---->");
-                Console.WriteLine("Debug: SQLuser - set() - DBMS ATIVO: " + DBMS_ACTIVE);
+                Console.WriteLine("Debug: SQLwheel - set() - <----Iniciar Query---->");
+                Console.WriteLine("Debug: SQLwheel - set() - DBMS ATIVO: " + DBMS_ACTIVE);
             }
 
             //Execução do SQL DML sob controlo do try catch
@@ -300,36 +289,30 @@ namespace Desktop___interfaces.ClassesEntidades.SQL
                     using (MySqlCommand sqlCommand = ((MySqlConnection)conn).CreateCommand())
                     {
                         sqlCommand.CommandType = CommandType.Text;
-                        sqlCommand.CommandText = "UPDATE user SET "
-                        + " UserName = @userName,"
-                        + " Password = @password,"
-                        + " Email = @email,"
-                        + " Image = @image,"
-                        + " money = @money,"
-                        + " reputation = @reputation,"
-                        + " LastTimeOnline = @lastTimeOnline"
+                        sqlCommand.CommandText = "UPDATE wheel SET "
+                        + " Descri = @descri,"
+                        + " CodeName = @codeName,"
+                        + " Paint = @paint,"
+                        + " Price = @price"
                         + " WHERE Id = @id;";
-                        sqlCommand.Parameters.Add(new MySqlParameter("@id", user.Id));
-                        sqlCommand.Parameters.Add(new MySqlParameter("@userName", user.UserName));
-                        sqlCommand.Parameters.Add(new MySqlParameter("@password", user.Password));
-                        sqlCommand.Parameters.Add(new MySqlParameter("@email", user.Email));
-                        sqlCommand.Parameters.Add(new MySqlParameter("@image", user.Image));
-                        sqlCommand.Parameters.Add(new MySqlParameter("@money", user.Money));
-                        sqlCommand.Parameters.Add(new MySqlParameter("@reputation", user.Reputation));
-                        sqlCommand.Parameters.Add(new MySqlParameter("@lastTimeOnline", user.LastTimeOnline));
+                        sqlCommand.Parameters.Add(new MySqlParameter("@id", wheel.Id));
+                        sqlCommand.Parameters.Add(new MySqlParameter("@descri", wheel.Descri));
+                        sqlCommand.Parameters.Add(new MySqlParameter("@codeName", wheel.CodeName));
+                        sqlCommand.Parameters.Add(new MySqlParameter("@paint", wheel.Paint));
+                        sqlCommand.Parameters.Add(new MySqlParameter("@price", wheel.Price));
 
                         // Tenta executar o comando, que é suposto devolver 1
                         if (sqlCommand.ExecuteNonQuery() != 1)
                         {
                             // Se diferente, inverte o commit e Provoca a excessão saltanto para o catch
-                            throw new InvalidProgramException("SQLuser - set() - mysql: ");
+                            throw new InvalidProgramException("SQLwheel - set() - mysql: ");
                         }
                     }
                 }
             }
             catch (Exception e)
             {
-                Console.WriteLine("Erro: SQLuser - set() - \n" + e.ToString());
+                Console.WriteLine("Erro: SQLwheel - set() - \n" + e.ToString());
                 MessageBox.Show(
                     "SQLServer - Set() - \n Ocorreram problemas com a ligação à Base de Dados: \n" + e.ToString(),
                     "SQLServer - Set() - Catch",     // Título
@@ -347,13 +330,13 @@ namespace Desktop___interfaces.ClassesEntidades.SQL
         /// ATENÇÃO: Porque estes objetos são FK noutras tabelas, o delete aplica-se após 
         /// o método checkRelationalIntegrityViolation(), caso contrário pode gerar Exceções
         /// </summary>
-        /// <param name="user">Objeto com id a apagar da tabela</param>
-        static public void Del(User user)
+        /// <param name="wheel">Objeto com id a apagar da tabela</param>
+        static public void Del(Wheel wheel)
         {
             if (DEBUG_LOCAL)
             {
-                Console.WriteLine("Debug: SQLuser - del() - <--Iniciar Query-->");
-                Console.WriteLine("Debug: SQLuser - del() - DBMS ATIVO: " + DBMS_ACTIVE);
+                Console.WriteLine("Debug: SQLwheel - del() - <--Iniciar Query-->");
+                Console.WriteLine("Debug: SQLwheel - del() - DBMS ATIVO: " + DBMS_ACTIVE);
             }
 
             //Execução do SQL DML sob controlo do try catch
@@ -366,14 +349,14 @@ namespace Desktop___interfaces.ClassesEntidades.SQL
                     {
                         // Prepara e executa o SQL DML
                         sqlCommand.CommandType = CommandType.Text;
-                        sqlCommand.CommandText = "DELETE FROM user WHERE Id=@id;";
-                        sqlCommand.Parameters.Add(new MySqlParameter("@id", user.Id));
+                        sqlCommand.CommandText = "DELETE FROM wheel WHERE Id=@id;";
+                        sqlCommand.Parameters.Add(new MySqlParameter("@id", wheel.Id));
 
                         // Tenta executar o comando, que é suposto devolver 1
                         if (sqlCommand.ExecuteNonQuery() != 1)
                         {
                             // Se diferente, inverte o commit e Provoca a excessão saltanto para o catch
-                            throw new InvalidProgramException("SQLuser - del() - mysql: ");
+                            throw new InvalidProgramException("SQLwheel - del() - mysql: ");
                         }
                     }
                 }
@@ -395,9 +378,9 @@ namespace Desktop___interfaces.ClassesEntidades.SQL
         /// Aplica-se antes do del(). 
         /// A não utilização em PAR destes métodos, vai gerar Exceções
         /// </summary>
-        /// <param name="user">Registo a testar</param>
+        /// <param name="wheel">Registo a testar</param>
         /// <returns></returns>
-        static public bool CheckRelationalIntegrityViolation(User user)
+        static public bool CheckRelationalIntegrityViolation(Wheel wheel)
         {
             if (DEBUG_LOCAL)
             {
@@ -432,6 +415,5 @@ namespace Desktop___interfaces.ClassesEntidades.SQL
             return false;       // Não há violação de integridade
         }
         #endregion
-
     }
 }

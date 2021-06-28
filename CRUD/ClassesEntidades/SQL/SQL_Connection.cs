@@ -3,7 +3,7 @@ using System;
 using System.Data.Common;
 using System.Windows;
 
-namespace Desktop___interfaces.ClassesEntidades
+namespace CRUD.ClassesEntidades.SQL
 {
     class SQL_Connection
     {

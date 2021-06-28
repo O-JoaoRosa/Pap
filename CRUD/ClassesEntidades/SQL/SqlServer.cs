@@ -5,7 +5,7 @@ using System.Data;
 using System.Data.Common;
 using System.Text;
 using System.Windows;
-using static Desktop___interfaces.ClassesEntidades.SQL_Connection;
+using static CRUD.ClassesEntidades.SQL.SQL_Connection;
 
 namespace Desktop___interfaces.ClassesEntidades.SQL
 {
@@ -36,7 +36,7 @@ namespace Desktop___interfaces.ClassesEntidades.SQL
             try
             {
                 // Abre ligação ao DBMS Ativo
-                using (DbConnection conn = SQL_Connection.OpenConnection())
+                using (DbConnection conn = OpenConnection())
                 {
 
                     // Prepara e executa o SQL DML

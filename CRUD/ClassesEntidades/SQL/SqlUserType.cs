@@ -5,7 +5,7 @@ using System.Data;
 using System.Data.Common;
 using System.Text;
 using System.Windows;
-using static Desktop___interfaces.ClassesEntidades.SQL_Connection;
+using static CRUD.ClassesEntidades.SQL.SQL_Connection;
 
 namespace CRUD.ClassesEntidades.SQL
 {

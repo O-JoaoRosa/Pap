@@ -1,5 +1,5 @@
-﻿using Desktop___interfaces.ClassesEntidades;
-using Desktop___interfaces.Interfaces;
+﻿using Desktop___interfaces.Interfaces;
+using static CRUD.ClassesEntidades.SQL.SQL_Connection;
 using System.Windows;
 
 namespace CRUD
@@ -9,6 +9,7 @@ namespace CRUD
     /// </summary>
     public partial class MainWindow : Window
     {
+
         public MainWindow()
         {
             InitializeComponent();
@@ -67,7 +68,7 @@ namespace CRUD
 
         private void MenuItemRaceTrackInserir_Click(object sender, RoutedEventArgs e)
         {
-            Window w = new WindowRaceTrackInsert();
+            Window w = new WindowRaceTrackInsert(SQL_INSERT, null);
             w.ShowDialog();
         }
 
@@ -79,7 +80,7 @@ namespace CRUD
 
         private void MenuItemServerInserir_Click(object sender, RoutedEventArgs e)
         {
-            Window w = new WindowServerInsert(SQL_Connection.SQL_INSERT, null);
+            Window w = new WindowServerInsert(SQL_INSERT, null);
             w.ShowDialog();
         }
 
@@ -115,7 +116,7 @@ namespace CRUD
 
         private void MenuItemUserInserir_Click(object sender, RoutedEventArgs e)
         {
-            Window w = new WindowUserInsert(SQL_Connection.SQL_INSERT, null);
+            Window w = new WindowUserInsert(SQL_INSERT, null);
             w.ShowDialog();
         }
 
@@ -175,7 +176,7 @@ namespace CRUD
 
         private void MenuItemUserTypeInserir_Click(object sender, RoutedEventArgs e)
         {
-            Window w = new WindowUserTypeInsert(null, SQL_Connection.SQL_INSERT);
+            Window w = new WindowUserTypeInsert(null, SQL_INSERT);
             w.ShowDialog();
         }
 
@@ -187,7 +188,7 @@ namespace CRUD
 
         private void MenuItemWheelInserir_Click(object sender, RoutedEventArgs e)
         {
-            Window w = new WindowWheelInsert(SQL_Connection.SQL_INSERT, null);
+            Window w = new WindowWheelInsert(SQL_INSERT, null);
             w.ShowDialog();
         }
 

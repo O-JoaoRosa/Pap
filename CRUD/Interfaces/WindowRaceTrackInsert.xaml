@@ -5,19 +5,19 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Desktop___interfaces.Interfaces"
         mc:Ignorable="d"
-        Title="WindowRaceTrackInsert" Height="380" Width="750" ResizeMode="NoResize">
+        Title="WindowRaceTrackInsert" Height="380" Width="750" ResizeMode="NoResize" Loaded="Window_Loaded">
     <Grid>
-        <Label Content="Inserir Pista de Corrida" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" FontSize="50"/>
+        <Label x:Name="LabelTitle" Content="Inserir Pista de Corrida" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" FontSize="50"/>
         <Label Content="Descrição :" HorizontalAlignment="Left" Margin="62,141,0,0" VerticalAlignment="Top" FontSize="20"/>
-        <TextBox HorizontalAlignment="Left" Margin="183,141,0,0" Text="Descrição" TextWrapping="Wrap" VerticalAlignment="Top" Width="497" FontSize="18" MaxLength="50" Height="40"/>
+        <TextBox x:Name="TextBoxDescri" HorizontalAlignment="Left" Margin="183,141,0,0" Text="Descrição" TextWrapping="Wrap" VerticalAlignment="Top" Width="497" FontSize="18" MaxLength="50" Height="40"/>
         <Label Content="Reputação Base :" HorizontalAlignment="Left" Margin="62,204,0,0" VerticalAlignment="Top" FontSize="20"/>
-        <TextBox HorizontalAlignment="Left" Margin="245,209,0,0" Text="0" TextWrapping="Wrap" VerticalAlignment="Top" Width="77" FontSize="18" MaxLength="6" Height="27"/>
+        <TextBox x:Name="TextBoxRepBase" HorizontalAlignment="Left" Margin="245,209,0,0" Text="0" TextWrapping="Wrap" VerticalAlignment="Top" Width="77" FontSize="18" MaxLength="6" Height="27"/>
         <Label Content="Dinheiro Base :" HorizontalAlignment="Left" Margin="62,273,0,0" VerticalAlignment="Top" FontSize="20"/>
-        <TextBox HorizontalAlignment="Left" Margin="245,278,0,0" Text="0" TextWrapping="Wrap" VerticalAlignment="Top" Width="77" FontSize="18" MaxLength="6" Height="27"/>
+        <TextBox x:Name="TextBoxMoneyBase" HorizontalAlignment="Left" Margin="245,278,0,0" Text="0" TextWrapping="Wrap" VerticalAlignment="Top" Width="77" FontSize="18" MaxLength="6" Height="27"/>
         <Label Content="Reputação Necessaria :" HorizontalAlignment="Left" Margin="375,204,0,0" VerticalAlignment="Top" FontSize="20"/>
-        <TextBox HorizontalAlignment="Left" Margin="603,209,0,0" Text="0" TextWrapping="Wrap" VerticalAlignment="Top" Width="77" FontSize="18" MaxLength="6" Height="27"/>
-        <Button Content="Cancelar" HorizontalAlignment="Left" Margin="558,269,0,0" VerticalAlignment="Top" Height="45" Width="122" Click="Button_Click"/>
-        <Button Content="Inserir" HorizontalAlignment="Left" Margin="375,269,0,0" VerticalAlignment="Top" Height="45" Width="122"/>
+        <TextBox x:Name="TextBoxRepReq" HorizontalAlignment="Left" Margin="603,209,0,0" Text="0" TextWrapping="Wrap" VerticalAlignment="Top" Width="77" FontSize="18" MaxLength="6" Height="27"/>
+        <Button x:Name="ButtonCancel" Content="Cancelar" HorizontalAlignment="Left" Margin="558,269,0,0" VerticalAlignment="Top" Height="45" Width="122" Click="ButtonCancelar_Click"/>
+        <Button x:Name="ButtonAction" Content="Inserir" HorizontalAlignment="Left" Margin="375,269,0,0" VerticalAlignment="Top" Height="45" Width="122" Click="ButtonAction_Click"/>
 
     </Grid>
 </Window>
