@@ -1,5 +1,4 @@
 ﻿using CRUD.ClassesEntidades.SQL;
-using Desktop___interfaces.ClassesEntidades;
 using System.Windows;
 using System.Windows.Controls;
 

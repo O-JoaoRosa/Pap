@@ -1,5 +1,5 @@
 ﻿using CRUD.ClassesEntidades.SQL;
-using Desktop___interfaces.ClassesEntidades;
+using CRUD.ClassesEntidades;
 using System;
 using System.Windows;
 using System.Windows.Media;
@@ -13,7 +13,7 @@ namespace Desktop___interfaces.Interfaces
     {
         RaceTrack raceTarckTemp;
         int dbAction = -1;
-        bool openWarning = false;
+        int openWarning = 0;
 
         public WindowRaceTrackInsert(int action, RaceTrack raceTarck)
         {
@@ -117,48 +117,45 @@ namespace Desktop___interfaces.Interfaces
             if (Validações.ValidaTexto(TextBoxDescri.Text))
             {
                 TextBoxDescri.Background = Brushes.Red;
-                openWarning = true;
+                openWarning++;
             }
             else
             {
                 TextBoxDescri.Background = Brushes.White;
-                openWarning = false;
             }
 
             //verifica se existem caracteres especiais
             if (Validações.ValidaNumero(TextBoxRepReq.Text))
             {
                 TextBoxRepReq.Background = Brushes.Red;
-                openWarning = true;
+                openWarning++;
             }
             else
             {
                 TextBoxRepReq.Background = Brushes.White;
-                openWarning = false;
             }
 
             //verifica se existem caracteres especiais
             if (Validações.ValidaNumero(TextBoxRepBase.Text))
             {
                 TextBoxRepBase.Background = Brushes.Red;
-                openWarning = true;
+                openWarning++;
             }
             else
             {
                 TextBoxRepBase.Background = Brushes.White;
-                openWarning = false;
             }
 
             //verifica se existem caracteres especiais
             if (Validações.ValidaNumero(TextBoxMoneyBase.Text))
             {
-                openWarning = true;
+                openWarning++;
                 TextBoxMoneyBase.Background = Brushes.Red;
             }
             else
             {
                 TextBoxMoneyBase.Background = Brushes.White;
-                if (!openWarning)
+                if (openWarning == 0)
                 {
                     switch (dbAction)
                     {
@@ -185,11 +182,11 @@ namespace Desktop___interfaces.Interfaces
                     }
                 }
             }
-            if (openWarning)
+            if (openWarning > 0)
             {
                 //faz uma message box para avisar o utilizador
                 MessageBox.Show("Erro : caracteres inválidos", "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
-                openWarning = false;
+                openWarning = 0;
                 return false;
             }
             return false;

@@ -16,7 +16,7 @@ namespace CRUD.ClassesEntidades.SQL
         private const bool DEBUG_LOCAL = false;       // Ativa debug local
 
         #endregion
-
+        
         #region Create
 
         /// <summary>

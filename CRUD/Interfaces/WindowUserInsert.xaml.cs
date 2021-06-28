@@ -1,4 +1,4 @@
-﻿using Desktop___interfaces.ClassesEntidades;
+﻿using CRUD.ClassesEntidades;
 using Microsoft.Win32;
 using System;
 using System.Windows;
@@ -16,7 +16,7 @@ namespace Desktop___interfaces.Interfaces
     {
         User userTemp;
         int dbAction = -1;
-        bool openWarning = false;
+        int openWarning = 0;
 
         #region Load
         public WindowUserInsert()
@@ -152,48 +152,45 @@ namespace Desktop___interfaces.Interfaces
             if (Validações.ValidaTexto(TextBoxUserName.Text))
             {
                 TextBoxUserName.Background = Brushes.Red;
-                openWarning = true;
+                openWarning++;
             }
             else
             {
                 TextBoxUserName.Background = Brushes.White;
-                openWarning = false;
             }
 
             //verifica se existem caracteres especiais
             if (Validações.ValidaNumero(TextBoxMoney.Text))
             {
                 TextBoxMoney.Background = Brushes.Red;
-                openWarning = true;
+                openWarning++;
             }
             else
             {
                 TextBoxMoney.Background = Brushes.White;
-                openWarning = false;
             }
 
             //verifica se existem caracteres especiais
             if (Validações.ValidaNumero(TextBoxRep.Text))
             {
                 TextBoxRep.Background = Brushes.Red;
-                openWarning = true;
+                openWarning++;
             }
             else
             {
                 TextBoxRep.Background = Brushes.White;
-                openWarning = false;
             }
             
             //verifica se existem caracteres especiais
             if (Validações.ValidaEmail(TextBoxEmail.Text))
             {
-                openWarning = true;
+                openWarning++;
                 TextBoxEmail.Background = Brushes.Red;
             }
             else
             {
                 TextBoxEmail.Background = Brushes.White;
-                if (!openWarning)
+                if (openWarning == 0)
                 {
                     switch (dbAction)
                     {
@@ -220,11 +217,11 @@ namespace Desktop___interfaces.Interfaces
                     }
                 }
             }
-            if (openWarning)
+            if (openWarning > 0)
             {
                 //faz uma message box para avisar o utilizador
                 MessageBox.Show("Erro : caracteres inválidos", "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
-                openWarning = false;
+                openWarning = 0;
                 return false;
             }
             return false;

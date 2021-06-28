@@ -1,8 +1,7 @@
 ﻿using System;
-using System.IO;
 using System.Text.RegularExpressions;
 
-namespace Desktop___interfaces.ClassesEntidades
+namespace CRUD.ClassesEntidades
 {
     class Validações
     {
@@ -42,15 +41,16 @@ namespace Desktop___interfaces.ClassesEntidades
         /// <returns></returns>
         public static bool ValidaColor(string input)
         {
-            string namepattern = @"^#(?:[0-9a-fA-F]{3,4}){1,2}$";
+            string namepattern = @"^#(([0-9a-fA-F]{2}){3}|([0-9a-fA-F]){3})$";
+
             // vai verificar se o input respeita as regex expression
             if (Regex.IsMatch(input, namepattern) == true)
             {
-                return true;
+                return false;
             }
             else
             {
-                return false;
+                return true;
             }
         }
 

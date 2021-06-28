@@ -31,7 +31,7 @@ namespace CRUD
 
         private void MenuItemCarBodyInserir_Click(object sender, RoutedEventArgs e)
         {
-            Window w = new WindowCarBodyInsert();
+            Window w = new WindowCarBodyInsert(SQL_INSERT, null);
             w.ShowDialog();
         }
 

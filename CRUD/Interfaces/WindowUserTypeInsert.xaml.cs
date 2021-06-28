@@ -1,6 +1,5 @@
 ﻿using CRUD.ClassesEntidades.SQL;
-using Desktop___interfaces.ClassesEntidades;
-using Desktop___interfaces.ClassesEntidades.SQL;
+using CRUD.ClassesEntidades;
 using System.Windows;
 using System.Windows.Media;
 using static CRUD.ClassesEntidades.SQL.SQL_Connection;
@@ -116,6 +115,7 @@ namespace Desktop___interfaces.Interfaces
             if (Validações.ValidaTexto(TextBoxDescri.Text))
             {
                 TextBoxDescri.Background = Brushes.Red;
+                openWarning = true;
             }
             else
             {
