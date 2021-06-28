@@ -10,6 +10,8 @@ namespace Desktop___interfaces.Interfaces
     /// </summary>
     public partial class WindowUserList : Window
     {
+        #region load
+
         public WindowUserList()
         {
             InitializeComponent();
@@ -20,6 +22,9 @@ namespace Desktop___interfaces.Interfaces
             ListView.ItemsSource = SqlUser.GetAll();
         }
 
+        #endregion
+
+        #region Buttons
 
         private void ButtonCancel_Click(object sender, RoutedEventArgs e)
         {
@@ -96,5 +101,6 @@ namespace Desktop___interfaces.Interfaces
             ListView.Items.Clear();                       // Limpa a ListView
             ListView.ItemsSource = SqlUser.GetAll();    // Reassocia a listAlunos à ListView
         }
+        #endregion
     }
 }

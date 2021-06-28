@@ -187,7 +187,7 @@ namespace CRUD
 
         private void MenuItemWheelInserir_Click(object sender, RoutedEventArgs e)
         {
-            Window w = new WindowWheelInsert();
+            Window w = new WindowWheelInsert(SQL_Connection.SQL_INSERT, null);
             w.ShowDialog();
         }
 

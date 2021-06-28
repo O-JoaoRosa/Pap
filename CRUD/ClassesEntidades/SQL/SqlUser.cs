@@ -395,9 +395,9 @@ namespace Desktop___interfaces.ClassesEntidades.SQL
         /// Aplica-se antes do del(). 
         /// A não utilização em PAR destes métodos, vai gerar Exceções
         /// </summary>
-        /// <param name="server">Registo a testar</param>
+        /// <param name="user">Registo a testar</param>
         /// <returns></returns>
-        static public bool CheckRelationalIntegrityViolation(Server server)
+        static public bool CheckRelationalIntegrityViolation(User user)
         {
             if (DEBUG_LOCAL)
             {

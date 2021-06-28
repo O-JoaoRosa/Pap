@@ -35,6 +35,30 @@ namespace Desktop___interfaces.ClassesEntidades
             return result;
         }
 
+        /// <summary>
+        /// verifica se o input tem o formato certo
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        public static bool ValidaColor(string input)
+        {
+            string namepattern = @"^#(?:[0-9a-fA-F]{3,4}){1,2}$";
+            // vai verificar se o input respeita as regex expression
+            if (Regex.IsMatch(input, namepattern) == true)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// verifica se o texto não tem caracteres especiais
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         public static bool ValidaTexto(string input)
         {
             string namepattern = @"[a-zA-Z]+$";
@@ -49,6 +73,11 @@ namespace Desktop___interfaces.ClassesEntidades
             }
         }
 
+        /// <summary>
+        /// verifica se o input contem apenas numeros
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         public static bool ValidaNumero(string input)
         {
             string numberpattern = @"^[0-9]";
@@ -62,10 +91,13 @@ namespace Desktop___interfaces.ClassesEntidades
             {
                 return true;
             }
-
-
         }
 
+        /// <summary>
+        /// verififca se o input é um email valido
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         public static bool ValidaEmail(string input)
         {
             string mailpattern = @"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$";

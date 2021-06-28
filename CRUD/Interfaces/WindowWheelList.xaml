@@ -5,9 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Desktop___interfaces.Interfaces"
         mc:Ignorable="d"
-        Title="WindowWheelList" Height="450" Width="800">
+        Title="WindowWheelList" Height="469" Width="823" Loaded="Window_Loaded">
     <Grid>
-        <ListView HorizontalAlignment="Center" Height="282" Margin="0,88,0,0" VerticalAlignment="Top" Width="780">
+        <ListView x:Name="ListView" HorizontalAlignment="Center" Height="282" Margin="0,88,0,0" VerticalAlignment="Top" Width="780">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="ID" Width="0">
@@ -35,9 +35,9 @@
             </ListView.View>
         </ListView>
         <Label Content="Lista de Rodas" HorizontalAlignment="Center" Margin="0,6,0,0" VerticalAlignment="Top" FontSize="50"/>
-        <Button Content="Cancelar" HorizontalAlignment="Left" Margin="632,375,0,0" VerticalAlignment="Top" Height="49" Width="158" Click="Button_Click"/>
-        <Button Content="Editar" HorizontalAlignment="Left" Margin="448,375,0,0" VerticalAlignment="Top" Height="49" Width="158"/>
-        <Button Content="Eliminar" HorizontalAlignment="Left" Margin="260,375,0,0" VerticalAlignment="Top" Height="49" Width="158"/>
+        <Button x:Name="ButtonCancel" Content="Cancelar" HorizontalAlignment="Left" Margin="661,375,0,0" VerticalAlignment="Top" Height="49" Width="134" Click="ButtonCancel_Click"/>
+        <Button x:Name="ButtonEdit" Content="Editar" HorizontalAlignment="Left" Margin="497,375,0,0" VerticalAlignment="Top" Height="49" Width="138" Click="ButtonEdit_Click"/>
+        <Button x:Name="ButtonDel" Content="Eliminar" HorizontalAlignment="Left" Margin="322,375,0,0" VerticalAlignment="Top" Height="49" Width="135" Click="ButtonDel_Click"/>
 
 
     </Grid>

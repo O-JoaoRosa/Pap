@@ -17,7 +17,7 @@ namespace Desktop___interfaces.Interfaces
         int dbAction = -1;
         bool openWarning = false;
 
-        #region 
+        #region Load
         public WindowUserInsert()
         {
             InitializeComponent();
@@ -28,6 +28,7 @@ namespace Desktop___interfaces.Interfaces
             userTemp = us;
             dbAction = action;
         }
+
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             //altera a interface para encaixar com a action 
@@ -65,7 +66,9 @@ namespace Desktop___interfaces.Interfaces
 
             }
         }
+        #endregion
 
+        #region Button Metodos
         private void ButtonCancelar_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
