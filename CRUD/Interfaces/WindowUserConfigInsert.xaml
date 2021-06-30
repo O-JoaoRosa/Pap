@@ -9,10 +9,10 @@
     <Grid>
         <Label Content="Inserir a configuração do Utilizador" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="50"/>
         <ComboBox HorizontalAlignment="Left" Margin="179,127,0,0" VerticalAlignment="Top" Width="221" RenderTransformOrigin="0.508,0.492"/>
+        <TextBox HorizontalAlignment="Left" Height="27" Margin="553,124,0,0" Text="0" TextWrapping="Wrap" VerticalAlignment="Top" Width="66" FontSize="18" MaxLength="50"/>
         <Label Content="Utilizador :" HorizontalAlignment="Left" Margin="57,120,0,0" VerticalAlignment="Top" FontSize="20"/>
         <TextBox HorizontalAlignment="Left" Height="36" Margin="167,197,0,0" Text="Descrição" TextWrapping="Wrap" VerticalAlignment="Top" Width="559" FontSize="18" MaxLength="50"/>
         <Label Content="Descrição :" HorizontalAlignment="Left" Margin="57,197,0,0" VerticalAlignment="Top" FontSize="20"/>
-        <TextBox HorizontalAlignment="Left" Height="27" Margin="553,124,0,0" Text="0" TextWrapping="Wrap" VerticalAlignment="Top" Width="66" FontSize="18" MaxLength="50"/>
         <Label Content="Valor :" HorizontalAlignment="Left" Margin="470,120,0,0" VerticalAlignment="Top" FontSize="20"/>
         <Button Content="Cancelar" HorizontalAlignment="Left" Margin="579,279,0,0" VerticalAlignment="Top" Height="55" Width="147" Click="Button_Click"/>
         <Button Content="Inserir" HorizontalAlignment="Left" Margin="400,279,0,0" VerticalAlignment="Top" Height="55" Width="147"/>

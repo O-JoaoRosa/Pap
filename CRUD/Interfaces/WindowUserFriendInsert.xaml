@@ -12,12 +12,12 @@
         <ComboBox HorizontalAlignment="Left" Margin="179,159,0,0" VerticalAlignment="Top" Width="120"/>
         <ComboBox HorizontalAlignment="Left" Margin="557,159,0,0" VerticalAlignment="Top" Width="120"/>
         <Label Content="Utilizador 2 :" HorizontalAlignment="Left" Margin="417,154,0,0" VerticalAlignment="Top" FontSize="20"/>
+        <DatePicker HorizontalAlignment="Left" Margin="226,234,0,0" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.488,0.28"/>
         <CheckBox Content="Está Online" HorizontalAlignment="Left" Margin="523,227,0,0" VerticalAlignment="Top" Height="17" Width="77" FontSize="10" RenderTransformOrigin="0.519,0.467">
             <CheckBox.LayoutTransform>
                 <ScaleTransform ScaleX="2" ScaleY="2"/>
             </CheckBox.LayoutTransform>
         </CheckBox>
-        <DatePicker HorizontalAlignment="Left" Margin="226,234,0,0" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.488,0.28"/>
         <Label Content="Data de criação2 :" HorizontalAlignment="Left" Margin="39,224,0,0" VerticalAlignment="Top" FontSize="20"/>
         <Button Content="Cancelar" HorizontalAlignment="Left" Margin="557,298,0,0" VerticalAlignment="Top" Height="47" Width="120" Click="Button_Click"/>
         <Button Content="Inserir" HorizontalAlignment="Left" Margin="395,298,0,0" VerticalAlignment="Top" Height="47" Width="120"/>

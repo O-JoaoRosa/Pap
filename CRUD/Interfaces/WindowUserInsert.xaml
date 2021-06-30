@@ -10,20 +10,20 @@
         <Label x:Name="LabelTitle" Content="Inserir User" Margin="0,10,0,0" FontSize="50" Height="86" VerticalAlignment="Top" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Width="349"/>
         <Label Content="Nome de utilizador :" HorizontalAlignment="Left" Margin="29,130,0,0" VerticalAlignment="Top" FontSize="20"/>
         <TextBox x:Name="TextBoxUserName" HorizontalAlignment="Left" Height="28" Margin="241,134,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="243" FontSize="18" MaxLength="20" Text="Nome de utilizador"/>
+        <TextBox x:Name="TextBoxMoney" HorizontalAlignment="Left" Height="28" Margin="615,134,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="75" FontSize="18" MaxLength="6" Text="0"/>
+        <TextBox x:Name="TextBoxRep" HorizontalAlignment="Left" Height="28" Margin="824,134,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="75" FontSize="18" MaxLength="6" Text="0"/>
         <TextBox x:Name="TextBoxEmail" HorizontalAlignment="Left" Height="58" Margin="101,199,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="798" FontSize="18" MaxLength="100" Text="email"/>
         <Label Content="Email :" HorizontalAlignment="Left" Margin="29,199,0,0" VerticalAlignment="Top" FontSize="20"/>
         <Label Content="Password:" HorizontalAlignment="Left" Margin="29,292,0,0" VerticalAlignment="Top" FontSize="20"/>
         <Label Content="Dinheiro :" HorizontalAlignment="Left" Margin="500,130,0,0" VerticalAlignment="Top" FontSize="20"/>
-        <TextBox x:Name="TextBoxMoney" HorizontalAlignment="Left" Height="28" Margin="615,134,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="75" FontSize="18" MaxLength="6" Text="0"/>
         <Label Content="Reputação :" HorizontalAlignment="Left" Margin="706,130,0,0" VerticalAlignment="Top" FontSize="20"/>
-        <TextBox x:Name="TextBoxRep" HorizontalAlignment="Left" Height="28" Margin="824,134,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="75" FontSize="18" MaxLength="6" Text="0"/>
         <PasswordBox x:Name="TextBoxPassword" HorizontalAlignment="Left" Margin="139,296,0,0" VerticalAlignment="Top" Width="361" Height="28" FontSize="18" MaxLength="100"/>
         <DatePicker x:Name="DatePickerLastTimeOnline" HorizontalAlignment="Left" Margin="762,305,0,0" VerticalAlignment="Top" Height="24" Width="117"/>
         <Label Content="Ultima vez online :" HorizontalAlignment="Left" Margin="577,292,0,0" VerticalAlignment="Top" FontSize="20" RenderTransformOrigin="0.506,0.602"/>
         <Image x:Name="ImagePerfil" HorizontalAlignment="Left" Height="141" Margin="362,366,0,0" VerticalAlignment="Top" Width="139" Source="\recursosComuns\download.jfif"/>
         <Button x:Name="ButtonImagePick" Content="Escolher uma imagem" HorizontalAlignment="Left" Height="39" Margin="208,412,0,0" VerticalAlignment="Top" Width="136" RenderTransformOrigin="0.512,0.616" Click="ButtonImagePick_Click"/>
-        <Button x:Name="ButtonCancelar" Content="Cancelar" HorizontalAlignment="Left" Height="57" Margin="742,436,0,0" VerticalAlignment="Top" Width="157" Click="ButtonCancelar_Click" />
         <Button x:Name="ButtonAction" Content="Inserir" HorizontalAlignment="Left" Height="57" Margin="548,436,0,0" VerticalAlignment="Top" Width="157" Click="ButtonAction_Click"/>
+        <Button x:Name="ButtonCancelar" Content="Cancelar" HorizontalAlignment="Left" Height="57" Margin="742,436,0,0" VerticalAlignment="Top" Width="157" Click="ButtonCancelar_Click" />
 
     </Grid>
 </Window>

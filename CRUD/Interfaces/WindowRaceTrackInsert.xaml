@@ -12,12 +12,12 @@
         <TextBox x:Name="TextBoxDescri" HorizontalAlignment="Left" Margin="183,141,0,0" Text="Descrição" TextWrapping="Wrap" VerticalAlignment="Top" Width="497" FontSize="18" MaxLength="50" Height="40"/>
         <Label Content="Reputação Base :" HorizontalAlignment="Left" Margin="62,204,0,0" VerticalAlignment="Top" FontSize="20"/>
         <TextBox x:Name="TextBoxRepBase" HorizontalAlignment="Left" Margin="245,209,0,0" Text="0" TextWrapping="Wrap" VerticalAlignment="Top" Width="77" FontSize="18" MaxLength="6" Height="27"/>
+        <TextBox x:Name="TextBoxRepReq" HorizontalAlignment="Left" Margin="603,209,0,0" Text="0" TextWrapping="Wrap" VerticalAlignment="Top" Width="77" FontSize="18" MaxLength="6" Height="27"/>
         <Label Content="Dinheiro Base :" HorizontalAlignment="Left" Margin="62,273,0,0" VerticalAlignment="Top" FontSize="20"/>
         <TextBox x:Name="TextBoxMoneyBase" HorizontalAlignment="Left" Margin="245,278,0,0" Text="0" TextWrapping="Wrap" VerticalAlignment="Top" Width="77" FontSize="18" MaxLength="6" Height="27"/>
         <Label Content="Reputação Necessaria :" HorizontalAlignment="Left" Margin="375,204,0,0" VerticalAlignment="Top" FontSize="20"/>
-        <TextBox x:Name="TextBoxRepReq" HorizontalAlignment="Left" Margin="603,209,0,0" Text="0" TextWrapping="Wrap" VerticalAlignment="Top" Width="77" FontSize="18" MaxLength="6" Height="27"/>
-        <Button x:Name="ButtonCancel" Content="Cancelar" HorizontalAlignment="Left" Margin="558,269,0,0" VerticalAlignment="Top" Height="45" Width="122" Click="ButtonCancelar_Click"/>
         <Button x:Name="ButtonAction" Content="Inserir" HorizontalAlignment="Left" Margin="375,269,0,0" VerticalAlignment="Top" Height="45" Width="122" Click="ButtonAction_Click"/>
+        <Button x:Name="ButtonCancel" Content="Cancelar" HorizontalAlignment="Left" Margin="558,269,0,0" VerticalAlignment="Top" Height="45" Width="122" Click="ButtonCancelar_Click"/>
 
     </Grid>
 </Window>
