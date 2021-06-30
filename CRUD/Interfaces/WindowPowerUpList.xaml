@@ -5,9 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Desktop___interfaces.Interfaces"
         mc:Ignorable="d"
-        Title="WindowPowerUpList" Height="450" Width="800" ResizeMode="NoResize">
+        Title="WindowPowerUpList" Height="450" Width="800" ResizeMode="NoResize" Loaded="Window_Loaded">
     <Grid>
-        <ListView Margin="24,92,33,77">
+        <ListView x:Name="ListView" Margin="24,92,33,77">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="ID" Width="0">
@@ -28,9 +28,9 @@
             </ListView.View>
         </ListView>
         <Label Content="PowerUp Lista" HorizontalAlignment="Left" Margin="237,10,0,0" VerticalAlignment="Top" FontSize="50"/>
-        <Button Content="Cancelar" HorizontalAlignment="Left" Margin="640,362,0,0" VerticalAlignment="Top" Height="52" Width="127" Click="Button_Click"/>
-        <Button Content="Editar" HorizontalAlignment="Left" Margin="508,362,0,0" VerticalAlignment="Top" Height="52" Width="127"/>
-        <Button Content="Eliminar" HorizontalAlignment="Left" Margin="376,362,0,0" VerticalAlignment="Top" Height="52" Width="127"/>
+        <Button x:Name="ButtonCancel" Content="Cancelar" HorizontalAlignment="Left" Margin="640,362,0,0" VerticalAlignment="Top" Height="52" Width="127" Click="ButtonCancel_Click"/>
+        <Button x:Name="ButtonEdit" Content="Editar" HorizontalAlignment="Left" Margin="508,362,0,0" VerticalAlignment="Top" Height="52" Width="127" Click="ButtonEdit_Click"/>
+        <Button x:Name="ButtonDel" Content="Eliminar" HorizontalAlignment="Left" Margin="376,362,0,0" VerticalAlignment="Top" Height="52" Width="127" Click="ButtonDel_Click"/>
 
     </Grid>
 </Window>

@@ -5,13 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Desktop___interfaces.Interfaces"
         mc:Ignorable="d"
-        Title="WindowServerUserStateInsert" Height="280" Width="800" ResizeMode="NoResize">
+        Title="WindowServerUserStateInsert" Height="211" Width="800" ResizeMode="NoResize" Loaded="Window_Loaded">
     <Grid>
-        <Label Content="Inserir o Estado do servidor-User" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="50"/>
-        <Label Content="Descrição :" HorizontalAlignment="Left" Margin="34,111,0,0" VerticalAlignment="Top" FontSize="20" RenderTransformOrigin="0.256,0.576"/>
-        <TextBox HorizontalAlignment="Left" Margin="147,0,0,0" Text="descrião" TextWrapping="Wrap" VerticalAlignment="Center" Width="355" FontSize="18" MaxLength="30"/>
-        <Button Content="Cancelar" HorizontalAlignment="Left" Margin="618,190,0,0" VerticalAlignment="Top" Height="47" Width="148" Click="Button_Click"/>
-        <Button Content="Confirmar" HorizontalAlignment="Left" Margin="428,190,0,0" VerticalAlignment="Top" Height="47" Width="148"/>
+        <Label x:Name="LabelTitulo" Content="Inserir o Estado do servidor-User" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="50"/>
+        <Label Content="Descrição :" HorizontalAlignment="Left" Margin="34,113,0,0" VerticalAlignment="Top" FontSize="20" RenderTransformOrigin="0.256,0.576"/>
+        <TextBox x:Name="TextBoxDescri" HorizontalAlignment="Left" Margin="152,122,0,0" Text="descrição" TextWrapping="Wrap" VerticalAlignment="Top" Width="355" FontSize="18" MaxLength="30"/>
+        <Button x:Name="ButtonCancel" Content="Cancelar" HorizontalAlignment="Left" Margin="661,111,0,0" VerticalAlignment="Top" Height="47" Width="105" Click="ButtonCancel_Click"/>
+        <Button x:Name="ButtonAction" Content="Confirmar" HorizontalAlignment="Left" Margin="527,111,0,0" VerticalAlignment="Top" Height="47" Width="108" Click="ButtonAction_Click"/>
 
     </Grid>
 </Window>

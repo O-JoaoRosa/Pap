@@ -1,17 +1,12 @@
-﻿using Microsoft.Win32;
+﻿using CRUD.ClassesEntidades;
+using Microsoft.Win32;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+using Desktop___interfaces.ClassesEntidades.SQL;
+using static CRUD.ClassesEntidades.SQL.SQL_Connection;
+using System.Windows.Media;
+using CRUD.ClassesEntidades.SQL;
 
 namespace Desktop___interfaces.Interfaces
 {
@@ -20,16 +15,67 @@ namespace Desktop___interfaces.Interfaces
     /// </summary>
     public partial class WindowPowerUpInsert : Window
     {
-        public WindowPowerUpInsert()
+        int dbAction;
+        PowerUp powerUpTemp;
+        int openWarning = 0;
+
+        #region Loads
+
+        public WindowPowerUpInsert( int action, PowerUp power)
         {
             InitializeComponent();
+            dbAction = action;
+            powerUpTemp = power;
         }
 
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            //altera a interface para encaixar com a action 
+            switch (dbAction)
+            {
+                case SQL_DELETE:
+                    LabelTitle.Content = "Eliminar o PowerUp";
+                    TextBoxDescri.Text = powerUpTemp.Descri;
+                    SliderTime.Value = powerUpTemp.TimeCharge;
+                    ButtonAction.Content = "Eliminar";
+                    ButtonImagePick.IsEnabled = false;
+                    TextBoxDescri.IsEnabled = false;
+                    SliderTime.IsEnabled = false;
+                    ButtonImagePick.IsEnabled = false;
+                    break;
+
+                case SQL_UPDATE:
+                    LabelTitle.Content = "Editar o PowerUp"; 
+                    TextBoxDescri.Text = powerUpTemp.Descri;
+                    SliderTime.Value = powerUpTemp.TimeCharge;
+                    ButtonAction.Content = "Editar";
+                    break;
+            }
+        }
+        #endregion
+
+        #region buttons
+
+
+
+        /// <summary>
+        /// metodo executado sempre que o slider muda de valor
+        /// server para associar o valor do slider a uma laber de forma aque se possa ver o valor do slider
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             LabelTimeValue.Content = SliderTime.Value;
         }
 
+        /// <summary>
+        /// metedo executado quando o botão para a escolha da imagem é clicado
+        /// irá abrir uma janela de colha de ficheiros
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog op = new OpenFileDialog();
@@ -41,14 +87,108 @@ namespace Desktop___interfaces.Interfaces
             }
         }
 
+
+        /// <summary>
+        /// Metodo que serve para verificar se os dados estão correctos
+        /// </summary>
+        /// <returns></returns>
+        private bool ValidaDados()
+        {
+            //verifica se existem caracteres especiais
+            if (Validações.ValidaTexto(TextBoxDescri.Text))
+            {
+                TextBoxDescri.Background = Brushes.Red;
+                openWarning++;
+            }
+            else
+            {
+                TextBoxDescri.Background = Brushes.White;
+                if (openWarning == 0)
+                {
+                    switch (dbAction)
+                    {
+                        case SQL_INSERT:
+
+                            //faz uma message box para avisar o utilizador
+                            MessageBox.Show("PowerUp inserido com sucesso", "Sucesso!", MessageBoxButton.OK, MessageBoxImage.Information);
+                            this.Close();
+                            return true;
+
+                        case SQL_DELETE:
+
+                            //faz uma message box para avisar o utilizador
+                            MessageBox.Show("PowerUp eliminado com sucesso", "Sucesso!", MessageBoxButton.OK, MessageBoxImage.Information);
+                            this.Close();
+                            return true;
+
+                        case SQL_UPDATE:
+
+                            //faz uma message box para avisar o utilizador
+                            MessageBox.Show("PowerUp atualizado com sucesso", "Sucesso!", MessageBoxButton.OK, MessageBoxImage.Information);
+                            this.Close();
+                            return true;
+                    }
+                }
+            }
+            if (openWarning > 0)
+            {
+                //faz uma message box para avisar o utilizador
+                MessageBox.Show("Erro : caracteres inválidos", "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
+                openWarning = 0;
+                return false;
+            }
+            return false;
+        }
+
         private void ButtonAction_Click(object sender, RoutedEventArgs e)
         {
+            //muda a operação dependendo da action escolhida
+            switch (dbAction)
+            {
+                case SQL_INSERT:
 
+                    //verifica se os dados estão validos ou não
+                    if (ValidaDados())
+                    {
+                        //insere um novo user na bd
+                        PowerUp user = new PowerUp(-1, TextBoxDescri.Text,
+                        "ola",
+                        Convert.ToInt32(SliderTime.Value)
+                        );
+                        SqlPowerUp.Add(user);
+                    }
+                    break;
+
+                case SQL_DELETE:
+                    ValidaDados();
+
+                    //elimina o utilizador escolhido
+                    SqlPowerUp.Del(powerUpTemp);
+                    this.Close();
+                    break;
+
+                case SQL_UPDATE:
+
+                    //verifica se os dados estão validos ou não
+                    if (ValidaDados())
+                    {
+                        //altera os atributos da entidade
+                        powerUpTemp.Descri = TextBoxDescri.Text;
+                        powerUpTemp.ImageUrl = "ola";
+                        powerUpTemp.TimeCharge = Convert.ToInt32(SliderTime.Value);
+
+                        SqlPowerUp.Set(powerUpTemp);
+                    }
+                    break;
+            }
         }
 
         private void ButtonCancel_Click(object sender, RoutedEventArgs e)
         {
-
+            this.Close();
         }
+
+        #endregion
+
     }
 }

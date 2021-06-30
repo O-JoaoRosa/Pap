@@ -5,13 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Desktop___interfaces.Interfaces"
         mc:Ignorable="d"
-        Title="WindowCarListar" Height="450" Width="1000" ResizeMode="NoResize">
+        Title="WindowCarListar" Height="450" Width="1000" ResizeMode="NoResize" Loaded="Window_Loaded">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Label Content="Lista Car" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="50" Height="73"/>
-        <ListView Margin="0,78,0,0" HorizontalAlignment="Center" Width="980" Height="293" VerticalAlignment="Top" >
+        <ListView x:Name="ListView" Margin="0,78,0,0" HorizontalAlignment="Center" Width="980" Height="293" VerticalAlignment="Top" >
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="ID" Width="0">
@@ -52,9 +52,9 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button Content="Cancelar" Margin="883,376,0,16" Click="Button_Click" HorizontalAlignment="Left" Width="107"/>
-        <Button Content="Editar" HorizontalAlignment="Left" Margin="738,376,0,0" Width="108" RenderTransformOrigin="0.069,0.81" Height="42" VerticalAlignment="Top"/>
-        <Button Content="Eliminar" Margin="587,376,0,0" Height="42" VerticalAlignment="Top" HorizontalAlignment="Left" Width="106"/>
+        <Button x:Name="ButtonCancel" Content="Cancelar" Margin="883,376,0,16" Click="ButtonCancel_Click" HorizontalAlignment="Left" Width="107"/>
+        <Button x:Name="ButtonEdit" Content="Editar" HorizontalAlignment="Left" Margin="738,376,0,0" Width="108" RenderTransformOrigin="0.069,0.81" Height="42" VerticalAlignment="Top" Click="ButtonEdit_Click"/>
+        <Button x:Name="ButtonDel" Content="Eliminar" Margin="587,376,0,0" Height="42" VerticalAlignment="Top" HorizontalAlignment="Left" Width="106" Click="ButtonDel_Click"/>
 
     </Grid>
 </Window>

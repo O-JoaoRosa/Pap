@@ -19,7 +19,7 @@ namespace CRUD
 
         private void MenuItemCarInserir_Click(object sender, RoutedEventArgs e)
         {
-            Window w = new WindowCarInsert();
+            Window w = new WindowCarInsert(SQL_INSERT, null);
             w.ShowDialog();
         }
 
@@ -43,7 +43,7 @@ namespace CRUD
 
         private void MenuItemPowerUpInserir_Click(object sender, RoutedEventArgs e)
         {
-            Window w = new WindowPowerUpInsert();
+            Window w = new WindowPowerUpInsert(SQL_INSERT, null);
             w.ShowDialog();
         }
 
@@ -104,7 +104,7 @@ namespace CRUD
 
         private void MenuItemServerUserStateInserir_Click(object sender, RoutedEventArgs e)
         {
-            Window w = new WindowServerUserStateInsert();
+            Window w = new WindowServerUserStateInsert(null , SQL_INSERT);
             w.ShowDialog();
         }
 
