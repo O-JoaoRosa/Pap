@@ -37,16 +37,16 @@ public class Profile {
     /// restrições :
     ///  não pode ser um numero racional
     /// </summary>
-	private User contido;
-    public User Contido
+	private User userEscolhido;
+    public User UserEscolhido
     {
         get
         {
-            return contido;
+            return userEscolhido;
         }
         set
         {
-            contido = value;
+            userEscolhido = value;
         }
     }
 
@@ -83,7 +83,7 @@ public class Profile {
     public Profile(DateTime dateCreated, User contido, UserType userType)
     {
         DateCreated = dateCreated;
-        this.contido = contido;
+        this.userEscolhido = contido;
         this.userType = userType;
     }
 
@@ -94,7 +94,7 @@ public class Profile {
     /// <param name="userType"></param>
     public Profile(User contido, UserType userType)
     {
-        this.contido = contido;
+        this.userEscolhido = contido;
         this.userType = userType;
     }
 

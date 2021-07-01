@@ -3,7 +3,7 @@ using Microsoft.Win32;
 using System;
 using System.Windows;
 using System.Windows.Media.Imaging;
-using Desktop___interfaces.ClassesEntidades.SQL;
+using CRUD.ClassesEntidades.SQL;
 using static CRUD.ClassesEntidades.SQL.SQL_Connection;
 using System.Windows.Media;
 

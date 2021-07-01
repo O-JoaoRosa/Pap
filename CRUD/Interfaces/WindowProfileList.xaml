@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="WindowProfileList" Height="483" Width="800" ResizeMode="NoResize">
     <Grid Height="464" VerticalAlignment="Top" Width="800" Margin="0,9,0,0">
-        <ListView Margin="23,72,25,101">
+        <ListView x:Name="ListView" Margin="23,72,25,101">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="ID" Width="0">
@@ -42,9 +42,9 @@
             </ListView.View>
         </ListView>
         <Label Content="Lista de PowerUp" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="50" Height="72"/>
-        <Button Content="Cancelar" Margin="0,0,25,34" Click="Button_Click" HorizontalAlignment="Right" Width="114" Height="49" VerticalAlignment="Bottom"/>
-        <Button Content="Editar" HorizontalAlignment="Left" Margin="530,0,0,34" Width="114" Height="49" VerticalAlignment="Bottom"/>
-        <Button Content="Eliminar" HorizontalAlignment="Left" Margin="399,0,0,34" Width="114" Height="50" VerticalAlignment="Bottom"/>
+        <Button x:Name="ButtonCancel" Content="Cancelar" Margin="0,0,25,34" Click="ButtonCancel_Click" HorizontalAlignment="Right" Width="114" Height="49" VerticalAlignment="Bottom"/>
+        <Button x:Name="ButtonEdit" Content="Editar" HorizontalAlignment="Left" Margin="530,0,0,34" Width="114" Height="49" VerticalAlignment="Bottom" Click="ButtonEdit_Click"/>
+        <Button x:Name="ButtonDel" Content="Eliminar" HorizontalAlignment="Left" Margin="399,0,0,34" Width="114" Height="50" VerticalAlignment="Bottom" Click="ButtonDel_Click"/>
 
     </Grid>
 </Window>

@@ -56,7 +56,7 @@ namespace CRUD
 
         private void MenuItemProfileInserir_Click(object sender, RoutedEventArgs e)
         {
-            Window w = new WindowProfileInsert();
+            Window w = new WindowProfileInsert(SQL_INSERT , null);
             w.ShowDialog();
         }
 

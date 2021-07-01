@@ -9,7 +9,7 @@ using static CRUD.ClassesEntidades.SQL.SQL_Connection;
 
 namespace CRUD.ClassesEntidades.SQL
 {
-    class SqlUser
+    class SqlProfile
     {
         #region Dados Locais
 
@@ -22,14 +22,14 @@ namespace CRUD.ClassesEntidades.SQL
         /// <summary>
         /// Adiciona um novo registo à tabela
         /// </summary>
-        /// <param name="user"></param>
-        static public void Add(User user)
+        /// <param name="profile"></param>
+        static public void Add(Profile profile)
         {
             // Imprime DEBUG para a consola, se DEBUG local e GERAL estiverem ativos
             if (DEBUG_LOCAL)
             {
-                Console.WriteLine("Debug: SQLuser - add() - <----Iniciar Query---->");
-                Console.WriteLine("Debug: SQLuser - add() - DBMS ATIVO: " + DBMS_ACTIVE);
+                Console.WriteLine("Debug: SQLprofile - add() - <----Iniciar Query---->");
+                Console.WriteLine("Debug: SQLprofile - add() - DBMS ATIVO: " + DBMS_ACTIVE);
             }
 
             //Execução do SQL DML sob controlo do try catch
@@ -43,21 +43,17 @@ namespace CRUD.ClassesEntidades.SQL
                     using (MySqlCommand sqlCommand = ((MySqlConnection)conn).CreateCommand())
                     {
                         sqlCommand.CommandType = CommandType.Text;
-                        sqlCommand.CommandText = "INSERT INTO user"
-                            + "(UserName,Password,Email,Image,Money,Reputation,LastTimeOnline)"
-                            + "VALUES(@userName, @password, @email, @image, @money, @reputation, @lastTimeOnline);";
-                        sqlCommand.Parameters.Add(new MySqlParameter("@userName", user.UserName));
-                        sqlCommand.Parameters.Add(new MySqlParameter("@password", user.Password));
-                        sqlCommand.Parameters.Add(new MySqlParameter("@email", user.Email));
-                        sqlCommand.Parameters.Add(new MySqlParameter("@image", user.Image));
-                        sqlCommand.Parameters.Add(new MySqlParameter("@money", user.Money));
-                        sqlCommand.Parameters.Add(new MySqlParameter("@reputation", user.Reputation));
-                        sqlCommand.Parameters.Add(new MySqlParameter("@lastTimeOnline", user.LastTimeOnline));
+                        sqlCommand.CommandText = "INSERT INTO profile"
+                            + "(UserID,UserTypeID,DateCreated)"
+                            + "VALUES(@userID, @userTypeID, @dateCreated);";
+                        sqlCommand.Parameters.Add(new MySqlParameter("@userID", profile.UserEscolhido.Id));
+                        sqlCommand.Parameters.Add(new MySqlParameter("@userTypeID", profile.TipoUser.Id));
+                        sqlCommand.Parameters.Add(new MySqlParameter("@dateCreated", profile.DateCreated));
 
                         // Tenta Executar e Se diferente de 1, provoca excessão saltanto para o catch
                         if (sqlCommand.ExecuteNonQuery() != 1)
                         {
-                            throw new InvalidProgramException("SQLuser - add() - mysql: ");
+                            throw new InvalidProgramException("SQLprofile - add() - mysql: ");
                         }
                     }
 
@@ -65,7 +61,7 @@ namespace CRUD.ClassesEntidades.SQL
             }
             catch (Exception e)
             {
-                Console.WriteLine("Erro: SQLuser_mors - add() - \n" + e.ToString());
+                Console.WriteLine("Erro: SQLprofile_mors - add() - \n" + e.ToString());
                 MessageBox.Show(
                     "SQLturma - Add() - \n Ocorreram problemas com a ligação à Base de Dados: \n" + e.ToString(),
                     "SQLturma - Add() - Catch", // Título
@@ -85,15 +81,15 @@ namespace CRUD.ClassesEntidades.SQL
         /// 2 - Completa a lista principal, preenchendo os obj FK, 
         /// </summary>
         /// <returns>Lista de objetos</returns>
-        static public List<User> GetAll()
+        static public List<Profile> GetAll()
         {
-            List<User> listaUsers = new List<User>();   // Lista Principal
+            List<Profile> listaProfiles = new List<Profile>();   // Lista Principal
             String query = "";
 
             if (DEBUG_LOCAL)
             {
-                Console.WriteLine("Debug: SQLuser - getAll() - <----Iniciar Query---->");
-                Console.WriteLine("Debug: SQLuser - getAll() - DBMS ATIVO: " + DBMS_ACTIVE);
+                Console.WriteLine("Debug: SQLprofile - getAll() - <----Iniciar Query---->");
+                Console.WriteLine("Debug: SQLprofile - getAll() - DBMS ATIVO: " + DBMS_ACTIVE);
             }
 
             //Execução do SQL DML sob controlo do try catch
@@ -102,7 +98,7 @@ namespace CRUD.ClassesEntidades.SQL
                 // Abre ligação ao DBMS Ativo
                 using (DbConnection conn = OpenConnection())
                 {
-                    query = "SELECT * FROM user;";
+                    query = "SELECT * FROM profile;";
 
                     // Prepara e executa o SQL DML
                     using (MySqlCommand sqlCommand = new MySqlCommand())
@@ -115,7 +111,7 @@ namespace CRUD.ClassesEntidades.SQL
                         // DEBUG
                         if (DEBUG_LOCAL)
                         {
-                            Console.WriteLine("Debug: SQLuser - getAll() - MYSQL - SQLcommand OK");
+                            Console.WriteLine("Debug: SQLprofile - getAll() - MYSQL - SQLcommand OK");
                         }
 
                         // Reader recebe os dados da execução da query
@@ -123,7 +119,7 @@ namespace CRUD.ClassesEntidades.SQL
                         {
                             if (DEBUG_LOCAL)
                             {
-                                Console.WriteLine("Debug: SQLuser - getAll() - MYSQL - DATAREADER CRIADO");
+                                Console.WriteLine("Debug: SQLprofile - getAll() - MYSQL - DATAREADER CRIADO");
                             }
 
                             // Extração dos dados do reader para a lista, um a um: registo tabela -> new Obj ->Lista<Objs>
@@ -131,30 +127,25 @@ namespace CRUD.ClassesEntidades.SQL
                             {
                                 if (DEBUG_LOCAL)
                                 {
-                                    Console.WriteLine("Debug: SQLuser - getAll(): MYSQL - DATAREADER TEM REGISTOS!");
+                                    Console.WriteLine("Debug: SQLprofile - getAll(): MYSQL - DATAREADER TEM REGISTOS!");
                                 }
 
                                 // Construção do objeto
                                 // Se objeto tem FKs, Não usar SQL***.get() para construir o fk dentro do construtor. gera exceção.
                                 // Criar o obj FK com o Construtor de Id e depois completar o objeto fora do domínio da Connection.
-                                User use = new User(
-                                    reader.GetInt32(reader.GetOrdinal("Id")),
-                                    reader["UserName"].ToString(),
-                                    reader["Password"].ToString(),
-                                    reader["Email"].ToString(),
-                                    reader.GetInt32(reader.GetOrdinal("Money")),
-                                    reader.GetInt32(reader.GetOrdinal("Reputation")),
-                                    reader["Image"].ToString(),
-                                    reader.GetDateTime(reader.GetOrdinal("LastTimeOnline"))
+                                Profile use = new Profile(
+                                    reader.GetDateTime(reader.GetOrdinal("DateCreated")),
+                                    SqlUser.Get(reader.GetOrdinal("UserID")),
+                                    SqlUserType.Get(reader.GetOrdinal("UserTypeID"))
                                 );
 
-                                listaUsers.Add(use);       //adiciona o obj à lista
+                                listaProfiles.Add(use);       //adiciona o obj à lista
 
                                 //Debug para Output: Interessa ver o que está a sair do datareader
                                 if (DEBUG_LOCAL)
                                 {
                                     Console.WriteLine(
-                                        "Debug: SQLuser - getAll() - DataReader - MYSQL:"
+                                        "Debug: SQLprofile - getAll() - DataReader - MYSQL:"
                                         + "\n Id->" + reader.GetInt32(reader.GetOrdinal("Id")).ToString()
                                     );
                                 }
@@ -165,17 +156,17 @@ namespace CRUD.ClassesEntidades.SQL
             }
             catch (Exception e)
             {
-                Console.WriteLine("Erro: SQLuser - getAll() - \n" + e.ToString());
+                Console.WriteLine("Erro: SQLprofile - getAll() - \n" + e.ToString());
                 MessageBox.Show(
-                    "SQLuser - GetAll() - \n Ocorreram problemas com a ligação à Base de Dados: \n" + e.ToString(),
-                    "SQLuser - GetAll() - Catch",  // Título
+                    "SQLprofile - GetAll() - \n Ocorreram problemas com a ligação à Base de Dados: \n" + e.ToString(),
+                    "SQLprofile - GetAll() - Catch",  // Título
                     MessageBoxButton.OK,            // Botões
                     MessageBoxImage.Error           // Icon
                 );
                 return null;
             }
 
-            return listaUsers;
+            return listaProfiles;
         }
 
         /// <summary>
@@ -185,14 +176,14 @@ namespace CRUD.ClassesEntidades.SQL
         /// 2 - Completa o objeto, construindo os obj FK existentes
         /// </summary>
         /// <returns>Devolve um objeto preenchido ou NULL</returns>
-        static public User Get(int id)
+        static public Profile Get(int id)
         {
-            User user = null;
+            Profile profile = null;
 
             if (DEBUG_LOCAL)
             {
-                Console.WriteLine("Debug: SQLuser - get() - <----Iniciar Query---->");
-                Console.WriteLine("Debug: SQLuser - get() - DBMS ATIVO: " + DBMS_ACTIVE);
+                Console.WriteLine("Debug: SQLprofile - get() - <----Iniciar Query---->");
+                Console.WriteLine("Debug: SQLprofile - get() - DBMS ATIVO: " + DBMS_ACTIVE);
             }
 
             //Execução do SQL DML sob controlo do try catch
@@ -210,7 +201,7 @@ namespace CRUD.ClassesEntidades.SQL
                         sqlCommand.Connection = ((MySqlConnection)conn);
 
                         // SQL DDL
-                        sqlCommand.CommandText = "SELECT * FROM User where Id=@Id;";
+                        sqlCommand.CommandText = "SELECT * FROM Profile where Id=@Id;";
                         sqlCommand.Parameters.Add(new MySqlParameter("@id", id));
 
                         // Reader recebe os dados da execução da query
@@ -218,7 +209,7 @@ namespace CRUD.ClassesEntidades.SQL
                         {
                             if (DEBUG_LOCAL)
                             {
-                                Console.WriteLine("Debug: SQLuser - get() - MYSQL - DataReader CRIADO: ");
+                                Console.WriteLine("Debug: SQLprofile - get() - MYSQL - DataReader CRIADO: ");
                             }
 
                             // Extração dos dados do reader para a lista, um a um: registo tabela -> new Obj ->Lista<Objs>
@@ -226,28 +217,24 @@ namespace CRUD.ClassesEntidades.SQL
                             {
                                 if (DEBUG_LOCAL)
                                 {
-                                    Console.WriteLine("Debug: SQLuser - get() MYSQL: DATAREADER TEM REGISTO!");
+                                    Console.WriteLine("Debug: SQLprofile - get() MYSQL: DATAREADER TEM REGISTO!");
                                 }
 
                                 // Construção do objeto
                                 // Se objeto tem FKs, Não usar SQL***.get() para construir o fk dentro do construtor. gera exceção.
                                 // Criar o obj FK com o Construtor de Id e depois completar o objeto fora do domínio da Connection.
-                                User use = new User(
-                                   reader.GetInt32(reader.GetOrdinal("Id")),
-                                   reader["UserName"].ToString(),
-                                   reader["Password"].ToString(),
-                                   reader["Email"].ToString(),
-                                   reader.GetInt32(reader.GetOrdinal("Money")),
-                                   reader.GetInt32(reader.GetOrdinal("Reputation")),
-                                   reader["Image"].ToString(),
-                                   reader.GetDateTime(reader.GetOrdinal("LastTimeOnline"))
-                               );
+                                Profile use = new Profile(
+                                    reader.GetDateTime(reader.GetOrdinal("DateCreated")),
+                                    new User(reader.GetInt32(reader.GetOrdinal("UserID"))),
+                                    new UserType(reader.GetInt32(reader.GetOrdinal("UserTypeID")))
+                                );
+
 
                                 //Debug para Output: Interessa ver o que está a sair do datareader
                                 if (DEBUG_LOCAL)
                                 {
                                     Console.WriteLine(
-                                        "Debug: SQLuser - get() - DataReader - MYSQL:"
+                                        "Debug: SQLprofile - get() - DataReader - MYSQL:"
                                         + "\n Id->" + reader.GetInt32(reader.GetOrdinal("Id")).ToString()
                                         + "\n Descri-> " + reader["Descri"].ToString()
                                         + "\n Obs-> " + reader["Obs"].ToString()
@@ -261,17 +248,17 @@ namespace CRUD.ClassesEntidades.SQL
             }
             catch (Exception e)
             {
-                Console.WriteLine("Erro: SQLuser - get() - \n" + e.ToString());
+                Console.WriteLine("Erro: SQLprofile - get() - \n" + e.ToString());
                 MessageBox.Show(
-                    "SQLuser - Get() - \n Ocorreram problemas com a ligação à Base de Dados: \n" + e.ToString(),
-                    "SQLuser - Get() - Catch", // Título
+                    "SQLprofile - Get() - \n Ocorreram problemas com a ligação à Base de Dados: \n" + e.ToString(),
+                    "SQLprofile - Get() - Catch", // Título
                     MessageBoxButton.OK,        // Botões
                     MessageBoxImage.Error       // Icon
                 );
                 return null;
             }
 
-            return user;
+            return profile;
         }
 
         #endregion
@@ -281,13 +268,13 @@ namespace CRUD.ClassesEntidades.SQL
         /// <summary>
         /// Altera um registo da tabela
         /// </summary>
-        /// <param name="user">Objeto com id a alterar da tabela</param>
-        static public void Set(User user)
+        /// <param name="profile">Objeto com id a alterar da tabela</param>
+        static public void Set(Profile profile, int newUserID, int newUserTypeID)
         {
             if (DEBUG_LOCAL)
             {
-                Console.WriteLine("Debug: SQLuser - set() - <----Iniciar Query---->");
-                Console.WriteLine("Debug: SQLuser - set() - DBMS ATIVO: " + DBMS_ACTIVE);
+                Console.WriteLine("Debug: SQLprofile - set() - <----Iniciar Query---->");
+                Console.WriteLine("Debug: SQLprofile - set() - DBMS ATIVO: " + DBMS_ACTIVE);
             }
 
             //Execução do SQL DML sob controlo do try catch
@@ -300,36 +287,29 @@ namespace CRUD.ClassesEntidades.SQL
                     using (MySqlCommand sqlCommand = ((MySqlConnection)conn).CreateCommand())
                     {
                         sqlCommand.CommandType = CommandType.Text;
-                        sqlCommand.CommandText = "UPDATE user SET "
-                        + " UserName = @userName,"
-                        + " Password = @password,"
-                        + " Email = @email,"
-                        + " Image = @image,"
-                        + " money = @money,"
-                        + " reputation = @reputation,"
-                        + " LastTimeOnline = @lastTimeOnline"
-                        + " WHERE Id = @id;";
-                        sqlCommand.Parameters.Add(new MySqlParameter("@id", user.Id));
-                        sqlCommand.Parameters.Add(new MySqlParameter("@userName", user.UserName));
-                        sqlCommand.Parameters.Add(new MySqlParameter("@password", user.Password));
-                        sqlCommand.Parameters.Add(new MySqlParameter("@email", user.Email));
-                        sqlCommand.Parameters.Add(new MySqlParameter("@image", user.Image));
-                        sqlCommand.Parameters.Add(new MySqlParameter("@money", user.Money));
-                        sqlCommand.Parameters.Add(new MySqlParameter("@reputation", user.Reputation));
-                        sqlCommand.Parameters.Add(new MySqlParameter("@lastTimeOnline", user.LastTimeOnline));
+                        sqlCommand.CommandText = "UPDATE profile SET "
+                        + " DateCreated = @dateCreated,"
+                        + " UserID = @newUserID,"
+                        + " UserTypeID = @newUserTypeID"
+                        + " WHERE UserID = @userID AND UserTypeID = @userTypeID;";
+                        sqlCommand.Parameters.Add(new MySqlParameter("@dateCreated", profile.DateCreated));
+                        sqlCommand.Parameters.Add(new MySqlParameter("@newUserID", newUserID));
+                        sqlCommand.Parameters.Add(new MySqlParameter("@newUserTypeID", newUserTypeID));
+                        sqlCommand.Parameters.Add(new MySqlParameter("@userID", profile.UserEscolhido.Id));
+                        sqlCommand.Parameters.Add(new MySqlParameter("@userTypeID", profile.TipoUser.Id));
 
                         // Tenta executar o comando, que é suposto devolver 1
                         if (sqlCommand.ExecuteNonQuery() != 1)
                         {
                             // Se diferente, inverte o commit e Provoca a excessão saltanto para o catch
-                            throw new InvalidProgramException("SQLuser - set() - mysql: ");
+                            throw new InvalidProgramException("SQLprofile - set() - mysql: ");
                         }
                     }
                 }
             }
             catch (Exception e)
             {
-                Console.WriteLine("Erro: SQLuser - set() - \n" + e.ToString());
+                Console.WriteLine("Erro: SQLprofile - set() - \n" + e.ToString());
                 MessageBox.Show(
                     "SQLServer - Set() - \n Ocorreram problemas com a ligação à Base de Dados: \n" + e.ToString(),
                     "SQLServer - Set() - Catch",     // Título
@@ -347,13 +327,13 @@ namespace CRUD.ClassesEntidades.SQL
         /// ATENÇÃO: Porque estes objetos são FK noutras tabelas, o delete aplica-se após 
         /// o método checkRelationalIntegrityViolation(), caso contrário pode gerar Exceções
         /// </summary>
-        /// <param name="user">Objeto com id a apagar da tabela</param>
-        static public void Del(User user)
+        /// <param name="profile">Objeto com id a apagar da tabela</param>
+        static public void Del(Profile profile)
         {
             if (DEBUG_LOCAL)
             {
-                Console.WriteLine("Debug: SQLuser - del() - <--Iniciar Query-->");
-                Console.WriteLine("Debug: SQLuser - del() - DBMS ATIVO: " + DBMS_ACTIVE);
+                Console.WriteLine("Debug: SQLprofile - del() - <--Iniciar Query-->");
+                Console.WriteLine("Debug: SQLprofile - del() - DBMS ATIVO: " + DBMS_ACTIVE);
             }
 
             //Execução do SQL DML sob controlo do try catch
@@ -366,24 +346,25 @@ namespace CRUD.ClassesEntidades.SQL
                     {
                         // Prepara e executa o SQL DML
                         sqlCommand.CommandType = CommandType.Text;
-                        sqlCommand.CommandText = "DELETE FROM user WHERE Id=@id;";
-                        sqlCommand.Parameters.Add(new MySqlParameter("@id", user.Id));
+                        sqlCommand.CommandText = "DELETE FROM profile WHERE UserID = @userID AND UserTypeID = @userTypeID;";
+                        sqlCommand.Parameters.Add(new MySqlParameter("@userID", profile.UserEscolhido.Id));
+                        sqlCommand.Parameters.Add(new MySqlParameter("@userTypeID", profile.TipoUser.Id));
 
                         // Tenta executar o comando, que é suposto devolver 1
                         if (sqlCommand.ExecuteNonQuery() != 1)
                         {
                             // Se diferente, inverte o commit e Provoca a excessão saltanto para o catch
-                            throw new InvalidProgramException("SQLuser - del() - mysql: ");
+                            throw new InvalidProgramException("SQLprofile - del() - mysql: ");
                         }
                     }
                 }
             }
             catch (Exception e)
             {
-                Console.WriteLine("Erro: SQLuser - del() - \n" + e.ToString());
+                Console.WriteLine("Erro: SQLprofile - del() - \n" + e.ToString());
                 MessageBox.Show(
-                    "SQLuser - Del() - \n Ocorreram problemas com a ligação à Base de Dados: \n" + e.ToString(),
-                    "SQLuser - Del() - Catch", // Título
+                    "SQLprofile - Del() - \n Ocorreram problemas com a ligação à Base de Dados: \n" + e.ToString(),
+                    "SQLprofile - Del() - Catch", // Título
                     MessageBoxButton.OK,        // Botões
                     MessageBoxImage.Error       // Icon
                 );
@@ -395,14 +376,14 @@ namespace CRUD.ClassesEntidades.SQL
         /// Aplica-se antes do del(). 
         /// A não utilização em PAR destes métodos, vai gerar Exceções
         /// </summary>
-        /// <param name="user">Registo a testar</param>
+        /// <param name="profile">Registo a testar</param>
         /// <returns></returns>
-        static public bool CheckRelationalIntegrityViolation(User user)
+        static public bool CheckRelationalIntegrityViolation(Profile profile)
         {
             if (DEBUG_LOCAL)
             {
-                Console.WriteLine("Debug: SQLuser - checkRelationalIntegrityViolation() - <----Iniciar Query---->");
-                Console.WriteLine("Debug: SQLuser - checkRelationalIntegrityViolation() - DBMS ATIVO: " + DBMS_ACTIVE);
+                Console.WriteLine("Debug: SQLprofile - checkRelationalIntegrityViolation() - <----Iniciar Query---->");
+                Console.WriteLine("Debug: SQLprofile - checkRelationalIntegrityViolation() - DBMS ATIVO: " + DBMS_ACTIVE);
             }
 
 
@@ -415,7 +396,7 @@ namespace CRUD.ClassesEntidades.SQL
             strBuilderFK.AppendLine("Para eliminar este registo, precisa primeiro de eliminar os seus movimentos em:");
 
             // Flag de controlo de violação de interidade, para ativar as mensagens na FormAuxuliarInfo
-            bool relationalViolationForFKtables = false;   // ativa-se quando o user é fk em tabelas relacionadas
+            bool relationalViolationForFKtables = false;   // ativa-se quando o profile é fk em tabelas relacionadas
 
             int count;  // Acumula o nº de ocorrências positivas:
 
@@ -432,6 +413,5 @@ namespace CRUD.ClassesEntidades.SQL
             return false;       // Não há violação de integridade
         }
         #endregion
-
     }
 }

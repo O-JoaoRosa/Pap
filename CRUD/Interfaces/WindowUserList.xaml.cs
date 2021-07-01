@@ -1,5 +1,4 @@
 ﻿using CRUD.ClassesEntidades.SQL;
-using Desktop___interfaces.ClassesEntidades.SQL;
 using System.Windows;
 
 namespace Desktop___interfaces.Interfaces
