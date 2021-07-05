@@ -135,8 +135,8 @@ namespace CRUD.ClassesEntidades.SQL
                                 // Criar o obj FK com o Construtor de Id e depois completar o objeto fora do domínio da Connection.
                                 Profile use = new Profile(
                                     reader.GetDateTime(reader.GetOrdinal("DateCreated")),
-                                    SqlUser.Get(reader.GetOrdinal("UserID")),
-                                    SqlUserType.Get(reader.GetOrdinal("UserTypeID"))
+                                    new User(reader.GetInt32(reader.GetOrdinal("UserID"))),
+                                    new UserType(reader.GetInt32(reader.GetOrdinal("UserTypeID")))
                                 );
 
                                 listaProfiles.Add(use);       //adiciona o obj à lista
@@ -176,7 +176,7 @@ namespace CRUD.ClassesEntidades.SQL
         /// 2 - Completa o objeto, construindo os obj FK existentes
         /// </summary>
         /// <returns>Devolve um objeto preenchido ou NULL</returns>
-        static public Profile Get(int id)
+        static public Profile Get(int id1 , int id2)
         {
             Profile profile = null;
 
@@ -201,8 +201,9 @@ namespace CRUD.ClassesEntidades.SQL
                         sqlCommand.Connection = ((MySqlConnection)conn);
 
                         // SQL DDL
-                        sqlCommand.CommandText = "SELECT * FROM Profile where Id=@Id;";
-                        sqlCommand.Parameters.Add(new MySqlParameter("@id", id));
+                        sqlCommand.CommandText = "SELECT * FROM Profile where UserID=@userId AND UserTypeID=@userTypeId ;";
+                        sqlCommand.Parameters.Add(new MySqlParameter("@userId", id1));
+                        sqlCommand.Parameters.Add(new MySqlParameter("@userTypeId", id2));
 
                         // Reader recebe os dados da execução da query
                         using (MySqlDataReader reader = sqlCommand.ExecuteReader())
@@ -229,6 +230,7 @@ namespace CRUD.ClassesEntidades.SQL
                                     new UserType(reader.GetInt32(reader.GetOrdinal("UserTypeID")))
                                 );
 
+                                profile = use;
 
                                 //Debug para Output: Interessa ver o que está a sair do datareader
                                 if (DEBUG_LOCAL)

@@ -199,7 +199,7 @@ namespace CRUD.ClassesEntidades.SQL
                         sqlCommand.Connection = ((MySqlConnection)conn);
 
                         // SQL DDL
-                        sqlCommand.CommandText = "SELECT * FROM User where ID=@Id;";
+                        sqlCommand.CommandText = "SELECT * FROM userType where ID=@Id;";
                         sqlCommand.Parameters.Add(new MySqlParameter("@id", id));
 
                         // Reader recebe os dados da execução da query
@@ -225,7 +225,7 @@ namespace CRUD.ClassesEntidades.SQL
                                    reader.GetInt32(reader.GetOrdinal("ID")),
                                    reader["Descri"].ToString()
                                );
-
+                                userType = use;
                                 //Debug para Output: Interessa ver o que está a sair do datareader
                                 if (DEBUG_LOCAL)
                                 {

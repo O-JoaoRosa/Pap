@@ -243,6 +243,7 @@ namespace CRUD.ClassesEntidades.SQL
                                    reader.GetDateTime(reader.GetOrdinal("LastTimeOnline"))
                                );
 
+                                user = use;
                                 //Debug para Output: Interessa ver o que está a sair do datareader
                                 if (DEBUG_LOCAL)
                                 {

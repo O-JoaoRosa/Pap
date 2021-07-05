@@ -1,4 +1,5 @@
 ﻿using CRUD.ClassesEntidades.SQL;
+using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Media;
@@ -45,8 +46,8 @@ namespace Desktop___interfaces.Interfaces
             {
                 case SQL_DELETE:
                     LabelTitle.Content = "Eliminar prefil";
-                    ComboBoxUser.SelectedItem = profile.UserEscolhido.UserName;
-                    ComboBoxUserType.SelectedItem = profile.TipoUser.Descri;
+                    ComboBoxUser.Text = profile.UserEscolhido.UserName;
+                    ComboBoxUserType.Text = profile.TipoUser.Descri;
                     DatePicker.SelectedDate = profile.DateCreated;
                     ComboBoxUser.IsEnabled = false;
                     ComboBoxUserType.IsEnabled = false;
@@ -55,8 +56,8 @@ namespace Desktop___interfaces.Interfaces
                     break;
                 case SQL_UPDATE:
                     LabelTitle.Content = "Editar prefil";
-                    ComboBoxUser.SelectedItem = profile.UserEscolhido.UserName;
-                    ComboBoxUserType.SelectedItem = profile.TipoUser.Descri;
+                    ComboBoxUser.Text = profile.UserEscolhido.UserName;
+                    ComboBoxUserType.Text = profile.TipoUser.Descri;
                     DatePicker.SelectedDate = profile.DateCreated;
                     ButtonAction.Content = "Editar";
                     break;
@@ -88,10 +89,37 @@ namespace Desktop___interfaces.Interfaces
             {
                 //caso a opção escolhida seja inserir então inser um novo objeto
                 case SQL_INSERT:
-                    if (ValidaDados())
+
+                    //verifica se existem caracteres especiais
+                    if ((UserType)ComboBoxUserType.SelectedItem == null)
                     {
-                        Profile profileTemp = new Profile(DatePicker.SelectedDate.Value, (User)ComboBoxUser.SelectedItem, (UserType)ComboBoxUserType.SelectedItem);
-                        SqlProfile.Add(profileTemp);
+                        openWarning++;
+                        ComboBoxUser.Background = Brushes.Red;
+                    }
+                    else
+                    {
+                        //verifica se existem caracteres especiais
+                        if ((User)ComboBoxUser.SelectedItem == null)
+                        {
+                            ComboBoxUser.Background = Brushes.Red;
+                            openWarning++;
+                        }
+                        else
+                        {
+                            Profile p = SqlProfile.Get(((User)ComboBoxUser.SelectedItem).Id, ((UserType)ComboBoxUserType.SelectedItem).Id);
+                            if (p != null)
+                            {
+                                MessageBox.Show("Erro: o perfil que tentou cirar já existe", "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
+                            }
+                            else
+                            {
+                                if (ValidaDados())
+                                {
+                                    Profile profileTemp = new Profile(DatePicker.SelectedDate.Value, (User)ComboBoxUser.SelectedItem, (UserType)ComboBoxUserType.SelectedItem);
+                                    SqlProfile.Add(profileTemp);
+                                }
+                            }
+                        }
                     }
                     break;
 
@@ -105,10 +133,36 @@ namespace Desktop___interfaces.Interfaces
 
                 //caso a ação escolhida seja Update então atualiza os atributos do objeto
                 case SQL_UPDATE:
-                    if (ValidaDados())
+                    //verifica se existem caracteres especiais
+                    if ((UserType)ComboBoxUserType.SelectedItem == null)
                     {
-                        profile.DateCreated = DatePicker.SelectedDate.Value;
-                        SqlProfile.Set(profile, ((User)ComboBoxUser.SelectedItem).Id, ((UserType)ComboBoxUserType.SelectedItem).Id);
+                        openWarning++;
+                        ComboBoxUser.Background = Brushes.Red;
+                    }
+                    else
+                    {
+                        //verifica se existem caracteres especiais
+                        if ((User)ComboBoxUser.SelectedItem == null)
+                        {
+                            ComboBoxUser.Background = Brushes.Red;
+                            openWarning++;
+                        }
+                        else
+                        {
+                            Profile p = SqlProfile.Get(((User)ComboBoxUser.SelectedItem).Id, ((UserType)ComboBoxUserType.SelectedItem).Id);
+                            if (p != null)
+                            {
+                                MessageBox.Show("Erro: o perfil que tentou cirar já existe", "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
+                            }
+                            else
+                            {
+                                if (ValidaDados())
+                                {
+                                    profile.DateCreated = DatePicker.SelectedDate.Value;
+                                    SqlProfile.Set(profile, ((User)ComboBoxUser.SelectedItem).Id, ((UserType)ComboBoxUserType.SelectedItem).Id);
+                                }
+                            }
+                        }
                     }
                     break;
                 default:

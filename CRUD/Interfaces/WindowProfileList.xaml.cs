@@ -18,7 +18,17 @@ namespace Desktop___interfaces.Interfaces
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            ListView.ItemsSource = SqlProfile.GetAll();
+            List<Profile> lista = SqlProfile.GetAll();
+            List<Profile> listatemp = new List<Profile>();
+            Profile profile;
+            foreach (Profile p in lista)
+            {
+                profile = p;
+                profile.UserEscolhido = SqlUser.Get(p.UserEscolhido.Id);
+                profile.TipoUser = SqlUserType.Get(p.TipoUser.Id);
+                listatemp.Add(profile);
+            }
+            ListView.ItemsSource = listatemp;
         }
 
         #endregion
@@ -98,8 +108,20 @@ namespace Desktop___interfaces.Interfaces
         {
             ListView.ItemsSource = null;                  // Elimina a associação da List à listView
             ListView.Items.Clear();                       // Limpa a ListView
-            ListView.ItemsSource = SqlProfile.GetAll();    // Reassocia a listAlunos à ListView
+
+            List<Profile> lista = SqlProfile.GetAll();
+            List<Profile> listatemp = new List<Profile>();
+            Profile profile;
+            foreach (Profile p in lista)
+            {
+                profile = p;
+                profile.UserEscolhido = SqlUser.Get(p.UserEscolhido.Id);
+                profile.TipoUser = SqlUserType.Get(p.TipoUser.Id);
+                listatemp.Add(profile);
+            }
+            ListView.ItemsSource = listatemp;
         }
         #endregion
+
     }
 }

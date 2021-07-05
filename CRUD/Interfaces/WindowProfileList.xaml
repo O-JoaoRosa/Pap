@@ -6,28 +6,21 @@
         xmlns:local="clr-namespace:Desktop___interfaces.Interfaces"
         mc:Ignorable="d"
         Title="WindowProfileList" Height="483" Width="800" ResizeMode="NoResize">
-    <Grid Height="464" VerticalAlignment="Top" Width="800" Margin="0,9,0,0">
+    <Grid Height="464" VerticalAlignment="Top" Width="800" Margin="0,9,0,0" Loaded="Window_Loaded">
         <ListView x:Name="ListView" Margin="23,72,25,101">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="ID" Width="0">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding Id}" FontWeight="Bold" HorizontalAlignment="Center" />
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
                     <GridViewColumn Header="Nome do User" Width="200">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding contido.UserName}" HorizontalAlignment="Left" />
+                                <TextBlock Text="{Binding UserEscolhido.UserName}" HorizontalAlignment="Left" />
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Header="Tipo de user" Width="400">
+                    <GridViewColumn Header="Tipo de user" Width="399">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding userType.Descri}" HorizontalAlignment="Left" />
+                                <TextBlock Text="{Binding TipoUser.Descri}" HorizontalAlignment="Left" />
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
