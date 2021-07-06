@@ -9,8 +9,9 @@ using static CRUD.ClassesEntidades.SQL.SQL_Connection;
 
 namespace CRUD.ClassesEntidades.SQL
 {
-    class SqlUserServerState
+    class SqlServerUser
     {
+
         #region Dados Locais
 
         private const bool DEBUG_LOCAL = false;       // Ativa debug local
@@ -22,14 +23,14 @@ namespace CRUD.ClassesEntidades.SQL
         /// <summary>
         /// Adiciona um novo registo à tabela
         /// </summary>
-        /// <param name="serverUserState"></param>
-        static public void Add(ServerUserState serverUserState)
+        /// <param name="serverUser"></param>
+        static public void Add(ServerUser serverUser)
         {
             // Imprime DEBUG para a consola, se DEBUG local e GERAL estiverem ativos
             if (DEBUG_LOCAL)
             {
-                Console.WriteLine("Debug: SQLserverUserState - add() - <----Iniciar Query---->");
-                Console.WriteLine("Debug: SQLserverUserState - add() - DBMS ATIVO: " + DBMS_ACTIVE);
+                Console.WriteLine("Debug: SQLserverUser - add() - <----Iniciar Query---->");
+                Console.WriteLine("Debug: SQLserverUser - add() - DBMS ATIVO: " + DBMS_ACTIVE);
             }
 
             //Execução do SQL DML sob controlo do try catch
@@ -43,15 +44,22 @@ namespace CRUD.ClassesEntidades.SQL
                     using (MySqlCommand sqlCommand = ((MySqlConnection)conn).CreateCommand())
                     {
                         sqlCommand.CommandType = CommandType.Text;
-                        sqlCommand.CommandText = "INSERT INTO serveruserstate"
-                            + "(Descri)"
-                            + "VALUES(@descri);";
-                        sqlCommand.Parameters.Add(new MySqlParameter("@descri", serverUserState.Descri));
+                        sqlCommand.CommandText = "INSERT INTO serverUser"
+                            + "(UserID,ServerId,ServerUserStateID,AcesseDate,IsAccessible,DateCreated,DateSuspended,DateBan)"
+                            + "VALUES(@userID, @serverId, @serverUserStateID, @acesseDate, @isAcessible, @dateCreated, @dateSuspended, @dateBan);";
+                        sqlCommand.Parameters.Add(new MySqlParameter("@userID", serverUser.User.Id));
+                        sqlCommand.Parameters.Add(new MySqlParameter("@serverId", serverUser.Server.Id));
+                        sqlCommand.Parameters.Add(new MySqlParameter("@serverUserStateID", serverUser.ServerUserState.Id));
+                        sqlCommand.Parameters.Add(new MySqlParameter("@acesseDate", serverUser.AcesseDate));
+                        sqlCommand.Parameters.Add(new MySqlParameter("@isAcessible", serverUser.IsAccessible));
+                        sqlCommand.Parameters.Add(new MySqlParameter("@dateCreated", serverUser.DateCreated));
+                        sqlCommand.Parameters.Add(new MySqlParameter("@dateSuspended", serverUser.DateSuspended));
+                        sqlCommand.Parameters.Add(new MySqlParameter("@dateBan", serverUser.DateBan));
 
                         // Tenta Executar e Se diferente de 1, provoca excessão saltanto para o catch
                         if (sqlCommand.ExecuteNonQuery() != 1)
                         {
-                            throw new InvalidProgramException("SQLserverUserState - add() - mysql: ");
+                            throw new InvalidProgramException("SQLserverUser - add() - mysql: ");
                         }
                     }
 
@@ -59,7 +67,7 @@ namespace CRUD.ClassesEntidades.SQL
             }
             catch (Exception e)
             {
-                Console.WriteLine("Erro: SQLserverUserState_mors - add() - \n" + e.ToString());
+                Console.WriteLine("Erro: SQLserverUser_mors - add() - \n" + e.ToString());
                 MessageBox.Show(
                     "SQLturma - Add() - \n Ocorreram problemas com a ligação à Base de Dados: \n" + e.ToString(),
                     "SQLturma - Add() - Catch", // Título
@@ -79,15 +87,15 @@ namespace CRUD.ClassesEntidades.SQL
         /// 2 - Completa a lista principal, preenchendo os obj FK, 
         /// </summary>
         /// <returns>Lista de objetos</returns>
-        static public List<ServerUserState> GetAll()
+        static public List<ServerUser> GetAll()
         {
-            List<ServerUserState> listaServerUserStates = new List<ServerUserState>();   // Lista Principal
+            List<ServerUser> listaServerUsers = new List<ServerUser>();   // Lista Principal
             String query = "";
 
             if (DEBUG_LOCAL)
             {
-                Console.WriteLine("Debug: SQLserverUserState - getAll() - <----Iniciar Query---->");
-                Console.WriteLine("Debug: SQLserverUserState - getAll() - DBMS ATIVO: " + DBMS_ACTIVE);
+                Console.WriteLine("Debug: SQLserverUser - getAll() - <----Iniciar Query---->");
+                Console.WriteLine("Debug: SQLserverUser - getAll() - DBMS ATIVO: " + DBMS_ACTIVE);
             }
 
             //Execução do SQL DML sob controlo do try catch
@@ -96,7 +104,7 @@ namespace CRUD.ClassesEntidades.SQL
                 // Abre ligação ao DBMS Ativo
                 using (DbConnection conn = OpenConnection())
                 {
-                    query = "SELECT * FROM serveruserstate;";
+                    query = "SELECT * FROM serveruser;";
 
                     // Prepara e executa o SQL DML
                     using (MySqlCommand sqlCommand = new MySqlCommand())
@@ -109,7 +117,7 @@ namespace CRUD.ClassesEntidades.SQL
                         // DEBUG
                         if (DEBUG_LOCAL)
                         {
-                            Console.WriteLine("Debug: SQLserverUserState - getAll() - MYSQL - SQLcommand OK");
+                            Console.WriteLine("Debug: SQLserverUser - getAll() - MYSQL - SQLcommand OK");
                         }
 
                         // Reader recebe os dados da execução da query
@@ -117,7 +125,7 @@ namespace CRUD.ClassesEntidades.SQL
                         {
                             if (DEBUG_LOCAL)
                             {
-                                Console.WriteLine("Debug: SQLserverUserState - getAll() - MYSQL - DATAREADER CRIADO");
+                                Console.WriteLine("Debug: SQLserverUser - getAll() - MYSQL - DATAREADER CRIADO");
                             }
 
                             // Extração dos dados do reader para a lista, um a um: registo tabela -> new Obj ->Lista<Objs>
@@ -125,26 +133,30 @@ namespace CRUD.ClassesEntidades.SQL
                             {
                                 if (DEBUG_LOCAL)
                                 {
-                                    Console.WriteLine("Debug: SQLserverUserState - getAll(): MYSQL - DATAREADER TEM REGISTOS!");
+                                    Console.WriteLine("Debug: SQLserverUser - getAll(): MYSQL - DATAREADER TEM REGISTOS!");
                                 }
 
                                 // Construção do objeto
                                 // Se objeto tem FKs, Não usar SQL***.get() para construir o fk dentro do construtor. gera exceção.
                                 // Criar o obj FK com o Construtor de Id e depois completar o objeto fora do domínio da Connection.
-                                ServerUserState serverUserState = new ServerUserState(
-                                    reader.GetInt32(reader.GetOrdinal("ID")),
-                                    reader["Descri"].ToString()
-
+                                ServerUser use = new ServerUser(reader.GetDateTime(reader.GetOrdinal("AcesseDate")),
+                                    reader.GetBoolean(reader.GetOrdinal("IsAccessible")),
+                                    reader.GetDateTime(reader.GetOrdinal("DateCreated")),
+                                    reader.GetDateTime(reader.GetOrdinal("DateSuspended")),
+                                    reader.GetDateTime(reader.GetOrdinal("DateBan")),
+                                    new ServerUserState(reader.GetInt32(reader.GetOrdinal("ServerUserStateID"))),
+                                    new User(reader.GetInt32(reader.GetOrdinal("UserID"))),
+                                    new Server(reader.GetInt32(reader.GetOrdinal("ServerID")))
                                 );
 
-                                listaServerUserStates.Add(serverUserState);       //adiciona o obj à lista
+                                listaServerUsers.Add(use);       //adiciona o obj à lista
 
                                 //Debug para Output: Interessa ver o que está a sair do datareader
                                 if (DEBUG_LOCAL)
                                 {
                                     Console.WriteLine(
-                                        "Debug: SQLserverUserState - getAll() - DataReader - MYSQL:"
-                                        + "\n Id->" + reader.GetInt32(reader.GetOrdinal("ID")).ToString()
+                                        "Debug: SQLserverUser - getAll() - DataReader - MYSQL:"
+                                        + "\n Id->" + reader.GetInt32(reader.GetOrdinal("Id")).ToString()
                                     );
                                 }
                             }
@@ -154,17 +166,17 @@ namespace CRUD.ClassesEntidades.SQL
             }
             catch (Exception e)
             {
-                Console.WriteLine("Erro: SQLserverUserState - getAll() - \n" + e.ToString());
+                Console.WriteLine("Erro: SQLserverUser - getAll() - \n" + e.ToString());
                 MessageBox.Show(
-                    "SQLserverUserState - GetAll() - \n Ocorreram problemas com a ligação à Base de Dados: \n" + e.ToString(),
-                    "SQLserverUserState - GetAll() - Catch",  // Título
+                    "SQLserverUser - GetAll() - \n Ocorreram problemas com a ligação à Base de Dados: \n" + e.ToString(),
+                    "SQLserverUser - GetAll() - Catch",  // Título
                     MessageBoxButton.OK,            // Botões
                     MessageBoxImage.Error           // Icon
                 );
                 return null;
             }
 
-            return listaServerUserStates;
+            return listaServerUsers;
         }
 
         /// <summary>
@@ -174,14 +186,14 @@ namespace CRUD.ClassesEntidades.SQL
         /// 2 - Completa o objeto, construindo os obj FK existentes
         /// </summary>
         /// <returns>Devolve um objeto preenchido ou NULL</returns>
-        static public ServerUserState Get(int id)
+        static public ServerUser Get(int id1, int id2)
         {
-            ServerUserState serverUserState = null;
+            ServerUser serverUser = null;
 
             if (DEBUG_LOCAL)
             {
-                Console.WriteLine("Debug: SQLserverUserState - get() - <----Iniciar Query---->");
-                Console.WriteLine("Debug: SQLserverUserState - get() - DBMS ATIVO: " + DBMS_ACTIVE);
+                Console.WriteLine("Debug: SQLserverUser - get() - <----Iniciar Query---->");
+                Console.WriteLine("Debug: SQLserverUser - get() - DBMS ATIVO: " + DBMS_ACTIVE);
             }
 
             //Execução do SQL DML sob controlo do try catch
@@ -199,15 +211,16 @@ namespace CRUD.ClassesEntidades.SQL
                         sqlCommand.Connection = ((MySqlConnection)conn);
 
                         // SQL DDL
-                        sqlCommand.CommandText = "SELECT * FROM serveruserstate where ID=@Id;";
-                        sqlCommand.Parameters.Add(new MySqlParameter("@id", id));
+                        sqlCommand.CommandText = "SELECT * FROM ServerUser where UserID=@userId AND ServerID=@ServerId;";
+                        sqlCommand.Parameters.Add(new MySqlParameter("@userId", id1));
+                        sqlCommand.Parameters.Add(new MySqlParameter("@ServerId", id2));
 
                         // Reader recebe os dados da execução da query
                         using (MySqlDataReader reader = sqlCommand.ExecuteReader())
                         {
                             if (DEBUG_LOCAL)
                             {
-                                Console.WriteLine("Debug: SQLserverUserState - get() - MYSQL - DataReader CRIADO: ");
+                                Console.WriteLine("Debug: SQLserverUser - get() - MYSQL - DataReader CRIADO: ");
                             }
 
                             // Extração dos dados do reader para a lista, um a um: registo tabela -> new Obj ->Lista<Objs>
@@ -215,26 +228,32 @@ namespace CRUD.ClassesEntidades.SQL
                             {
                                 if (DEBUG_LOCAL)
                                 {
-                                    Console.WriteLine("Debug: SQLserverUserState - get() MYSQL: DATAREADER TEM REGISTO!");
+                                    Console.WriteLine("Debug: SQLserverUser - get() MYSQL: DATAREADER TEM REGISTO!");
                                 }
 
                                 // Construção do objeto
                                 // Se objeto tem FKs, Não usar SQL***.get() para construir o fk dentro do construtor. gera exceção.
                                 // Criar o obj FK com o Construtor de Id e depois completar o objeto fora do domínio da Connection.
-                                ServerUserState use = new ServerUserState(
-                                   reader.GetInt32(reader.GetOrdinal("ID")),
-                                   reader["Descri"].ToString()
-                               );
+                                ServerUser use = new ServerUser(reader.GetDateTime(reader.GetOrdinal("AcesseDate")),
+                                    reader.GetBoolean(reader.GetOrdinal("IsAccessible")),
+                                    reader.GetDateTime(reader.GetOrdinal("DateCreated")),
+                                    reader.GetDateTime(reader.GetOrdinal("DateSuspended")),
+                                    reader.GetDateTime(reader.GetOrdinal("DateBan")),
+                                    new ServerUserState(reader.GetInt32(reader.GetOrdinal("ServerUserStateID"))),
+                                    new User(reader.GetInt32(reader.GetOrdinal("UserID"))),
+                                    new Server(reader.GetInt32(reader.GetOrdinal("ServerID")))
+                                );
 
-                                serverUserState = use;
+                                serverUser = use;
 
                                 //Debug para Output: Interessa ver o que está a sair do datareader
                                 if (DEBUG_LOCAL)
                                 {
                                     Console.WriteLine(
-                                        "Debug: SQLserverUserState - get() - DataReader - MYSQL:"
-                                        + "\n Id->" + reader.GetInt32(reader.GetOrdinal("ID")).ToString()
+                                        "Debug: SQLserverUser - get() - DataReader - MYSQL:"
+                                        + "\n Id->" + reader.GetInt32(reader.GetOrdinal("Id")).ToString()
                                         + "\n Descri-> " + reader["Descri"].ToString()
+                                        + "\n Obs-> " + reader["Obs"].ToString()
                                     );
                                 }
                             }
@@ -245,17 +264,17 @@ namespace CRUD.ClassesEntidades.SQL
             }
             catch (Exception e)
             {
-                Console.WriteLine("Erro: SQLserverUserState - get() - \n" + e.ToString());
+                Console.WriteLine("Erro: SQLserverUser - get() - \n" + e.ToString());
                 MessageBox.Show(
-                    "SQLserverUserState - Get() - \n Ocorreram problemas com a ligação à Base de Dados: \n" + e.ToString(),
-                    "SQLserverUserState - Get() - Catch", // Título
+                    "SQLserverUser - Get() - \n Ocorreram problemas com a ligação à Base de Dados: \n" + e.ToString(),
+                    "SQLserverUser - Get() - Catch", // Título
                     MessageBoxButton.OK,        // Botões
                     MessageBoxImage.Error       // Icon
                 );
                 return null;
             }
 
-            return serverUserState;
+            return serverUser;
         }
 
         #endregion
@@ -265,13 +284,13 @@ namespace CRUD.ClassesEntidades.SQL
         /// <summary>
         /// Altera um registo da tabela
         /// </summary>
-        /// <param name="serverUserState">Objeto com id a alterar da tabela</param>
-        static public void Set(ServerUserState serverUserState)
+        /// <param name="serverUser">Objeto com id a alterar da tabela</param>
+        static public void Set(ServerUser serverUser, int newUserID, int newServerID)
         {
             if (DEBUG_LOCAL)
             {
-                Console.WriteLine("Debug: SQLserverUserState - set() - <----Iniciar Query---->");
-                Console.WriteLine("Debug: SQLserverUserState - set() - DBMS ATIVO: " + DBMS_ACTIVE);
+                Console.WriteLine("Debug: SQLserverUser - set() - <----Iniciar Query---->");
+                Console.WriteLine("Debug: SQLserverUser - set() - DBMS ATIVO: " + DBMS_ACTIVE);
             }
 
             //Execução do SQL DML sob controlo do try catch
@@ -284,24 +303,39 @@ namespace CRUD.ClassesEntidades.SQL
                     using (MySqlCommand sqlCommand = ((MySqlConnection)conn).CreateCommand())
                     {
                         sqlCommand.CommandType = CommandType.Text;
-                        sqlCommand.CommandText = "UPDATE serveruserstate SET "
-                        + " Descri = @descri"
-                        + " WHERE Id = @id;";
-                        sqlCommand.Parameters.Add(new MySqlParameter("@id", serverUserState.Id));
-                        sqlCommand.Parameters.Add(new MySqlParameter("@descri", serverUserState.Descri));
+                        sqlCommand.CommandText = "UPDATE serverUser SET "
+                        + " DateCreated = @dateCreated,"
+                        + " DateBan = @dateBan," 
+                        + " IsAccessible = @isAcessible,"
+                        + " AcesseDate = @acesseDate," 
+                        + " DateSuspended = @dateSuspended,"
+                        + " ServerUserStateID = @serverUserStateID,"
+                        + " UserID = @newUserID,"
+                        + " ServerID = @newUserTypeID"
+                        + " WHERE UserID = @userID AND ServerID = @serverID;";
+                        sqlCommand.Parameters.Add(new MySqlParameter("@dateCreated", serverUser.DateCreated));
+                        sqlCommand.Parameters.Add(new MySqlParameter("@dateBan", serverUser.DateBan));
+                        sqlCommand.Parameters.Add(new MySqlParameter("@isAcessible", serverUser.IsAccessible));
+                        sqlCommand.Parameters.Add(new MySqlParameter("@acesseDate", serverUser.AcesseDate));
+                        sqlCommand.Parameters.Add(new MySqlParameter("@dateSuspended", serverUser.DateSuspended));
+                        sqlCommand.Parameters.Add(new MySqlParameter("@userID", serverUser.User.Id));
+                        sqlCommand.Parameters.Add(new MySqlParameter("@serverID", serverUser.Server.Id));
+                        sqlCommand.Parameters.Add(new MySqlParameter("@serverUserStateID", serverUser.ServerUserState.Id));
+                        sqlCommand.Parameters.Add(new MySqlParameter("@newUserID", newUserID));
+                        sqlCommand.Parameters.Add(new MySqlParameter("@newUserTypeID", newServerID));
 
                         // Tenta executar o comando, que é suposto devolver 1
                         if (sqlCommand.ExecuteNonQuery() != 1)
                         {
                             // Se diferente, inverte o commit e Provoca a excessão saltanto para o catch
-                            throw new InvalidProgramException("SQLserverUserState - set() - mysql: ");
+                            throw new InvalidProgramException("SQLserverUser - set() - mysql: ");
                         }
                     }
                 }
             }
             catch (Exception e)
             {
-                Console.WriteLine("Erro: SQLserverUserState - set() - \n" + e.ToString());
+                Console.WriteLine("Erro: SQLserverUser - set() - \n" + e.ToString());
                 MessageBox.Show(
                     "SQLServer - Set() - \n Ocorreram problemas com a ligação à Base de Dados: \n" + e.ToString(),
                     "SQLServer - Set() - Catch",     // Título
@@ -319,13 +353,13 @@ namespace CRUD.ClassesEntidades.SQL
         /// ATENÇÃO: Porque estes objetos são FK noutras tabelas, o delete aplica-se após 
         /// o método checkRelationalIntegrityViolation(), caso contrário pode gerar Exceções
         /// </summary>
-        /// <param name="serverUserState">Objeto com id a apagar da tabela</param>
-        static public void Del(ServerUserState serverUserState)
+        /// <param name="serverUser">Objeto com id a apagar da tabela</param>
+        static public void Del(ServerUser serverUser)
         {
             if (DEBUG_LOCAL)
             {
-                Console.WriteLine("Debug: SQLserverUserState - del() - <--Iniciar Query-->");
-                Console.WriteLine("Debug: SQLserverUserState - del() - DBMS ATIVO: " + DBMS_ACTIVE);
+                Console.WriteLine("Debug: SQLserverUser - del() - <--Iniciar Query-->");
+                Console.WriteLine("Debug: SQLserverUser - del() - DBMS ATIVO: " + DBMS_ACTIVE);
             }
 
             //Execução do SQL DML sob controlo do try catch
@@ -338,24 +372,25 @@ namespace CRUD.ClassesEntidades.SQL
                     {
                         // Prepara e executa o SQL DML
                         sqlCommand.CommandType = CommandType.Text;
-                        sqlCommand.CommandText = "DELETE FROM serveruserstate WHERE ID=@id;";
-                        sqlCommand.Parameters.Add(new MySqlParameter("@id", serverUserState.Id));
+                        sqlCommand.CommandText = "DELETE FROM serverUser WHERE UserID = @userID AND ServerID = @serverID;";
+                        sqlCommand.Parameters.Add(new MySqlParameter("@userID", serverUser.User.Id));
+                        sqlCommand.Parameters.Add(new MySqlParameter("@serverID", serverUser.Server.Id));
 
                         // Tenta executar o comando, que é suposto devolver 1
                         if (sqlCommand.ExecuteNonQuery() != 1)
                         {
                             // Se diferente, inverte o commit e Provoca a excessão saltanto para o catch
-                            throw new InvalidProgramException("SQLserverUserState - del() - mysql: ");
+                            throw new InvalidProgramException("SQLserverUser - del() - mysql: ");
                         }
                     }
                 }
             }
             catch (Exception e)
             {
-                Console.WriteLine("Erro: SQLserverUserState - del() - \n" + e.ToString());
+                Console.WriteLine("Erro: SQLserverUser - del() - \n" + e.ToString());
                 MessageBox.Show(
-                    "SQLserverUserState - Del() - \n Ocorreram problemas com a ligação à Base de Dados: \n" + e.ToString(),
-                    "SQLserverUserState - Del() - Catch", // Título
+                    "SQLserverUser - Del() - \n Ocorreram problemas com a ligação à Base de Dados: \n" + e.ToString(),
+                    "SQLserverUser - Del() - Catch", // Título
                     MessageBoxButton.OK,        // Botões
                     MessageBoxImage.Error       // Icon
                 );
@@ -367,14 +402,14 @@ namespace CRUD.ClassesEntidades.SQL
         /// Aplica-se antes do del(). 
         /// A não utilização em PAR destes métodos, vai gerar Exceções
         /// </summary>
-        /// <param name="serverUserState">Registo a testar</param>
+        /// <param name="serverUser">Registo a testar</param>
         /// <returns></returns>
-        static public bool CheckRelationalIntegrityViolation(ServerUserState serverUserState)
+        static public bool CheckRelationalIntegrityViolation(ServerUser serverUser)
         {
             if (DEBUG_LOCAL)
             {
-                Console.WriteLine("Debug: SQLserverUserState - checkRelationalIntegrityViolation() - <----Iniciar Query---->");
-                Console.WriteLine("Debug: SQLserverUserState - checkRelationalIntegrityViolation() - DBMS ATIVO: " + DBMS_ACTIVE);
+                Console.WriteLine("Debug: SQLserverUser - checkRelationalIntegrityViolation() - <----Iniciar Query---->");
+                Console.WriteLine("Debug: SQLserverUser - checkRelationalIntegrityViolation() - DBMS ATIVO: " + DBMS_ACTIVE);
             }
 
 
@@ -387,7 +422,7 @@ namespace CRUD.ClassesEntidades.SQL
             strBuilderFK.AppendLine("Para eliminar este registo, precisa primeiro de eliminar os seus movimentos em:");
 
             // Flag de controlo de violação de interidade, para ativar as mensagens na FormAuxuliarInfo
-            bool relationalViolationForFKtables = false;   // ativa-se quando o user é fk em tabelas relacionadas
+            bool relationalViolationForFKtables = false;   // ativa-se quando o serverUser é fk em tabelas relacionadas
 
             int count;  // Acumula o nº de ocorrências positivas:
 

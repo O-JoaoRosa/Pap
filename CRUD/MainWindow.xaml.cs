@@ -92,7 +92,7 @@ namespace CRUD
 
         private void MenuItemServerUserInserir_Click(object sender, RoutedEventArgs e)
         {
-            Window w = new WindowServerUserInsert();
+            Window w = new WindowServerUserInsert(SQL_INSERT, null);
             w.ShowDialog();
         }
 
