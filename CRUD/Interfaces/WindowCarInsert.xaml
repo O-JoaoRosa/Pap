@@ -16,9 +16,9 @@
         <Label Content="Reputation Requiered :" HorizontalAlignment="Left" Margin="32,0,0,0" VerticalAlignment="Center" FontSize="20"/>
         <TextBox x:Name="TextBoxRepReq" HorizontalAlignment="Left" Margin="262,0,0,0" TextWrapping="Wrap" VerticalAlignment="Center" Width="84" FontSize="18" MaxLength="6" Text="0"/>
         <TextBox x:Name="TextBoxPrice" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Center" Width="84" FontSize="18" MaxLength="6" Text="0" RenderTransformOrigin="0.286,0.655" Margin="434,0,0,0" />
-        <TextBox x:Name="TextBoxAcceleration" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Center" Width="84" FontSize="18" Text="0.0" RenderTransformOrigin="0.286,0.655" Margin="693,0,0,0" />
+        <TextBox x:Name="TextBoxAcceleration" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Center" Width="84" FontSize="18" Text="0,0" RenderTransformOrigin="0.286,0.655" Margin="693,0,0,0"/>
         <Label Content="Price :" HorizontalAlignment="Left" Margin="358,0,0,0" VerticalAlignment="Center" FontSize="20" RenderTransformOrigin="0.304,0.583"/>
-        <TextBox x:Name="TextBoxMaxSpeed" HorizontalAlignment="Left" Margin="181,277,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="84" FontSize="18" Text="0.0"/>
+        <TextBox x:Name="TextBoxMaxSpeed" HorizontalAlignment="Left" Margin="181,277,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="84" FontSize="18" Text="0,0"/>
         <TextBox x:Name="TextBoxDriftForce" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Width="65" FontSize="18" MaxLength="4" Text="0" RenderTransformOrigin="0.286,0.655" Margin="434,283,0,0"/>
         <Label Content="Max Speed :" HorizontalAlignment="Left" Margin="32,272,0,0" VerticalAlignment="Top" FontSize="20"/>
         <Label Content="Mobility :" HorizontalAlignment="Left" Margin="587,272,0,0" VerticalAlignment="Top" FontSize="20" RenderTransformOrigin="0.304,0.583"/>

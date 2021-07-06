@@ -162,7 +162,7 @@ public class UserCar {
 	/// <param name="desbloqueia"></param>
 	/// <param name="user"></param>
 	/// <param name="contem"></param>
-	public UserCar(DateTime dateUnlocked, bool isUnlocked, Car desbloqueia, User user, PowerUp contem)
+	public UserCar(DateTime dateUnlocked, bool isUnlocked, Car desbloqueia, User user, Wheel roda, CarBody carBody, PowerUp contem)
 	{
 		DateUnlocked = dateUnlocked;
 		IsUnlocked = isUnlocked;

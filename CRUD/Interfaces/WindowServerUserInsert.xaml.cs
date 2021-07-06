@@ -17,8 +17,6 @@ namespace Desktop___interfaces.Interfaces
         int dbAction = -1;
         ServerUser serverUser;
 
-
-
         #region inicialização
 
         /// <summary>

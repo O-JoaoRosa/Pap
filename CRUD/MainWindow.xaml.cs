@@ -128,7 +128,7 @@ namespace CRUD
 
         private void MenuItemUserCarInserir_Click(object sender, RoutedEventArgs e)
         {
-            Window w = new WindowUserCarInsert();
+            Window w = new WindowUserCarInsert(SQL_INSERT , null);
             w.ShowDialog();
         }
 
