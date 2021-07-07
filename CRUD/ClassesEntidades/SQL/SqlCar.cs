@@ -243,6 +243,7 @@ namespace CRUD.ClassesEntidades.SQL
                                     reader.GetInt32(reader.GetOrdinal("DriftForce")),
                                     reader.GetInt32(reader.GetOrdinal("Mobility"))
                                 );
+                                car = use;
 
                                 //Debug para Output: Interessa ver o que está a sair do datareader
                                 if (DEBUG_LOCAL)

@@ -230,6 +230,7 @@ namespace CRUD.ClassesEntidades.SQL
                                     reader["ImageUrl"].ToString(),
                                     reader.GetInt32(reader.GetOrdinal("TimeCharge"))
                                 );
+                                powerup = use;
 
                                 //Debug para Output: Interessa ver o que está a sair do datareader
                                 if (DEBUG_LOCAL)

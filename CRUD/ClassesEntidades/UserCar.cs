@@ -169,6 +169,8 @@ public class UserCar {
 		this.car = desbloqueia;
 		this.user = user;
 		this.powerUp = contem;
+		Roda = roda;
+		CarBody = carBody;
 	}
 
 	/// <summary>

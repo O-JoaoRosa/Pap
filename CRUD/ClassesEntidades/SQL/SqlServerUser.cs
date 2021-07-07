@@ -339,8 +339,8 @@ namespace CRUD.ClassesEntidades.SQL
                 MessageBox.Show(
                     "SQLServer - Set() - \n Ocorreram problemas com a ligação à Base de Dados: \n" + e.ToString(),
                     "SQLServer - Set() - Catch",     // Título
-                    MessageBoxButton.OK,            // Botões
-                    MessageBoxImage.Error           // Icon
+                    MessageBoxButton.OK,             // Botões
+                    MessageBoxImage.Error            // Icon
                 );
             }
         }

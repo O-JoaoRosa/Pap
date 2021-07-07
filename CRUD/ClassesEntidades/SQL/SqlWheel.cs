@@ -203,7 +203,7 @@ namespace CRUD.ClassesEntidades.SQL
                         sqlCommand.Connection = ((MySqlConnection)conn);
 
                         // SQL DDL
-                        sqlCommand.CommandText = "SELECT * FROM User where Id=@Id;";
+                        sqlCommand.CommandText = "SELECT * FROM wheel where Id=@Id;";
                         sqlCommand.Parameters.Add(new MySqlParameter("@id", id));
 
                         // Reader recebe os dados da execução da query
@@ -232,6 +232,8 @@ namespace CRUD.ClassesEntidades.SQL
                                    reader["Descri"].ToString(),
                                    reader["CodeName"].ToString()
                                );
+
+                                wheel = whee;
 
                                 //Debug para Output: Interessa ver o que está a sair do datareader
                                 if (DEBUG_LOCAL)

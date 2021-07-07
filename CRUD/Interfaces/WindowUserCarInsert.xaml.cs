@@ -166,7 +166,7 @@ namespace Desktop___interfaces.Interfaces
                                         if (ValidaDados())
                                         {
                                             UserCar profileTemp = new UserCar(DatePicker.SelectedDate.Value, (bool)CheckBoxUnlocked.IsChecked,
-                                                (Car)ComboBoxCar.SelectedItem, (User)ComboBoxUser.SelectedItem,(Wheel)ComboBoxWheels.SelectedItem, 
+                                                (Car)ComboBoxCar.SelectedItem, (User)ComboBoxUser.SelectedItem, (Wheel)ComboBoxWheels.SelectedItem, 
                                                 (CarBody)ComboBoxCarBodies.SelectedItem , (PowerUp)ComboBoxPowerUp.SelectedItem);
                                             SqlUserCar.Add(profileTemp);
                                         }
@@ -222,11 +222,7 @@ namespace Desktop___interfaces.Interfaces
                                 else
                                 {
                                     UserCar p = SqlUserCar.Get(((User)ComboBoxUser.SelectedItem).Id, ((Car)ComboBoxCar.SelectedItem).Id);
-                                    if (p != null)
-                                    {
-                                        MessageBox.Show("Erro: o perfil que tentou cirar já existe", "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
-                                    }
-                                    else
+                                    if (p == null || p != userCar)
                                     {
                                         if (ValidaDados())
                                         {
@@ -237,6 +233,10 @@ namespace Desktop___interfaces.Interfaces
                                             userCar.Roda = (Wheel)ComboBoxWheels.SelectedItem;
                                             SqlUserCar.Set(userCar, ((User)ComboBoxUser.SelectedItem).Id, ((Car)ComboBoxCar.SelectedItem).Id);
                                         }
+                                    }
+                                    else
+                                    {
+                                        MessageBox.Show("Erro: o perfil que tentou cirar já existe", "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
                                     }
 
                                 }
