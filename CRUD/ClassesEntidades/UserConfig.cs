@@ -75,16 +75,16 @@ public class UserConfig {
 	/// restrições :
 	/// não pode ser um numero racional
 	/// </summary>
-	private User contido;
-	public User Contido
+	private User user;
+	public User User
 	{
 		get
 		{
-			return contido;
+			return user;
 		}
 		set
 		{
-			contido = value;
+			user = value;
 		}
 	}
 
@@ -104,7 +104,7 @@ public class UserConfig {
 		Id = id;
 		Descri = descri;
 		Value = value;
-		this.contido = contido;
+		this.user = contido;
 	}
 
 	/// <summary>

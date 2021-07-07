@@ -9,8 +9,9 @@ using static CRUD.ClassesEntidades.SQL.SQL_Connection;
 
 namespace CRUD.ClassesEntidades.SQL
 {
-    class SqlUser
+    class SqlUserConfig
     {
+
         #region Dados Locais
 
         private const bool DEBUG_LOCAL = false;       // Ativa debug local
@@ -22,14 +23,14 @@ namespace CRUD.ClassesEntidades.SQL
         /// <summary>
         /// Adiciona um novo registo à tabela
         /// </summary>
-        /// <param name="user"></param>
-        static public void Add(User user)
+        /// <param name="userConfig"></param>
+        static public void Add(UserConfig userConfig)
         {
             // Imprime DEBUG para a consola, se DEBUG local e GERAL estiverem ativos
             if (DEBUG_LOCAL)
             {
-                Console.WriteLine("Debug: SQLuser - add() - <----Iniciar Query---->");
-                Console.WriteLine("Debug: SQLuser - add() - DBMS ATIVO: " + DBMS_ACTIVE);
+                Console.WriteLine("Debug: SQLuserConfig - add() - <----Iniciar Query---->");
+                Console.WriteLine("Debug: SQLuserConfig - add() - DBMS ATIVO: " + DBMS_ACTIVE);
             }
 
             //Execução do SQL DML sob controlo do try catch
@@ -43,21 +44,17 @@ namespace CRUD.ClassesEntidades.SQL
                     using (MySqlCommand sqlCommand = ((MySqlConnection)conn).CreateCommand())
                     {
                         sqlCommand.CommandType = CommandType.Text;
-                        sqlCommand.CommandText = "INSERT INTO user"
-                            + "(UserName,Password,Email,Image,Money,Reputation,LastTimeOnline)"
-                            + "VALUES(@userName, @password, @email, @image, @money, @reputation, @lastTimeOnline);";
-                        sqlCommand.Parameters.Add(new MySqlParameter("@userName", user.UserName));
-                        sqlCommand.Parameters.Add(new MySqlParameter("@password", user.Password));
-                        sqlCommand.Parameters.Add(new MySqlParameter("@email", user.Email));
-                        sqlCommand.Parameters.Add(new MySqlParameter("@image", user.Image));
-                        sqlCommand.Parameters.Add(new MySqlParameter("@money", user.Money));
-                        sqlCommand.Parameters.Add(new MySqlParameter("@reputation", user.Reputation));
-                        sqlCommand.Parameters.Add(new MySqlParameter("@lastTimeOnline", user.LastTimeOnline));
+                        sqlCommand.CommandText = "INSERT INTO userConfig"
+                            + "(UserID,Descri,Value)"
+                            + "VALUES(@userID, @descri, @value);";
+                        sqlCommand.Parameters.Add(new MySqlParameter("@userID", userConfig.User.Id));
+                        sqlCommand.Parameters.Add(new MySqlParameter("@descri", userConfig.Descri));
+                        sqlCommand.Parameters.Add(new MySqlParameter("@value", userConfig.Value));
 
                         // Tenta Executar e Se diferente de 1, provoca excessão saltanto para o catch
                         if (sqlCommand.ExecuteNonQuery() != 1)
                         {
-                            throw new InvalidProgramException("SQLuser - add() - mysql: ");
+                            throw new InvalidProgramException("SQLuserConfig - add() - mysql: ");
                         }
                     }
 
@@ -65,7 +62,7 @@ namespace CRUD.ClassesEntidades.SQL
             }
             catch (Exception e)
             {
-                Console.WriteLine("Erro: SQLuser_mors - add() - \n" + e.ToString());
+                Console.WriteLine("Erro: SQLuserConfig_mors - add() - \n" + e.ToString());
                 MessageBox.Show(
                     "SQLturma - Add() - \n Ocorreram problemas com a ligação à Base de Dados: \n" + e.ToString(),
                     "SQLturma - Add() - Catch", // Título
@@ -85,15 +82,15 @@ namespace CRUD.ClassesEntidades.SQL
         /// 2 - Completa a lista principal, preenchendo os obj FK, 
         /// </summary>
         /// <returns>Lista de objetos</returns>
-        static public List<User> GetAll()
+        static public List<UserConfig> GetAll()
         {
-            List<User> listaUsers = new List<User>();   // Lista Principal
+            List<UserConfig> listaUserConfigs = new List<UserConfig>();   // Lista Principal
             String query = "";
 
             if (DEBUG_LOCAL)
             {
-                Console.WriteLine("Debug: SQLuser - getAll() - <----Iniciar Query---->");
-                Console.WriteLine("Debug: SQLuser - getAll() - DBMS ATIVO: " + DBMS_ACTIVE);
+                Console.WriteLine("Debug: SQLuserConfig - getAll() - <----Iniciar Query---->");
+                Console.WriteLine("Debug: SQLuserConfig - getAll() - DBMS ATIVO: " + DBMS_ACTIVE);
             }
 
             //Execução do SQL DML sob controlo do try catch
@@ -102,7 +99,7 @@ namespace CRUD.ClassesEntidades.SQL
                 // Abre ligação ao DBMS Ativo
                 using (DbConnection conn = OpenConnection())
                 {
-                    query = "SELECT * FROM user;";
+                    query = "SELECT * FROM userconfig;";
 
                     // Prepara e executa o SQL DML
                     using (MySqlCommand sqlCommand = new MySqlCommand())
@@ -115,7 +112,7 @@ namespace CRUD.ClassesEntidades.SQL
                         // DEBUG
                         if (DEBUG_LOCAL)
                         {
-                            Console.WriteLine("Debug: SQLuser - getAll() - MYSQL - SQLcommand OK");
+                            Console.WriteLine("Debug: SQLuserConfig - getAll() - MYSQL - SQLcommand OK");
                         }
 
                         // Reader recebe os dados da execução da query
@@ -123,7 +120,7 @@ namespace CRUD.ClassesEntidades.SQL
                         {
                             if (DEBUG_LOCAL)
                             {
-                                Console.WriteLine("Debug: SQLuser - getAll() - MYSQL - DATAREADER CRIADO");
+                                Console.WriteLine("Debug: SQLuserConfig - getAll() - MYSQL - DATAREADER CRIADO");
                             }
 
                             // Extração dos dados do reader para a lista, um a um: registo tabela -> new Obj ->Lista<Objs>
@@ -131,30 +128,25 @@ namespace CRUD.ClassesEntidades.SQL
                             {
                                 if (DEBUG_LOCAL)
                                 {
-                                    Console.WriteLine("Debug: SQLuser - getAll(): MYSQL - DATAREADER TEM REGISTOS!");
+                                    Console.WriteLine("Debug: SQLuserConfig - getAll(): MYSQL - DATAREADER TEM REGISTOS!");
                                 }
 
                                 // Construção do objeto
                                 // Se objeto tem FKs, Não usar SQL***.get() para construir o fk dentro do construtor. gera exceção.
                                 // Criar o obj FK com o Construtor de Id e depois completar o objeto fora do domínio da Connection.
-                                User use = new User(
-                                    reader.GetInt32(reader.GetOrdinal("Id")),
-                                    reader["UserName"].ToString(),
-                                    reader["Password"].ToString(),
-                                    reader["Email"].ToString(),
-                                    reader.GetInt32(reader.GetOrdinal("Money")),
-                                    reader.GetInt32(reader.GetOrdinal("Reputation")),
-                                    reader["Image"].ToString(),
-                                    reader.GetDateTime(reader.GetOrdinal("LastTimeOnline"))
+                                UserConfig use = new UserConfig(reader.GetInt32(reader.GetOrdinal("Id")),
+                                    reader.GetString("Descri"),
+                                    reader.GetInt32(reader.GetOrdinal("Value")),
+                                    new User(reader.GetInt32(reader.GetOrdinal("UserID")))
                                 );
 
-                                listaUsers.Add(use);       //adiciona o obj à lista
+                                listaUserConfigs.Add(use);       //adiciona o obj à lista
 
                                 //Debug para Output: Interessa ver o que está a sair do datareader
                                 if (DEBUG_LOCAL)
                                 {
                                     Console.WriteLine(
-                                        "Debug: SQLuser - getAll() - DataReader - MYSQL:"
+                                        "Debug: SQLuserConfig - getAll() - DataReader - MYSQL:"
                                         + "\n Id->" + reader.GetInt32(reader.GetOrdinal("Id")).ToString()
                                     );
                                 }
@@ -165,17 +157,17 @@ namespace CRUD.ClassesEntidades.SQL
             }
             catch (Exception e)
             {
-                Console.WriteLine("Erro: SQLuser - getAll() - \n" + e.ToString());
+                Console.WriteLine("Erro: SQLuserConfig - getAll() - \n" + e.ToString());
                 MessageBox.Show(
-                    "SQLuser - GetAll() - \n Ocorreram problemas com a ligação à Base de Dados: \n" + e.ToString(),
-                    "SQLuser - GetAll() - Catch",  // Título
+                    "SQLuserConfig - GetAll() - \n Ocorreram problemas com a ligação à Base de Dados: \n" + e.ToString(),
+                    "SQLuserConfig - GetAll() - Catch",  // Título
                     MessageBoxButton.OK,            // Botões
                     MessageBoxImage.Error           // Icon
                 );
                 return null;
             }
 
-            return listaUsers;
+            return listaUserConfigs;
         }
 
         /// <summary>
@@ -185,14 +177,14 @@ namespace CRUD.ClassesEntidades.SQL
         /// 2 - Completa o objeto, construindo os obj FK existentes
         /// </summary>
         /// <returns>Devolve um objeto preenchido ou NULL</returns>
-        static public User Get(int id)
+        static public UserConfig Get(int id1)
         {
-            User user = null;
+            UserConfig userConfig = null;
 
             if (DEBUG_LOCAL)
             {
-                Console.WriteLine("Debug: SQLuser - get() - <----Iniciar Query---->");
-                Console.WriteLine("Debug: SQLuser - get() - DBMS ATIVO: " + DBMS_ACTIVE);
+                Console.WriteLine("Debug: SQLuserConfig - get() - <----Iniciar Query---->");
+                Console.WriteLine("Debug: SQLuserConfig - get() - DBMS ATIVO: " + DBMS_ACTIVE);
             }
 
             //Execução do SQL DML sob controlo do try catch
@@ -210,15 +202,15 @@ namespace CRUD.ClassesEntidades.SQL
                         sqlCommand.Connection = ((MySqlConnection)conn);
 
                         // SQL DDL
-                        sqlCommand.CommandText = "SELECT * FROM User where Id=@id;";
-                        sqlCommand.Parameters.Add(new MySqlParameter("@id", id));
+                        sqlCommand.CommandText = "SELECT * FROM UserConfig where Id=@id ;";
+                        sqlCommand.Parameters.Add(new MySqlParameter("@id", id1));
 
                         // Reader recebe os dados da execução da query
                         using (MySqlDataReader reader = sqlCommand.ExecuteReader())
                         {
                             if (DEBUG_LOCAL)
                             {
-                                Console.WriteLine("Debug: SQLuser - get() - MYSQL - DataReader CRIADO: ");
+                                Console.WriteLine("Debug: SQLuserConfig - get() - MYSQL - DataReader CRIADO: ");
                             }
 
                             // Extração dos dados do reader para a lista, um a um: registo tabela -> new Obj ->Lista<Objs>
@@ -226,29 +218,25 @@ namespace CRUD.ClassesEntidades.SQL
                             {
                                 if (DEBUG_LOCAL)
                                 {
-                                    Console.WriteLine("Debug: SQLuser - get() MYSQL: DATAREADER TEM REGISTO!");
+                                    Console.WriteLine("Debug: SQLuserConfig - get() MYSQL: DATAREADER TEM REGISTO!");
                                 }
 
                                 // Construção do objeto
                                 // Se objeto tem FKs, Não usar SQL***.get() para construir o fk dentro do construtor. gera exceção.
                                 // Criar o obj FK com o Construtor de Id e depois completar o objeto fora do domínio da Connection.
-                                User use = new User(
-                                   reader.GetInt32(reader.GetOrdinal("Id")),
-                                   reader["UserName"].ToString(),
-                                   reader["Password"].ToString(),
-                                   reader["Email"].ToString(),
-                                   reader.GetInt32(reader.GetOrdinal("Money")),
-                                   reader.GetInt32(reader.GetOrdinal("Reputation")),
-                                   reader["Image"].ToString(),
-                                   reader.GetDateTime(reader.GetOrdinal("LastTimeOnline"))
-                               );
+                                UserConfig use = new UserConfig(reader.GetOrdinal("Id"),
+                                    reader.GetString("Descri"),
+                                    reader.GetOrdinal("Value"),
+                                    new User(reader.GetOrdinal("UserID"))
+                                );
 
-                                user = use;
+                                userConfig = use;
+
                                 //Debug para Output: Interessa ver o que está a sair do datareader
                                 if (DEBUG_LOCAL)
                                 {
                                     Console.WriteLine(
-                                        "Debug: SQLuser - get() - DataReader - MYSQL:"
+                                        "Debug: SQLuserConfig - get() - DataReader - MYSQL:"
                                         + "\n Id->" + reader.GetInt32(reader.GetOrdinal("Id")).ToString()
                                         + "\n Descri-> " + reader["Descri"].ToString()
                                         + "\n Obs-> " + reader["Obs"].ToString()
@@ -262,17 +250,17 @@ namespace CRUD.ClassesEntidades.SQL
             }
             catch (Exception e)
             {
-                Console.WriteLine("Erro: SQLuser - get() - \n" + e.ToString());
+                Console.WriteLine("Erro: SQLuserConfig - get() - \n" + e.ToString());
                 MessageBox.Show(
-                    "SQLuser - Get() - \n Ocorreram problemas com a ligação à Base de Dados: \n" + e.ToString(),
-                    "SQLuser - Get() - Catch", // Título
+                    "SQLuserConfig - Get() - \n Ocorreram problemas com a ligação à Base de Dados: \n" + e.ToString(),
+                    "SQLuserConfig - Get() - Catch", // Título
                     MessageBoxButton.OK,        // Botões
                     MessageBoxImage.Error       // Icon
                 );
                 return null;
             }
 
-            return user;
+            return userConfig;
         }
 
         #endregion
@@ -282,13 +270,13 @@ namespace CRUD.ClassesEntidades.SQL
         /// <summary>
         /// Altera um registo da tabela
         /// </summary>
-        /// <param name="user">Objeto com id a alterar da tabela</param>
-        static public void Set(User user)
+        /// <param name="userConfig">Objeto com id a alterar da tabela</param>
+        static public void Set(UserConfig userConfig)
         {
             if (DEBUG_LOCAL)
             {
-                Console.WriteLine("Debug: SQLuser - set() - <----Iniciar Query---->");
-                Console.WriteLine("Debug: SQLuser - set() - DBMS ATIVO: " + DBMS_ACTIVE);
+                Console.WriteLine("Debug: SQLuserConfig - set() - <----Iniciar Query---->");
+                Console.WriteLine("Debug: SQLuserConfig - set() - DBMS ATIVO: " + DBMS_ACTIVE);
             }
 
             //Execução do SQL DML sob controlo do try catch
@@ -301,41 +289,33 @@ namespace CRUD.ClassesEntidades.SQL
                     using (MySqlCommand sqlCommand = ((MySqlConnection)conn).CreateCommand())
                     {
                         sqlCommand.CommandType = CommandType.Text;
-                        sqlCommand.CommandText = "UPDATE user SET "
-                        + " UserName = @userName,"
-                        + " Password = @password,"
-                        + " Email = @email,"
-                        + " Image = @image,"
-                        + " money = @money,"
-                        + " reputation = @reputation,"
-                        + " LastTimeOnline = @lastTimeOnline"
+                        sqlCommand.CommandText = "UPDATE userConfig SET "
+                        + " UserID = @userID,"
+                        + " Descri = @descri,"
+                        + " Value = @value"
                         + " WHERE Id = @id;";
-                        sqlCommand.Parameters.Add(new MySqlParameter("@id", user.Id));
-                        sqlCommand.Parameters.Add(new MySqlParameter("@userName", user.UserName));
-                        sqlCommand.Parameters.Add(new MySqlParameter("@password", user.Password));
-                        sqlCommand.Parameters.Add(new MySqlParameter("@email", user.Email));
-                        sqlCommand.Parameters.Add(new MySqlParameter("@image", user.Image));
-                        sqlCommand.Parameters.Add(new MySqlParameter("@money", user.Money));
-                        sqlCommand.Parameters.Add(new MySqlParameter("@reputation", user.Reputation));
-                        sqlCommand.Parameters.Add(new MySqlParameter("@lastTimeOnline", user.LastTimeOnline));
+                        sqlCommand.Parameters.Add(new MySqlParameter("@userID", userConfig.User.Id));
+                        sqlCommand.Parameters.Add(new MySqlParameter("@descri", userConfig.Descri));
+                        sqlCommand.Parameters.Add(new MySqlParameter("@value", userConfig.Value));
+                        sqlCommand.Parameters.Add(new MySqlParameter("@id", userConfig.Id));
 
                         // Tenta executar o comando, que é suposto devolver 1
                         if (sqlCommand.ExecuteNonQuery() != 1)
                         {
                             // Se diferente, inverte o commit e Provoca a excessão saltanto para o catch
-                            throw new InvalidProgramException("SQLuser - set() - mysql: ");
+                            throw new InvalidProgramException("SQLuserConfig - set() - mysql: ");
                         }
                     }
                 }
             }
             catch (Exception e)
             {
-                Console.WriteLine("Erro: SQLuser - set() - \n" + e.ToString());
+                Console.WriteLine("Erro: SQLuserConfig - set() - \n" + e.ToString());
                 MessageBox.Show(
                     "SQLServer - Set() - \n Ocorreram problemas com a ligação à Base de Dados: \n" + e.ToString(),
                     "SQLServer - Set() - Catch",     // Título
-                    MessageBoxButton.OK,            // Botões
-                    MessageBoxImage.Error           // Icon
+                    MessageBoxButton.OK,             // Botões
+                    MessageBoxImage.Error            // Icon
                 );
             }
         }
@@ -348,13 +328,13 @@ namespace CRUD.ClassesEntidades.SQL
         /// ATENÇÃO: Porque estes objetos são FK noutras tabelas, o delete aplica-se após 
         /// o método checkRelationalIntegrityViolation(), caso contrário pode gerar Exceções
         /// </summary>
-        /// <param name="user">Objeto com id a apagar da tabela</param>
-        static public void Del(User user)
+        /// <param name="userConfig">Objeto com id a apagar da tabela</param>
+        static public void Del(UserConfig userConfig)
         {
             if (DEBUG_LOCAL)
             {
-                Console.WriteLine("Debug: SQLuser - del() - <--Iniciar Query-->");
-                Console.WriteLine("Debug: SQLuser - del() - DBMS ATIVO: " + DBMS_ACTIVE);
+                Console.WriteLine("Debug: SQLuserConfig - del() - <--Iniciar Query-->");
+                Console.WriteLine("Debug: SQLuserConfig - del() - DBMS ATIVO: " + DBMS_ACTIVE);
             }
 
             //Execução do SQL DML sob controlo do try catch
@@ -367,24 +347,24 @@ namespace CRUD.ClassesEntidades.SQL
                     {
                         // Prepara e executa o SQL DML
                         sqlCommand.CommandType = CommandType.Text;
-                        sqlCommand.CommandText = "DELETE FROM user WHERE Id=@id;";
-                        sqlCommand.Parameters.Add(new MySqlParameter("@id", user.Id));
+                        sqlCommand.CommandText = "DELETE FROM userConfig WHERE UserID = @userID;";
+                        sqlCommand.Parameters.Add(new MySqlParameter("@userID", userConfig.User.Id));
 
                         // Tenta executar o comando, que é suposto devolver 1
                         if (sqlCommand.ExecuteNonQuery() != 1)
                         {
                             // Se diferente, inverte o commit e Provoca a excessão saltanto para o catch
-                            throw new InvalidProgramException("SQLuser - del() - mysql: ");
+                            throw new InvalidProgramException("SQLuserConfig - del() - mysql: ");
                         }
                     }
                 }
             }
             catch (Exception e)
             {
-                Console.WriteLine("Erro: SQLuser - del() - \n" + e.ToString());
+                Console.WriteLine("Erro: SQLuserConfig - del() - \n" + e.ToString());
                 MessageBox.Show(
-                    "SQLuser - Del() - \n Ocorreram problemas com a ligação à Base de Dados: \n" + e.ToString(),
-                    "SQLuser - Del() - Catch", // Título
+                    "SQLuserConfig - Del() - \n Ocorreram problemas com a ligação à Base de Dados: \n" + e.ToString(),
+                    "SQLuserConfig - Del() - Catch", // Título
                     MessageBoxButton.OK,        // Botões
                     MessageBoxImage.Error       // Icon
                 );
@@ -396,14 +376,14 @@ namespace CRUD.ClassesEntidades.SQL
         /// Aplica-se antes do del(). 
         /// A não utilização em PAR destes métodos, vai gerar Exceções
         /// </summary>
-        /// <param name="user">Registo a testar</param>
+        /// <param name="userConfig">Registo a testar</param>
         /// <returns></returns>
-        static public bool CheckRelationalIntegrityViolation(User user)
+        static public bool CheckRelationalIntegrityViolation(UserConfig userConfig)
         {
             if (DEBUG_LOCAL)
             {
-                Console.WriteLine("Debug: SQLuser - checkRelationalIntegrityViolation() - <----Iniciar Query---->");
-                Console.WriteLine("Debug: SQLuser - checkRelationalIntegrityViolation() - DBMS ATIVO: " + DBMS_ACTIVE);
+                Console.WriteLine("Debug: SQLuserConfig - checkRelationalIntegrityViolation() - <----Iniciar Query---->");
+                Console.WriteLine("Debug: SQLuserConfig - checkRelationalIntegrityViolation() - DBMS ATIVO: " + DBMS_ACTIVE);
             }
 
 
@@ -416,7 +396,7 @@ namespace CRUD.ClassesEntidades.SQL
             strBuilderFK.AppendLine("Para eliminar este registo, precisa primeiro de eliminar os seus movimentos em:");
 
             // Flag de controlo de violação de interidade, para ativar as mensagens na FormAuxuliarInfo
-            bool relationalViolationForFKtables = false;   // ativa-se quando o user é fk em tabelas relacionadas
+            bool relationalViolationForFKtables = false;   // ativa-se quando o userConfig é fk em tabelas relacionadas
 
             int count;  // Acumula o nº de ocorrências positivas:
 
@@ -433,6 +413,5 @@ namespace CRUD.ClassesEntidades.SQL
             return false;       // Não há violação de integridade
         }
         #endregion
-
     }
 }

@@ -140,7 +140,7 @@ namespace CRUD
 
         private void MenuItemUserConfigInserir_Click(object sender, RoutedEventArgs e)
         {
-            Window w = new WindowUserConfigInsert();
+            Window w = new WindowUserConfigInsert(SQL_INSERT, null);
             w.ShowDialog();
         }
 
