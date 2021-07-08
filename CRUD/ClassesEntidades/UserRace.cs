@@ -110,26 +110,6 @@ public class UserRace {
 		}
 	}
 
-	/// <summary>
-	/// variável que decide se o objecto está ou não desbloqueado
-	/// requisitos
-	/// deve ter o valor default de false
-	/// restrições
-	/// não pode ter o valor default true
-	/// </summary>
-	private bool isUnlocked;
-	public bool IsUnlocked 
-	{
-		get 
-		{
-			return isUnlocked;
-		}
-		set 
-		{
-			isUnlocked = value;
-		}
-	}
-
 	/// <summary> FK
 	/// numero de identificação do objecto
 	/// requisitos :
@@ -194,14 +174,13 @@ public class UserRace {
 	/// <param name="isUnlocked">variável que decide se o objecto está ou não desbloqueado</param>
 	/// <param name="raceTrack"></param>
 	/// <param name="user"></param>
-	public UserRace(int iD, int finishPosition, int moneyMade, int reputationMade, DateTime dateRace, bool isUnlocked, RaceTrack raceTrack, User user)
+	public UserRace(int iD, int finishPosition, int moneyMade, int reputationMade, DateTime dateRace, RaceTrack raceTrack, User user)
 	{
 		ID = iD;
 		FinishPosition = finishPosition;
 		MoneyMade = moneyMade;
 		ReputationMade = reputationMade;
 		DateRace = dateRace;
-		IsUnlocked = isUnlocked;
 		this.raceTrack = raceTrack;
 		this.user = user;
 	}

@@ -152,7 +152,7 @@ namespace CRUD
 
         private void MenuItemUserFriendInserir_Click(object sender, RoutedEventArgs e)
         {
-            Window w = new WindowUserFriendInsert();
+            Window w = new WindowUserFriendInsert(SQL_INSERT, null);
             w.ShowDialog();
         }
 
@@ -164,7 +164,7 @@ namespace CRUD
 
         private void MenuItemUserRaceInserir_Click(object sender, RoutedEventArgs e)
         {
-            Window w = new WindowUserRaceInsert();
+            Window w = new WindowUserRaceInsert(SQL_INSERT, null);
             w.ShowDialog();
         }
 

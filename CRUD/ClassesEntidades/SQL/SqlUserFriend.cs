@@ -9,7 +9,7 @@ using static CRUD.ClassesEntidades.SQL.SQL_Connection;
 
 namespace CRUD.ClassesEntidades.SQL
 {
-    class SqlRaceTrack
+    class SqlUserFriend
     {
         #region Dados Locais
 
@@ -22,14 +22,14 @@ namespace CRUD.ClassesEntidades.SQL
         /// <summary>
         /// Adiciona um novo registo à tabela
         /// </summary>
-        /// <param name="raceTrack"></param>
-        static public void Add(RaceTrack raceTrack)
+        /// <param name="userFriend"></param>
+        static public void Add(UserFriend userFriend)
         {
             // Imprime DEBUG para a consola, se DEBUG local e GERAL estiverem ativos
             if (DEBUG_LOCAL)
             {
-                Console.WriteLine("Debug: SQLraceTrack - add() - <----Iniciar Query---->");
-                Console.WriteLine("Debug: SQLraceTrack - add() - DBMS ATIVO: " + DBMS_ACTIVE);
+                Console.WriteLine("Debug: SQLuserFriend - add() - <----Iniciar Query---->");
+                Console.WriteLine("Debug: SQLuserFriend - add() - DBMS ATIVO: " + DBMS_ACTIVE);
             }
 
             //Execução do SQL DML sob controlo do try catch
@@ -43,18 +43,18 @@ namespace CRUD.ClassesEntidades.SQL
                     using (MySqlCommand sqlCommand = ((MySqlConnection)conn).CreateCommand())
                     {
                         sqlCommand.CommandType = CommandType.Text;
-                        sqlCommand.CommandText = "INSERT INTO racetrack"
-                            + "(Descri,BaseReputationReward,BaseMoneyReward,ReputationRequiered)"
-                            + "VALUES(@descri, @baseReputationReward, @baseMoneyReward, @reputationRequiered);";
-                        sqlCommand.Parameters.Add(new MySqlParameter("@reputationRequiered", raceTrack.ReputationRequiered));
-                        sqlCommand.Parameters.Add(new MySqlParameter("@baseMoneyReward", raceTrack.BaseMoneyReward));
-                        sqlCommand.Parameters.Add(new MySqlParameter("@baseReputationReward", raceTrack.BaseReputationReward));
-                        sqlCommand.Parameters.Add(new MySqlParameter("@descri", raceTrack.Descri));
+                        sqlCommand.CommandText = "INSERT INTO userFriend"
+                            + "(UserID,UserFriendID,IsOnline,DateAdded)"
+                            + "VALUES(@userID, @userFriendID, @isOnline, @dateAdded);";
+                        sqlCommand.Parameters.Add(new MySqlParameter("@userID", userFriend.User.Id));
+                        sqlCommand.Parameters.Add(new MySqlParameter("@userFriendID", userFriend.UserFriend1.Id));
+                        sqlCommand.Parameters.Add(new MySqlParameter("@isOnline", userFriend.IsOnline));
+                        sqlCommand.Parameters.Add(new MySqlParameter("@dateAdded", userFriend.DateAdded));
 
                         // Tenta Executar e Se diferente de 1, provoca excessão saltanto para o catch
                         if (sqlCommand.ExecuteNonQuery() != 1)
                         {
-                            throw new InvalidProgramException("SQLraceTrack - add() - mysql: ");
+                            throw new InvalidProgramException("SQLuserFriend - add() - mysql: ");
                         }
                     }
 
@@ -62,10 +62,10 @@ namespace CRUD.ClassesEntidades.SQL
             }
             catch (Exception e)
             {
-                Console.WriteLine("Erro: SQLraceTrack_mors - add() - \n" + e.ToString());
+                Console.WriteLine("Erro: SQLuserFriend_mors - add() - \n" + e.ToString());
                 MessageBox.Show(
-                    "SQLraceTrack - Add() - \n Ocorreram problemas com a ligação à Base de Dados: \n" + e.ToString(),
-                    "SQLraceTrack - Add() - Catch", // Título
+                    "SQLturma - Add() - \n Ocorreram problemas com a ligação à Base de Dados: \n" + e.ToString(),
+                    "SQLturma - Add() - Catch", // Título
                     MessageBoxButton.OK,        // Botões
                     MessageBoxImage.Information // Icon
                 );
@@ -82,15 +82,15 @@ namespace CRUD.ClassesEntidades.SQL
         /// 2 - Completa a lista principal, preenchendo os obj FK, 
         /// </summary>
         /// <returns>Lista de objetos</returns>
-        static public List<RaceTrack> GetAll()
+        static public List<UserFriend> GetAll()
         {
-            List<RaceTrack> listaRaceTracks = new List<RaceTrack>();   // Lista Principal
+            List<UserFriend> listaUserFriends = new List<UserFriend>();   // Lista Principal
             String query = "";
 
             if (DEBUG_LOCAL)
             {
-                Console.WriteLine("Debug: SQLraceTrack - getAll() - <----Iniciar Query---->");
-                Console.WriteLine("Debug: SQLraceTrack - getAll() - DBMS ATIVO: " + DBMS_ACTIVE);
+                Console.WriteLine("Debug: SQLuserFriend - getAll() - <----Iniciar Query---->");
+                Console.WriteLine("Debug: SQLuserFriend - getAll() - DBMS ATIVO: " + DBMS_ACTIVE);
             }
 
             //Execução do SQL DML sob controlo do try catch
@@ -99,7 +99,7 @@ namespace CRUD.ClassesEntidades.SQL
                 // Abre ligação ao DBMS Ativo
                 using (DbConnection conn = OpenConnection())
                 {
-                    query = "SELECT * FROM racetrack;";
+                    query = "SELECT * FROM userFriend;";
 
                     // Prepara e executa o SQL DML
                     using (MySqlCommand sqlCommand = new MySqlCommand())
@@ -112,7 +112,7 @@ namespace CRUD.ClassesEntidades.SQL
                         // DEBUG
                         if (DEBUG_LOCAL)
                         {
-                            Console.WriteLine("Debug: SQLraceTrack - getAll() - MYSQL - SQLcommand OK");
+                            Console.WriteLine("Debug: SQLuserFriend - getAll() - MYSQL - SQLcommand OK");
                         }
 
                         // Reader recebe os dados da execução da query
@@ -120,7 +120,7 @@ namespace CRUD.ClassesEntidades.SQL
                         {
                             if (DEBUG_LOCAL)
                             {
-                                Console.WriteLine("Debug: SQLraceTrack - getAll() - MYSQL - DATAREADER CRIADO");
+                                Console.WriteLine("Debug: SQLuserFriend - getAll() - MYSQL - DATAREADER CRIADO");
                             }
 
                             // Extração dos dados do reader para a lista, um a um: registo tabela -> new Obj ->Lista<Objs>
@@ -128,28 +128,25 @@ namespace CRUD.ClassesEntidades.SQL
                             {
                                 if (DEBUG_LOCAL)
                                 {
-                                    Console.WriteLine("Debug: SQLraceTrack - getAll(): MYSQL - DATAREADER TEM REGISTOS!");
+                                    Console.WriteLine("Debug: SQLuserFriend - getAll(): MYSQL - DATAREADER TEM REGISTOS!");
                                 }
 
                                 // Construção do objeto
                                 // Se objeto tem FKs, Não usar SQL***.get() para construir o fk dentro do construtor. gera exceção.
                                 // Criar o obj FK com o Construtor de Id e depois completar o objeto fora do domínio da Connection.
-                                RaceTrack raceTrack = new RaceTrack(
-                                    reader.GetInt32(reader.GetOrdinal("Id")),
-                                    reader["Descri"].ToString(),
-                                    reader.GetInt32(reader.GetOrdinal("ReputationRequiered")),
-                                    reader.GetInt32(reader.GetOrdinal("BaseMoneyReward")),
-                                    reader.GetInt32(reader.GetOrdinal("BaseReputationReward"))
-
+                                UserFriend use = new UserFriend(reader.GetBoolean(reader.GetOrdinal("IsOnline")),
+                                    reader.GetDateTime(reader.GetOrdinal("DateAdded")),
+                                    new User(reader.GetInt32(reader.GetOrdinal("UserFriendID"))),
+                                    new User(reader.GetInt32(reader.GetOrdinal("UserID")))
                                 );
 
-                                listaRaceTracks.Add(raceTrack);       //adiciona o obj à lista
+                                listaUserFriends.Add(use);       //adiciona o obj à lista
 
                                 //Debug para Output: Interessa ver o que está a sair do datareader
                                 if (DEBUG_LOCAL)
                                 {
                                     Console.WriteLine(
-                                        "Debug: SQLraceTrack - getAll() - DataReader - MYSQL:"
+                                        "Debug: SQLuserFriend - getAll() - DataReader - MYSQL:"
                                         + "\n Id->" + reader.GetInt32(reader.GetOrdinal("Id")).ToString()
                                     );
                                 }
@@ -160,17 +157,17 @@ namespace CRUD.ClassesEntidades.SQL
             }
             catch (Exception e)
             {
-                Console.WriteLine("Erro: SQLraceTrack - getAll() - \n" + e.ToString());
+                Console.WriteLine("Erro: SQLuserFriend - getAll() - \n" + e.ToString());
                 MessageBox.Show(
-                    "SQLuser - GetAll() - \n Ocorreram problemas com a ligação à Base de Dados: \n" + e.ToString(),
-                    "SQLuser - GetAll() - Catch",  // Título
+                    "SQLuserFriend - GetAll() - \n Ocorreram problemas com a ligação à Base de Dados: \n" + e.ToString(),
+                    "SQLuserFriend - GetAll() - Catch",  // Título
                     MessageBoxButton.OK,            // Botões
                     MessageBoxImage.Error           // Icon
                 );
                 return null;
             }
 
-            return listaRaceTracks;
+            return listaUserFriends;
         }
 
         /// <summary>
@@ -180,14 +177,14 @@ namespace CRUD.ClassesEntidades.SQL
         /// 2 - Completa o objeto, construindo os obj FK existentes
         /// </summary>
         /// <returns>Devolve um objeto preenchido ou NULL</returns>
-        static public RaceTrack Get(int id)
+        static public UserFriend Get(int userid, int userFriendId)
         {
-            RaceTrack racetrack = null;
+            UserFriend userFriend = null;
 
             if (DEBUG_LOCAL)
             {
-                Console.WriteLine("Debug: SQLraceTrack - get() - <----Iniciar Query---->");
-                Console.WriteLine("Debug: SQLraceTrack - get() - DBMS ATIVO: " + DBMS_ACTIVE);
+                Console.WriteLine("Debug: SQLuserFriend - get() - <----Iniciar Query---->");
+                Console.WriteLine("Debug: SQLuserFriend - get() - DBMS ATIVO: " + DBMS_ACTIVE);
             }
 
             //Execução do SQL DML sob controlo do try catch
@@ -205,15 +202,16 @@ namespace CRUD.ClassesEntidades.SQL
                         sqlCommand.Connection = ((MySqlConnection)conn);
 
                         // SQL DDL
-                        sqlCommand.CommandText = "SELECT * FROM racetrack where Id=@id;";
-                        sqlCommand.Parameters.Add(new MySqlParameter("@id", id));
+                        sqlCommand.CommandText = "SELECT * FROM UserFriend where UserID=@userId AND UserFriendID=@userFriendID;";
+                        sqlCommand.Parameters.Add(new MySqlParameter("@userId", userid));
+                        sqlCommand.Parameters.Add(new MySqlParameter("@userFriendID", userFriendId));
 
                         // Reader recebe os dados da execução da query
                         using (MySqlDataReader reader = sqlCommand.ExecuteReader())
                         {
                             if (DEBUG_LOCAL)
                             {
-                                Console.WriteLine("Debug: SQLraceTrack - get() - MYSQL - DataReader CRIADO: ");
+                                Console.WriteLine("Debug: SQLuserFriend - get() - MYSQL - DataReader CRIADO: ");
                             }
 
                             // Extração dos dados do reader para a lista, um a um: registo tabela -> new Obj ->Lista<Objs>
@@ -221,28 +219,28 @@ namespace CRUD.ClassesEntidades.SQL
                             {
                                 if (DEBUG_LOCAL)
                                 {
-                                    Console.WriteLine("Debug: SQLraceTrack - get() MYSQL: DATAREADER TEM REGISTO!");
+                                    Console.WriteLine("Debug: SQLuserFriend - get() MYSQL: DATAREADER TEM REGISTO!");
                                 }
 
                                 // Construção do objeto
                                 // Se objeto tem FKs, Não usar SQL***.get() para construir o fk dentro do construtor. gera exceção.
                                 // Criar o obj FK com o Construtor de Id e depois completar o objeto fora do domínio da Connection.
-                                RaceTrack raceTrack = new RaceTrack(
-                                    reader.GetInt32(reader.GetOrdinal("Id")),
-                                    reader["Descri"].ToString(),
-                                    reader.GetInt32(reader.GetOrdinal("ReputationRequiered")),
-                                    reader.GetInt32(reader.GetOrdinal("BaseMoneyReward")),
-                                    reader.GetInt32(reader.GetOrdinal("BaseReputationReward"))
-                               );
-                                racetrack = raceTrack;
+                                UserFriend use = new UserFriend(reader.GetBoolean(reader.GetOrdinal("IsOnline")),
+                                    reader.GetDateTime(reader.GetOrdinal("DateAdded")),
+                                    new User(reader.GetInt32(reader.GetOrdinal("UserFriendID"))),
+                                    new User(reader.GetInt32(reader.GetOrdinal("UserID")))
+                                );
+
+                                userFriend = use;
 
                                 //Debug para Output: Interessa ver o que está a sair do datareader
                                 if (DEBUG_LOCAL)
                                 {
                                     Console.WriteLine(
-                                        "Debug: SQLraceTrack - get() - DataReader - MYSQL:"
+                                        "Debug: SQLuserFriend - get() - DataReader - MYSQL:"
                                         + "\n Id->" + reader.GetInt32(reader.GetOrdinal("Id")).ToString()
                                         + "\n Descri-> " + reader["Descri"].ToString()
+                                        + "\n Obs-> " + reader["Obs"].ToString()
                                     );
                                 }
                             }
@@ -253,17 +251,17 @@ namespace CRUD.ClassesEntidades.SQL
             }
             catch (Exception e)
             {
-                Console.WriteLine("Erro: SQLraceTrack - get() - \n" + e.ToString());
+                Console.WriteLine("Erro: SQLuserFriend - get() - \n" + e.ToString());
                 MessageBox.Show(
-                    "SQLuser - Get() - \n Ocorreram problemas com a ligação à Base de Dados: \n" + e.ToString(),
-                    "SQLuser - Get() - Catch", // Título
+                    "SQLuserFriend - Get() - \n Ocorreram problemas com a ligação à Base de Dados: \n" + e.ToString(),
+                    "SQLuserFriend - Get() - Catch", // Título
                     MessageBoxButton.OK,        // Botões
                     MessageBoxImage.Error       // Icon
                 );
                 return null;
             }
 
-            return racetrack;
+            return userFriend;
         }
 
         #endregion
@@ -273,13 +271,13 @@ namespace CRUD.ClassesEntidades.SQL
         /// <summary>
         /// Altera um registo da tabela
         /// </summary>
-        /// <param name="raceTrack">Objeto com id a alterar da tabela</param>
-        static public void Set(RaceTrack raceTrack)
+        /// <param name="userFriend">Objeto com id a alterar da tabela</param>
+        static public void Set(UserFriend userFriend, int newUserID, int newServerID)
         {
             if (DEBUG_LOCAL)
             {
-                Console.WriteLine("Debug: SQLraceTrack - set() - <----Iniciar Query---->");
-                Console.WriteLine("Debug: SQLraceTrack - set() - DBMS ATIVO: " + DBMS_ACTIVE);
+                Console.WriteLine("Debug: SQLuserFriend - set() - <----Iniciar Query---->");
+                Console.WriteLine("Debug: SQLuserFriend - set() - DBMS ATIVO: " + DBMS_ACTIVE);
             }
 
             //Execução do SQL DML sob controlo do try catch
@@ -292,35 +290,36 @@ namespace CRUD.ClassesEntidades.SQL
                     using (MySqlCommand sqlCommand = ((MySqlConnection)conn).CreateCommand())
                     {
                         sqlCommand.CommandType = CommandType.Text;
-                        sqlCommand.CommandText = "UPDATE raceTrack SET "
-                        + " Descri = @descri,"
-                        + " ReputationRequiered = @reputationRequiered,"
-                        + " BaseMoneyReward = @baseMoneyReward,"
-                        + " BaseReputationReward = @baseReputationReward"
-                        + " WHERE Id = @id;";
-                        sqlCommand.Parameters.Add(new MySqlParameter("@id", raceTrack.Id));
-                        sqlCommand.Parameters.Add(new MySqlParameter("@descri", raceTrack.Descri));
-                        sqlCommand.Parameters.Add(new MySqlParameter("@reputationRequiered", raceTrack.ReputationRequiered));
-                        sqlCommand.Parameters.Add(new MySqlParameter("@baseMoneyReward", raceTrack.BaseMoneyReward));
-                        sqlCommand.Parameters.Add(new MySqlParameter("@baseReputationReward", raceTrack.BaseReputationReward));
+                        sqlCommand.CommandText = "UPDATE userFriend SET "
+                        + " DateAdded = @dateAdded,"
+                        + " IsOnline = @isOnline,"
+                        + " UserID = @newUserID,"
+                        + " UserFriendID = @newUserFriendID"
+                        + " WHERE UserID = @userID AND UserFriendID = @userFriendID;";
+                        sqlCommand.Parameters.Add(new MySqlParameter("@dateAdded", userFriend.DateAdded));
+                        sqlCommand.Parameters.Add(new MySqlParameter("@isOnline", userFriend.IsOnline));
+                        sqlCommand.Parameters.Add(new MySqlParameter("@userID", userFriend.User.Id));
+                        sqlCommand.Parameters.Add(new MySqlParameter("@userFriendID", userFriend.UserFriend1.Id));
+                        sqlCommand.Parameters.Add(new MySqlParameter("@newUserID", newUserID));
+                        sqlCommand.Parameters.Add(new MySqlParameter("@newUserFriendID", newServerID));
 
                         // Tenta executar o comando, que é suposto devolver 1
                         if (sqlCommand.ExecuteNonQuery() != 1)
                         {
                             // Se diferente, inverte o commit e Provoca a excessão saltanto para o catch
-                            throw new InvalidProgramException("SQLraceTrack - set() - mysql: ");
+                            throw new InvalidProgramException("SQLuserFriend - set() - mysql: ");
                         }
                     }
                 }
             }
             catch (Exception e)
             {
-                Console.WriteLine("Erro: SQLraceTrack - set() - \n" + e.ToString());
+                Console.WriteLine("Erro: SQLuserFriend - set() - \n" + e.ToString());
                 MessageBox.Show(
-                    "SQLraceTrack - Set() - \n Ocorreram problemas com a ligação à Base de Dados: \n" + e.ToString(),
-                    "SQLraceTrack - Set() - Catch",     // Título
-                    MessageBoxButton.OK,            // Botões
-                    MessageBoxImage.Error           // Icon
+                    "SQLServer - Set() - \n Ocorreram problemas com a ligação à Base de Dados: \n" + e.ToString(),
+                    "SQLServer - Set() - Catch",     // Título
+                    MessageBoxButton.OK,             // Botões
+                    MessageBoxImage.Error            // Icon
                 );
             }
         }
@@ -333,13 +332,13 @@ namespace CRUD.ClassesEntidades.SQL
         /// ATENÇÃO: Porque estes objetos são FK noutras tabelas, o delete aplica-se após 
         /// o método checkRelationalIntegrityViolation(), caso contrário pode gerar Exceções
         /// </summary>
-        /// <param name="raceTrack">Objeto com id a apagar da tabela</param>
-        static public void Del(RaceTrack raceTrack)
+        /// <param name="userFriend">Objeto com id a apagar da tabela</param>
+        static public void Del(UserFriend userFriend)
         {
             if (DEBUG_LOCAL)
             {
-                Console.WriteLine("Debug: SQLraceTrack - del() - <--Iniciar Query-->");
-                Console.WriteLine("Debug: SQLraceTrack - del() - DBMS ATIVO: " + DBMS_ACTIVE);
+                Console.WriteLine("Debug: SQLuserFriend - del() - <--Iniciar Query-->");
+                Console.WriteLine("Debug: SQLuserFriend - del() - DBMS ATIVO: " + DBMS_ACTIVE);
             }
 
             //Execução do SQL DML sob controlo do try catch
@@ -352,24 +351,25 @@ namespace CRUD.ClassesEntidades.SQL
                     {
                         // Prepara e executa o SQL DML
                         sqlCommand.CommandType = CommandType.Text;
-                        sqlCommand.CommandText = "DELETE FROM raceTrack WHERE Id=@id;";
-                        sqlCommand.Parameters.Add(new MySqlParameter("@id", raceTrack.Id));
+                        sqlCommand.CommandText = "DELETE FROM userFriend WHERE UserID = @userID AND UserFriendID = @userFriendID;";
+                        sqlCommand.Parameters.Add(new MySqlParameter("@userID", userFriend.User.Id));
+                        sqlCommand.Parameters.Add(new MySqlParameter("@userFriendID", userFriend.UserFriend1.Id));
 
                         // Tenta executar o comando, que é suposto devolver 1
                         if (sqlCommand.ExecuteNonQuery() != 1)
                         {
                             // Se diferente, inverte o commit e Provoca a excessão saltanto para o catch
-                            throw new InvalidProgramException("SQLraceTrack - del() - mysql: ");
+                            throw new InvalidProgramException("SQLuserFriend - del() - mysql: ");
                         }
                     }
                 }
             }
             catch (Exception e)
             {
-                Console.WriteLine("Erro: SQLraceTrack - del() - \n" + e.ToString());
+                Console.WriteLine("Erro: SQLuserFriend - del() - \n" + e.ToString());
                 MessageBox.Show(
-                    "SQLraceTrack - Del() - \n Ocorreram problemas com a ligação à Base de Dados: \n" + e.ToString(),
-                    "SQLraceTrack - Del() - Catch", // Título
+                    "SQLuserFriend - Del() - \n Ocorreram problemas com a ligação à Base de Dados: \n" + e.ToString(),
+                    "SQLuserFriend - Del() - Catch", // Título
                     MessageBoxButton.OK,        // Botões
                     MessageBoxImage.Error       // Icon
                 );
@@ -381,14 +381,14 @@ namespace CRUD.ClassesEntidades.SQL
         /// Aplica-se antes do del(). 
         /// A não utilização em PAR destes métodos, vai gerar Exceções
         /// </summary>
-        /// <param name="raceTrack">Registo a testar</param>
+        /// <param name="userFriend">Registo a testar</param>
         /// <returns></returns>
-        static public bool CheckRelationalIntegrityViolation(RaceTrack raceTrack)
+        static public bool CheckRelationalIntegrityViolation(UserFriend userFriend)
         {
             if (DEBUG_LOCAL)
             {
-                Console.WriteLine("Debug: SQLraceTrack - checkRelationalIntegrityViolation() - <----Iniciar Query---->");
-                Console.WriteLine("Debug: SQLraceTrack - checkRelationalIntegrityViolation() - DBMS ATIVO: " + DBMS_ACTIVE);
+                Console.WriteLine("Debug: SQLuserFriend - checkRelationalIntegrityViolation() - <----Iniciar Query---->");
+                Console.WriteLine("Debug: SQLuserFriend - checkRelationalIntegrityViolation() - DBMS ATIVO: " + DBMS_ACTIVE);
             }
 
 
@@ -401,7 +401,7 @@ namespace CRUD.ClassesEntidades.SQL
             strBuilderFK.AppendLine("Para eliminar este registo, precisa primeiro de eliminar os seus movimentos em:");
 
             // Flag de controlo de violação de interidade, para ativar as mensagens na FormAuxuliarInfo
-            bool relationalViolationForFKtables = false;   // ativa-se quando o user é fk em tabelas relacionadas
+            bool relationalViolationForFKtables = false;   // ativa-se quando o userFriend é fk em tabelas relacionadas
 
             int count;  // Acumula o nº de ocorrências positivas:
 
