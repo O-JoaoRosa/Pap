@@ -49,15 +49,15 @@ namespace Desktop___interfaces.Interfaces
             ComboBoxCar.ItemsSource = listaServers;
             ComboBoxCar.DisplayMemberPath = "Descri";
 
-            List<Wheel> listaWheels = SqlWheel.GetAll();
+            List<Wheel> listaWheels = SqlWheel.GetAll(LIST_NULL);
             ComboBoxWheels.ItemsSource = listaWheels;
             ComboBoxWheels.DisplayMemberPath = "Descri";
 
-            List<CarBody> listaCarBodys = SqlCarBody.GetAll();
+            List<CarBody> listaCarBodys = SqlCarBody.GetAll(LIST_NULL);
             ComboBoxCarBodies.ItemsSource = listaCarBodys;
             ComboBoxCarBodies.DisplayMemberPath = "Descri";
 
-            List<PowerUp> listaPowerUps = SqlPowerUp.GetAll();
+            List<PowerUp> listaPowerUps = SqlPowerUp.GetAll(LIST_NULL);
             ComboBoxPowerUp.ItemsSource = listaPowerUps;
             ComboBoxPowerUp.DisplayMemberPath = "Descri";
 

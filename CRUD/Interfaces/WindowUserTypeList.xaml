@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="WindowUserTypeList" Height="450" Width="800" Loaded="Window_Loaded">
     <Grid>
-        <ListView x:Name="ListView" HorizontalAlignment="Center" Height="270" VerticalAlignment="Center" Width="694">
+        <ListView x:Name="ListView" HorizontalAlignment="Center" Height="270" VerticalAlignment="Center" Width="694"  GridViewColumnHeader.Click="ListViewHeader_Click">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="ID" Width="0">
@@ -17,7 +17,7 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Header="Descrição" Width="686">
+                    <GridViewColumn Header="Descrição" Width="686" >
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding Descri}" FontWeight="Bold" HorizontalAlignment="Center" />

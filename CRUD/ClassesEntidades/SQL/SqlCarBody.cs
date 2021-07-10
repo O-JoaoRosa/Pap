@@ -81,7 +81,7 @@ namespace CRUD.ClassesEntidades.SQL
         /// 2 - Completa a lista principal, preenchendo os obj FK, 
         /// </summary>
         /// <returns>Lista de objetos</returns>
-        static public List<CarBody> GetAll()
+        static public List<CarBody> GetAll(int order)
         {
             List<CarBody> listaCarBodys = new List<CarBody>();   // Lista Principal
             String query = "";
@@ -98,7 +98,29 @@ namespace CRUD.ClassesEntidades.SQL
                 // Abre ligação ao DBMS Ativo
                 using (DbConnection conn = OpenConnection())
                 {
-                    query = "SELECT * FROM carBody;";
+                    query = "SELECT * FROM carBody";
+                    switch (order)
+                    {
+                        case LIST_CODENAME_ASC:
+                            query += " ORDER BY CodeName ASC;";
+                            break;
+
+                        case LIST_CODENAME_DESC:
+                            query += " ORDER BY CodeName DESC;";
+                            break;
+
+                        case LIST_DESCRI_ASC:
+                            query += " ORDER BY Descri ASC;";
+                            break;
+
+                        case LIST_DESCRI_DESC:
+                            query += " ORDER BY Descri DESC;";
+                            break;
+
+                        default:
+                            query += ";";
+                            break;
+                    }
 
                     // Prepara e executa o SQL DML
                     using (MySqlCommand sqlCommand = new MySqlCommand())

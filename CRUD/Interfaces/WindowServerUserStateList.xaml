@@ -10,10 +10,10 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <ListView x:Name="ListView" HorizontalAlignment="Center" Margin="0,74,0,60" Width="716">
+        <ListView x:Name="ListView" HorizontalAlignment="Center" Margin="0,74,0,60" Width="716" GridViewColumnHeader.Click="ListViewHeader_Click">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="ID" Width="0">
+                    <GridViewColumn Header="ID" Width="0" >
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding Id}" FontWeight="Bold" HorizontalAlignment="Center" />

@@ -1,6 +1,7 @@
 ﻿using CRUD.ClassesEntidades.SQL;
 using System.Windows;
 using System.Windows.Controls;
+using static CRUD.ClassesEntidades.SQL.SQL_Connection;
 
 namespace Desktop___interfaces.Interfaces
 {
@@ -9,16 +10,22 @@ namespace Desktop___interfaces.Interfaces
     /// </summary>
     public partial class WindowWheelList : Window
     {
+        int listOrder = LIST_NULL;
+
+
+        #region load
+
+        /// <summary>
+        /// metodo executado quando a window é chamada
+        /// </summary>
         public WindowWheelList()
         {
             InitializeComponent();
         }
 
-        #region load
-
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            ListView.ItemsSource = SqlWheel.GetAll();
+            ListView.ItemsSource = SqlWheel.GetAll(listOrder);
         }
 
         #endregion
@@ -89,6 +96,9 @@ namespace Desktop___interfaces.Interfaces
             }
             RefreshListView();
         }
+        #endregion
+
+        #region List Updates
 
         /// <summary>
         /// faz refresh a list View
@@ -97,7 +107,41 @@ namespace Desktop___interfaces.Interfaces
         {
             ListView.ItemsSource = null;                  // Elimina a associação da List à listView
             ListView.Items.Clear();                       // Limpa a ListView
-            ListView.ItemsSource = SqlWheel.GetAll();    // Reassocia a listAlunos à ListView
+            ListView.ItemsSource = SqlWheel.GetAll(listOrder);    // Reassocia a listAlunos à ListView
+        }
+
+        /// <summary>
+        /// metodo que dependedo do header clicado irá alterar a ordem da lista
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ListViewHeader_Click(object sender, RoutedEventArgs e)
+        {
+
+            if (((GridViewColumnHeader)e.OriginalSource).Column.Header.ToString() == "Descrição")
+            {
+                if (listOrder == LIST_DESCRI_ASC)
+                {
+                    listOrder = LIST_DESCRI_DESC;
+                }
+                else
+                {
+                    listOrder = LIST_DESCRI_ASC;
+                }
+            }
+            else
+            {
+                if (listOrder == LIST_CODENAME_ASC)
+                {
+                    listOrder = LIST_CODENAME_DESC;
+                }
+                else
+                {
+                    listOrder = LIST_CODENAME_ASC;
+                }
+            }
+            
+            RefreshListView();
         }
         #endregion
     }

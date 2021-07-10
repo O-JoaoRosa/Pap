@@ -1,6 +1,7 @@
 ﻿using CRUD.ClassesEntidades.SQL;
 using Desktop___interfaces.ClassesEntidades;
 using System.Windows;
+using static CRUD.ClassesEntidades.SQL.SQL_Connection;
 
 namespace Desktop___interfaces.Interfaces
 {
@@ -9,6 +10,8 @@ namespace Desktop___interfaces.Interfaces
     /// </summary>
     public partial class WindowUserTypeList : Window
     {
+        int listOrder = LIST_NULL;
+
         /// <summary>
         /// metodo que é executade quando a window é chamada 
         /// </summary>
@@ -24,8 +27,11 @@ namespace Desktop___interfaces.Interfaces
         /// <param name="e"></param>
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            ListView.ItemsSource = SqlUserType.GetAll();
+            ListView.ItemsSource = SqlUserType.GetAll(listOrder);
         }
+
+
+        #region buttons
 
         /// <summary>
         /// metodo que é executado quando o botão é carregado
@@ -64,7 +70,7 @@ namespace Desktop___interfaces.Interfaces
                 MessageBox.Show("Erro : nenhum item selecionado", "Erro!", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
-            RefreshListView();
+            RefreshListView(listOrder);
         }
 
         /// <summary>
@@ -93,17 +99,32 @@ namespace Desktop___interfaces.Interfaces
                 //avisa que nenhum item foi selecionado
                 MessageBox.Show("Erro : nenhum item selecionado", "Erro!", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-            RefreshListView();
+
+            RefreshListView(listOrder);
         }
+        #endregion
 
         /// <summary>
         /// faz refresh a list View
         /// </summary>
-        private void RefreshListView()
+        private void RefreshListView(int order)
         {
             ListView.ItemsSource = null;                  // Elimina a associação da List à listView
             ListView.Items.Clear();                       // Limpa a ListView
-            ListView.ItemsSource = SqlUserType.GetAll();    // Reassocia a listAlunos à ListView
+            ListView.ItemsSource = SqlUserType.GetAll(order);    // Reassocia a listAlunos à ListView
+        }
+
+        private void ListViewHeader_Click(object sender, RoutedEventArgs e)
+        {
+            if (listOrder == LIST_DESCRI_ASC)
+            {
+                listOrder = LIST_DESCRI_DESC;
+            }
+            else
+            {
+                listOrder = LIST_DESCRI_ASC;
+            }
+            RefreshListView(listOrder);
         }
     }
 }

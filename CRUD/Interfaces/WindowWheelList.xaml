@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="WindowWheelList" Height="469" Width="823" Loaded="Window_Loaded">
     <Grid>
-        <ListView x:Name="ListView" HorizontalAlignment="Center" Height="282" Margin="0,88,0,0" VerticalAlignment="Top" Width="780">
+        <ListView x:Name="ListView" HorizontalAlignment="Center" Height="282" Margin="0,88,0,0" VerticalAlignment="Top" Width="780" GridViewColumnHeader.Click="ListViewHeader_Click">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="ID" Width="0">

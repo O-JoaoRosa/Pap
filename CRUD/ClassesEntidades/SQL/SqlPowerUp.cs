@@ -81,7 +81,7 @@ namespace CRUD.ClassesEntidades.SQL
         /// 2 - Completa a lista principal, preenchendo os obj FK, 
         /// </summary>
         /// <returns>Lista de objetos</returns>
-        static public List<PowerUp> GetAll()
+        static public List<PowerUp> GetAll(int order)
         {
             List<PowerUp> listaPowerUps = new List<PowerUp>();   // Lista Principal
             String query = "";
@@ -98,7 +98,21 @@ namespace CRUD.ClassesEntidades.SQL
                 // Abre ligação ao DBMS Ativo
                 using (DbConnection conn = OpenConnection())
                 {
-                    query = "SELECT * FROM powerup;";
+                    query = "SELECT * FROM powerup";
+                    switch (order)
+                    {
+                        case LIST_DESCRI_ASC:
+                            query += " ORDER BY Descri ASC;";
+                            break;
+
+                        case LIST_DESCRI_DESC:
+                            query += " ORDER BY Descri DESC;";
+                            break;
+
+                        default:
+                            query += ";";
+                            break;
+                    }
 
                     // Prepara e executa o SQL DML
                     using (MySqlCommand sqlCommand = new MySqlCommand())

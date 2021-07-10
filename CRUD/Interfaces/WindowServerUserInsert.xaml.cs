@@ -45,7 +45,7 @@ namespace Desktop___interfaces.Interfaces
             ComboBoxServer.ItemsSource = listaServers;
             ComboBoxServer.DisplayMemberPath = "Descri";
 
-            List<ServerUserState> listaServerUserStates = SqlUserServerState.GetAll();
+            List<ServerUserState> listaServerUserStates = SqlUserServerState.GetAll(LIST_NULL);
             ComboBoxServerUserState.ItemsSource = listaServerUserStates;
             ComboBoxServerUserState.DisplayMemberPath = "Descri";
 

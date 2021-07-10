@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="WindowPowerUpList" Height="450" Width="800" ResizeMode="NoResize" Loaded="Window_Loaded">
     <Grid>
-        <ListView x:Name="ListView" Margin="24,92,33,77">
+        <ListView x:Name="ListView" Margin="24,92,33,77" GridViewColumnHeader.Click="ListViewHeader_Click">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="ID" Width="0">
