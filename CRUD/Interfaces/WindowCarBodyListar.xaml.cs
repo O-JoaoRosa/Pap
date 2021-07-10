@@ -111,7 +111,6 @@ namespace Desktop___interfaces.Interfaces
         /// <param name="e"></param>
         private void ListViewHeader_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show(((GridViewColumnHeader)e.OriginalSource).Column.Header.ToString());
 
             if (((GridViewColumnHeader)e.OriginalSource).Column.Header.ToString() == "Descrição")
             {

@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="WindowCarBodyListar" Height="456" Width="817" ResizeMode="NoResize" Loaded="Window_Loaded">
     <Grid>
-        <ListView x:Name="ListView" Margin="10,82,10,78">
+        <ListView x:Name="ListView" Margin="10,82,10,78" GridViewColumnHeader.Click="ListViewHeader_Click">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="ID" Width="0">

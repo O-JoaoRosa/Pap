@@ -104,7 +104,11 @@ namespace Desktop___interfaces.Interfaces
             ListView.ItemsSource = SqlPowerUp.GetAll(order);    // Reassocia a listAlunos à ListView
         }
         
-
+        /// <summary>
+        /// metodo que muda a ordenação da lista
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ListViewHeader_Click(object sender, RoutedEventArgs e)
         {
             if (listOrder == LIST_DESCRI_ASC)
