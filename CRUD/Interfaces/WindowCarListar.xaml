@@ -11,7 +11,7 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Label Content="Lista Car" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="50" Height="73"/>
-        <ListView x:Name="ListView" Margin="0,78,0,0" HorizontalAlignment="Center" Width="980" Height="293" VerticalAlignment="Top" >
+        <ListView x:Name="ListView" Margin="0,78,0,0" HorizontalAlignment="Center" Width="980" Height="293" VerticalAlignment="Top"  GridViewColumnHeader.Click="ListViewHeader_Click">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="ID" Width="0">

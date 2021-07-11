@@ -86,7 +86,7 @@ namespace CRUD.ClassesEntidades.SQL
         /// 2 - Completa a lista principal, preenchendo os obj FK, 
         /// </summary>
         /// <returns>Lista de objetos</returns>
-        static public List<Car> GetAll()
+        static public List<Car> GetAll(int order)
         {
             List<Car> listaCars = new List<Car>();   // Lista Principal
             String query = "";
@@ -103,7 +103,45 @@ namespace CRUD.ClassesEntidades.SQL
                 // Abre ligação ao DBMS Ativo
                 using (DbConnection conn = OpenConnection())
                 {
-                    query = "SELECT * FROM car;";
+                    query = "SELECT * FROM car";
+                    switch (order)
+                    {
+                        case LIST_PRICE_ASC:
+                            query += " ORDER BY Price ASC;";
+                            break;
+
+                        case LIST_PRICE_DESC:
+                            query += " ORDER BY Price DESC;";
+                            break;
+
+                        case LIST_DESCRI_ASC:
+                            query += " ORDER BY Descri ASC;";
+                            break;
+
+                        case LIST_DESCRI_DESC:
+                            query += " ORDER BY Descri DESC;";
+                            break;
+
+                        case LIST_REPREQ_ASC:
+                            query += " ORDER BY ReputationRequired ASC;";
+                            break;
+
+                        case LIST_REPREQ_DESC:
+                            query += " ORDER BY ReputationRequired DESC;";
+                            break;
+
+                        case LIST_MAXSPEED_ASC:
+                            query += " ORDER BY MaxSpeed ASC;";
+                            break;
+
+                        case LIST_MAXSPEED_DESC:
+                            query += " ORDER BY MaxSpeed DESC;";
+                            break;
+
+                        default:
+                            query += ";";
+                            break;
+                    }
 
                     // Prepara e executa o SQL DML
                     using (MySqlCommand sqlCommand = new MySqlCommand())

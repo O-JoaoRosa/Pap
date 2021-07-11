@@ -81,7 +81,7 @@ namespace CRUD.ClassesEntidades.SQL
         /// 2 - Completa a lista principal, preenchendo os obj FK, 
         /// </summary>
         /// <returns>Lista de objetos</returns>
-        static public List<Profile> GetAll()
+        static public List<Profile> GetAll(int order)
         {
             List<Profile> listaProfiles = new List<Profile>();   // Lista Principal
             String query = "";
@@ -98,7 +98,37 @@ namespace CRUD.ClassesEntidades.SQL
                 // Abre ligação ao DBMS Ativo
                 using (DbConnection conn = OpenConnection())
                 {
-                    query = "SELECT * FROM profile;";
+                    query = "SELECT * FROM profile";
+                    switch (order)
+                    {
+                        case LIST_USERNAME_ASC:
+                            query += " ORDER BY UserNameID ASC;";
+                            break;
+
+                        case LIST_USERNAME_DESC:
+                            query += " ORDER BY UserNameID DESC;";
+                            break;
+
+                        case LIST_USERTYPE_ASC:
+                            query += " ORDER BY UserTypeID ASC;";
+                            break;
+
+                        case LIST_USERTYPE_DESC:
+                            query += " ORDER BY UserTypeID DESC;";
+                            break;
+
+                        case LIST_DATECREATE_ASC:
+                            query += " ORDER BY DateCreated ASC;";
+                            break;
+
+                        case LIST_DATECREATE_DESC:
+                            query += " ORDER BY DateCreated DESC;";
+                            break;
+
+                        default:
+                            query += ";";
+                            break;
+                    }
 
                     // Prepara e executa o SQL DML
                     using (MySqlCommand sqlCommand = new MySqlCommand())

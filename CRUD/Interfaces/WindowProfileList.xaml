@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="WindowProfileList" Height="483" Width="800" ResizeMode="NoResize">
     <Grid Height="464" VerticalAlignment="Top" Width="800" Margin="0,9,0,0" Loaded="Window_Loaded">
-        <ListView x:Name="ListView" Margin="23,72,25,101">
+        <ListView x:Name="ListView" Margin="23,72,25,101" GridViewColumnHeader.Click="ListViewHeader_Click">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Nome do User" Width="200">

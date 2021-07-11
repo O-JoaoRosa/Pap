@@ -1,6 +1,8 @@
 ﻿using CRUD.ClassesEntidades.SQL;
 using System.Collections.Generic;
 using System.Windows;
+using System.Windows.Controls;
+using static CRUD.ClassesEntidades.SQL.SQL_Connection;
 
 namespace Desktop___interfaces.Interfaces
 {
@@ -9,6 +11,8 @@ namespace Desktop___interfaces.Interfaces
     /// </summary>
     public partial class WindowProfileList : Window
     {
+        int listOrder = LIST_NULL;
+
         #region load
 
         public WindowProfileList()
@@ -18,7 +22,7 @@ namespace Desktop___interfaces.Interfaces
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            List<Profile> lista = SqlProfile.GetAll();
+            List<Profile> lista = SqlProfile.GetAll(listOrder);
             List<Profile> listatemp = new List<Profile>();
             Profile profile;
             foreach (Profile p in lista)
@@ -28,6 +32,7 @@ namespace Desktop___interfaces.Interfaces
                 profile.TipoUser = SqlUserType.Get(p.TipoUser.Id);
                 listatemp.Add(profile);
             }
+            listatemp.Sort();
             ListView.ItemsSource = listatemp;
         }
 
@@ -100,7 +105,9 @@ namespace Desktop___interfaces.Interfaces
             }
             RefreshListView();
         }
+        #endregion
 
+        #region List Updates
         /// <summary>
         /// faz refresh a list View
         /// </summary>
@@ -109,7 +116,7 @@ namespace Desktop___interfaces.Interfaces
             ListView.ItemsSource = null;                  // Elimina a associação da List à listView
             ListView.Items.Clear();                       // Limpa a ListView
 
-            List<Profile> lista = SqlProfile.GetAll();
+            List<Profile> lista = SqlProfile.GetAll(listOrder);
             List<Profile> listatemp = new List<Profile>();
             Profile profile;
             foreach (Profile p in lista)
@@ -120,6 +127,52 @@ namespace Desktop___interfaces.Interfaces
                 listatemp.Add(profile);
             }
             ListView.ItemsSource = listatemp;
+        }
+
+        /// <summary>
+        /// metodo que dependedo do header clicado irá alterar a ordem da lista
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ListViewHeader_Click(object sender, RoutedEventArgs e)
+        {
+            //verifica que headr foi clickado
+            if (((GridViewColumnHeader)e.OriginalSource).Column.Header.ToString() == "Nome do User")
+            {
+                //if utilizado para alterar a ordem da lista 
+                if (listOrder == LIST_DESCRI_ASC)
+                {
+                    listOrder = LIST_DESCRI_DESC;
+                }
+                else
+                {
+                    listOrder = LIST_DESCRI_ASC;
+                }
+            }
+            else if (((GridViewColumnHeader)e.OriginalSource).Column.Header.ToString() == "Tipo de user")
+            {
+                if (listOrder == LIST_USERTYPE_ASC)
+                {
+                    listOrder = LIST_USERTYPE_DESC;
+                }
+                else
+                {
+                    listOrder = LIST_USERTYPE_ASC;
+                }
+            }
+            else if (((GridViewColumnHeader)e.OriginalSource).Column.Header.ToString() == "Data de Criação")
+            {
+                if (listOrder == LIST_DATECREATE_ASC)
+                {
+                    listOrder = LIST_DATECREATE_DESC;
+                }
+                else
+                {
+                    listOrder = LIST_DATECREATE_ASC;
+                }
+            }
+
+            RefreshListView();
         }
         #endregion
 

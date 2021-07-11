@@ -45,7 +45,7 @@ namespace Desktop___interfaces.Interfaces
             ComboBoxUser.ItemsSource = listaUser;
             ComboBoxUser.DisplayMemberPath = "UserName";
 
-            List<Car> listaServers = SqlCar.GetAll();
+            List<Car> listaServers = SqlCar.GetAll(LIST_NULL);
             ComboBoxCar.ItemsSource = listaServers;
             ComboBoxCar.DisplayMemberPath = "Descri";
 
