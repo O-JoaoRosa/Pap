@@ -1,7 +1,9 @@
 ﻿using CRUD.ClassesEntidades.SQL;
-using Desktop___interfaces.ClassesEntidades.SQL;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
+using static CRUD.ClassesEntidades.SQL.SQL_Connection;
 
 namespace Desktop___interfaces.Interfaces
 {
@@ -10,6 +12,9 @@ namespace Desktop___interfaces.Interfaces
     /// </summary>
     public partial class WindowUserCarList : Window
     {
+        int listOrder = LIST_NULL;
+        List<UserCar> listatemp = new List<UserCar>();
+
         #region load
 
         public WindowUserCarList()
@@ -20,7 +25,6 @@ namespace Desktop___interfaces.Interfaces
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             List<UserCar> lista = SqlUserCar.GetAll();
-            List<UserCar> listatemp = new List<UserCar>();
             UserCar userCar;
             foreach (UserCar p in lista)
             {
@@ -129,5 +133,55 @@ namespace Desktop___interfaces.Interfaces
         #endregion
 
 
+        #region lista order
+
+        /// <summary>
+        /// metodo que dependedo do header clicado irá alterar a ordem da lista
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ListViewHeader_Click(object sender, RoutedEventArgs e)
+        {
+            //verifica que headr foi clickado
+            if (((GridViewColumnHeader)e.OriginalSource).Column.Header.ToString() == "Nome de utilizador")
+            {
+                if (listOrder == 100)
+                {
+                    List<UserCar> SortedList = listatemp.OrderByDescending(o => o.User.UserName).ToList();
+                    ListView.ItemsSource = null;
+                    ListView.Items.Clear();
+                    ListView.ItemsSource = SortedList;
+                    listOrder = 101;
+                }
+                else
+                {
+                    List<UserCar> SortedList = listatemp.OrderBy(o => o.User.UserName).ToList();
+                    ListView.ItemsSource = null;
+                    ListView.Items.Clear();
+                    ListView.ItemsSource = SortedList;
+                    listOrder = 100;
+                }
+            }
+            else if (((GridViewColumnHeader)e.OriginalSource).Column.Header.ToString() == "Carro")
+            {
+                if (listOrder == 200)
+                {
+                    List<UserCar> SortedList = listatemp.OrderByDescending(o => o.Car.Descri).ToList();
+                    ListView.ItemsSource = null;
+                    ListView.Items.Clear();
+                    ListView.ItemsSource = SortedList;
+                    listOrder = 201;
+                }
+                else
+                {
+                    List<UserCar> SortedList = listatemp.OrderBy(o => o.Car.Descri).ToList();
+                    ListView.ItemsSource = null;
+                    ListView.Items.Clear();
+                    ListView.ItemsSource = SortedList;
+                    listOrder = 200;
+                }
+            }
+        }
+        #endregion
     }
 }

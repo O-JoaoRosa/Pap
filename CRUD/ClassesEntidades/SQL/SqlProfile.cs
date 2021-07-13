@@ -101,13 +101,6 @@ namespace CRUD.ClassesEntidades.SQL
                     query = "SELECT * FROM profile";
                     switch (order)
                     {
-                        case LIST_USERNAME_ASC:
-                            query += " ORDER BY UserNameID ASC;";
-                            break;
-
-                        case LIST_USERNAME_DESC:
-                            query += " ORDER BY UserNameID DESC;";
-                            break;
 
                         case LIST_USERTYPE_ASC:
                             query += " ORDER BY UserTypeID ASC;";

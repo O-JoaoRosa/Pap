@@ -1,7 +1,10 @@
 ﻿using CRUD.ClassesEntidades.SQL;
 using Desktop___interfaces.ClassesEntidades.SQL;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
+using static CRUD.ClassesEntidades.SQL.SQL_Connection;
 
 namespace Desktop___interfaces.Interfaces
 {
@@ -10,6 +13,9 @@ namespace Desktop___interfaces.Interfaces
     /// </summary>
     public partial class WindowServerUserList : Window
     {
+        int listOrder = LIST_NULL;
+        List<ServerUser> listatemp = new List<ServerUser>();
+
         #region load
 
         public WindowServerUserList()
@@ -103,6 +109,10 @@ namespace Desktop___interfaces.Interfaces
             RefreshListView();
         }
 
+        #endregion
+
+        #region List Updates
+
         /// <summary>
         /// faz refresh a list View
         /// </summary>
@@ -112,7 +122,7 @@ namespace Desktop___interfaces.Interfaces
             ListView.Items.Clear();                       // Limpa a ListView
 
             List<ServerUser> lista = SqlServerUser.GetAll();
-            List<ServerUser> listatemp = new List<ServerUser>();
+            listatemp = new List<ServerUser>();
             ServerUser serverUser;
             foreach (ServerUser p in lista)
             {
@@ -123,6 +133,55 @@ namespace Desktop___interfaces.Interfaces
                 listatemp.Add(serverUser);
             }
             ListView.ItemsSource = listatemp;
+        }
+
+        /// <summary>
+        /// metodo que dependedo do header clicado irá alterar a ordem da lista
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ListViewHeader_Click(object sender, RoutedEventArgs e)
+        {
+            //verifica que headr foi clickado
+            if (((GridViewColumnHeader)e.OriginalSource).Column.Header.ToString() == "Utilizador")
+            {
+                if (listOrder == 100)
+                {
+                    List<ServerUser> SortedList = listatemp.OrderByDescending(o => o.User.UserName).ToList();
+                    ListView.ItemsSource = null;
+                    ListView.Items.Clear();
+                    ListView.ItemsSource = SortedList;
+                    listOrder = 101;
+                }
+                else
+                {
+                    List<ServerUser> SortedList = listatemp.OrderBy(o => o.User.UserName).ToList();
+                    ListView.ItemsSource = null;
+                    ListView.Items.Clear();
+                    ListView.ItemsSource = SortedList;
+                    listOrder = 100;
+                }
+            }
+            else if (((GridViewColumnHeader)e.OriginalSource).Column.Header.ToString() == "Servidor")
+            {
+                if (listOrder == 200)
+                {
+                    List<ServerUser> SortedList = listatemp.OrderByDescending(o => o.Server.Descri).ToList();
+                    ListView.ItemsSource = null;
+                    ListView.Items.Clear();
+                    ListView.ItemsSource = SortedList;
+                    listOrder = 201;
+                }
+                else
+                {
+                    List<ServerUser> SortedList = listatemp.OrderBy(o => o.Server.Descri).ToList();
+                    ListView.ItemsSource = null;
+                    ListView.Items.Clear();
+                    ListView.ItemsSource = SortedList;
+                    listOrder = 200;
+                }
+            }
+
         }
         #endregion
     }

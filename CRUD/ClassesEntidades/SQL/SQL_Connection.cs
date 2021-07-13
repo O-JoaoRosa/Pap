@@ -48,6 +48,14 @@ namespace CRUD.ClassesEntidades.SQL
         public const int LIST_USERTYPE_DESC = 14;
         public const int LIST_DATECREATE_ASC = 15;
         public const int LIST_DATECREATE_DESC = 16;
+        public const int LIST_OBS_ASC = 17;
+        public const int LIST_OBS_DESC = 18;
+        public const int LIST_EMAIL_ASC = 20;
+        public const int LIST_EMAIL_DESC = 21;
+        public const int LIST_LASTTIMEONLINE_ASC = 22;
+        public const int LIST_LASTTIMEONLINE_DESC = 23;
+        public const int LIST_VALUE_ASC = 24;
+        public const int LIST_VALUE_DESC = 25;
 
 
         // Constantes para definir as Entidades

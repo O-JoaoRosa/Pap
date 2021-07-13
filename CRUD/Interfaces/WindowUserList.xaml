@@ -8,7 +8,7 @@
         Title="WindowUserList" Height="500" Width="950" ResizeMode="NoResize" Loaded="Window_Loaded">
     <Grid>
         <Label Content="Lista User" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="50" Margin="0,10,0,0"/>
-        <ListView x:Name="ListView" Height="322" Margin="0,87,0,0" VerticalAlignment="Top" HorizontalAlignment="Center" Width="888">
+        <ListView x:Name="ListView" Height="322" Margin="0,87,0,0" VerticalAlignment="Top" HorizontalAlignment="Center" Width="888" GridViewColumnHeader.Click="ListViewHeader_Click">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="ID" Width="0">

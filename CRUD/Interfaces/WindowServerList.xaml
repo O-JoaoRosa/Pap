@@ -8,7 +8,7 @@
         Title="WindowServerList" Height="500" Width="900"  ResizeMode="NoResize" Loaded="Window_Loaded">
     <Grid>
         <Label Content="Lista de Servidores" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" FontSize="50"/>
-        <ListView x:Name="ListView" Margin="36,92,35,65">
+        <ListView x:Name="ListView" Margin="36,92,35,65" GridViewColumnHeader.Click="ListViewHeader_Click">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="ID" Width="0">

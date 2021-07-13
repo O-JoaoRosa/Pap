@@ -1,5 +1,6 @@
 ﻿using CRUD.ClassesEntidades.SQL;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using static CRUD.ClassesEntidades.SQL.SQL_Connection;
@@ -12,6 +13,7 @@ namespace Desktop___interfaces.Interfaces
     public partial class WindowProfileList : Window
     {
         int listOrder = LIST_NULL;
+        List<Profile> listatemp = new List<Profile>();
 
         #region load
 
@@ -23,8 +25,9 @@ namespace Desktop___interfaces.Interfaces
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             List<Profile> lista = SqlProfile.GetAll(listOrder);
-            List<Profile> listatemp = new List<Profile>();
             Profile profile;
+            listatemp = new List<Profile>();
+            
             foreach (Profile p in lista)
             {
                 profile = p;
@@ -32,7 +35,6 @@ namespace Desktop___interfaces.Interfaces
                 profile.TipoUser = SqlUserType.Get(p.TipoUser.Id);
                 listatemp.Add(profile);
             }
-            listatemp.Sort();
             ListView.ItemsSource = listatemp;
         }
 
@@ -115,9 +117,8 @@ namespace Desktop___interfaces.Interfaces
         {
             ListView.ItemsSource = null;                  // Elimina a associação da List à listView
             ListView.Items.Clear();                       // Limpa a ListView
-
+            listatemp = new List<Profile>();
             List<Profile> lista = SqlProfile.GetAll(listOrder);
-            List<Profile> listatemp = new List<Profile>();
             Profile profile;
             foreach (Profile p in lista)
             {
@@ -139,25 +140,40 @@ namespace Desktop___interfaces.Interfaces
             //verifica que headr foi clickado
             if (((GridViewColumnHeader)e.OriginalSource).Column.Header.ToString() == "Nome do User")
             {
-                //if utilizado para alterar a ordem da lista 
-                if (listOrder == LIST_DESCRI_ASC)
+                if (listOrder == 100)
                 {
-                    listOrder = LIST_DESCRI_DESC;
+                    List<Profile> SortedList = listatemp.OrderByDescending(o => o.UserEscolhido.UserName).ToList();
+                    ListView.ItemsSource = null;
+                    ListView.Items.Clear();
+                    ListView.ItemsSource = SortedList;
+                    listOrder = 101;
                 }
                 else
                 {
-                    listOrder = LIST_DESCRI_ASC;
+                    List<Profile> SortedList = listatemp.OrderBy(o => o.UserEscolhido.UserName).ToList();
+                    ListView.ItemsSource = null;                 
+                    ListView.Items.Clear();
+                    ListView.ItemsSource = SortedList;
+                    listOrder = 100;
                 }
             }
             else if (((GridViewColumnHeader)e.OriginalSource).Column.Header.ToString() == "Tipo de user")
             {
-                if (listOrder == LIST_USERTYPE_ASC)
+                if (listOrder == 200)
                 {
-                    listOrder = LIST_USERTYPE_DESC;
+                    List<Profile> SortedList = listatemp.OrderByDescending(o => o.TipoUser.Descri).ToList();
+                    ListView.ItemsSource = null;
+                    ListView.Items.Clear();
+                    ListView.ItemsSource = SortedList;
+                    listOrder = 201;
                 }
                 else
                 {
-                    listOrder = LIST_USERTYPE_ASC;
+                    List<Profile> SortedList = listatemp.OrderBy(o => o.TipoUser.Descri).ToList();
+                    ListView.ItemsSource = null;
+                    ListView.Items.Clear();
+                    ListView.ItemsSource = SortedList;
+                    listOrder = 200;
                 }
             }
             else if (((GridViewColumnHeader)e.OriginalSource).Column.Header.ToString() == "Data de Criação")
@@ -170,9 +186,9 @@ namespace Desktop___interfaces.Interfaces
                 {
                     listOrder = LIST_DATECREATE_ASC;
                 }
+                RefreshListView();
             }
 
-            RefreshListView();
         }
         #endregion
 

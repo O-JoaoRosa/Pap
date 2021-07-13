@@ -10,6 +10,9 @@ namespace Desktop___interfaces.Interfaces
     /// </summary>
     public partial class WindowServerList : Window
     {
+        int listOrder = LIST_NULL;
+
+        #region load
         /// <summary>
         /// metodo executado assim que a window é inicializada
         /// </summary>
@@ -25,10 +28,11 @@ namespace Desktop___interfaces.Interfaces
         /// <param name="e"></param>
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            ListView.ItemsSource = SqlServer.GetAll();
+            ListView.ItemsSource = SqlServer.GetAll(listOrder);
         }
+        #endregion
 
-
+        #region buttons
         /// <summary>
         /// metodo que será executado assim que o botão de cancelar for carregado
         /// </summary>
@@ -96,7 +100,9 @@ namespace Desktop___interfaces.Interfaces
                 MessageBox.Show("Erro : nenhum item selecionado", "Erro!", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+        #endregion
 
+        #region List Updates
         /// <summary>
         /// faz refresh a list View
         /// </summary>
@@ -104,7 +110,44 @@ namespace Desktop___interfaces.Interfaces
         {
             ListView.ItemsSource = null;                  // Elimina a associação da List à listView
             ListView.Items.Clear();                       // Limpa a ListView
-            ListView.ItemsSource = SqlServer.GetAll();    // Reassocia a listAlunos à ListView
+            ListView.ItemsSource = SqlServer.GetAll(listOrder);    // Reassocia a listAlunos à ListView
         }
+
+
+        /// <summary>
+        /// metodo que dependedo do header clicado irá alterar a ordem da lista
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ListViewHeader_Click(object sender, RoutedEventArgs e)
+        {
+            //verifica que headr foi clickado
+            if (((GridViewColumnHeader)e.OriginalSource).Column.Header.ToString() == "Descrição")
+            {
+                //if utilizado para alterar a ordem da lista 
+                if (listOrder == LIST_DESCRI_ASC)
+                {
+                    listOrder = LIST_DESCRI_DESC;
+                }
+                else
+                {
+                    listOrder = LIST_DESCRI_ASC;
+                }
+            }
+            else
+            {
+                if (listOrder == LIST_OBS_ASC)
+                {
+                    listOrder = LIST_OBS_DESC;
+                }
+                else
+                {
+                    listOrder = LIST_OBS_ASC;
+                }
+            }
+
+            RefreshListView();
+        }
+        #endregion
     }
 }

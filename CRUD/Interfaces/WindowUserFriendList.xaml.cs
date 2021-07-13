@@ -1,6 +1,9 @@
 ﻿using CRUD.ClassesEntidades.SQL;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
+using static CRUD.ClassesEntidades.SQL.SQL_Connection;
 
 namespace Desktop___interfaces.Interfaces
 {
@@ -9,6 +12,8 @@ namespace Desktop___interfaces.Interfaces
     /// </summary>
     public partial class WindowUserFriendList : Window
     {
+        int listOrder = LIST_NULL;
+        List<UserFriend> listatemp = new List<UserFriend>();
 
         #region load
         public WindowUserFriendList()
@@ -19,7 +24,7 @@ namespace Desktop___interfaces.Interfaces
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             List<UserFriend> lista = SqlUserFriend.GetAll();
-            List<UserFriend> listatemp = new List<UserFriend>();
+            listatemp = new List<UserFriend>();
             UserFriend userFriend;
             foreach (UserFriend p in lista)
             {
@@ -110,7 +115,7 @@ namespace Desktop___interfaces.Interfaces
             ListView.Items.Clear();                       // Limpa a ListView
 
             List<UserFriend> lista = SqlUserFriend.GetAll();
-            List<UserFriend> listatemp = new List<UserFriend>();
+            listatemp = new List<UserFriend>();
             UserFriend userFriend;
             foreach (UserFriend p in lista)
             {
@@ -120,6 +125,57 @@ namespace Desktop___interfaces.Interfaces
                 listatemp.Add(userFriend);
             }
             ListView.ItemsSource = listatemp;
+        }
+        #endregion
+
+        #region lista order
+
+        /// <summary>
+        /// metodo que dependedo do header clicado irá alterar a ordem da lista
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ListViewHeader_Click(object sender, RoutedEventArgs e)
+        {
+            //verifica que headr foi clickado
+            if (((GridViewColumnHeader)e.OriginalSource).Column.Header.ToString() == "Utilizador")
+            {
+                if (listOrder == 100)
+                {
+                    List<UserFriend> SortedList = listatemp.OrderByDescending(o => o.User.UserName).ToList();
+                    ListView.ItemsSource = null;
+                    ListView.Items.Clear();
+                    ListView.ItemsSource = SortedList;
+                    listOrder = 101;
+                }
+                else
+                {
+                    List<UserFriend> SortedList = listatemp.OrderBy(o => o.User.UserName).ToList();
+                    ListView.ItemsSource = null;
+                    ListView.Items.Clear();
+                    ListView.ItemsSource = SortedList;
+                    listOrder = 100;
+                }
+            }
+            else if (((GridViewColumnHeader)e.OriginalSource).Column.Header.ToString() == "Amigo")
+            {
+                if (listOrder == 200)
+                {
+                    List<UserFriend> SortedList = listatemp.OrderByDescending(o => o.UserFriend1.UserName).ToList();
+                    ListView.ItemsSource = null;
+                    ListView.Items.Clear();
+                    ListView.ItemsSource = SortedList;
+                    listOrder = 201;
+                }
+                else
+                {
+                    List<UserFriend> SortedList = listatemp.OrderBy(o => o.UserFriend1.UserName).ToList();
+                    ListView.ItemsSource = null;
+                    ListView.Items.Clear();
+                    ListView.ItemsSource = SortedList;
+                    listOrder = 200;
+                }
+            }
         }
         #endregion
     }

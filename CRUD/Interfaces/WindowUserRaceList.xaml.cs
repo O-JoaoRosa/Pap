@@ -1,6 +1,9 @@
 ﻿using CRUD.ClassesEntidades.SQL;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
+using static CRUD.ClassesEntidades.SQL.SQL_Connection;
 
 namespace Desktop___interfaces.Interfaces
 {
@@ -9,6 +12,8 @@ namespace Desktop___interfaces.Interfaces
     /// </summary>
     public partial class WindowUserRaceList : Window
     {
+        int listOrder = LIST_NULL;
+        List<UserRace> listatemp = new List<UserRace>();
 
         #region load
         public WindowUserRaceList()
@@ -20,7 +25,7 @@ namespace Desktop___interfaces.Interfaces
         {
             //cria uma lista temporaria e uma lista que irá ser assiciada a listView
             List<UserRace> lista = SqlUserRace.GetAll();
-            List<UserRace> listatemp = new List<UserRace>();
+            listatemp = new List<UserRace>();
             UserRace userRace;
 
             //vai a cada elemneto da lista GetAll e controi as fks de maneira completa
@@ -114,7 +119,7 @@ namespace Desktop___interfaces.Interfaces
 
             //cria uma lista temporaria e uma lista que irá ser assiciada a listView
             List<UserRace> lista = SqlUserRace.GetAll();
-            List<UserRace> listatemp = new List<UserRace>();
+            listatemp = new List<UserRace>();
             UserRace userRace;
 
             //vai a cada elemneto da lista GetAll e controi as fks de maneira completa
@@ -126,6 +131,75 @@ namespace Desktop___interfaces.Interfaces
                 listatemp.Add(userRace);
             }
             ListView.ItemsSource = listatemp;
+        }
+        #endregion
+
+        #region lista order
+
+        /// <summary>
+        /// metodo que dependedo do header clicado irá alterar a ordem da lista
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ListViewHeader_Click(object sender, RoutedEventArgs e)
+        {
+            //verifica que headr foi clickado
+            if (((GridViewColumnHeader)e.OriginalSource).Column.Header.ToString() == "Utilizador")
+            {
+                if (listOrder == 100)
+                {
+                    List<UserRace> SortedList = listatemp.OrderByDescending(o => o.User.UserName).ToList();
+                    ListView.ItemsSource = null;
+                    ListView.Items.Clear();
+                    ListView.ItemsSource = SortedList;
+                    listOrder = 101;
+                }
+                else
+                {
+                    List<UserRace> SortedList = listatemp.OrderBy(o => o.User.UserName).ToList();
+                    ListView.ItemsSource = null;
+                    ListView.Items.Clear();
+                    ListView.ItemsSource = SortedList;
+                    listOrder = 100;
+                }
+            }
+            else if (((GridViewColumnHeader)e.OriginalSource).Column.Header.ToString() == "Pista de Corrida")
+            {
+                if (listOrder == 200)
+                {
+                    List<UserRace> SortedList = listatemp.OrderByDescending(o => o.RaceTrack.Descri).ToList();
+                    ListView.ItemsSource = null;
+                    ListView.Items.Clear();
+                    ListView.ItemsSource = SortedList;
+                    listOrder = 201;
+                }
+                else
+                {
+                    List<UserRace> SortedList = listatemp.OrderBy(o => o.RaceTrack.Descri).ToList();
+                    ListView.ItemsSource = null;
+                    ListView.Items.Clear();
+                    ListView.ItemsSource = SortedList;
+                    listOrder = 200;
+                }
+            }else if (((GridViewColumnHeader)e.OriginalSource).Column.Header.ToString() == "Data da corrida")
+            {
+                if (listOrder == 300)
+                {
+                    List<UserRace> SortedList = listatemp.OrderByDescending(o => o.DateRace).ToList();
+                    ListView.ItemsSource = null;
+                    ListView.Items.Clear();
+                    ListView.ItemsSource = SortedList;
+                    listOrder = 301;
+                }
+                else
+                {
+                    List<UserRace> SortedList = listatemp.OrderBy(o => o.DateRace).ToList();
+                    ListView.ItemsSource = null;
+                    ListView.Items.Clear();
+                    ListView.ItemsSource = SortedList;
+                    listOrder = 300;
+                }
+            }
         }
         #endregion
     }

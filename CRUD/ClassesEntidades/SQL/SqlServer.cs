@@ -80,7 +80,7 @@ namespace Desktop___interfaces.ClassesEntidades.SQL
         /// 2 - Completa a lista principal, preenchendo os obj FK, 
         /// </summary>
         /// <returns>Lista de objetos</returns>
-        static public List<Server> GetAll()
+        static public List<Server> GetAll(int order)
         {
             List<Server> listaServers = new List<Server>();   // Lista Principal
             String query = "";
@@ -97,7 +97,29 @@ namespace Desktop___interfaces.ClassesEntidades.SQL
                 // Abre ligação ao DBMS Ativo
                 using (DbConnection conn = OpenConnection())
                 {
-                    query = "SELECT * FROM Server;";
+                    query = "SELECT * FROM Server";
+                    switch (order)
+                    {
+                        case LIST_DESCRI_ASC:
+                            query += " ORDER BY Descri ASC;";
+                            break;
+
+                        case LIST_DESCRI_DESC:
+                            query += " ORDER BY Descri DESC;";
+                            break;
+
+                        case LIST_OBS_ASC:
+                            query += " ORDER BY Obs ASC;";
+                            break;
+
+                        case LIST_OBS_DESC:
+                            query += " ORDER BY Obs DESC;";
+                            break;
+
+                        default:
+                            query += ";";
+                            break;
+                    }
 
                     // Prepara e executa o SQL DML
                     using (MySqlCommand sqlCommand = new MySqlCommand())

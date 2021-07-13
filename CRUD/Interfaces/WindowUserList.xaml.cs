@@ -1,5 +1,7 @@
 ﻿using CRUD.ClassesEntidades.SQL;
 using System.Windows;
+using System.Windows.Controls;
+using static CRUD.ClassesEntidades.SQL.SQL_Connection;
 
 namespace Desktop___interfaces.Interfaces
 {
@@ -8,8 +10,9 @@ namespace Desktop___interfaces.Interfaces
     /// </summary>
     public partial class WindowUserList : Window
     {
-        #region load
+        int listOrder = LIST_NULL;
 
+        #region load
         public WindowUserList()
         {
             InitializeComponent();
@@ -17,13 +20,11 @@ namespace Desktop___interfaces.Interfaces
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            ListView.ItemsSource = SqlUser.GetAll();
+            ListView.ItemsSource = SqlUser.GetAll(listOrder);
         }
-
         #endregion
 
         #region Buttons
-
         private void ButtonCancel_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
@@ -97,8 +98,58 @@ namespace Desktop___interfaces.Interfaces
         {
             ListView.ItemsSource = null;                  // Elimina a associação da List à listView
             ListView.Items.Clear();                       // Limpa a ListView
-            ListView.ItemsSource = SqlUser.GetAll();    // Reassocia a listAlunos à ListView
+            ListView.ItemsSource = SqlUser.GetAll(listOrder);    // Reassocia a listAlunos à ListView
         }
+        #endregion
+
+        #region List Updates
+
+        /// <summary>
+        /// metodo que dependedo do header clicado irá alterar a ordem da lista
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ListViewHeader_Click(object sender, RoutedEventArgs e)
+        {
+            //verifica que headr foi clickado
+            if (((GridViewColumnHeader)e.OriginalSource).Column.Header.ToString() == "Nome de utilizador")
+            {
+                //if utilizado para alterar a ordem da lista 
+                if (listOrder == LIST_USERNAME_ASC)
+                {
+                    listOrder = LIST_USERNAME_DESC;
+                }
+                else
+                {
+                    listOrder = LIST_USERNAME_ASC;
+                }
+            }
+            else if (((GridViewColumnHeader)e.OriginalSource).Column.Header.ToString() == "Email")
+            {
+                if (listOrder == LIST_EMAIL_ASC)
+                {
+                    listOrder = LIST_EMAIL_DESC;
+                }
+                else
+                {
+                    listOrder = LIST_EMAIL_ASC;
+                }
+            }
+            else
+            {
+                if (listOrder == LIST_LASTTIMEONLINE_ASC)
+                {
+                    listOrder = LIST_LASTTIMEONLINE_DESC;
+                }
+                else
+                {
+                    listOrder = LIST_LASTTIMEONLINE_ASC;
+                }
+            }
+
+            RefreshListView();
+        }
+
         #endregion
     }
 }

@@ -85,7 +85,7 @@ namespace CRUD.ClassesEntidades.SQL
         /// 2 - Completa a lista principal, preenchendo os obj FK, 
         /// </summary>
         /// <returns>Lista de objetos</returns>
-        static public List<User> GetAll()
+        static public List<User> GetAll(int order)
         {
             List<User> listaUsers = new List<User>();   // Lista Principal
             String query = "";
@@ -102,7 +102,37 @@ namespace CRUD.ClassesEntidades.SQL
                 // Abre ligação ao DBMS Ativo
                 using (DbConnection conn = OpenConnection())
                 {
-                    query = "SELECT * FROM user;";
+                    query = "SELECT * FROM user";
+                    switch (order)
+                    {
+                        case LIST_USERNAME_ASC:
+                            query += " ORDER BY UserName ASC;";
+                            break;
+
+                        case LIST_USERNAME_DESC:
+                            query += " ORDER BY UserName DESC;";
+                            break;
+
+                        case LIST_EMAIL_ASC:
+                            query += " ORDER BY Email ASC;";
+                            break;
+
+                        case LIST_EMAIL_DESC:
+                            query += " ORDER BY Email DESC;";
+                            break;
+
+                        case LIST_LASTTIMEONLINE_ASC:
+                            query += " ORDER BY LastTimeOnline ASC;";
+                            break;
+
+                        case LIST_LASTTIMEONLINE_DESC:
+                            query += " ORDER BY LastTimeOnline DESC;";
+                            break;
+
+                        default:
+                            query += ";";
+                            break;
+                    }
 
                     // Prepara e executa o SQL DML
                     using (MySqlCommand sqlCommand = new MySqlCommand())
