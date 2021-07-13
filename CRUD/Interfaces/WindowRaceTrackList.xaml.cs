@@ -1,18 +1,7 @@
 ﻿using CRUD.ClassesEntidades.SQL;
-using Desktop___interfaces.ClassesEntidades;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+using static CRUD.ClassesEntidades.SQL.SQL_Connection;
 
 namespace Desktop___interfaces.Interfaces
 {
@@ -21,6 +10,8 @@ namespace Desktop___interfaces.Interfaces
     /// </summary>
     public partial class WindowRaceTrackList : Window
     {
+        int listOrder = LIST_NULL;
+
         #region load
         public WindowRaceTrackList()
         {
@@ -29,7 +20,7 @@ namespace Desktop___interfaces.Interfaces
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            ListView.ItemsSource = SqlRaceTrack.GetAll();
+            ListView.ItemsSource = SqlRaceTrack.GetAll(listOrder);
         }
 
         #endregion
@@ -109,8 +100,45 @@ namespace Desktop___interfaces.Interfaces
         {
             ListView.ItemsSource = null;                  // Elimina a associação da List à listView
             ListView.Items.Clear();                       // Limpa a ListView
-            ListView.ItemsSource = SqlRaceTrack.GetAll();    // Reassocia a listAlunos à ListView
+            ListView.ItemsSource = SqlRaceTrack.GetAll(listOrder);    // Reassocia a listAlunos à ListView
         }
+        #endregion
+
+        #region List Updates
+        /// <summary>
+        /// metodo que dependedo do header clicado irá alterar a ordem da lista
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ListViewHeader_Click(object sender, RoutedEventArgs e)
+        {
+            //verifica que headr foi clickado
+            if (((GridViewColumnHeader)e.OriginalSource).Column.Header.ToString() == "Descrição")
+            {
+                //if utilizado para alterar a ordem da lista 
+                if (listOrder == LIST_DESCRI_ASC)
+                {
+                    listOrder = LIST_DESCRI_DESC;
+                }
+                else
+                {
+                    listOrder = LIST_DESCRI_ASC;
+                }
+            }
+            else if (((GridViewColumnHeader)e.OriginalSource).Column.Header.ToString() == "Reputação necessária")
+            {
+                if (listOrder == LIST_REPREQ_ASC)
+                {
+                    listOrder = LIST_REPREQ_DESC;
+                }
+                else
+                {
+                    listOrder = LIST_REPREQ_ASC;
+                }
+            }
+            RefreshListView();
+        }
+
         #endregion
     }
 }

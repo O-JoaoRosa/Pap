@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="WindowRaceTrackList" Height="470" Width="817" ResizeMode="NoResize" Loaded="Window_Loaded">
     <Grid>
-        <ListView x:Name="ListView" Margin="22,77,23,72">
+        <ListView x:Name="ListView" Margin="22,77,23,72" GridViewColumnHeader.Click="ListViewHeader_Click">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="ID" Width="0">

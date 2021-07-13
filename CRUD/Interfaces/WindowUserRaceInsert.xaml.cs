@@ -39,7 +39,7 @@ namespace Desktop___interfaces.Interfaces
             ComboBoxUser.ItemsSource = listaUser;
             ComboBoxUser.DisplayMemberPath = "UserName";
 
-            List<RaceTrack> listaUserRaces = SqlRaceTrack.GetAll();
+            List<RaceTrack> listaUserRaces = SqlRaceTrack.GetAll(LIST_NULL);
             ComboBoxRaceTack.ItemsSource = listaUserRaces;
             ComboBoxRaceTack.DisplayMemberPath = "Descri";
 
