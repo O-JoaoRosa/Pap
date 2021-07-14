@@ -80,7 +80,7 @@ namespace Desktop___interfaces.ClassesEntidades.SQL
         /// 2 - Completa a lista principal, preenchendo os obj FK, 
         /// </summary>
         /// <returns>Lista de objetos</returns>
-        static public List<Server> GetAll(int order)
+        static public List<Server> GetAll(int order, string fromDescri, string untilDescri, string fromCodeName, string untilCodeName)
         {
             List<Server> listaServers = new List<Server>();   // Lista Principal
             String query = "";
@@ -98,6 +98,11 @@ namespace Desktop___interfaces.ClassesEntidades.SQL
                 using (DbConnection conn = OpenConnection())
                 {
                     query = "SELECT * FROM Server";
+                    if (fromDescri != null || untilDescri != null || fromCodeName != null || untilCodeName != null)
+                    {
+                        query += " WHERE Descri >= '" + fromDescri + "' AND Descri <= '" + untilDescri +
+                            "~' AND Obs >= '" + fromCodeName + "' AND Obs <= '" + untilCodeName + "~'";
+                    }
                     switch (order)
                     {
                         case LIST_DESCRI_ASC:

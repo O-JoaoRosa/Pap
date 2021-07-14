@@ -19,7 +19,7 @@ namespace Desktop___interfaces.Interfaces
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            ListView.ItemsSource = SqlPowerUp.GetAll(listOrder);
+            ListView.ItemsSource = SqlPowerUp.GetAll(listOrder, null, null);
         }
 
         #endregion
@@ -101,7 +101,7 @@ namespace Desktop___interfaces.Interfaces
         {
             ListView.ItemsSource = null;                  // Elimina a associação da List à listView
             ListView.Items.Clear();                       // Limpa a ListView
-            ListView.ItemsSource = SqlPowerUp.GetAll(order);    // Reassocia a listAlunos à ListView
+            ListView.ItemsSource = SqlPowerUp.GetAll(order, TextBoxFrom.Text, TextBoxUntil.Text);    // Reassocia a listAlunos à ListView
         }
         
         /// <summary>
@@ -119,6 +119,16 @@ namespace Desktop___interfaces.Interfaces
             {
                 listOrder = LIST_DESCRI_ASC;
             }
+            RefreshListView(listOrder);
+        }
+
+        /// <summary>
+        /// metodo do butão de pesquisa
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ButtonSearch_Click(object sender, RoutedEventArgs e)
+        {
             RefreshListView(listOrder);
         }
         #endregion

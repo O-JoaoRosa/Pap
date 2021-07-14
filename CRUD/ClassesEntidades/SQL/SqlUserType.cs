@@ -79,7 +79,7 @@ namespace CRUD.ClassesEntidades.SQL
         /// 2 - Completa a lista principal, preenchendo os obj FK, 
         /// </summary>
         /// <returns>Lista de objetos</returns>
-        static public List<UserType> GetAll(int order)
+        static public List<UserType> GetAll(int order, string from , string until)
         {
             List<UserType> listaUserTypes = new List<UserType>();   // Lista Principal
             String query = "";
@@ -97,6 +97,10 @@ namespace CRUD.ClassesEntidades.SQL
                 using (DbConnection conn = OpenConnection())
                 {
                     query = "SELECT * FROM usertype";
+                    if (from != null || until != null)
+                    {
+                        query += " WHERE Descri >= '"+ from + "' AND Descri <= '" + until +"~'" ;
+                    }
                     switch (order)
                     {
                         case LIST_DESCRI_ASC:

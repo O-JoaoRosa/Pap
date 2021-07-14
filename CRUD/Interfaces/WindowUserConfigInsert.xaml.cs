@@ -37,7 +37,7 @@ namespace Desktop___interfaces.Interfaces
         /// <param name="e"></param>
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            List<User> listaUser = SqlUser.GetAll(LIST_NULL);
+            List<User> listaUser = SqlUser.GetAll(LIST_NULL, null, null, null, null);
             ComboBoxUser.ItemsSource = listaUser;
             ComboBoxUser.DisplayMemberPath = "UserName";
 

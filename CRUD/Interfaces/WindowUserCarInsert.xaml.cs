@@ -41,23 +41,23 @@ namespace Desktop___interfaces.Interfaces
         /// <param name="e"></param>
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            List<User> listaUser = SqlUser.GetAll(LIST_NULL);
+            List<User> listaUser = SqlUser.GetAll(LIST_NULL, null, null, null, null);
             ComboBoxUser.ItemsSource = listaUser;
             ComboBoxUser.DisplayMemberPath = "UserName";
 
-            List<Car> listaServers = SqlCar.GetAll(LIST_NULL);
+            List<Car> listaServers = SqlCar.GetAll(LIST_NULL, null, null, null, null, null, null, null, null);
             ComboBoxCar.ItemsSource = listaServers;
             ComboBoxCar.DisplayMemberPath = "Descri";
 
-            List<Wheel> listaWheels = SqlWheel.GetAll(LIST_NULL);
+            List<Wheel> listaWheels = SqlWheel.GetAll(LIST_NULL, null, null, null, null);
             ComboBoxWheels.ItemsSource = listaWheels;
             ComboBoxWheels.DisplayMemberPath = "Descri";
 
-            List<CarBody> listaCarBodys = SqlCarBody.GetAll(LIST_NULL);
+            List<CarBody> listaCarBodys = SqlCarBody.GetAll(LIST_NULL, null, null, null, null);
             ComboBoxCarBodies.ItemsSource = listaCarBodys;
             ComboBoxCarBodies.DisplayMemberPath = "Descri";
 
-            List<PowerUp> listaPowerUps = SqlPowerUp.GetAll(LIST_NULL);
+            List<PowerUp> listaPowerUps = SqlPowerUp.GetAll(LIST_NULL, null, null);
             ComboBoxPowerUp.ItemsSource = listaPowerUps;
             ComboBoxPowerUp.DisplayMemberPath = "Descri";
 

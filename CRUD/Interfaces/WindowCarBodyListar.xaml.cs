@@ -20,7 +20,7 @@ namespace Desktop___interfaces.Interfaces
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            ListView.ItemsSource = SqlCarBody.GetAll(listOrder);
+            ListView.ItemsSource = SqlCarBody.GetAll(listOrder, null, null, null,null);
         }
 
         #endregion
@@ -101,7 +101,7 @@ namespace Desktop___interfaces.Interfaces
         {
             ListView.ItemsSource = null;                  // Elimina a associação da List à listView
             ListView.Items.Clear();                       // Limpa a ListView
-            ListView.ItemsSource = SqlCarBody.GetAll(listOrder);    // Reassocia a listAlunos à ListView
+            ListView.ItemsSource = SqlCarBody.GetAll(listOrder, TextBoxFrom.Text, TextBoxUntil.Text, TextBoxFromCodeName.Text, TextBoxUntilCodeName.Text);    // Reassocia a listAlunos à ListView
         }
 
         /// <summary>
@@ -137,6 +137,17 @@ namespace Desktop___interfaces.Interfaces
 
             RefreshListView();
         }
+
+        /// <summary>
+        /// metodo do butão de pesquisa
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ButtonSearch_Click(object sender, RoutedEventArgs e)
+        {
+            RefreshListView();
+        }
         #endregion
+
     }
 }

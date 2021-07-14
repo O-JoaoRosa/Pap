@@ -37,15 +37,15 @@ namespace Desktop___interfaces.Interfaces
         /// <param name="e"></param>
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            List<User> listaUser = SqlUser.GetAll(LIST_NULL);
+            List<User> listaUser = SqlUser.GetAll(LIST_NULL, null, null, null, null);
             ComboBoxUser.ItemsSource = listaUser;
             ComboBoxUser.DisplayMemberPath = "UserName";
             
-            List<Server> listaServers = SqlServer.GetAll(LIST_NULL);
+            List<Server> listaServers = SqlServer.GetAll(LIST_NULL, null, null, null,null);
             ComboBoxServer.ItemsSource = listaServers;
             ComboBoxServer.DisplayMemberPath = "Descri";
 
-            List<ServerUserState> listaServerUserStates = SqlUserServerState.GetAll(LIST_NULL);
+            List<ServerUserState> listaServerUserStates = SqlUserServerState.GetAll(LIST_NULL, null, null);
             ComboBoxServerUserState.ItemsSource = listaServerUserStates;
             ComboBoxServerUserState.DisplayMemberPath = "Descri";
 

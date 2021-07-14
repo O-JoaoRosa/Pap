@@ -21,7 +21,7 @@ namespace Desktop___interfaces.Interfaces
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            ListView.ItemsSource = SqlCar.GetAll(LIST_NULL);
+            ListView.ItemsSource = SqlCar.GetAll(LIST_NULL, null, null, null, null, null, null, null, null);
         }
 
         #endregion
@@ -93,7 +93,9 @@ namespace Desktop___interfaces.Interfaces
             }
             RefreshListView();
         }
+        #endregion
 
+        #region List Updates
         /// <summary>
         /// faz refresh a list View
         /// </summary>
@@ -101,11 +103,9 @@ namespace Desktop___interfaces.Interfaces
         {
             ListView.ItemsSource = null;                  // Elimina a associação da List à listView
             ListView.Items.Clear();                       // Limpa a ListView
-            ListView.ItemsSource = SqlCar.GetAll(listOrder);    // Reassocia a listAlunos à ListView
+            ListView.ItemsSource = SqlCar.GetAll(listOrder, TextBoxFromDescri.Text, TextBoxUntilDescri.Text, TextBoxFromRepReq.Text, TextBoxUntilRepReq.Text, TextBoxFromPrice.Text, TextBoxUntilPrice.Text, TextBoxFromMaxSpeed.Text, TextBoxUntilMaxSpeed.Text);    // Reassocia a listAlunos à ListView
         }
-        #endregion
 
-        #region List Updates
         /// <summary>
         /// metodo que dependedo do header clicado irá alterar a ordem da lista
         /// </summary>
@@ -162,6 +162,17 @@ namespace Desktop___interfaces.Interfaces
 
             RefreshListView();
         }
+
+        /// <summary>
+        /// metodo do butão de pesquisa
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ButtonSearch_Click(object sender, RoutedEventArgs e)
+        {
+            RefreshListView();
+        }
         #endregion
+
     }
 }

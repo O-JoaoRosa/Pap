@@ -86,7 +86,7 @@ namespace CRUD.ClassesEntidades.SQL
         /// 2 - Completa a lista principal, preenchendo os obj FK, 
         /// </summary>
         /// <returns>Lista de objetos</returns>
-        static public List<Car> GetAll(int order)
+        static public List<Car> GetAll(int order, string fromDescri, string untilDescri, string fromRepReq, string untilRepReq, string fromPrice, string untilPrice, string fromMaxSpeed, string untilMaxSpeed)
         {
             List<Car> listaCars = new List<Car>();   // Lista Principal
             String query = "";
@@ -104,6 +104,14 @@ namespace CRUD.ClassesEntidades.SQL
                 using (DbConnection conn = OpenConnection())
                 {
                     query = "SELECT * FROM car";
+
+                    if ((fromDescri != null || untilDescri != null || fromRepReq != null || untilRepReq != null || fromPrice != null || untilPrice != null || fromMaxSpeed != null || untilMaxSpeed != null)&&(fromDescri != "" || untilDescri != "" || fromRepReq != "" || untilRepReq != "" || fromPrice != "" || untilPrice != "" || fromMaxSpeed != "" || untilMaxSpeed != ""))
+                    {
+                        query += " WHERE Descri >= '" + fromDescri + "' AND Descri <= '" + untilDescri +
+                            "~' AND ReputationRequired >= '" + fromRepReq + "' AND ReputationRequired <= '" + untilRepReq + "~'"
+                            + " AND Price >= '" + fromPrice + "' AND Price <= '" + untilPrice + "~'"
+                            + " AND MaxSpeed >= '" + fromPrice + "' AND MaxSpeed <= '" + untilPrice + "~'";
+                    }
                     switch (order)
                     {
                         case LIST_PRICE_ASC:

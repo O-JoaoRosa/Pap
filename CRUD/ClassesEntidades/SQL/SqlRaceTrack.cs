@@ -82,7 +82,7 @@ namespace CRUD.ClassesEntidades.SQL
         /// 2 - Completa a lista principal, preenchendo os obj FK, 
         /// </summary>
         /// <returns>Lista de objetos</returns>
-        static public List<RaceTrack> GetAll(int order)
+        static public List<RaceTrack> GetAll(int order, string fromDescri, string untilDescri, string fromRepReq, string untilRepReq)
         {
             List<RaceTrack> listaRaceTracks = new List<RaceTrack>();   // Lista Principal
             String query = "";
@@ -100,6 +100,11 @@ namespace CRUD.ClassesEntidades.SQL
                 using (DbConnection conn = OpenConnection())
                 {
                     query = "SELECT * FROM racetrack";
+                    if (fromDescri != null || untilDescri != null || fromRepReq != null || untilRepReq != null) 
+                    {
+                        query += " WHERE Descri >= '" + fromDescri + "' AND Descri <= '" + untilDescri +
+                            "~' AND ReputationRequiered >= '" + fromRepReq + "' AND ReputationRequiered <= '" + untilRepReq + "~'";
+                    }
                     switch (order)
                     {
                         case LIST_REPREQ_ASC:

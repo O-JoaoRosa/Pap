@@ -25,7 +25,7 @@ namespace Desktop___interfaces.Interfaces
         /// <param name="e"></param>
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            ListView.ItemsSource = SqlUserServerState.GetAll(listOrder);
+            ListView.ItemsSource = SqlUserServerState.GetAll(listOrder,null,null);
         }
         #endregion
 
@@ -109,10 +109,14 @@ namespace Desktop___interfaces.Interfaces
         {
             ListView.ItemsSource = null;                  // Elimina a associação da List à listView
             ListView.Items.Clear();                       // Limpa a ListView
-            ListView.ItemsSource = SqlUserServerState.GetAll(order);    // Reassocia a listAlunos à ListView
+            ListView.ItemsSource = SqlUserServerState.GetAll(order, TextBoxFrom.Text, TextBoxUntil.Text);    // Reassocia a listAlunos à ListView
         }
 
-
+        /// <summary>
+        /// metodo usado para organizar a lista
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ListViewHeader_Click(object sender, RoutedEventArgs e)
         {
             if (listOrder == LIST_DESCRI_ASC)
@@ -123,6 +127,16 @@ namespace Desktop___interfaces.Interfaces
             {
                 listOrder = LIST_DESCRI_ASC;
             }
+            RefreshListView(listOrder);
+        }
+
+        /// <summary>
+        /// metodo usado para pesquisar a lista
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ButtonSearch_Click(object sender, RoutedEventArgs e)
+        {
             RefreshListView(listOrder);
         }
         #endregion

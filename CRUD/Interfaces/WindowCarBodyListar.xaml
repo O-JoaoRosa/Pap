@@ -5,9 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Desktop___interfaces.Interfaces"
         mc:Ignorable="d"
-        Title="WindowCarBodyListar" Height="456" Width="817" ResizeMode="NoResize" Loaded="Window_Loaded">
+        Title="WindowCarBodyListar" Height="499" Width="832" ResizeMode="NoResize" Loaded="Window_Loaded">
     <Grid>
-        <ListView x:Name="ListView" Margin="10,82,10,78" GridViewColumnHeader.Click="ListViewHeader_Click">
+        <TextBox x:Name="TextBoxFrom" HorizontalAlignment="Left" Margin="43,72,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="462" Height="26" MaxLength="60"/>
+        <TextBox x:Name="TextBoxUntil" HorizontalAlignment="Left" Margin="44,103,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="462" Height="26" MaxLength="60" RenderTransformOrigin="0.5,0.5"/>
+        <TextBox x:Name="TextBoxFromCodeName" HorizontalAlignment="Left" Margin="518,72,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="218" Height="26" MaxLength="25"/>
+        <TextBox x:Name="TextBoxUntilCodeName" HorizontalAlignment="Left" Margin="518,103,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="218" Height="26" MaxLength="25" RenderTransformOrigin="0.5,0.5"/>
+        <Button x:Name="ButtonSearch" Content="Pesquisar" HorizontalAlignment="Left" Margin="744,76,0,0" VerticalAlignment="Top" Height="53" Width="60" Click="ButtonSearch_Click"/>
+
+        <ListView x:Name="ListView" Margin="10,134,23,88" GridViewColumnHeader.Click="ListViewHeader_Click">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="ID" Width="0">
@@ -17,7 +23,7 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Header="Descrição" Width="500">
+                    <GridViewColumn Header="Descrição" Width="498">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding Descri}" HorizontalAlignment="Left" />
@@ -35,9 +41,11 @@
             </ListView.View>
         </ListView>
         <Label Content="Listar CarBodies" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="50" Height="77"/>
-        <Button x:Name="ButtonCancel" Content="Cancelar" HorizontalAlignment="Left" Margin="663,361,0,0" VerticalAlignment="Top" Height="52" Width="127" Click="ButtonCancel_Click"/>
-        <Button x:Name="ButtonEdit" Content="Editar" HorizontalAlignment="Left" Margin="531,361,0,0" VerticalAlignment="Top" Height="52" Width="127" Click="ButtonEdit_Click"/>
-        <Button x:Name="ButtonDel" Content="Eliminar" HorizontalAlignment="Left" Margin="399,361,0,0" VerticalAlignment="Top" Height="52" Width="127" Click="ButtonDel_Click"/>
+        <Button x:Name="ButtonCancel" Content="Cancelar" HorizontalAlignment="Left" Margin="675,400,0,0" VerticalAlignment="Top" Height="52" Width="127" Click="ButtonCancel_Click"/>
+        <Button x:Name="ButtonEdit" Content="Editar" HorizontalAlignment="Left" Margin="543,400,0,0" VerticalAlignment="Top" Height="52" Width="127" Click="ButtonEdit_Click"/>
+        <Button x:Name="ButtonDel" Content="Eliminar" HorizontalAlignment="Left" Margin="408,400,0,0" VerticalAlignment="Top" Height="52" Width="128" Click="ButtonDel_Click"/>
+        <Label Content="De" HorizontalAlignment="Left" Margin="12,72,0,0" VerticalAlignment="Top" Width="26" RenderTransformOrigin="0.558,0.579"/>
+        <Label Content="Ate" HorizontalAlignment="Left" Margin="12,103,0,0" VerticalAlignment="Top" Width="29"/>
 
     </Grid>
 </Window>

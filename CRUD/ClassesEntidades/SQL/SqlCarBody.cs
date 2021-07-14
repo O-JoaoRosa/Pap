@@ -81,7 +81,7 @@ namespace CRUD.ClassesEntidades.SQL
         /// 2 - Completa a lista principal, preenchendo os obj FK, 
         /// </summary>
         /// <returns>Lista de objetos</returns>
-        static public List<CarBody> GetAll(int order)
+        static public List<CarBody> GetAll(int order, string fromDescri, string untilDescri, string fromCodeName, string untilCodeName)
         {
             List<CarBody> listaCarBodys = new List<CarBody>();   // Lista Principal
             String query = "";
@@ -99,6 +99,12 @@ namespace CRUD.ClassesEntidades.SQL
                 using (DbConnection conn = OpenConnection())
                 {
                     query = "SELECT * FROM carBody";
+
+                    if (fromDescri != null || untilDescri != null || fromCodeName != null || untilCodeName != null)
+                    {
+                        query += " WHERE Descri >= '" + fromDescri + "' AND Descri <= '" + untilDescri + 
+                            "~' AND CodeName >= '" + fromCodeName + "' AND CodeName <= '" + untilCodeName + "~'";
+                    }
                     switch (order)
                     {
                         case LIST_CODENAME_ASC:

@@ -79,7 +79,7 @@ namespace CRUD.ClassesEntidades.SQL
         /// 2 - Completa a lista principal, preenchendo os obj FK, 
         /// </summary>
         /// <returns>Lista de objetos</returns>
-        static public List<ServerUserState> GetAll( int order)
+        static public List<ServerUserState> GetAll( int order, string from, string until)
         {
             List<ServerUserState> listaServerUserStates = new List<ServerUserState>();   // Lista Principal
             String query = "";
@@ -97,6 +97,10 @@ namespace CRUD.ClassesEntidades.SQL
                 using (DbConnection conn = OpenConnection())
                 {
                     query = "SELECT * FROM serveruserstate";
+                    if (from != null || until != null)
+                    {
+                        query += " WHERE Descri >= '" + from + "' AND Descri <= '" + until + "~'";
+                    }
                     switch (order)
                     {
                         case LIST_DESCRI_ASC:

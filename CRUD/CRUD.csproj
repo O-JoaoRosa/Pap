@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Interfaces\WindowCarBodyListar.xaml.cs~RF34dc48a.TMP" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="MySql.Data" Version="8.0.25" />
   </ItemGroup>
 

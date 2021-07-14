@@ -85,7 +85,7 @@ namespace CRUD.ClassesEntidades.SQL
         /// 2 - Completa a lista principal, preenchendo os obj FK, 
         /// </summary>
         /// <returns>Lista de objetos</returns>
-        static public List<User> GetAll(int order)
+        static public List<User> GetAll(int order, string fromUserName, string untilUserName, string fromEmail, string untilEmail)
         {
             List<User> listaUsers = new List<User>();   // Lista Principal
             String query = "";
@@ -102,7 +102,13 @@ namespace CRUD.ClassesEntidades.SQL
                 // Abre ligação ao DBMS Ativo
                 using (DbConnection conn = OpenConnection())
                 {
-                    query = "SELECT * FROM user";
+                    query = "SELECT * FROM user"; 
+
+                    if (fromUserName != null || untilUserName != null || fromEmail != null || untilEmail != null)
+                    {
+                        query += " WHERE UserName >= '" + fromUserName + "' AND UserName <= '" + untilUserName +
+                            "~' AND Email >= '" + fromEmail + "' AND Email <= '" + untilEmail + "~'";
+                    }
                     switch (order)
                     {
                         case LIST_USERNAME_ASC:

@@ -81,7 +81,7 @@ namespace CRUD.ClassesEntidades.SQL
         /// 2 - Completa a lista principal, preenchendo os obj FK, 
         /// </summary>
         /// <returns>Lista de objetos</returns>
-        static public List<PowerUp> GetAll(int order)
+        static public List<PowerUp> GetAll(int order, string from, string until)
         {
             List<PowerUp> listaPowerUps = new List<PowerUp>();   // Lista Principal
             String query = "";
@@ -99,6 +99,26 @@ namespace CRUD.ClassesEntidades.SQL
                 using (DbConnection conn = OpenConnection())
                 {
                     query = "SELECT * FROM powerup";
+
+                    if (from != null || until != null)
+                    {
+                        query += " WHERE Descri >= '" + from + "' AND Descri <= '" + until + "~'";
+                    }
+
+                    switch (order)
+                    {
+                        case LIST_DESCRI_ASC:
+                            query += " ORDER BY Descri ASC;";
+                            break;
+
+                        case LIST_DESCRI_DESC:
+                            query += " ORDER BY Descri DESC;";
+                            break;
+
+                        default:
+                            query += ";";
+                            break;
+                    }
                     switch (order)
                     {
                         case LIST_DESCRI_ASC:

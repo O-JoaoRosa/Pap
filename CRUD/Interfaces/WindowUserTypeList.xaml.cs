@@ -27,7 +27,7 @@ namespace Desktop___interfaces.Interfaces
         /// <param name="e"></param>
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            ListView.ItemsSource = SqlUserType.GetAll(listOrder);
+            ListView.ItemsSource = SqlUserType.GetAll(listOrder, null, null);
         }
 
 
@@ -70,7 +70,7 @@ namespace Desktop___interfaces.Interfaces
                 MessageBox.Show("Erro : nenhum item selecionado", "Erro!", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
-            RefreshListView(listOrder);
+            RefreshListView(listOrder, null , null);
         }
 
         /// <summary>
@@ -100,18 +100,18 @@ namespace Desktop___interfaces.Interfaces
                 MessageBox.Show("Erro : nenhum item selecionado", "Erro!", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
-            RefreshListView(listOrder);
+            RefreshListView(listOrder, null, null);
         }
         #endregion
 
         /// <summary>
         /// faz refresh a list View
         /// </summary>
-        private void RefreshListView(int order)
+        private void RefreshListView(int order, string from, string until)
         {
             ListView.ItemsSource = null;                  // Elimina a associação da List à listView
             ListView.Items.Clear();                       // Limpa a ListView
-            ListView.ItemsSource = SqlUserType.GetAll(order);    // Reassocia a listAlunos à ListView
+            ListView.ItemsSource = SqlUserType.GetAll(order, from, until);    // Reassocia a listAlunos à ListView
         }
 
         private void ListViewHeader_Click(object sender, RoutedEventArgs e)
@@ -124,7 +124,12 @@ namespace Desktop___interfaces.Interfaces
             {
                 listOrder = LIST_DESCRI_ASC;
             }
-            RefreshListView(listOrder);
+            RefreshListView(listOrder, null, null);
+        }
+
+        private void ButtonSearch_Click(object sender, RoutedEventArgs e)
+        {
+            RefreshListView(listOrder, TextBoxFrom.Text, TextBoxUntil.Text);
         }
     }
 }
