@@ -20,7 +20,7 @@ namespace Desktop___interfaces.Interfaces
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            ListView.ItemsSource = SqlUser.GetAll(listOrder, null, null, null, null);
+            ListView.ItemsSource = SqlUser.GetAll(listOrder, null, null, null, null, null, null);
         }
         #endregion
 
@@ -100,7 +100,7 @@ namespace Desktop___interfaces.Interfaces
         {
             ListView.ItemsSource = null;                  // Elimina a associação da List à listView
             ListView.Items.Clear();                       // Limpa a ListView
-            ListView.ItemsSource = SqlUser.GetAll(listOrder, TextBoxFromUserName.Text, TextBoxUntilUserName.Text, TextBoxFromEmail.Text, TextBoxUntilEmail.Text);    // Reassocia a listAlunos à ListView
+            ListView.ItemsSource = SqlUser.GetAll(listOrder, TextBoxFromUserName.Text, TextBoxUntilUserName.Text, TextBoxFromEmail.Text, TextBoxUntilEmail.Text, TextBoxFromLastTimeOnline.Text, TextBoxUntilLastTimeOnline.Text);    // Reassocia a listAlunos à ListView
         }
 
         /// <summary>

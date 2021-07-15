@@ -24,7 +24,7 @@ namespace Desktop___interfaces.Interfaces
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             //cria uma lista temporaria e uma lista que irá ser assiciada a listView
-            List<UserRace> lista = SqlUserRace.GetAll();
+            List<UserRace> lista = SqlUserRace.GetAll(null, null,null,null,null,null);
             listatemp = new List<UserRace>();
             UserRace userRace;
 
@@ -118,7 +118,7 @@ namespace Desktop___interfaces.Interfaces
             ListView.Items.Clear();                       // Limpa a ListView
 
             //cria uma lista temporaria e uma lista que irá ser assiciada a listView
-            List<UserRace> lista = SqlUserRace.GetAll();
+            List<UserRace> lista = SqlUserRace.GetAll(TextBoxFromUserName.Text, TextBoxUntilUserName.Text, TextBoxFromRaceTrack.Text, TextBoxUntilRaceTrack.Text, TextBoxFromDate.Text, TextBoxUntilDate.Text );
             listatemp = new List<UserRace>();
             UserRace userRace;
 
@@ -201,6 +201,17 @@ namespace Desktop___interfaces.Interfaces
                 }
             }
         }
+
+        /// <summary>
+        /// metodo do butão de pesquisa
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ButtonSearch_Click(object sender, RoutedEventArgs e)
+        {
+            RefreshListView();
+        }
         #endregion
+
     }
 }

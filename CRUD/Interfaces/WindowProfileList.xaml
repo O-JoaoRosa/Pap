@@ -5,9 +5,19 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Desktop___interfaces.Interfaces"
         mc:Ignorable="d"
-        Title="WindowProfileList" Height="483" Width="800" ResizeMode="NoResize">
-    <Grid Height="464" VerticalAlignment="Top" Width="800" Margin="0,9,0,0" Loaded="Window_Loaded">
-        <ListView x:Name="ListView" Margin="23,72,25,101" GridViewColumnHeader.Click="ListViewHeader_Click">
+        Title="WindowProfileList" Height="529" Width="800" ResizeMode="NoResize">
+    <Grid Height="519" VerticalAlignment="Top" Width="800" Loaded="Window_Loaded">
+        <TextBox x:Name="TextBoxFromUserName" HorizontalAlignment="Left" Margin="41,69,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="185" Height="26" MaxLength="27"/>
+        <TextBox x:Name="TextBoxUntilUserName" HorizontalAlignment="Left" Margin="41,100,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="185" Height="26" MaxLength="27" RenderTransformOrigin="0.5,0.5"/>
+        <TextBox x:Name="TextBoxFromUserType" HorizontalAlignment="Left" Margin="230,69,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="390" Height="26" MaxLength="61"/>
+        <TextBox x:Name="TextBoxUntilUserType" HorizontalAlignment="Left" Margin="230,100,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="390" Height="26" MaxLength="61" RenderTransformOrigin="0.5,0.5"/>
+        <Label Content="De" HorizontalAlignment="Left" Margin="10,69,0,0" VerticalAlignment="Top" Width="24"/>
+        <Label Content="Até" HorizontalAlignment="Left" Margin="10,98,0,0" VerticalAlignment="Top" Width="29"/>
+        <TextBox x:Name="TextBoxFromCreationDate" HorizontalAlignment="Left" Margin="625,69,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="85" Height="26" MaxLength="10"/>
+        <TextBox x:Name="TextBoxUntilCreationDate" HorizontalAlignment="Left" Margin="625,100,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="85" Height="26" MaxLength="10" RenderTransformOrigin="0.5,0.5"/>
+        <Button x:Name="ButtonSearch" Content="Pesquisar" HorizontalAlignment="Left" Margin="715,69,0,0" VerticalAlignment="Top" Height="57" Width="60" Click="ButtonSearch_Click"/>
+
+        <ListView x:Name="ListView" Margin="23,131,25,89" GridViewColumnHeader.Click="ListViewHeader_Click">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Nome do User" Width="200">
@@ -17,7 +27,7 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Header="Tipo de user" Width="399">
+                    <GridViewColumn Header="Tipo de user" Width="395">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding TipoUser.Descri}" HorizontalAlignment="Left" />
@@ -34,10 +44,10 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <Label Content="Lista de PowerUp" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="50" Height="72"/>
-        <Button x:Name="ButtonCancel" Content="Cancelar" Margin="0,0,25,34" Click="ButtonCancel_Click" HorizontalAlignment="Right" Width="114" Height="49" VerticalAlignment="Bottom"/>
-        <Button x:Name="ButtonEdit" Content="Editar" HorizontalAlignment="Left" Margin="530,0,0,34" Width="114" Height="49" VerticalAlignment="Bottom" Click="ButtonEdit_Click"/>
-        <Button x:Name="ButtonDel" Content="Eliminar" HorizontalAlignment="Left" Margin="399,0,0,34" Width="114" Height="50" VerticalAlignment="Bottom" Click="ButtonDel_Click"/>
+        <Label Content="Lista de PowerUp" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="50" Height="72" Margin="0,-3,0,0"/>
+        <Button x:Name="ButtonCancel" Content="Cancelar" Margin="0,0,25,28" Click="ButtonCancel_Click" HorizontalAlignment="Right" Width="114" Height="49" VerticalAlignment="Bottom"/>
+        <Button x:Name="ButtonEdit" Content="Editar" HorizontalAlignment="Left" Margin="530,0,0,28" Width="114" Height="49" VerticalAlignment="Bottom" Click="ButtonEdit_Click"/>
+        <Button x:Name="ButtonDel" Content="Eliminar" HorizontalAlignment="Left" Margin="399,0,0,28" Width="114" Height="50" VerticalAlignment="Bottom" Click="ButtonDel_Click"/>
 
     </Grid>
 </Window>

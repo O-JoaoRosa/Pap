@@ -87,7 +87,7 @@ namespace CRUD.ClassesEntidades.SQL
         /// 2 - Completa a lista principal, preenchendo os obj FK, 
         /// </summary>
         /// <returns>Lista de objetos</returns>
-        static public List<ServerUser> GetAll()
+        static public List<ServerUser> GetAll(string fromUserName , string untilUserName, string fromServer, string untilServer)
         {
             List<ServerUser> listaServerUsers = new List<ServerUser>();   // Lista Principal
             String query = "";
@@ -104,7 +104,14 @@ namespace CRUD.ClassesEntidades.SQL
                 // Abre ligação ao DBMS Ativo
                 using (DbConnection conn = OpenConnection())
                 {
-                    query = "SELECT * FROM serveruser;";
+                    query = "SELECT * FROM serveruser";
+                    if (fromUserName != null || untilUserName != null || fromServer != null || untilServer != null )
+                    {
+                        query += " INNER JOIN user ON serveruser.UserID = user.ID\n" +
+                            "INNER JOIN server ON serveruser.ServerID = server.Id"
+                            + " AND user.username >= '" + fromUserName + "' AND user.UserName <= '" + untilUserName +
+                            "~' AND server.Descri >= '" + fromServer + "' AND server.Descri <= '" + untilServer + "~';";
+                    }
 
                     // Prepara e executa o SQL DML
                     using (MySqlCommand sqlCommand = new MySqlCommand())

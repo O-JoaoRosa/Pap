@@ -82,7 +82,7 @@ namespace CRUD.ClassesEntidades.SQL
         /// 2 - Completa a lista principal, preenchendo os obj FK, 
         /// </summary>
         /// <returns>Lista de objetos</returns>
-        static public List<UserConfig> GetAll(int order)
+        static public List<UserConfig> GetAll(int order, string fromDescri, string untilDescri, string fromUserName, string untilUserName, string fromValue, string untilValue)
         {
             List<UserConfig> listaUserConfigs = new List<UserConfig>();   // Lista Principal
             String query = "";
@@ -100,6 +100,14 @@ namespace CRUD.ClassesEntidades.SQL
                 using (DbConnection conn = OpenConnection())
                 {
                     query = "SELECT * FROM userconfig";
+
+                    if (fromUserName != null || untilUserName != null || fromDescri != null || untilDescri != null || untilValue != null || fromValue != null)
+                    {
+                        query += " INNER JOIN user ON userconfig.UserID = user.ID\n" 
+                            + " WHERE Descri >= '" + fromDescri + "' AND Descri <= '" + untilDescri +
+                            "~' AND user.UserName >= '" + fromUserName + "' AND Email <= '" + untilUserName + "~'"
+                            + " AND Value BETWEEN '" + fromValue + "' AND  '" + untilValue + "'";
+                    }
                     switch (order)
                     {
                         case LIST_DESCRI_ASC:

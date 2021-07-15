@@ -85,7 +85,7 @@ namespace CRUD.ClassesEntidades.SQL
         /// 2 - Completa a lista principal, preenchendo os obj FK, 
         /// </summary>
         /// <returns>Lista de objetos</returns>
-        static public List<UserRace> GetAll()
+        static public List<UserRace> GetAll(string fromUserName, string untilUserName, string fromRaceTrack, string untilRaceTrack, string fromDate, string untilDate)
         {
             List<UserRace> listaUserRaces = new List<UserRace>();   // Lista Principal
             String query = "";
@@ -102,7 +102,15 @@ namespace CRUD.ClassesEntidades.SQL
                 // Abre ligação ao DBMS Ativo
                 using (DbConnection conn = OpenConnection())
                 {
-                    query = "SELECT * FROM userRace;";
+                    query = "SELECT * FROM userRace";
+                    if (fromUserName != null || untilUserName != null || fromRaceTrack != null || untilRaceTrack != null || fromDate != null || untilDate != null)
+                    {
+                        query += " INNER JOIN user ON userRace.UserID = user.ID\n" +
+                            "INNER JOIN racetrack ON userRace.RaceTrackID = racetrack.ID"
+                            + " AND user.username >= '" + fromUserName + "' AND user.UserName <= '" + untilUserName +
+                            "~' AND racetrack.Descri >= '" + fromRaceTrack + "' AND racetrack.Descri <= '" + untilRaceTrack + "~'"
+                            + " AND DateRace BETWEEN '" + fromDate + "' AND '" + untilDate + "' ;";
+                    }
 
                     // Prepara e executa o SQL DML
                     using (MySqlCommand sqlCommand = new MySqlCommand())

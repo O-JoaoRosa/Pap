@@ -7,10 +7,10 @@
         mc:Ignorable="d"
         Title="WindowServerList" Height="554" Width="900"  ResizeMode="NoResize" Loaded="Window_Loaded">
     <Grid>
-        <TextBox x:Name="TextBoxFrom" HorizontalAlignment="Left" Margin="64,87,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="382" Height="26" MaxLength="60"/>
-        <TextBox x:Name="TextBoxUntil" HorizontalAlignment="Left" Margin="64,118,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="382" Height="26" MaxLength="60" RenderTransformOrigin="0.5,0.5"/>
-        <TextBox x:Name="TextBoxFromObs" HorizontalAlignment="Left" Margin="451,87,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="348" Height="26" MaxLength="25"/>
-        <TextBox x:Name="TextBoxUntilObs" HorizontalAlignment="Left" Margin="451,118,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="348" Height="26" MaxLength="25" RenderTransformOrigin="0.5,0.5"/>
+        <TextBox x:Name="TextBoxFrom" HorizontalAlignment="Left" Margin="64,87,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="382" Height="26" MaxLength="52"/>
+        <TextBox x:Name="TextBoxUntil" HorizontalAlignment="Left" Margin="64,118,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="382" Height="26" MaxLength="52" RenderTransformOrigin="0.5,0.5"/>
+        <TextBox x:Name="TextBoxFromObs" HorizontalAlignment="Left" Margin="451,87,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="348" Height="26" MaxLength="45"/>
+        <TextBox x:Name="TextBoxUntilObs" HorizontalAlignment="Left" Margin="451,118,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="348" Height="26" MaxLength="45" RenderTransformOrigin="0.5,0.5"/>
         <Button x:Name="ButtonSearch" Content="Pesquisar" HorizontalAlignment="Left" Margin="805,87,0,0" VerticalAlignment="Top" Height="57" Width="60" Click="ButtonSearch_Click"/>
 
         <Label Content="Lista de Servidores" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="50"/>

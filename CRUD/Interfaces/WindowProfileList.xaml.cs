@@ -24,7 +24,7 @@ namespace Desktop___interfaces.Interfaces
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            List<Profile> lista = SqlProfile.GetAll(listOrder);
+            List<Profile> lista = SqlProfile.GetAll(listOrder, null, null, null, null, null, null);
             Profile profile;
             listatemp = new List<Profile>();
             
@@ -118,7 +118,7 @@ namespace Desktop___interfaces.Interfaces
             ListView.ItemsSource = null;                  // Elimina a associação da List à listView
             ListView.Items.Clear();                       // Limpa a ListView
             listatemp = new List<Profile>();
-            List<Profile> lista = SqlProfile.GetAll(listOrder);
+            List<Profile> lista = SqlProfile.GetAll(listOrder, TextBoxFromUserName.Text, TextBoxUntilUserName.Text, TextBoxFromUserType.Text, TextBoxUntilUserType.Text, TextBoxFromCreationDate.Text, TextBoxUntilCreationDate.Text);
             Profile profile;
             foreach (Profile p in lista)
             {
@@ -190,7 +190,16 @@ namespace Desktop___interfaces.Interfaces
             }
 
         }
-        #endregion
 
+        /// <summary>
+        /// metodo do butão de pesquisa
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ButtonSearch_Click(object sender, RoutedEventArgs e)
+        {
+            RefreshListView();
+        }
+        #endregion
     }
 }

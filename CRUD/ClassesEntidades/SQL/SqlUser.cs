@@ -85,7 +85,7 @@ namespace CRUD.ClassesEntidades.SQL
         /// 2 - Completa a lista principal, preenchendo os obj FK, 
         /// </summary>
         /// <returns>Lista de objetos</returns>
-        static public List<User> GetAll(int order, string fromUserName, string untilUserName, string fromEmail, string untilEmail)
+        static public List<User> GetAll(int order, string fromUserName, string untilUserName, string fromEmail, string untilEmail, string fromDate, string untilDate)
         {
             List<User> listaUsers = new List<User>();   // Lista Principal
             String query = "";
@@ -104,10 +104,11 @@ namespace CRUD.ClassesEntidades.SQL
                 {
                     query = "SELECT * FROM user"; 
 
-                    if (fromUserName != null || untilUserName != null || fromEmail != null || untilEmail != null)
+                    if (fromUserName != null || untilUserName != null || fromEmail != null || untilEmail != null || fromDate != null || untilDate != null)
                     {
                         query += " WHERE UserName >= '" + fromUserName + "' AND UserName <= '" + untilUserName +
-                            "~' AND Email >= '" + fromEmail + "' AND Email <= '" + untilEmail + "~'";
+                            "~' AND Email >= '" + fromEmail + "' AND Email <= '" + untilEmail + "~'"
+                            + " AND LastTimeOnline BETWEEN '" + fromDate + "' AND  '" + untilDate + "'";
                     }
                     switch (order)
                     {

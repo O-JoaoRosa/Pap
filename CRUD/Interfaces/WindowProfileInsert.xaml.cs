@@ -37,7 +37,7 @@ namespace Desktop___interfaces.Interfaces
             List<UserType> listaUserTypes = SqlUserType.GetAll(LIST_NULL, null, null);
             ComboBoxUserType.ItemsSource = listaUserTypes;
             ComboBoxUserType.DisplayMemberPath = "Descri";
-            List<User> listaUsers = SqlUser.GetAll(LIST_NULL, null, null, null, null);
+            List<User> listaUsers = SqlUser.GetAll(LIST_NULL, null, null, null, null, null, null);
             ComboBoxUser.ItemsSource = listaUsers;
             ComboBoxUser.DisplayMemberPath = "UserName";
 

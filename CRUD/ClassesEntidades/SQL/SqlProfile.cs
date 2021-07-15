@@ -81,7 +81,7 @@ namespace CRUD.ClassesEntidades.SQL
         /// 2 - Completa a lista principal, preenchendo os obj FK, 
         /// </summary>
         /// <returns>Lista de objetos</returns>
-        static public List<Profile> GetAll(int order)
+        static public List<Profile> GetAll(int order, string fromUserName, string untilUserName, string fromUserType, string untilUserType, string fromDate, string untilDate)
         {
             List<Profile> listaProfiles = new List<Profile>();   // Lista Principal
             String query = "";
@@ -99,6 +99,14 @@ namespace CRUD.ClassesEntidades.SQL
                 using (DbConnection conn = OpenConnection())
                 {
                     query = "SELECT * FROM profile";
+                    if (fromUserName != null || untilUserName != null || fromUserType != null || untilUserType != null || fromDate != null || untilDate != null)
+                    {
+                        query += " INNER JOIN user ON profile.UserID = user.ID\n" +
+                            "INNER JOIN usertype ON profile.UserTypeID = usertype.ID"
+                            + " AND user.username >= '" + fromUserName + "' AND user.UserName <= '" + untilUserName +
+                            "~' AND usertype.Descri >= '" + fromUserType + "' AND usertype.Descri <= '" + untilUserType + "~'"
+                            +" AND DateCreated BETWEEN '" + fromDate + "' AND '" + untilDate +"'" ;
+                    }
                     switch (order)
                     {
 

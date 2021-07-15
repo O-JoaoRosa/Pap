@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using static CRUD.ClassesEntidades.SQL.SQL_Connection;
+using static CRUD.ClassesEntidades.Validações;
 
 namespace Desktop___interfaces.Interfaces
 {
@@ -24,7 +26,7 @@ namespace Desktop___interfaces.Interfaces
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            List<UserConfig> lista = SqlUserConfig.GetAll(listOrder);
+            List<UserConfig> lista = SqlUserConfig.GetAll(listOrder, null, null, null, null, null, null);
             listatemp = new List<UserConfig>();
             UserConfig userConfig;
             foreach (UserConfig p in lista)
@@ -114,7 +116,7 @@ namespace Desktop___interfaces.Interfaces
             ListView.ItemsSource = null;                  // Elimina a associação da List à listView
             ListView.Items.Clear();                       // Limpa a ListView
 
-            List<UserConfig> lista = SqlUserConfig.GetAll(listOrder);
+            List<UserConfig> lista = SqlUserConfig.GetAll(listOrder, TextBoxFromDescri.Text, TextBoxUntilDescri.Text, TextBoxFromUserName.Text, TextBoxUntilUserName.Text, TextBoxFromValue.Text, TextBoxUntilValue.Text);
             listatemp = new List<UserConfig>();
             UserConfig userConfig;
             foreach (UserConfig p in lista)
@@ -181,6 +183,38 @@ namespace Desktop___interfaces.Interfaces
                 RefreshListView();
             }
         }
+
+        /// <summary>
+        /// metodo do butão de pesquisa
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ButtonSearch_Click(object sender, RoutedEventArgs e)
+        {
+            int nErros = 0;
+            if (ValidaNumero(TextBoxFromValue.Text) && TextBoxFromValue.Text != "")
+            {
+                nErros += 1;
+                TextBoxFromValue.Background = Brushes.Red;
+            }
+            if (ValidaNumero(TextBoxUntilValue.Text) && TextBoxUntilValue.Text != "")
+            {
+                nErros += 1;
+                TextBoxUntilValue.Background = Brushes.Red;
+
+            }
+            if (nErros > 0)
+            {
+                MessageBox.Show("Erro: parametro de pesquisa tem que ser numerioco", "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            else
+            {
+                TextBoxFromValue.Background = Brushes.White;
+                TextBoxUntilValue.Background = Brushes.White;
+                RefreshListView();
+            }
+        }
         #endregion
+
     }
 }

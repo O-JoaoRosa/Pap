@@ -23,7 +23,7 @@ namespace Desktop___interfaces.Interfaces
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            List<UserFriend> lista = SqlUserFriend.GetAll();
+            List<UserFriend> lista = SqlUserFriend.GetAll(null,null,null,null);
             listatemp = new List<UserFriend>();
             UserFriend userFriend;
             foreach (UserFriend p in lista)
@@ -114,7 +114,7 @@ namespace Desktop___interfaces.Interfaces
             ListView.ItemsSource = null;                  // Elimina a associação da List à listView
             ListView.Items.Clear();                       // Limpa a ListView
 
-            List<UserFriend> lista = SqlUserFriend.GetAll();
+            List<UserFriend> lista = SqlUserFriend.GetAll(TextBoxFromUserName.Text , TextBoxUntilUserName.Text, TextBoxFromFriend.Text, TextBoxUntilFriend.Text);
             listatemp = new List<UserFriend>();
             UserFriend userFriend;
             foreach (UserFriend p in lista)
@@ -176,6 +176,16 @@ namespace Desktop___interfaces.Interfaces
                     listOrder = 200;
                 }
             }
+        }
+
+        /// <summary>
+        /// metodo do butão de pesquisa
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ButtonSearch_Click(object sender, RoutedEventArgs e)
+        {
+            RefreshListView();
         }
         #endregion
     }

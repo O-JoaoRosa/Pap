@@ -24,7 +24,7 @@ namespace Desktop___interfaces.Interfaces
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            List<UserCar> lista = SqlUserCar.GetAll();
+            List<UserCar> lista = SqlUserCar.GetAll(null,null,null,null);
             UserCar userCar;
             foreach (UserCar p in lista)
             {
@@ -41,7 +41,6 @@ namespace Desktop___interfaces.Interfaces
         #endregion
 
         #region Buttons
-
         private void ButtonCancel_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
@@ -116,7 +115,7 @@ namespace Desktop___interfaces.Interfaces
             ListView.ItemsSource = null;                  // Elimina a associação da List à listView
             ListView.Items.Clear();                       // Limpa a ListView
 
-            List<UserCar> lista = SqlUserCar.GetAll();
+            List<UserCar> lista = SqlUserCar.GetAll(TextBoxFrom.Text, TextBoxUntil.Text, TextBoxFromObs.Text, TextBoxUntilObs.Text);
             List<UserCar> listatemp = new List<UserCar>();
             UserCar userCar;
             foreach (UserCar p in lista)
@@ -131,7 +130,6 @@ namespace Desktop___interfaces.Interfaces
             ListView.ItemsSource = listatemp;
         }
         #endregion
-
 
         #region lista order
 
@@ -181,6 +179,16 @@ namespace Desktop___interfaces.Interfaces
                     listOrder = 200;
                 }
             }
+        }
+
+        /// <summary>
+        /// metodo do butão de pesquisa
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ButtonSearch_Click(object sender, RoutedEventArgs e)
+        {
+            RefreshListView();
         }
         #endregion
     }
