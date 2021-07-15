@@ -4,6 +4,7 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using static CRUD.ClassesEntidades.SQL.SQL_Connection;
 using static CRUD.ClassesEntidades.Validações;
+using static CRUD.ClassesEntidades.Settings;
 
 namespace Desktop___interfaces.Interfaces
 {
@@ -13,16 +14,35 @@ namespace Desktop___interfaces.Interfaces
     public partial class WindowRaceTrackList : Window
     {
         int listOrder = LIST_NULL;
+        int listAction = -1;
 
         #region load
-        public WindowRaceTrackList()
+        public WindowRaceTrackList(int action)
         {
             InitializeComponent();
+            listAction = action;
         }
 
+        /// <summary>
+        /// metodo executado quando a window é carregada
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            ListView.ItemsSource = SqlRaceTrack.GetAll(listOrder, null, null , null, null);
+            ListView.ItemsSource = SqlRaceTrack.GetAll(listOrder, null, null , null, null); 
+            
+            //verifica qual o objetivo da lista
+            if (listAction != LIST_ACTION_ID)
+            {
+                LabelSubTitle.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                LabelSubTitle.Visibility = Visibility.Visible;
+                ButtonDel.Visibility = Visibility.Hidden;
+                ButtonEdit.Visibility = Visibility.Hidden;
+            }
         }
 
         #endregion
@@ -31,6 +51,7 @@ namespace Desktop___interfaces.Interfaces
 
         private void ButtonCancel_Click(object sender, RoutedEventArgs e)
         {
+            raceTrackTemp = null;
             this.Close();
         }
 
@@ -42,27 +63,52 @@ namespace Desktop___interfaces.Interfaces
         /// <param name="e"></param>
         private void ButtonEdit_Click(object sender, RoutedEventArgs e)
         {
-            //verifica se algum item foi selecionado 
-            if (ListView.SelectedItems.Count > 0)
+            if (listAction == LIST_ACTION_NULL)
             {
-                //vai buscar o item selecionado
-                RaceTrack RaceTrackClickado = (RaceTrack)ListView.SelectedItems[0];
-
-                //verifica se o item selecionado está vazio ou não
-                if (RaceTrackClickado != null)
+                //verifica se algum item foi selecionado 
+                if (ListView.SelectedItems.Count > 0)
                 {
-                    //abre a janela de edição com a informação necessaria para definir o que fazer
-                    Window w = new WindowRaceTrackInsert(SQL_Connection.SQL_UPDATE, RaceTrackClickado);
-                    w.ShowDialog();
+                    //vai buscar o item selecionado
+                    RaceTrack RaceTrackClickado = (RaceTrack)ListView.SelectedItems[0];
+
+                    //verifica se o item selecionado está vazio ou não
+                    if (RaceTrackClickado != null)
+                    {
+                        //abre a janela de edição com a informação necessaria para definir o que fazer
+                        Window w = new WindowRaceTrackInsert(SQL_Connection.SQL_UPDATE, RaceTrackClickado);
+                        w.ShowDialog();
+                    }
                 }
+                else
+                {
+                    //avisa que nenhum item foi selecionado
+                    MessageBox.Show("Erro : nenhum item selecionado", "Erro!", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+
+                RefreshListView();
             }
             else
             {
-                //avisa que nenhum item foi selecionado
-                MessageBox.Show("Erro : nenhum item selecionado", "Erro!", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+                //verifica se algum item foi selecionado 
+                if (ListView.SelectedItems.Count > 0)
+                {
+                    //vai buscar o item selecionado
+                    RaceTrack RaceTrackClickado = (RaceTrack)ListView.SelectedItems[0];
 
-            RefreshListView();
+                    //verifica se o item selecionado está vazio ou não
+                    if (RaceTrackClickado != null)
+                    {
+                        raceTrackTemp = RaceTrackClickado;
+                        Close();
+                    }
+                }
+                else
+                {
+                    //avisa que nenhum item foi selecionado
+                    MessageBox.Show("Erro : nenhum item selecionado", "Erro!", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                RefreshListView();
+            }
         }
 
         /// <summary>

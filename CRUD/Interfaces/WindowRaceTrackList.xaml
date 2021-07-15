@@ -5,15 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Desktop___interfaces.Interfaces"
         mc:Ignorable="d"
-        Title="WindowRaceTrackList" Height="563" Width="817" ResizeMode="NoResize" Loaded="Window_Loaded">
+        Title="WindowRaceTrackList" Height="563" Width="825" ResizeMode="NoResize" Loaded="Window_Loaded">
     <Grid>
-        <TextBox x:Name="TextBoxFrom" HorizontalAlignment="Left" Margin="54,72,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="467" Height="26" MaxLength="60"/>
-        <TextBox x:Name="TextBoxUntil" HorizontalAlignment="Left" Margin="54,103,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="467" Height="26" MaxLength="60" RenderTransformOrigin="0.5,0.5"/>
-        <TextBox x:Name="TextBoxFromRepReq" HorizontalAlignment="Left" Margin="526,72,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="210" Height="26" MaxLength="24" Text="0"/>
-        <TextBox x:Name="TextBoxUntilRepReq" HorizontalAlignment="Left" Margin="526,103,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="210" Height="26" MaxLength="24" RenderTransformOrigin="0.5,0.5" Text="0"/>
-        <Button x:Name="ButtonSearch" Content="Pesquisar" HorizontalAlignment="Left" Margin="744,72,0,0" VerticalAlignment="Top" Height="57" Width="60" Click="ButtonSearch_Click"/>
+        <TextBox x:Name="TextBoxFrom" HorizontalAlignment="Left" Margin="53,87,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="467" Height="26" MaxLength="60"/>
+        <TextBox x:Name="TextBoxUntil" HorizontalAlignment="Left" Margin="53,118,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="467" Height="26" MaxLength="60" RenderTransformOrigin="0.5,0.5"/>
+        <TextBox x:Name="TextBoxFromRepReq" HorizontalAlignment="Left" Margin="525,87,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="210" Height="26" MaxLength="24" Text="0"/>
+        <TextBox x:Name="TextBoxUntilRepReq" HorizontalAlignment="Left" Margin="525,118,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="210" Height="26" MaxLength="24" RenderTransformOrigin="0.5,0.5" Text="0"/>
+        <Button x:Name="ButtonSearch" Content="Pesquisar" HorizontalAlignment="Left" Margin="743,87,0,0" VerticalAlignment="Top" Height="57" Width="60" Click="ButtonSearch_Click"/>
 
-        <ListView x:Name="ListView" Margin="22,143,13,88" GridViewColumnHeader.Click="ListViewHeader_Click">
+        <ListView MouseDoubleClick="ButtonEdit_Click" x:Name="ListView" Margin="21,158,14,73" GridViewColumnHeader.Click="ListViewHeader_Click">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="ID" Width="0">
@@ -40,12 +40,13 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <Label Content="Lista de Pistas de Corrida" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="50"/>
-        <Button x:Name="ButtonCancel" Content="Cancelar" HorizontalAlignment="Left" Margin="664,464,0,0" VerticalAlignment="Top" Height="41" Width="117" Click="ButtonCancel_Click"/>
-        <Button x:Name="ButtonEdit" Content="Editar" HorizontalAlignment="Left" Margin="526,464,0,0" VerticalAlignment="Top" Height="41" Width="117" Click="ButtonEdit_Click"/>
-        <Button x:Name="ButtonDel" Content="Eliminar" HorizontalAlignment="Left" Margin="389,464,0,0" VerticalAlignment="Top" Height="41" Width="117" Click="ButtonDel_Click"/>
-        <Label Content="De" HorizontalAlignment="Left" Margin="22,72,0,0" VerticalAlignment="Top" Width="26" RenderTransformOrigin="0.558,0.579"/>
-        <Label Content="Ate" HorizontalAlignment="Left" Margin="22,102,0,0" VerticalAlignment="Top" Width="32"/>
+        <Label Content="Lista de Pistas de Corrida" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="50" Margin="0,-14,0,0"/>
+        <Button x:Name="ButtonCancel" Content="Cancelar" HorizontalAlignment="Left" Margin="663,479,0,0" VerticalAlignment="Top" Height="41" Width="117" Click="ButtonCancel_Click"/>
+        <Button x:Name="ButtonEdit" Content="Editar" HorizontalAlignment="Left" Margin="525,479,0,0" VerticalAlignment="Top" Height="41" Width="117" Click="ButtonEdit_Click"/>
+        <Button x:Name="ButtonDel" Content="Eliminar" HorizontalAlignment="Left" Margin="388,479,0,0" VerticalAlignment="Top" Height="41" Width="117" Click="ButtonDel_Click"/>
+        <Label Content="De" HorizontalAlignment="Left" Margin="21,87,0,0" VerticalAlignment="Top" Width="26" RenderTransformOrigin="0.558,0.579"/>
+        <Label Content="Ate" HorizontalAlignment="Left" Margin="21,117,0,0" VerticalAlignment="Top" Width="32"/>
+        <Label x:Name="LabelSubTitle" Content="Seleciona a pista de corrida" HorizontalAlignment="Left" Margin="286,50,0,0" VerticalAlignment="Top" FontSize="20"/>
 
     </Grid>
 </Window>

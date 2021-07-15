@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Media;
 using static CRUD.ClassesEntidades.SQL.SQL_Connection;
+using static CRUD.ClassesEntidades.Settings;
 
 namespace Desktop___interfaces.Interfaces
 {
@@ -35,26 +36,18 @@ namespace Desktop___interfaces.Interfaces
         /// <param name="e"></param>
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            List<User> listaUser = SqlUser.GetAll(LIST_NULL, null, null, null, null, null, null);
-            ComboBoxUser.ItemsSource = listaUser;
-            ComboBoxUser.DisplayMemberPath = "UserName";
-
-            List<User> listaUserFriends = SqlUser.GetAll(LIST_NULL, null, null, null, null, null, null);
-            ComboBoxUserFirend.ItemsSource = listaUserFriends;
-            ComboBoxUserFirend.DisplayMemberPath = "UserName";
-
             //altera a interface consuante a ação escolhida
             switch (dbAction)
             {
                 case SQL_DELETE:
                     LabelTitle.Content = "Eliminar entidade Amigo do utilizador";
                     CheckBoxIsOnline.IsChecked = userFriend.IsOnline;
-                    ComboBoxUser.Text = userFriend.User.UserName;
-                    ComboBoxUserFirend.Text = userFriend.UserFriend1.UserName;
+                    ButtonUserSelect.Content = userFriend.User.UserName;
+                    ButtonFriendSelect.Content = userFriend.UserFriend1.UserName;
                     DatePicker.SelectedDate = userFriend.DateAdded;
 
-                    ComboBoxUser.IsEnabled = false;
-                    ComboBoxUserFirend.IsEnabled = false;
+                    ButtonUserSelect.IsEnabled = false;
+                    ButtonFriendSelect.IsEnabled = false;
                     DatePicker.IsEnabled = false;
                     CheckBoxIsOnline.IsEnabled = false;
                     ButtonAction.Content = "Eliminar";
@@ -63,8 +56,8 @@ namespace Desktop___interfaces.Interfaces
                 case SQL_UPDATE:
                     LabelTitle.Content = "Editar entidade Amigo do utilizador";
                     CheckBoxIsOnline.IsChecked = userFriend.IsOnline;
-                    ComboBoxUser.Text = userFriend.User.UserName;
-                    ComboBoxUserFirend.Text = userFriend.UserFriend1.UserName;
+                    ButtonUserSelect.Content = userFriend.User.UserName;
+                    ButtonFriendSelect.Content = userFriend.UserFriend1.UserName;
                     DatePicker.SelectedDate = userFriend.DateAdded;
                     ButtonAction.Content = "Editar";
                     break;
@@ -98,30 +91,31 @@ namespace Desktop___interfaces.Interfaces
                 case SQL_INSERT:
 
                     //verifica se existem caracteres especiais
-                    if ((User)ComboBoxUser.SelectedItem == null)
+                    if (userTemp == null)
                     {
                         openWarning++;
-                        ComboBoxUser.Background = Brushes.Red;
+                        ButtonUserSelect.Background = Brushes.Red;
                     }
                     else
                     {
                         //verifica se existem caracteres especiais
-                        if ((User)ComboBoxUserFirend.SelectedItem == null)
+                        if (friendTemp == null)
                         {
                             openWarning++;
-                            ComboBoxUser.Background = Brushes.Red;
+                            ButtonFriendSelect.Background = Brushes.Red;
                         }
                         else
                         {
                             //verifica se existem caracteres especiais
-                            if ((User)ComboBoxUserFirend.SelectedItem == (User)ComboBoxUser.SelectedItem )
+                            if (userTemp == friendTemp)
                             {
-                                ComboBoxUser.Background = Brushes.Red;
+                                ButtonUserSelect.Background = Brushes.Red;
+                                ButtonFriendSelect.Background = Brushes.Red;
                                 openWarning++;
                             }
                             else
                             {
-                                UserFriend p = SqlUserFriend.Get(((User)ComboBoxUser.SelectedItem).Id, ((User)ComboBoxUserFirend.SelectedItem).Id);
+                                UserFriend p = SqlUserFriend.Get(userTemp.Id, friendTemp.Id);
                                 if (p != null)
                                 {
                                     MessageBox.Show("Erro: o perfil que tentou cirar já existe", "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -131,14 +125,14 @@ namespace Desktop___interfaces.Interfaces
                                     if (ValidaDados())
                                     {
                                         UserFriend profileTemp = new UserFriend((bool)CheckBoxIsOnline.IsChecked, DatePicker.SelectedDate.Value,
-                                            (User)ComboBoxUser.SelectedItem, (User)ComboBoxUserFirend.SelectedItem);
+                                            userTemp, friendTemp);
+                                        userTemp = null;
+                                        friendTemp = null;
                                         SqlUserFriend.Add(profileTemp);
                                     }
                                 }
                             }
                         }
-
-                        
                     }
                     break;
 
@@ -146,6 +140,8 @@ namespace Desktop___interfaces.Interfaces
                 case SQL_DELETE:
                     if (ValidaDados())
                     {
+                        userTemp = null;
+                        friendTemp = null;
                         SqlUserFriend.Del(userFriend);
                     }
                     break;
@@ -154,29 +150,29 @@ namespace Desktop___interfaces.Interfaces
                 case SQL_UPDATE:
 
                     //verifica se existem caracteres especiais
-                    if ((User)ComboBoxUser.SelectedItem == null)
+                    if (userTemp == null)
                     {
                         openWarning++;
-                        ComboBoxUser.Background = Brushes.Red;
+                        ButtonUserSelect.Background = Brushes.Red;
                     }
                     else
                     {
                         //verifica se existem caracteres especiais
-                        if ((User)ComboBoxUserFirend.SelectedItem == null)
+                        if (friendTemp == null)
                         {
-                            ComboBoxUser.Background = Brushes.Red;
+                            ButtonFriendSelect.Background = Brushes.Red;
                             openWarning++;
                         }
                         else
                         {
-                            UserFriend p = SqlUserFriend.Get(((User)ComboBoxUser.SelectedItem).Id, ((User)ComboBoxUserFirend.SelectedItem).Id);
+                            UserFriend p = SqlUserFriend.Get(userTemp.Id, friendTemp.Id);
                             if (p == null || p != userFriend)
                             {
                                 if (ValidaDados())
                                 {
                                     userFriend.IsOnline = (bool)CheckBoxIsOnline.IsChecked;
                                     userFriend.DateAdded = DatePicker.SelectedDate.Value;
-                                    SqlUserFriend.Set(userFriend, ((User)ComboBoxUser.SelectedItem).Id, ((User)ComboBoxUserFirend.SelectedItem).Id);
+                                    SqlUserFriend.Set(userFriend, userTemp.Id, friendTemp.Id);
                                 }
                             }
                             else
@@ -198,14 +194,14 @@ namespace Desktop___interfaces.Interfaces
         private bool ValidaDados()
         {
             //verifica se existem caracteres especiais
-            if ((User)ComboBoxUser.SelectedItem == null)
+            if (userTemp== null)
             {
-                ComboBoxUser.Background = Brushes.Red;
+                ButtonUserSelect.Background = Brushes.Red;
                 openWarning++;
             }
             else
             {
-                ComboBoxUser.Background = Brushes.White;
+                ButtonUserSelect.Background = Brushes.White;
             }
 
             //verifica se existem caracteres especiais
@@ -220,14 +216,14 @@ namespace Desktop___interfaces.Interfaces
             }
 
             //verifica se existem caracteres especiais
-            if ((User)ComboBoxUserFirend.SelectedItem == null)
+            if (friendTemp == null)
             {
                 openWarning++;
-                ComboBoxUserFirend.Background = Brushes.Red;
+                ButtonFriendSelect.Background = Brushes.Red;
             }
             else
             {
-                ComboBoxUserFirend.Background = Brushes.White;
+                ButtonFriendSelect.Background = Brushes.White;
                 if (openWarning == 0)
                 {
                     switch (dbAction)
@@ -263,6 +259,36 @@ namespace Desktop___interfaces.Interfaces
                 return false;
             }
             return false;
+        }
+
+        /// <summary>
+        /// butão utilizado para escolher 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ButtonUserSelect_Click(object sender, RoutedEventArgs e)
+        {
+            WindowUserList w = new WindowUserList(LIST_ACTION_ID);
+            w.ShowDialog();
+            if (userTemp != null)
+            {
+                ButtonUserSelect.Content = userTemp.UserName;
+            }
+        }
+
+        /// <summary>
+        /// butão utilizado para escolher 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ButtonFriendSelect_Click(object sender, RoutedEventArgs e)
+        {
+            WindowUserList w = new WindowUserList(LIST_ACTION_ID_FRIEND);
+            w.ShowDialog();
+            if (friendTemp != null)
+            {
+                ButtonFriendSelect.Content = friendTemp.UserName;
+            }
         }
         #endregion
 

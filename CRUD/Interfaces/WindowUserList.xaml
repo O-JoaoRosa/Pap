@@ -17,8 +17,8 @@
         <TextBox x:Name="TextBoxUntilLastTimeOnline" HorizontalAlignment="Left" Margin="780,118,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="73" Height="26" MaxLength="10" RenderTransformOrigin="0.5,0.5"/>
         <Button x:Name="ButtonSearch" Content="Pesquisar" HorizontalAlignment="Left" Margin="858,87,0,0" VerticalAlignment="Top" Height="57" Width="60" Click="ButtonSearch_Click"/>
 
-        <Label Content="Lista User" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="50"/>
-        <ListView x:Name="ListView" Height="322" Margin="0,158,0,0" VerticalAlignment="Top" HorizontalAlignment="Center" Width="888" GridViewColumnHeader.Click="ListViewHeader_Click">
+        <Label Content="Lista User" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="50" Margin="0,-6,0,0"/>
+        <ListView MouseDoubleClick="ButtonEdit_Click" x:Name="ListView" Height="322" Margin="0,158,0,0" VerticalAlignment="Top" HorizontalAlignment="Center" Width="888" GridViewColumnHeader.Click="ListViewHeader_Click">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="ID" Width="0">
@@ -55,6 +55,7 @@
         <Button x:Name="ButtonCancel" Content="Cancelar" HorizontalAlignment="Left" Height="60" Margin="793,485,0,0" VerticalAlignment="Top" Width="125" Click="ButtonCancel_Click" />
         <Button x:Name="ButtonEdit" Content="Editar" HorizontalAlignment="Left" Height="60" Margin="643,485,0,0" VerticalAlignment="Top" Width="125" Click="ButtonEdit_Click"/>
         <Button x:Name="ButtonDel" Content="Eliminar" HorizontalAlignment="Left" Height="60" Margin="493,485,0,0" VerticalAlignment="Top" Width="125" Click="ButtonDel_Click"/>
-        
+        <Label x:Name="LabelSubTitle" Content="Seleciona o Utilizador" HorizontalAlignment="Center" Margin="0,59,0,0" VerticalAlignment="Top" Height="41" Width="194" FontSize="18"/>
+
     </Grid>
 </Window>

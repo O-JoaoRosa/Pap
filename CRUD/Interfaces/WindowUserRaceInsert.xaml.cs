@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Media;
 using static CRUD.ClassesEntidades.SQL.SQL_Connection;
+using static CRUD.ClassesEntidades.Settings;
 namespace Desktop___interfaces.Interfaces
 {
     /// <summary>
@@ -35,13 +36,6 @@ namespace Desktop___interfaces.Interfaces
         /// <param name="e"></param>
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            List<User> listaUser = SqlUser.GetAll(LIST_NULL, null, null, null, null, null, null);
-            ComboBoxUser.ItemsSource = listaUser;
-            ComboBoxUser.DisplayMemberPath = "UserName";
-
-            List<RaceTrack> listaUserRaces = SqlRaceTrack.GetAll(LIST_NULL, null , null, null,null);
-            ComboBoxRaceTack.ItemsSource = listaUserRaces;
-            ComboBoxRaceTack.DisplayMemberPath = "Descri";
 
             //altera a interface consuante a ação escolhida
             switch (dbAction)
@@ -49,15 +43,15 @@ namespace Desktop___interfaces.Interfaces
                 case SQL_DELETE:
                     LabelTitle.Content = "Eliminar entidade Amigo do utilizador";
                     TextBoxDinheroGanho.Text= userRace.MoneyMade.ToString();
-                    ComboBoxUser.Text = userRace.User.UserName;
-                    ComboBoxRaceTack.Text = userRace.RaceTrack.Descri;
+                    ButtonUserSelect.Content = userRace.User.UserName;
+                    ButtonTrackSelect.Content = userRace.RaceTrack.Descri;
                     DatePicker.SelectedDate = userRace.DateRace;
                     TextBoxPosicionamento.Text = userRace.FinishPosition.ToString();
                     TextBoxRepMade.Text = userRace.ReputationMade.ToString();
 
 
-                    ComboBoxUser.IsEnabled = false;
-                    ComboBoxRaceTack.IsEnabled = false;
+                    ButtonUserSelect.IsEnabled = false;
+                    ButtonTrackSelect.IsEnabled = false;
                     DatePicker.IsEnabled = false;
                     TextBoxPosicionamento.IsEnabled = false;
                     TextBoxRepMade.IsEnabled = false;
@@ -68,8 +62,8 @@ namespace Desktop___interfaces.Interfaces
                 case SQL_UPDATE:
                     LabelTitle.Content = "Editar entidade Amigo do utilizador";
                     TextBoxDinheroGanho.Text = userRace.MoneyMade.ToString();
-                    ComboBoxUser.Text = userRace.User.UserName;
-                    ComboBoxRaceTack.Text = userRace.RaceTrack.Descri;
+                    ButtonUserSelect.Content = userRace.User.UserName;
+                    ButtonTrackSelect.Content = userRace.RaceTrack.Descri;
                     DatePicker.SelectedDate = userRace.DateRace;
                     TextBoxPosicionamento.Text = userRace.FinishPosition.ToString();
                     TextBoxRepMade.Text = userRace.ReputationMade.ToString();
@@ -106,18 +100,18 @@ namespace Desktop___interfaces.Interfaces
                 case SQL_INSERT:
 
                     //verifica se existem caracteres especiais
-                    if ((User)ComboBoxUser.SelectedItem == null)
+                    if (userTemp == null)
                     {
                         openWarning++;
-                        ComboBoxUser.Background = Brushes.Red;
+                        ButtonUserSelect.Background = Brushes.Red;
                     }
                     else
                     {
                         //verifica se existem caracteres especiais
-                        if ((RaceTrack)ComboBoxRaceTack.SelectedItem == null)
+                        if (raceTrackTemp == null)
                         {
                             openWarning++;
-                            ComboBoxUser.Background = Brushes.Red;
+                            ButtonTrackSelect.Background = Brushes.Red;
                         }
                         else
                         {
@@ -125,7 +119,9 @@ namespace Desktop___interfaces.Interfaces
                             {
                                 UserRace profileTemp = new UserRace(-1,Convert.ToInt32(TextBoxPosicionamento.Text),
                                     Convert.ToInt32(TextBoxDinheroGanho.Text), Convert.ToInt32(TextBoxRepMade.Text),
-                                    DatePicker.SelectedDate.Value, (RaceTrack)ComboBoxRaceTack.SelectedItem, (User)ComboBoxUser.SelectedItem);
+                                    DatePicker.SelectedDate.Value, raceTrackTemp, userTemp);
+                                raceTrackTemp = null;
+                                userTemp = null;
                                 SqlUserRace.Add(profileTemp);
                             }
                         }
@@ -144,18 +140,18 @@ namespace Desktop___interfaces.Interfaces
                 case SQL_UPDATE:
 
                     //verifica se existem caracteres especiais
-                    if ((User)ComboBoxUser.SelectedItem == null)
+                    if (userTemp == null)
                     {
                         openWarning++;
-                        ComboBoxUser.Background = Brushes.Red;
+                        ButtonUserSelect.Background = Brushes.Red;
                     }
                     else
                     {
                         //verifica se existem caracteres especiais
-                        if ((RaceTrack)ComboBoxRaceTack.SelectedItem == null)
+                        if (raceTrackTemp == null)
                         {
                             openWarning++;
-                            ComboBoxUser.Background = Brushes.Red;
+                            ButtonTrackSelect.Background = Brushes.Red;
                         }
                         else
                         {
@@ -165,8 +161,10 @@ namespace Desktop___interfaces.Interfaces
                                 userRace.FinishPosition = Convert.ToInt32(TextBoxPosicionamento.Text);
                                 userRace.MoneyMade = Convert.ToInt32(TextBoxDinheroGanho.Text);
                                 userRace.ReputationMade = Convert.ToInt32(TextBoxRepMade.Text);
-                                userRace.User = (User)ComboBoxUser.SelectedItem;
-                                userRace.RaceTrack = (RaceTrack)ComboBoxRaceTack.SelectedItem;
+                                userRace.User = userTemp;
+                                userRace.RaceTrack = raceTrackTemp;
+                                raceTrackTemp = null;
+                                userTemp = null;
                                 SqlUserRace.Set(userRace);
                             }
                         }
@@ -184,14 +182,14 @@ namespace Desktop___interfaces.Interfaces
         private bool ValidaDados()
         {
             //verifica se existem caracteres especiais
-            if ((User)ComboBoxUser.SelectedItem == null)
+            if (userTemp == null)
             {
-                ComboBoxUser.Background = Brushes.Red;
+                ButtonUserSelect.Background = Brushes.Red;
                 openWarning++;
             }
             else
             {
-                ComboBoxUser.Background = Brushes.White;
+                ButtonUserSelect.Background = Brushes.White;
             }
 
             //verifica se existem caracteres especiais
@@ -239,14 +237,14 @@ namespace Desktop___interfaces.Interfaces
             }
 
             //verifica se existem caracteres especiais
-            if ((RaceTrack)ComboBoxRaceTack.SelectedItem == null)
+            if (raceTrackTemp == null)
             {
                 openWarning++;
-                ComboBoxRaceTack.Background = Brushes.Red;
+                ButtonTrackSelect.Background = Brushes.Red;
             }
             else
             {
-                ComboBoxRaceTack.Background = Brushes.White;
+                ButtonTrackSelect.Background = Brushes.White;
                 if (openWarning == 0)
                 {
                     switch (dbAction)
@@ -282,6 +280,36 @@ namespace Desktop___interfaces.Interfaces
                 return false;
             }
             return false;
+        }
+
+        /// <summary>
+        /// butão utilizado para escolher 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ButtonUserSelect_Click(object sender, RoutedEventArgs e)
+        {
+            WindowUserList w = new WindowUserList(LIST_ACTION_ID);
+            w.ShowDialog();
+            if (userTemp != null)
+            {
+                ButtonUserSelect.Content = userTemp.UserName;
+            }
+        }
+
+        /// <summary>
+        /// butão utilizado para escolher 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ButtonTrackSelect_Click(object sender, RoutedEventArgs e)
+        {
+            WindowRaceTrackList w = new WindowRaceTrackList(LIST_ACTION_ID);
+            w.ShowDialog();
+            if (raceTrackTemp != null)
+            {
+                ButtonTrackSelect.Content = raceTrackTemp.Descri;
+            }
         }
         #endregion
     }

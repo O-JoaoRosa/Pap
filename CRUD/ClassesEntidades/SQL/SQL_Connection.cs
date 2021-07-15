@@ -31,6 +31,9 @@ namespace CRUD.ClassesEntidades.SQL
         public const int DBMS_TGPSI_CASA = 5;
 
         //constantes para ordenar listas
+        public const int LIST_ACTION_NULL = 0;
+        public const int LIST_ACTION_ID = 1;
+        public const int LIST_ACTION_ID_FRIEND = 2;
         public const int LIST_NULL = 0;
         public const int LIST_DESCRI_ASC = 1;
         public const int LIST_DESCRI_DESC = 2;

@@ -8,9 +8,10 @@
         Title="WindowUserRaceInsert" Height="331" Width="800" Loaded="Window_Loaded">
     <Grid>
         <Label x:Name="LabelTitle" Content="Inserir User-Race" HorizontalAlignment="Center" Margin="0,13,0,0" VerticalAlignment="Top" FontSize="50"/>
-        <ComboBox x:Name="ComboBoxUser" HorizontalAlignment="Left" Margin="127,127,0,0" VerticalAlignment="Top" Width="235" Height="21"/>
         <Label Content="Utilizador :" HorizontalAlignment="Left" Margin="17,119,0,0" VerticalAlignment="Top" FontSize="20"/>
-        <ComboBox x:Name="ComboBoxRaceTack" HorizontalAlignment="Left" Margin="546,127,0,0" VerticalAlignment="Top" Width="235" Height="21"/>
+        <Button x:Name="ButtonUserSelect" Content="Selecione o utilizador desejado" HorizontalAlignment="Left" Margin="127,124,0,0" VerticalAlignment="Top" Height="27" Width="232" Click="ButtonUserSelect_Click"/>
+        <Button x:Name="ButtonTrackSelect" Content="Selecione a pista desejada" HorizontalAlignment="Left" Margin="546,124,0,0" VerticalAlignment="Top" Height="27" Width="222" Click="ButtonTrackSelect_Click"/>
+
         <Label Content="Pista de corridas :" HorizontalAlignment="Left" Margin="376,119,0,0" VerticalAlignment="Top" FontSize="20"/>
         <Label Content="Posicionamento :" HorizontalAlignment="Left" Margin="17,180,0,0" VerticalAlignment="Top" FontSize="20"/>
         <TextBox x:Name="TextBoxPosicionamento" HorizontalAlignment="Left" Margin="182,189,0,0" Text="000" TextWrapping="Wrap" VerticalAlignment="Top" Width="48" FontSize="18" MaxLength="3" TextAlignment="Right"/>

@@ -74,7 +74,7 @@ namespace CRUD
 
         private void MenuItemRaceTrackList_Click(object sender, RoutedEventArgs e)
         {
-            Window w = new WindowRaceTrackList();
+            Window w = new WindowRaceTrackList(LIST_ACTION_NULL);
             w.ShowDialog();
         }
 
@@ -122,7 +122,7 @@ namespace CRUD
 
         private void MenuItemUserList_Click(object sender, RoutedEventArgs e)
         {
-            Window w = new WindowUserList();
+            Window w = new WindowUserList(LIST_ACTION_NULL);
             w.ShowDialog();
         }
 

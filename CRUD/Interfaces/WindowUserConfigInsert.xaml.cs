@@ -1,9 +1,9 @@
 ﻿using CRUD.ClassesEntidades.SQL;
 using System;
-using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Media;
 using static CRUD.ClassesEntidades.SQL.SQL_Connection;
+using static CRUD.ClassesEntidades.Settings;
 using CRUD.ClassesEntidades;
 
 namespace Desktop___interfaces.Interfaces
@@ -37,9 +37,6 @@ namespace Desktop___interfaces.Interfaces
         /// <param name="e"></param>
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            List<User> listaUser = SqlUser.GetAll(LIST_NULL, null, null, null, null, null, null);
-            ComboBoxUser.ItemsSource = listaUser;
-            ComboBoxUser.DisplayMemberPath = "UserName";
 
             //altera a interface consuante a ação escolhida
             switch (dbAction)
@@ -47,9 +44,9 @@ namespace Desktop___interfaces.Interfaces
                 case SQL_DELETE:
                     LabelTitle.Content = "Eliminar a configuração";
                     TextBoxDescri.Text = userConfig.Descri;
-                    ComboBoxUser.Text = userConfig.User.UserName;
+                    ButtonUserSelect.Content = userConfig.User.UserName;
                     TextBoxValue.Text = userConfig.Value.ToString();
-                    ComboBoxUser.IsEnabled = false;
+                    ButtonUserSelect.IsEnabled = false;
                     TextBoxDescri.IsEnabled = false;
                     TextBoxValue.IsEnabled = false;
                     ButtonAction.Content = "Eliminar";
@@ -58,7 +55,8 @@ namespace Desktop___interfaces.Interfaces
                 case SQL_UPDATE:
                     LabelTitle.Content = "Editar entidade server-user";
                     TextBoxDescri.Text = userConfig.Descri;
-                    ComboBoxUser.Text = userConfig.User.UserName;
+                    ButtonUserSelect.Content = userConfig.User.UserName;
+                    userTemp = userConfig.User;
                     TextBoxValue.Text = userConfig.Value.ToString();
                     ButtonAction.Content = "Editar";
                     break;
@@ -95,7 +93,8 @@ namespace Desktop___interfaces.Interfaces
                     {
                         UserConfig profileTemp = new UserConfig(-1, TextBoxDescri.Text,
                              Convert.ToInt32(TextBoxValue.Text),
-                            (User)ComboBoxUser.SelectedItem);
+                            userTemp);
+                        userTemp = null;
                         SqlUserConfig.Add(profileTemp);
                     }
                     break;
@@ -115,7 +114,8 @@ namespace Desktop___interfaces.Interfaces
                     {
                         userConfig.Descri = TextBoxDescri.Text;
                         userConfig.Value = Convert.ToInt32(TextBoxValue.Text);
-                        userConfig.User = (User)ComboBoxUser.SelectedItem;
+                        userConfig.User = userTemp;
+                        userTemp = null;
                         SqlUserConfig.Set(userConfig);
                     }
                     break;
@@ -129,14 +129,14 @@ namespace Desktop___interfaces.Interfaces
         private bool ValidaDados()
         {
             //verifica se existem caracteres especiais
-            if ((User)ComboBoxUser.SelectedItem == null)
+            if (userTemp == null)
             {
-                ComboBoxUser.Background = Brushes.Red;
+                ButtonUserSelect.Background = Brushes.Red;
                 openWarning++;
             }
             else
             {
-                ComboBoxUser.Background = Brushes.White;
+                ButtonUserSelect.Background = Brushes.White;
             }
 
             //verifica se existem caracteres especiais
@@ -195,6 +195,22 @@ namespace Desktop___interfaces.Interfaces
             }
             return false;
         }
+
+        /// <summary>
+        /// butão utilizado para escolher 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ButtonUserSelect_Click(object sender, RoutedEventArgs e)
+        {
+            WindowUserList w = new WindowUserList(LIST_ACTION_ID);
+            w.ShowDialog();
+            if (userTemp!= null)
+            {
+                ButtonUserSelect.Content = userTemp.UserName;
+            }
+        }
         #endregion
+
     }
 }

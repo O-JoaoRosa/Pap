@@ -103,9 +103,9 @@ namespace CRUD.ClassesEntidades.SQL
                     if (fromUserName != null || untilUserName != null || fromUserFriend != null || untilUserFriend != null )
                     {
                         query += " INNER JOIN user ON userFriend.UserID = user.ID\n" +
-                            "INNER JOIN user as user2 ON userFriend.UserFriendID = user.ID"
+                            "INNER JOIN user as user2 ON userFriend.UserFriendID = user2.ID"
                             + " AND user.username >= '" + fromUserName + "' AND user.UserName <= '" + untilUserName +
-                            "~' AND user2.username >= '" + fromUserFriend + "' AND user2.UserName <= '" + fromUserFriend + "~';";
+                            "~' AND user2.username >= '" + fromUserFriend + "' AND user2.UserName <= '" + untilUserFriend + "~';";
                     }
 
                     // Prepara e executa o SQL DML

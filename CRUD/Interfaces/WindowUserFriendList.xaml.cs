@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using static CRUD.ClassesEntidades.SQL.SQL_Connection;
+using static CRUD.ClassesEntidades.Settings;
 
 namespace Desktop___interfaces.Interfaces
 {
@@ -62,6 +63,8 @@ namespace Desktop___interfaces.Interfaces
                 //verifica se o item selecionado está vazio ou não
                 if (profileClickado != null)
                 {
+                    userTemp = profileClickado.User;
+                    friendTemp = profileClickado.UserFriend1;
                     //abre a janela de edição com a informação necessaria para definir o que fazer
                     Window w = new WindowUserFriendInsert(SQL_Connection.SQL_UPDATE, profileClickado);
                     w.ShowDialog();
@@ -93,6 +96,8 @@ namespace Desktop___interfaces.Interfaces
                 //verifica se o item selecionado está vazio ou não
                 if (profileClickado != null)
                 {
+                    userTemp = profileClickado.User;
+                    friendTemp = profileClickado.UserFriend1;
                     //abre a janela de edição com a informação necessaria para definir o que fazer
                     Window w = new WindowUserFriendInsert(SQL_Connection.SQL_DELETE, profileClickado);
                     w.ShowDialog();

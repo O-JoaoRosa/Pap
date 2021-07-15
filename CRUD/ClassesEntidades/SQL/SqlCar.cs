@@ -105,7 +105,7 @@ namespace CRUD.ClassesEntidades.SQL
                 {
                     query = "SELECT * FROM car";
 
-                    if ((fromDescri != null || untilDescri != null || fromRepReq != null || untilRepReq != null || fromPrice != null || untilPrice != null || fromMaxSpeed != null || untilMaxSpeed != null)&&(fromDescri != "" || untilDescri != "" || fromRepReq != "" || untilRepReq != "" || fromPrice != "" || untilPrice != "" || fromMaxSpeed != "" || untilMaxSpeed != ""))
+                    if (fromDescri != null || untilDescri != null || fromRepReq != null || untilRepReq != null || fromPrice != null || untilPrice != null || fromMaxSpeed != null || untilMaxSpeed != null)
                     {
                         query += " WHERE Descri >= '" + fromDescri + "' AND Descri <= '" + untilDescri +
                             "~' AND ReputationRequired >= '" + fromRepReq + "' AND ReputationRequired <= '" + untilRepReq + "~'"

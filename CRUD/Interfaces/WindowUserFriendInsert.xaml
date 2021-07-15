@@ -7,20 +7,20 @@
         mc:Ignorable="d"
         Title="WindowUserFriendInsert" Height="387" Width="720" ResizeMode="NoResize" Loaded="Window_Loaded">
     <Grid>
+        <Button x:Name="ButtonUserSelect" Content="Selecione o utilizador desejado" HorizontalAlignment="Left" Margin="165,159,0,0" VerticalAlignment="Top" Height="27" Width="189" Click="ButtonUserSelect_Click"/>
+        <Button x:Name="ButtonFriendSelect" Content="Selecione o utilizador desejado" HorizontalAlignment="Left" Margin="495,160,0,0" VerticalAlignment="Top" Height="27" Width="178" Click="ButtonFriendSelect_Click"/>
         <Label x:Name="LabelTitle" Content="Inserir um Amigo do Utilizador" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" FontSize="50"/>
         <Label Content="Utilizador 1 :" HorizontalAlignment="Left" Margin="39,152,0,0" VerticalAlignment="Top" FontSize="20"/>
-        <ComboBox x:Name="ComboBoxUser" HorizontalAlignment="Left" Margin="179,159,0,0" VerticalAlignment="Top" Width="120"/>
-        <ComboBox x:Name="ComboBoxUserFirend" HorizontalAlignment="Left" Margin="557,159,0,0" VerticalAlignment="Top" Width="120"/>
-        <Label Content="Utilizador 2 :" HorizontalAlignment="Left" Margin="417,154,0,0" VerticalAlignment="Top" FontSize="20"/>
-        <DatePicker x:Name="DatePicker" HorizontalAlignment="Left" Margin="226,234,0,0" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.488,0.28"/>
-        <CheckBox x:Name="CheckBoxIsOnline" Content="Está Online" HorizontalAlignment="Left" Margin="523,227,0,0" VerticalAlignment="Top" Height="17" Width="77" FontSize="10" RenderTransformOrigin="0.519,0.467">
+        <Label Content="Utilizador 2 :" HorizontalAlignment="Left" Margin="369,154,0,0" VerticalAlignment="Top" FontSize="20"/>
+        <DatePicker x:Name="DatePicker" HorizontalAlignment="Left" Margin="206,230,0,0" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.488,0.28"/>
+        <CheckBox x:Name="CheckBoxIsOnline" Content="Está Online" HorizontalAlignment="Left" Margin="512,223,0,0" VerticalAlignment="Top" Height="17" Width="77" FontSize="10" RenderTransformOrigin="0.519,0.467">
             <CheckBox.LayoutTransform>
                 <ScaleTransform ScaleX="2" ScaleY="2"/>
             </CheckBox.LayoutTransform>
         </CheckBox>
         <Label Content="Data de criação :" HorizontalAlignment="Left" Margin="39,224,0,0" VerticalAlignment="Top" FontSize="20"/>
-        <Button x:Name="ButtonCancel" Content="Cancelar" HorizontalAlignment="Left" Margin="557,298,0,0" VerticalAlignment="Top" Height="47" Width="120" Click="ButtonCancel_Click"/>
-        <Button x:Name="ButtonAction" Content="Inserir" HorizontalAlignment="Left" Margin="395,298,0,0" VerticalAlignment="Top" Height="47" Width="120" Click="ButtonAction_Click"/>
+        <Button x:Name="ButtonCancel" Content="Cancelar" HorizontalAlignment="Left" Margin="548,285,0,0" VerticalAlignment="Top" Height="47" Width="120" Click="ButtonCancel_Click"/>
+        <Button x:Name="ButtonAction" Content="Inserir" HorizontalAlignment="Left" Margin="386,285,0,0" VerticalAlignment="Top" Height="47" Width="120" Click="ButtonAction_Click"/>
 
     </Grid>
 </Window>
