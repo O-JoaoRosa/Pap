@@ -209,7 +209,7 @@ namespace CRUD.ClassesEntidades.SQL
                         sqlCommand.Connection = ((MySqlConnection)conn);
 
                         // SQL DDL
-                        sqlCommand.CommandText = "SELECT * FROM UserFriend where UserID=@userId AND UserFriendID=@userFriendID;";
+                        sqlCommand.CommandText = "SELECT * FROM UserFriend where (UserID=@userId AND UserFriendID=@userFriendID) OR (UserFriendID=@userId AND UserID=@userFriendID);";
                         sqlCommand.Parameters.Add(new MySqlParameter("@userId", userid));
                         sqlCommand.Parameters.Add(new MySqlParameter("@userFriendID", userFriendId));
 

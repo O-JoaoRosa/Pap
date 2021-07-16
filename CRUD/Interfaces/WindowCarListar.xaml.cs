@@ -1,8 +1,8 @@
-﻿
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using CRUD.ClassesEntidades.SQL;
 using static CRUD.ClassesEntidades.SQL.SQL_Connection;
+using static CRUD.ClassesEntidades.Settings;
 
 namespace Desktop___interfaces.Interfaces
 {
@@ -12,16 +12,33 @@ namespace Desktop___interfaces.Interfaces
     public partial class WindowCarListar : Window
     {
         int listOrder = LIST_NULL;
+        int listAction = -1;
 
         #region load
-        public WindowCarListar()
+        public WindowCarListar(int action)
         {
             InitializeComponent();
+            listAction = action;
         }
 
+        /// <summary>
+        /// metotdo executado quando a window carrega, irá alteraar a interface
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             ListView.ItemsSource = SqlCar.GetAll(LIST_NULL, null, null, null, null, null, null, null, null);
+            if (listAction != LIST_ACTION_ID)
+            {
+                LabelSubTitle.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                LabelSubTitle.Visibility = Visibility.Visible;
+                ButtonDel.Visibility = Visibility.Hidden;
+                ButtonEdit.Visibility = Visibility.Hidden;
+            }
         }
 
         #endregion
@@ -41,27 +58,52 @@ namespace Desktop___interfaces.Interfaces
         /// <param name="e"></param>
         private void ButtonEdit_Click(object sender, RoutedEventArgs e)
         {
-            //verifica se algum item foi selecionado 
-            if (ListView.SelectedItems.Count > 0)
+            if (listAction != LIST_ACTION_ID)
             {
-                //vai buscar o item selecionado
-                Car carClickado = (Car)ListView.SelectedItems[0];
-
-                //verifica se o item selecionado está vazio ou não
-                if (carClickado != null)
+                //verifica se algum item foi selecionado 
+                if (ListView.SelectedItems.Count > 0)
                 {
-                    //abre a janela de edição com a informação necessaria para definir o que fazer
-                    Window w = new WindowCarInsert(SQL_Connection.SQL_UPDATE, carClickado);
-                    w.ShowDialog();
+                    //vai buscar o item selecionado
+                    Car carClickado = (Car)ListView.SelectedItems[0];
+
+                    //verifica se o item selecionado está vazio ou não
+                    if (carClickado != null)
+                    {
+                        //abre a janela de edição com a informação necessaria para definir o que fazer
+                        Window w = new WindowCarInsert(SQL_Connection.SQL_UPDATE, carClickado);
+                        w.ShowDialog();
+                    }
                 }
+                else
+                {
+                    //avisa que nenhum item foi selecionado
+                    MessageBox.Show("Erro : nenhum item selecionado", "Erro!", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+
+                RefreshListView();
             }
             else
             {
-                //avisa que nenhum item foi selecionado
-                MessageBox.Show("Erro : nenhum item selecionado", "Erro!", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+                //verifica se algum item foi selecionado 
+                if (ListView.SelectedItems.Count > 0)
+                {
+                    //vai buscar o item selecionado
+                    Car userClickado = (Car)ListView.SelectedItems[0];
 
-            RefreshListView();
+                    //verifica se o item selecionado está vazio ou não
+                    if (userClickado != null)
+                    {
+                        carTemp = userClickado;
+                        Close();
+                    }
+                }
+                else
+                {
+                    //avisa que nenhum item foi selecionado
+                    MessageBox.Show("Erro : nenhum item selecionado", "Erro!", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+            
         }
 
         /// <summary>

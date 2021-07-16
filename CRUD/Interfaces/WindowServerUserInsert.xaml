@@ -9,15 +9,12 @@
     <Grid>
         <Label x:Name="LabelTitle" Content="Inserir entidade servidor-user" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" FontSize="50"/>
         <Label Content="Utilizador :" HorizontalAlignment="Left" Margin="62,119,0,0" VerticalAlignment="Top" FontSize="20"/>
-        <ComboBox x:Name="ComboBoxUser" HorizontalAlignment="Left" Margin="179,126,0,0" VerticalAlignment="Top" Width="210" Height="30"/>
-        <ComboBox x:Name="ComboBoxServerUserState" HorizontalAlignment="Left" Margin="628,126,0,0" VerticalAlignment="Top" Width="305" Height="30"/>
         <DatePicker x:Name="DatePickerBanTime" HorizontalAlignment="Left" Margin="276,284,0,0" VerticalAlignment="Top"/>
         <DatePicker x:Name="DatePickerCreationDate" HorizontalAlignment="Left" Margin="556,284,0,0" VerticalAlignment="Top"/>
         <DatePicker x:Name="DatePickerAcessDate" HorizontalAlignment="Left" Margin="830,284,0,0" VerticalAlignment="Top" Width="103"/>
         <DatePicker x:Name="DatePickerSuspension" HorizontalAlignment="Left" Margin="276,367,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.813,0.71"/>
         <Label Content="Servidor :" HorizontalAlignment="Left" Margin="62,205,0,0" VerticalAlignment="Top" FontSize="20"/>
-        <ComboBox x:Name="ComboBoxServer" HorizontalAlignment="Left" Margin="179,205,0,0" VerticalAlignment="Top" Width="754" Height="30"/>
-        <Label Content="Estado do servidor-user :" HorizontalAlignment="Left" Margin="394,123,0,0" VerticalAlignment="Top" FontSize="20"/>
+        <Label Content="Estado do servidor-user :" HorizontalAlignment="Left" Margin="418,119,0,0" VerticalAlignment="Top" FontSize="20"/>
         <CheckBox x:Name="CheckBoxIsAcessible" Content="É Acessivél" HorizontalAlignment="Left" Margin="394,364,0,0" VerticalAlignment="Top" Height="17" Width="71" FontSize="10" RenderTransformOrigin="0.519,0.467">
             <CheckBox.LayoutTransform>
                 <ScaleTransform ScaleX="2" ScaleY="2"/>
@@ -38,6 +35,9 @@
                 </TransformGroup>
             </Label.RenderTransform>
         </Label>
+        <Button x:Name="ButtonSelectUser" Content="Selecione um utilizador" HorizontalAlignment="Left" Margin="167,123,0,0" VerticalAlignment="Top" Height="28" Width="222" Click="ButtonSelectUser_Click"/>
+        <Button x:Name="ButtonSelectServerUser" Content="Selecione um estado server-user " HorizontalAlignment="Left" Margin="652,123,0,0" VerticalAlignment="Top" Height="28" Width="299" Click="ButtonSelectServerUser_Click"/>
+        <Button x:Name="ButtonSelectServer" Content="Selecione um servidor" HorizontalAlignment="Left" Margin="167,214,0,0" VerticalAlignment="Top" Height="28" Width="784" Click="ButtonSelectServer_Click"/>
 
     </Grid>
 </Window>

@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CRUD.ClassesEntidades.SQL;
-using Desktop___interfaces.ClassesEntidades.SQL;
+﻿using CRUD.ClassesEntidades.SQL;
 using System.Windows;
 using System.Windows.Media;
 using static CRUD.ClassesEntidades.SQL.SQL_Connection;
+using static CRUD.ClassesEntidades.Settings;
 
 namespace Desktop___interfaces.Interfaces
 {
@@ -31,6 +26,14 @@ namespace Desktop___interfaces.Interfaces
             InitializeComponent();
             userCar = us;
             dbAction = action;
+            if (us != null)
+            {
+                userTemp = us.User;
+                carBodyTemp = us.CarBody;
+                carTemp = us.Car;
+                wheelTemp = us.Roda;
+                powerUpTemp = us.PowerUp;
+            }
         }
 
 
@@ -41,44 +44,24 @@ namespace Desktop___interfaces.Interfaces
         /// <param name="e"></param>
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            List<User> listaUser = SqlUser.GetAll(LIST_NULL, null, null, null, null, null, null);
-            ComboBoxUser.ItemsSource = listaUser;
-            ComboBoxUser.DisplayMemberPath = "UserName";
-
-            List<Car> listaServers = SqlCar.GetAll(LIST_NULL, null, null, null, null, null, null, null, null);
-            ComboBoxCar.ItemsSource = listaServers;
-            ComboBoxCar.DisplayMemberPath = "Descri";
-
-            List<Wheel> listaWheels = SqlWheel.GetAll(LIST_NULL, null, null, null, null);
-            ComboBoxWheels.ItemsSource = listaWheels;
-            ComboBoxWheels.DisplayMemberPath = "Descri";
-
-            List<CarBody> listaCarBodys = SqlCarBody.GetAll(LIST_NULL, null, null, null, null);
-            ComboBoxCarBodies.ItemsSource = listaCarBodys;
-            ComboBoxCarBodies.DisplayMemberPath = "Descri";
-
-            List<PowerUp> listaPowerUps = SqlPowerUp.GetAll(LIST_NULL, null, null);
-            ComboBoxPowerUp.ItemsSource = listaPowerUps;
-            ComboBoxPowerUp.DisplayMemberPath = "Descri";
-
             //altera a interface consuante a ação escolhida
             switch (dbAction)
             {
                 case SQL_DELETE:
                     LabelTitle.Content = "Eliminar entidade User - Car";
                     CheckBoxUnlocked.IsChecked = userCar.IsUnlocked;
-                    ComboBoxUser.Text = userCar.User.UserName;
-                    ComboBoxCar.Text = userCar.Car.Descri;
-                    ComboBoxWheels.Text = userCar.Roda.Descri;
-                    ComboBoxCarBodies.Text = userCar.CarBody.Descri;
-                    ComboBoxPowerUp.Text = userCar.PowerUp.Descri;
+                    ButtonSelectUser.Content = userCar.User.UserName;
+                    ButtonSelectCar.Content = userCar.Car.Descri;
+                    ButtonSelectWheel.Content = userCar.Roda.Descri;
+                    ButtonSelectCarBody.Content = userCar.CarBody.Descri;
+                    ButtonSelectPowerUp.Content = userCar.PowerUp.Descri;
                     DatePicker.SelectedDate = userCar.DateUnlocked;
-                    
-                    ComboBoxUser.IsEnabled = false;
-                    ComboBoxCar.IsEnabled = false;
-                    ComboBoxWheels.IsEnabled = false;
-                    ComboBoxCarBodies.IsEnabled = false;
-                    ComboBoxPowerUp.IsEnabled = false;
+
+                    ButtonSelectUser.IsEnabled = false;
+                    ButtonSelectCar.IsEnabled = false;
+                    ButtonSelectWheel.IsEnabled = false;
+                    ButtonSelectCarBody.IsEnabled = false;
+                    ButtonSelectPowerUp.IsEnabled = false;
                     CheckBoxUnlocked.IsEnabled = false;
                     DatePicker.IsEnabled = false;
                     ButtonAction.Content = "Eliminar";
@@ -87,11 +70,11 @@ namespace Desktop___interfaces.Interfaces
                 case SQL_UPDATE:
                     LabelTitle.Content = "Editar entidade User - Car";
                     CheckBoxUnlocked.IsChecked = userCar.IsUnlocked;
-                    ComboBoxUser.Text = userCar.User.UserName;
-                    ComboBoxCar.Text = userCar.Car.Descri;
-                    ComboBoxWheels.Text = userCar.Roda.Descri;
-                    ComboBoxCarBodies.Text = userCar.CarBody.Descri;
-                    ComboBoxPowerUp.Text = userCar.PowerUp.Descri;
+                    ButtonSelectUser.Content = userCar.User.UserName;
+                    ButtonSelectCar.Content = userCar.Car.Descri;
+                    ButtonSelectWheel.Content = userCar.Roda.Descri;
+                    ButtonSelectCarBody.Content = userCar.CarBody.Descri;
+                    ButtonSelectPowerUp.Content = userCar.PowerUp.Descri;
                     DatePicker.SelectedDate = userCar.DateUnlocked;
                     ButtonAction.Content = "Editar";
                     break;
@@ -108,6 +91,11 @@ namespace Desktop___interfaces.Interfaces
         /// <param name="e"></param>
         private void ButtonCancel_Click(object sender, RoutedEventArgs e)
         {
+            userTemp = null;
+            carBodyTemp = null;
+            carTemp = null;
+            wheelTemp = null;
+            powerUpTemp = null;
             this.Close();
         }
 
@@ -125,38 +113,38 @@ namespace Desktop___interfaces.Interfaces
                 case SQL_INSERT:
 
                     //verifica se existem caracteres especiais
-                    if ((User)ComboBoxUser.SelectedItem == null)
+                    if (userTemp == null)
                     {
                         openWarning++;
-                        ComboBoxUser.Background = Brushes.Red;
+                        ButtonSelectUser.Background = Brushes.Red;
                     }
                     else
                     {
                         //verifica se existem caracteres especiais
-                        if ((Car)ComboBoxCar.SelectedItem == null)
+                        if (carTemp == null)
                         {
-                            ComboBoxUser.Background = Brushes.Red;
+                            ButtonSelectCarBody.Background = Brushes.Red;
                             openWarning++;
                         }
                         else
                         {
                             //verifica se existem caracteres especiais
-                            if ((CarBody)ComboBoxCarBodies.SelectedItem == null)
+                            if (carBodyTemp == null)
                             {
-                                ComboBoxUser.Background = Brushes.Red;
+                                ButtonSelectCarBody.Background = Brushes.Red;
                                 openWarning++;
                             }
                             else
                             {
                                 //verifica se existem caracteres especiais
-                                if ((Wheel)ComboBoxWheels.SelectedItem == null)
+                                if (wheelTemp == null)
                                 {
-                                    ComboBoxUser.Background = Brushes.Red;
+                                    ButtonSelectWheel.Background = Brushes.Red;
                                     openWarning++;
                                 }
                                 else
                                 {
-                                    UserCar p = SqlUserCar.Get(((User)ComboBoxUser.SelectedItem).Id, ((Car)ComboBoxCar.SelectedItem).Id);
+                                    UserCar p = SqlUserCar.Get(userTemp.Id, carTemp.Id);
                                     if (p != null)
                                     {
                                         MessageBox.Show("Erro: o perfil que tentou cirar já existe", "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -166,9 +154,14 @@ namespace Desktop___interfaces.Interfaces
                                         if (ValidaDados())
                                         {
                                             UserCar profileTemp = new UserCar(DatePicker.SelectedDate.Value, (bool)CheckBoxUnlocked.IsChecked,
-                                                (Car)ComboBoxCar.SelectedItem, (User)ComboBoxUser.SelectedItem, (Wheel)ComboBoxWheels.SelectedItem, 
-                                                (CarBody)ComboBoxCarBodies.SelectedItem , (PowerUp)ComboBoxPowerUp.SelectedItem);
+                                                carTemp, userTemp, wheelTemp, carBodyTemp, powerUpTemp);
                                             SqlUserCar.Add(profileTemp);
+
+                                            userTemp = null;
+                                            carBodyTemp = null;
+                                            carTemp = null;
+                                            wheelTemp = null;
+                                            powerUpTemp = null;
                                         }
                                     }
 
@@ -190,48 +183,48 @@ namespace Desktop___interfaces.Interfaces
                 case SQL_UPDATE:
 
                     //verifica se existem caracteres especiais
-                    if ((User)ComboBoxUser.SelectedItem == null)
+                    if (userTemp == null)
                     {
                         openWarning++;
-                        ComboBoxUser.Background = Brushes.Red;
+                        ButtonSelectUser.Background = Brushes.Red;
                     }
                     else
                     {
                         //verifica se existem caracteres especiais
-                        if ((Car)ComboBoxCar.SelectedItem == null)
+                        if (carTemp == null)
                         {
-                            ComboBoxUser.Background = Brushes.Red;
+                            ButtonSelectCar.Background = Brushes.Red;
                             openWarning++;
                         }
                         else
                         {
                             //verifica se existem caracteres especiais
-                            if ((CarBody)ComboBoxCarBodies.SelectedItem == null)
+                            if (carBodyTemp == null)
                             {
-                                ComboBoxUser.Background = Brushes.Red;
+                                ButtonSelectCarBody.Background = Brushes.Red;
                                 openWarning++;
                             }
                             else
                             {
                                 //verifica se existem caracteres especiais
-                                if ((Wheel)ComboBoxWheels.SelectedItem == null)
+                                if (wheelTemp == null)
                                 {
-                                    ComboBoxUser.Background = Brushes.Red;
+                                    ButtonSelectWheel.Background = Brushes.Red;
                                     openWarning++;
                                 }
                                 else
                                 {
-                                    UserCar p = SqlUserCar.Get(((User)ComboBoxUser.SelectedItem).Id, ((Car)ComboBoxCar.SelectedItem).Id);
+                                    UserCar p = SqlUserCar.Get(userTemp.Id, carTemp.Id);
                                     if (p == null || p != userCar)
                                     {
                                         if (ValidaDados())
                                         {
                                             userCar.DateUnlocked = DatePicker.SelectedDate.Value;
                                             userCar.IsUnlocked = (bool)CheckBoxUnlocked.IsChecked;
-                                            userCar.PowerUp = (PowerUp)ComboBoxPowerUp.SelectedItem;
-                                            userCar.CarBody = (CarBody)ComboBoxCarBodies.SelectedItem;
-                                            userCar.Roda = (Wheel)ComboBoxWheels.SelectedItem;
-                                            SqlUserCar.Set(userCar, ((User)ComboBoxUser.SelectedItem).Id, ((Car)ComboBoxCar.SelectedItem).Id);
+                                            userCar.PowerUp = powerUpTemp;
+                                            userCar.CarBody = carBodyTemp;
+                                            userCar.Roda = wheelTemp;
+                                            SqlUserCar.Set(userCar, userTemp.Id, carTemp.Id);
                                         }
                                     }
                                     else
@@ -300,6 +293,87 @@ namespace Desktop___interfaces.Interfaces
             }
             return false;
         }
+
+        #region entity selection
+
+        /// <summary>
+        /// metodo que é executado quando o buttão é clickado, serve para escolher que entidade irá ser usada
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ButtonSelectCar_Click(object sender, RoutedEventArgs e)
+        {
+            WindowCarListar w = new WindowCarListar(LIST_ACTION_ID);
+            w.ShowDialog();
+            if (carTemp != null)
+            {
+                ButtonSelectCar.Content = carTemp.Descri;
+            }
+        }
+
+        /// <summary>
+        /// metodo que é executado quando o buttão é clickado, serve para escolher que entidade irá ser usada
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ButtonSelectPowerUp_Click(object sender, RoutedEventArgs e)
+        {
+            WindowPowerUpList w = new WindowPowerUpList(LIST_ACTION_ID);
+            w.ShowDialog();
+            if (powerUpTemp != null)
+            {
+                ButtonSelectPowerUp.Content = powerUpTemp.Descri;
+            }
+        }
+
+        /// <summary>
+        /// metodo que é executado quando o buttão é clickado, serve para escolher que entidade irá ser usada
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ButtonSelectUser_Click(object sender, RoutedEventArgs e)
+        {
+            WindowUserList w = new WindowUserList(LIST_ACTION_ID);
+            w.ShowDialog();
+            if (userTemp != null)
+            {
+                ButtonSelectUser.Content = userTemp.UserName;
+            }
+        }
+
+        /// <summary>
+        /// metodo que é executado quando o buttão é clickado, serve para escolher que entidade irá ser usada
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ButtonSelectCarBody_Click(object sender, RoutedEventArgs e)
+        {
+            WindowCarBodyListar w = new WindowCarBodyListar(LIST_ACTION_ID);
+            w.ShowDialog();
+            if (carBodyTemp != null)
+            {
+                ButtonSelectCarBody.Content = carBodyTemp.Descri;
+            }
+        }
+
+        /// <summary>
+        /// metodo que é executado quando o buttão é clickado, serve para escolher que entidade irá ser usada
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ButtonSelectWheel_Click(object sender, RoutedEventArgs e)
+        {
+            WindowWheelList w = new WindowWheelList(LIST_ACTION_ID);
+            w.ShowDialog();
+            if (wheelTemp != null)
+            {
+                ButtonSelectWheel.Content = wheelTemp.Descri;
+            }
+        }
         #endregion
+
+        #endregion
+
+
     }
 }

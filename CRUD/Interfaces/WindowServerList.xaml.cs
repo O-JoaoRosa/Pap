@@ -1,4 +1,5 @@
 ﻿using static CRUD.ClassesEntidades.SQL.SQL_Connection;
+using static CRUD.ClassesEntidades.Settings;
 using System.Windows;
 using System.Windows.Controls;
 using Desktop___interfaces.ClassesEntidades.SQL;
@@ -11,14 +12,16 @@ namespace Desktop___interfaces.Interfaces
     public partial class WindowServerList : Window
     {
         int listOrder = LIST_NULL;
+        int listAction = -1;
 
         #region load
         /// <summary>
         /// metodo executado assim que a window é inicializada
         /// </summary>
-        public WindowServerList()
+        public WindowServerList(int action)
         {
             InitializeComponent();
+            listAction = action;
         }
 
         /// <summary>
@@ -29,6 +32,16 @@ namespace Desktop___interfaces.Interfaces
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             ListView.ItemsSource = SqlServer.GetAll(listOrder, null ,null ,null ,null);
+            if (listAction != LIST_ACTION_ID && listAction != LIST_ACTION_ID_FRIEND)
+            {
+                LabelSubTitle.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                LabelSubTitle.Visibility = Visibility.Visible;
+                ButtonDelete.Visibility = Visibility.Hidden;
+                ButtonEdit.Visibility = Visibility.Hidden;
+            }
         }
         #endregion
 
@@ -50,27 +63,52 @@ namespace Desktop___interfaces.Interfaces
         /// <param name="e"></param>
         private void ButtonEdit_Click(object sender, RoutedEventArgs e)
         {
-            //verifica se algum item foi selecionado 
-            if(ListView.SelectedItems.Count > 0)
+            if (listAction == LIST_ACTION_NULL)
             {
-                //vai buscar o item selecionado
-                Server serverClickado = (Server)ListView.SelectedItems[0];
-
-                //verifica se o item selecionado está vazio ou não
-                if(serverClickado != null)
+                //verifica se algum item foi selecionado 
+                if (ListView.SelectedItems.Count > 0)
                 {
-                    //abre a janela de edição com a informação necessaria para definir o que fazer
-                    Window w = new WindowServerInsert(SQL_UPDATE, serverClickado);
-                    w.ShowDialog();
+                    //vai buscar o item selecionado
+                    Server serverClickado = (Server)ListView.SelectedItems[0];
+
+                    //verifica se o item selecionado está vazio ou não
+                    if (serverClickado != null)
+                    {
+                        //abre a janela de edição com a informação necessaria para definir o que fazer
+                        Window w = new WindowServerInsert(SQL_UPDATE, serverClickado);
+                        w.ShowDialog();
+                    }
                 }
+                else
+                {
+                    //avisa que nenhum item foi selecionado
+                    MessageBox.Show("Erro : nenhum item selecionado", "Erro!", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+
+                RefreshListView();
             }
             else
             {
-                //avisa que nenhum item foi selecionado
-                MessageBox.Show("Erro : nenhum item selecionado", "Erro!", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+                //verifica se algum item foi selecionado 
+                if (ListView.SelectedItems.Count > 0)
+                {
+                    //vai buscar o item selecionado
+                    Server serverClickado = (Server)ListView.SelectedItems[0];
 
-            RefreshListView();
+                    //verifica se o item selecionado está vazio ou não
+                    if (serverClickado != null)
+                    {
+                        serverTemp = serverClickado;
+                        Close();
+                    }
+                }
+                else
+                {
+                    //avisa que nenhum item foi selecionado
+                    MessageBox.Show("Erro : nenhum item selecionado", "Erro!", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+            
         }
 
         /// <summary>

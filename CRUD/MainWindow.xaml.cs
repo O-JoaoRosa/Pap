@@ -25,7 +25,7 @@ namespace CRUD
 
         private void MenuItemCarListar_Click(object sender, RoutedEventArgs e)
         {
-            Window w = new WindowCarListar();
+            Window w = new WindowCarListar(LIST_ACTION_NULL);
             w.ShowDialog();
         }
 
@@ -37,7 +37,7 @@ namespace CRUD
 
         private void MenuItemCarBodyListar_Click(object sender, RoutedEventArgs e)
         {
-            Window w = new WindowCarBodyListar();
+            Window w = new WindowCarBodyListar(LIST_ACTION_NULL);
             w.ShowDialog();
         }
 
@@ -49,7 +49,7 @@ namespace CRUD
 
         private void MenuItemPowerUpListar_Click(object sender, RoutedEventArgs e)
         {
-            Window w = new WindowPowerUpList();
+            Window w = new WindowPowerUpList(LIST_ACTION_NULL);
             w.ShowDialog();
 
         }
@@ -86,7 +86,7 @@ namespace CRUD
 
         private void MenuItemServerList_Click(object sender, RoutedEventArgs e)
         {
-            Window w = new WindowServerList();
+            Window w = new WindowServerList(LIST_ACTION_NULL);
             w.ShowDialog();
         }
 
@@ -110,7 +110,7 @@ namespace CRUD
 
         private void MenuItemServerUserStateList_Click(object sender, RoutedEventArgs e)
         {
-            Window w = new WindowServerUserStateList();
+            Window w = new WindowServerUserStateList(LIST_ACTION_NULL);
             w.ShowDialog();
         }
 
@@ -182,7 +182,7 @@ namespace CRUD
 
         private void MenuItemUserTypeList_Click(object sender, RoutedEventArgs e)
         {
-            Window w = new WindowUserTypeList();
+            Window w = new WindowUserTypeList(LIST_ACTION_NULL);
             w.ShowDialog();
         }
 
@@ -194,7 +194,7 @@ namespace CRUD
 
         private void MenuItemWheelList_Click(object sender, RoutedEventArgs e)
         {
-            Window w = new WindowWheelList();
+            Window w = new WindowWheelList(LIST_ACTION_NULL);
             w.ShowDialog();
         }
 

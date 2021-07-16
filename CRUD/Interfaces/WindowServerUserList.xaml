@@ -14,7 +14,7 @@
         <Button x:Name="ButtonSearch" Content="Pesquisar" HorizontalAlignment="Left" Margin="754,83,0,0" VerticalAlignment="Top" Height="57" Width="60" Click="ButtonSearch_Click"/>
 
         <Label Content="Lista De Servidores-Users" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" FontSize="50"/>
-        <ListView x:Name="ListView" HorizontalAlignment="Center" Height="259" Margin="0,156,0,0" VerticalAlignment="Top" Width="780" GridViewColumnHeader.Click="ListViewHeader_Click">
+        <ListView MouseDoubleClick="ButtonEdit_Click" x:Name="ListView" HorizontalAlignment="Center" Height="259" Margin="0,156,0,0" VerticalAlignment="Top" Width="780" GridViewColumnHeader.Click="ListViewHeader_Click">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="ID" Width="0">
@@ -24,7 +24,7 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Header="Utilizador" Width="350">
+                    <GridViewColumn Header="Utilizador" Width="349">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding User.UserName}" FontWeight="Bold" HorizontalAlignment="Center" />

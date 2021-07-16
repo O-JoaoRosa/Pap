@@ -13,6 +13,7 @@
         static public PowerUp powerUpTemp = null;
         static public UserType userTypeTemp = null;
         static public Server serverTemp = null;
+        static public ServerUserState serverUserStateTemp = null;
         static public RaceTrack raceTrackTemp = null;
     }
 }

@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="WindowPowerUpList" Height="487" Width="800" ResizeMode="NoResize" Loaded="Window_Loaded">
     <Grid>
-        <ListView x:Name="ListView" Margin="24,144,33,88" GridViewColumnHeader.Click="ListViewHeader_Click">
+        <ListView MouseDoubleClick="ButtonEdit_Click" x:Name="ListView" Margin="32,147,25,85" GridViewColumnHeader.Click="ListViewHeader_Click">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="ID" Width="0">
@@ -27,13 +27,13 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <Label Content="PowerUp Lista" HorizontalAlignment="Left" Margin="235,0,0,0" VerticalAlignment="Top" FontSize="50" RenderTransformOrigin="0.499,0.621"/>
-        <Button x:Name="ButtonCancel" Content="Cancelar" HorizontalAlignment="Left" Margin="640,399,0,0" VerticalAlignment="Top" Height="52" Width="127" Click="ButtonCancel_Click"/>
-        <Button x:Name="ButtonEdit" Content="Editar" HorizontalAlignment="Left" Margin="508,399,0,0" VerticalAlignment="Top" Height="52" Width="127" Click="ButtonEdit_Click"/>
-        <Button x:Name="ButtonDel" Content="Eliminar" HorizontalAlignment="Left" Margin="376,399,0,0" VerticalAlignment="Top" Height="52" Width="127" Click="ButtonDel_Click"/>
-        <TextBox x:Name="TextBoxFrom" HorizontalAlignment="Left" Margin="55,82,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="646" Height="26" MaxLength="80"/>
-        <Label Content="De" HorizontalAlignment="Left" Margin="24,82,0,0" VerticalAlignment="Top" Width="26" RenderTransformOrigin="0.558,0.579"/>
-        <TextBox x:Name="TextBoxUntil" HorizontalAlignment="Left" Margin="56,113,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="646" Height="26" MaxLength="80" RenderTransformOrigin="0.5,0.5">
+        <Label Content="PowerUp Lista" HorizontalAlignment="Center" Margin="0,-12,0,0" VerticalAlignment="Top" FontSize="50" RenderTransformOrigin="0.499,0.621"/>
+        <Button x:Name="ButtonCancel" Content="Cancelar" HorizontalAlignment="Left" Margin="650,391,0,0" VerticalAlignment="Top" Height="52" Width="127" Click="ButtonCancel_Click"/>
+        <Button x:Name="ButtonEdit" Content="Editar" HorizontalAlignment="Left" Margin="518,391,0,0" VerticalAlignment="Top" Height="52" Width="127" Click="ButtonEdit_Click"/>
+        <Button x:Name="ButtonDel" Content="Eliminar" HorizontalAlignment="Left" Margin="386,391,0,0" VerticalAlignment="Top" Height="52" Width="127" Click="ButtonDel_Click"/>
+        <TextBox x:Name="TextBoxFrom" HorizontalAlignment="Left" Margin="63,85,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="646" Height="26" MaxLength="80"/>
+        <Label Content="De" HorizontalAlignment="Left" Margin="32,85,0,0" VerticalAlignment="Top" Width="26" RenderTransformOrigin="0.558,0.579"/>
+        <TextBox x:Name="TextBoxUntil" HorizontalAlignment="Left" Margin="64,116,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="646" Height="26" MaxLength="80" RenderTransformOrigin="0.5,0.5">
             <TextBox.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -43,8 +43,10 @@
                 </TransformGroup>
             </TextBox.RenderTransform>
         </TextBox>
-        <Label Content="Ate" HorizontalAlignment="Left" Margin="24,113,0,0" VerticalAlignment="Top" Width="32"/>
-        <Button x:Name="ButtonSearch" Content="Pesquisar" HorizontalAlignment="Left" Margin="707,86,0,0" VerticalAlignment="Top" Height="53" Width="60" Click="ButtonSearch_Click"/>
+        <Label Content="Ate" HorizontalAlignment="Left" Margin="32,116,0,0" VerticalAlignment="Top" Width="32"/>
+        <Button x:Name="ButtonSearch" Content="Pesquisar" HorizontalAlignment="Left" Margin="715,89,0,0" VerticalAlignment="Top" Height="53" Width="60" Click="ButtonSearch_Click"/>
+        <Label x:Name="LabelSubTitle" Content="Seleciona um PowerUp" HorizontalAlignment="Center" Margin="0,51,0,0" VerticalAlignment="Top" FontSize="18"/>
+        <Label Content="Label" HorizontalAlignment="Left" Margin="800,10,0,0" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>

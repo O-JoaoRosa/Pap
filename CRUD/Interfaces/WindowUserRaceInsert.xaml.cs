@@ -27,6 +27,12 @@ namespace Desktop___interfaces.Interfaces
             InitializeComponent();
             userRace = us;
             dbAction = action;
+
+            if (us != null)
+            {
+                raceTrackTemp = null;
+                userTemp = null;
+            }
         }
 
         /// <summary>
@@ -83,6 +89,8 @@ namespace Desktop___interfaces.Interfaces
         /// <param name="e"></param>
         private void ButtonCancel_Click(object sender, RoutedEventArgs e)
         {
+            raceTrackTemp = null;
+            userTemp = null;
             this.Close();
         }
 

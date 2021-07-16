@@ -27,6 +27,12 @@ namespace Desktop___interfaces.Interfaces
             InitializeComponent();
             userFriend = us;
             dbAction = action;
+
+            if (us != null)
+            {
+                userTemp = us.User;
+                friendTemp = us.UserFriend1;
+            }
         }
 
         /// <summary>
@@ -74,6 +80,9 @@ namespace Desktop___interfaces.Interfaces
         /// <param name="e"></param>
         private void ButtonCancel_Click(object sender, RoutedEventArgs e)
         {
+
+            userTemp = null;
+            friendTemp = null;
             this.Close();
         }
 

@@ -1,10 +1,8 @@
 ﻿using CRUD.ClassesEntidades.SQL;
-using Desktop___interfaces.ClassesEntidades.SQL;
-using System;
-using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Media;
 using static CRUD.ClassesEntidades.SQL.SQL_Connection;
+using static CRUD.ClassesEntidades.Settings;
 
 namespace Desktop___interfaces.Interfaces
 {
@@ -27,6 +25,13 @@ namespace Desktop___interfaces.Interfaces
             InitializeComponent();
             serverUser = us;
             dbAction = action;
+
+            if (us != null)
+            {
+                serverUserStateTemp = us.ServerUserState;
+                userTemp = us.User;
+                serverTemp = us.Server;
+            }
         }
 
 
@@ -37,17 +42,6 @@ namespace Desktop___interfaces.Interfaces
         /// <param name="e"></param>
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            List<User> listaUser = SqlUser.GetAll(LIST_NULL, null, null, null, null, null, null);
-            ComboBoxUser.ItemsSource = listaUser;
-            ComboBoxUser.DisplayMemberPath = "UserName";
-            
-            List<Server> listaServers = SqlServer.GetAll(LIST_NULL, null, null, null,null);
-            ComboBoxServer.ItemsSource = listaServers;
-            ComboBoxServer.DisplayMemberPath = "Descri";
-
-            List<ServerUserState> listaServerUserStates = SqlUserServerState.GetAll(LIST_NULL, null, null);
-            ComboBoxServerUserState.ItemsSource = listaServerUserStates;
-            ComboBoxServerUserState.DisplayMemberPath = "Descri";
 
             //altera a interface consuante a ação escolhida
             switch (dbAction)
@@ -55,16 +49,16 @@ namespace Desktop___interfaces.Interfaces
                 case SQL_DELETE:
                     LabelTitle.Content = "Eliminar entidade server-user";
                     CheckBoxIsAcessible.IsChecked = serverUser.IsAccessible;
-                    ComboBoxUser.Text = serverUser.User.UserName;
-                    ComboBoxServer.Text = serverUser.Server.Descri;
-                    ComboBoxServerUserState.Text = serverUser.ServerUserState.Descri;
+                    ButtonSelectUser.Content = serverUser.User.UserName;
+                    ButtonSelectServer.Content = serverUser.Server.Descri;
+                    ButtonSelectServerUser.Content = serverUser.ServerUserState.Descri;
                     DatePickerAcessDate.SelectedDate = serverUser.AcesseDate;
                     DatePickerCreationDate.SelectedDate = serverUser.DateCreated;
                     DatePickerBanTime.SelectedDate = serverUser.DateBan;
                     DatePickerSuspension.SelectedDate = serverUser.DateSuspended;
-                    ComboBoxUser.IsEnabled = false;
-                    ComboBoxServer.IsEnabled = false;
-                    ComboBoxServerUserState.IsEnabled = false;
+                    ButtonSelectUser.IsEnabled = false;
+                    ButtonSelectServer.IsEnabled = false;
+                    ButtonSelectServerUser.IsEnabled = false;
                     DatePickerAcessDate.IsEnabled = false;
                     DatePickerCreationDate.IsEnabled = false;
                     DatePickerBanTime.IsEnabled = false;
@@ -75,10 +69,10 @@ namespace Desktop___interfaces.Interfaces
                     break;
                 case SQL_UPDATE:
                     LabelTitle.Content = "Editar entidade server-user";
-                    CheckBoxIsAcessible.IsChecked = serverUser.IsAccessible;
-                    ComboBoxUser.Text = serverUser.User.UserName;
-                    ComboBoxServer.Text = serverUser.Server.Descri;
-                    ComboBoxServerUserState.Text = serverUser.ServerUserState.Descri;
+                    CheckBoxIsAcessible.IsChecked = serverUser.IsAccessible; 
+                    ButtonSelectUser.Content = serverUser.User.UserName;
+                    ButtonSelectServer.Content = serverUser.Server.Descri;
+                    ButtonSelectServerUser.Content = serverUser.ServerUserState.Descri;
                     DatePickerAcessDate.SelectedDate = serverUser.AcesseDate;
                     DatePickerCreationDate.SelectedDate = serverUser.DateCreated;
                     DatePickerBanTime.SelectedDate = serverUser.DateBan;
@@ -98,6 +92,9 @@ namespace Desktop___interfaces.Interfaces
         /// <param name="e"></param>
         private void ButtonCancel_Click(object sender, RoutedEventArgs e)
         {
+            serverUserStateTemp = null;
+            userTemp = null;
+            serverTemp = null;
             this.Close();
         }
 
@@ -115,30 +112,30 @@ namespace Desktop___interfaces.Interfaces
                 case SQL_INSERT:
 
                     //verifica se existem caracteres especiais
-                    if ((User)ComboBoxUser.SelectedItem == null)
+                    if (userTemp == null)
                     {
                         openWarning++;
-                        ComboBoxUser.Background = Brushes.Red;
+                        ButtonSelectUser.Background = Brushes.Red;
                     }
                     else
                     {
                         //verifica se existem caracteres especiais
-                        if ((Server)ComboBoxServer.SelectedItem == null)
+                        if (serverTemp == null)
                         {
-                            ComboBoxUser.Background = Brushes.Red;
+                            ButtonSelectServer.Background = Brushes.Red;
                             openWarning++;
                         }
                         else
                         {
                             //verifica se existem caracteres especiais
-                            if ((ServerUserState)ComboBoxServerUserState.SelectedItem == null)
+                            if (serverUserStateTemp == null)
                             {
-                                ComboBoxUser.Background = Brushes.Red;
+                                ButtonSelectServerUser.Background = Brushes.Red;
                                 openWarning++;
                             }
                             else
                             {
-                                ServerUser p = SqlServerUser.Get(((User)ComboBoxUser.SelectedItem).Id , ((Server)ComboBoxServer.SelectedItem).Id);
+                                ServerUser p = SqlServerUser.Get(userTemp.Id , serverTemp.Id);
                                 if (p != null)
                                 {
                                     MessageBox.Show("Erro: o perfil que tentou cirar já existe", "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -149,9 +146,12 @@ namespace Desktop___interfaces.Interfaces
                                     {
                                         ServerUser profileTemp = new ServerUser(DatePickerAcessDate.SelectedDate.Value , (bool)CheckBoxIsAcessible.IsChecked,
                                             DatePickerCreationDate.SelectedDate.Value, DatePickerSuspension.SelectedDate.Value,
-                                            DatePickerBanTime.SelectedDate.Value, (ServerUserState)ComboBoxServerUserState.SelectedItem ,
-                                            (User)ComboBoxUser.SelectedItem, (Server)ComboBoxServer.SelectedItem);
+                                            DatePickerBanTime.SelectedDate.Value, serverUserStateTemp,
+                                            userTemp, serverTemp);
                                         SqlServerUser.Add(profileTemp);
+                                        serverUserStateTemp = null;
+                                        userTemp = null;
+                                        serverTemp = null;
                                     }
                                 }
                             }
@@ -171,30 +171,30 @@ namespace Desktop___interfaces.Interfaces
                 case SQL_UPDATE:
 
                     //verifica se existem caracteres especiais
-                    if ((User)ComboBoxUser.SelectedItem == null)
+                    if (userTemp == null)
                     {
                         openWarning++;
-                        ComboBoxUser.Background = Brushes.Red;
+                        ButtonSelectUser.Background = Brushes.Red;
                     }
                     else
                     {
                         //verifica se existem caracteres especiais
-                        if ((Server)ComboBoxServer.SelectedItem == null)
+                        if (serverTemp == null)
                         {
-                            ComboBoxUser.Background = Brushes.Red;
+                            ButtonSelectServer.Background = Brushes.Red;
                             openWarning++;
                         }
                         else
                         {
                             //verifica se existem caracteres especiais
-                            if ((ServerUserState)ComboBoxServerUserState.SelectedItem == null)
+                            if (serverUserStateTemp == null)
                             {
-                                ComboBoxUser.Background = Brushes.Red;
+                                ButtonSelectServerUser.Background = Brushes.Red;
                                 openWarning++;
                             }
                             else
                             {
-                                ServerUser p = SqlServerUser.Get(((User)ComboBoxUser.SelectedItem).Id, ((Server)ComboBoxServer.SelectedItem).Id);
+                                ServerUser p = SqlServerUser.Get(userTemp.Id, serverTemp.Id);
                                 if (p == null || p != serverUser)
                                 {
                                     if (ValidaDados())
@@ -204,8 +204,11 @@ namespace Desktop___interfaces.Interfaces
                                         serverUser.DateCreated = DatePickerCreationDate.SelectedDate.Value;
                                         serverUser.AcesseDate = DatePickerAcessDate.SelectedDate.Value;
                                         serverUser.DateSuspended = DatePickerSuspension.SelectedDate.Value;
-                                        serverUser.ServerUserState = (ServerUserState)ComboBoxServerUserState.SelectedItem;
-                                        SqlServerUser.Set(serverUser, ((User)ComboBoxUser.SelectedItem).Id, ((Server)ComboBoxServer.SelectedItem).Id);
+                                        serverUser.ServerUserState = serverUserStateTemp;
+                                        SqlServerUser.Set(serverUser, userTemp.Id, serverTemp.Id);
+                                        serverUserStateTemp = null;
+                                        userTemp = null;
+                                        serverTemp = null;
                                     }
                                 }
                                 else
@@ -228,25 +231,25 @@ namespace Desktop___interfaces.Interfaces
         private bool ValidaDados()
         {
             //verifica se existem caracteres especiais
-            if ((User)ComboBoxUser.SelectedItem == null)
+            if (userTemp == null)
             {
-                ComboBoxUser.Background = Brushes.Red;
+                ButtonSelectUser.Background = Brushes.Red;
                 openWarning++;
             }
             else
             {
-                ComboBoxUser.Background = Brushes.White;
+                ButtonSelectUser.Background = Brushes.White;
             }
 
             //verifica se existem caracteres especiais
-            if ((ServerUserState)ComboBoxServerUserState.SelectedItem == null)
+            if (serverUserStateTemp == null)
             {
-                ComboBoxUser.Background = Brushes.Red;
+                ButtonSelectServerUser.Background = Brushes.Red;
                 openWarning++;
             }
             else
             {
-                ComboBoxUser.Background = Brushes.White;
+                ButtonSelectServerUser.Background = Brushes.White;
             }
 
             //verifica se existem caracteres especiais
@@ -294,14 +297,14 @@ namespace Desktop___interfaces.Interfaces
             }
 
             //verifica se existem caracteres especiais
-            if ((Server)ComboBoxServer.SelectedItem == null)
+            if (serverTemp == null)
             {
                 openWarning++;
-                ComboBoxUser.Background = Brushes.Red;
+                ButtonSelectServer.Background = Brushes.Red;
             }
             else
             {
-                ComboBoxServer.Background = Brushes.White;
+                ButtonSelectServer.Background = Brushes.White;
                 if (openWarning == 0)
                 {
                     switch (dbAction)
@@ -338,6 +341,57 @@ namespace Desktop___interfaces.Interfaces
             }
             return false;
         }
+        #region select buttons
+
+        /// <summary>
+        /// metodo que é executado quando o buttão é clickado, serve para escolher que entidade irá ser usada
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ButtonSelectUser_Click(object sender, RoutedEventArgs e)
+        {
+            WindowUserList w = new WindowUserList(LIST_ACTION_ID);
+            w.ShowDialog();
+            if (userTemp != null)
+            {
+                ButtonSelectUser.Content = userTemp.UserName;
+            }
+        }
+
+        /// <summary>
+        /// metodo que é executado quando o buttão é clickado, serve para escolher que entidade irá ser usada
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ButtonSelectServerUser_Click(object sender, RoutedEventArgs e)
+        {
+            WindowServerUserStateList w = new WindowServerUserStateList(LIST_ACTION_ID);
+            w.ShowDialog();
+            if (serverUserStateTemp != null)
+            {
+                ButtonSelectServerUser.Content = serverUserStateTemp.Descri;
+            }
+        }
+
+
+        /// <summary>
+        /// metodo que é executado quando o buttão é clickado, serve para escolher que entidade irá ser usada
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ButtonSelectServer_Click(object sender, RoutedEventArgs e)
+        {
+            WindowServerList w = new WindowServerList(LIST_ACTION_ID);
+            w.ShowDialog();
+            if (serverTemp != null)
+            {
+                ButtonSelectServer.Content = serverTemp.Descri;
+            }
+        }
+
         #endregion
+
+        #endregion
+
     }
 }

@@ -7,18 +7,18 @@
         mc:Ignorable="d"
         Title="WindowCarListar" Height="536" Width="1019" ResizeMode="NoResize" Loaded="Window_Loaded">
     <Grid>
-        <TextBox x:Name="TextBoxFromDescri" HorizontalAlignment="Left" Margin="40,86,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="483" Height="26" MaxLength="60"/>
-        <TextBox x:Name="TextBoxUntilDescri" HorizontalAlignment="Left" Margin="40,118,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="483" Height="26" MaxLength="60" RenderTransformOrigin="0.5,0.5"/>
-        <TextBox x:Name="TextBoxFromRepReq" HorizontalAlignment="Left" Margin="528,87,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="149" Height="26" MaxLength="20"/>
-        <TextBox x:Name="TextBoxUntilRepReq" HorizontalAlignment="Left" Margin="528,118,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="149" Height="26" MaxLength="20" RenderTransformOrigin="0.5,0.5"/>
-        <Label Content="De" HorizontalAlignment="Left" Margin="10,86,0,0" VerticalAlignment="Top"/>
-        <Label Content="Até" HorizontalAlignment="Left" Margin="10,116,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="TextBoxFromPrice" HorizontalAlignment="Left" Margin="682,87,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="149" Height="26" MaxLength="20"/>
-        <TextBox x:Name="TextBoxUntilPrice" HorizontalAlignment="Left" Margin="682,118,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="149" Height="26" MaxLength="20" RenderTransformOrigin="0.5,0.5"/>
-        <Button x:Name="ButtonSearch" Content="Pesquisar" HorizontalAlignment="Left" Margin="940,87,0,0" VerticalAlignment="Top" Height="57" Width="60" Click="ButtonSearch_Click"/>
+        <TextBox x:Name="TextBoxFromDescri" HorizontalAlignment="Left" Margin="40,91,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="483" Height="26" MaxLength="60"/>
+        <TextBox x:Name="TextBoxUntilDescri" HorizontalAlignment="Left" Margin="40,123,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="483" Height="26" MaxLength="60" RenderTransformOrigin="0.5,0.5"/>
+        <TextBox x:Name="TextBoxFromRepReq" HorizontalAlignment="Left" Margin="528,92,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="149" Height="26" MaxLength="20"/>
+        <TextBox x:Name="TextBoxUntilRepReq" HorizontalAlignment="Left" Margin="528,123,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="149" Height="26" MaxLength="20" RenderTransformOrigin="0.5,0.5"/>
+        <Label Content="De" HorizontalAlignment="Left" Margin="10,91,0,0" VerticalAlignment="Top"/>
+        <Label Content="Até" HorizontalAlignment="Left" Margin="10,121,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="TextBoxFromPrice" HorizontalAlignment="Left" Margin="682,92,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="149" Height="26" MaxLength="20"/>
+        <TextBox x:Name="TextBoxUntilPrice" HorizontalAlignment="Left" Margin="682,123,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="149" Height="26" MaxLength="20" RenderTransformOrigin="0.5,0.5"/>
+        <Button x:Name="ButtonSearch" Content="Pesquisar" HorizontalAlignment="Left" Margin="940,92,0,0" VerticalAlignment="Top" Height="57" Width="60" Click="ButtonSearch_Click"/>
 
-        <Label Content="Lista Car" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="50" Height="73"/>
-        <ListView x:Name="ListView" Margin="0,148,0,0" HorizontalAlignment="Center" Width="980" Height="277" VerticalAlignment="Top"  GridViewColumnHeader.Click="ListViewHeader_Click">
+        <Label Content="Lista Car" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="50" Height="73" Margin="0,-10,0,0"/>
+        <ListView MouseDoubleClick="ButtonEdit_Click" x:Name="ListView" Margin="0,153,0,0" HorizontalAlignment="Center" Width="980" Height="277" VerticalAlignment="Top"  GridViewColumnHeader.Click="ListViewHeader_Click">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="ID" Width="0">
@@ -62,8 +62,9 @@
         <Button x:Name="ButtonCancel" Content="Cancelar" Margin="882,446,0,0" Click="ButtonCancel_Click" HorizontalAlignment="Left" Width="106" Height="42" VerticalAlignment="Top"/>
         <Button x:Name="ButtonEdit" Content="Editar" HorizontalAlignment="Left" Margin="736,446,0,0" Width="108" RenderTransformOrigin="0.069,0.81" Height="42" VerticalAlignment="Top" Click="ButtonEdit_Click"/>
         <Button x:Name="ButtonDel" Content="Eliminar" Margin="586,446,0,0" Height="42" VerticalAlignment="Top" HorizontalAlignment="Left" Width="106" Click="ButtonDel_Click"/>
-        <TextBox x:Name="TextBoxFromMaxSpeed" HorizontalAlignment="Left" Margin="836,87,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="99" Height="26" MaxLength="12"/>
-        <TextBox x:Name="TextBoxUntilMaxSpeed" HorizontalAlignment="Left" Margin="836,118,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="99" Height="26" MaxLength="12" RenderTransformOrigin="0.5,0.5"/>
+        <TextBox x:Name="TextBoxFromMaxSpeed" HorizontalAlignment="Left" Margin="836,92,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="99" Height="26" MaxLength="12"/>
+        <TextBox x:Name="TextBoxUntilMaxSpeed" HorizontalAlignment="Left" Margin="836,123,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="99" Height="26" MaxLength="12" RenderTransformOrigin="0.5,0.5"/>
+        <Label x:Name="LabelSubTitle" Content="Selecione  um carro" HorizontalAlignment="Center" Margin="0,55,0,0" VerticalAlignment="Top" FontSize="20"/>
 
     </Grid>
 </Window>

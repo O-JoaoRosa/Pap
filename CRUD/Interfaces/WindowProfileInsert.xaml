@@ -8,14 +8,14 @@
         Title="WindowProfileInsert" Height="356" Width="800" Loaded="Window_Loaded">
     <Grid>
         <Label x:Name="LabelTitle" Content="Profile Insert" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" FontSize="50"/>
-        <ComboBox x:Name="ComboBoxUser" HorizontalAlignment="Left" Margin="167,114,0,0" VerticalAlignment="Top" Width="276" Height="26"/>
         <DatePicker x:Name="DatePicker" HorizontalAlignment="Left" Margin="614,114,0,0" VerticalAlignment="Top" Height="26" Width="112"/>
         <Label Content="Utilizador :" HorizontalAlignment="Left" Margin="55,110,0,0" VerticalAlignment="Top" FontSize="18"/>
         <Label Content="Data de criação :" HorizontalAlignment="Left" Margin="458,108,0,0" VerticalAlignment="Top" FontSize="18"/>
         <Label Content="Tipo De Utilizador :" HorizontalAlignment="Left" Margin="55,198,0,0" VerticalAlignment="Top" FontSize="18"/>
-        <ComboBox x:Name="ComboBoxUserType" HorizontalAlignment="Left" Margin="222,202,0,0" VerticalAlignment="Top" Width="504" Height="26"/>
         <Button x:Name="ButtonAction" Content="Inserir" HorizontalAlignment="Left" Margin="436,264,0,0" VerticalAlignment="Top" Height="46" Width="129" RenderTransformOrigin="0.524,0.53" Click="ButtonAction_Click"/>
         <Button x:Name="ButtonCancel" Content="Cancelar" HorizontalAlignment="Left" Margin="599,264,0,0" VerticalAlignment="Top" Height="46" Width="127" RenderTransformOrigin="0.524,0.53" Click="ButtonCancel_Click"/>
+        <Button x:Name="ButtonSelectUser" Content="Seleciona um Utilizador" HorizontalAlignment="Left" Margin="155,115,0,0" VerticalAlignment="Top" Height="24" Width="298" Click="ButtonSelectUser_Click"/>
+        <Button x:Name="ButtonSelectUserType" Content="Seleciona um Tipo de Utilizador" HorizontalAlignment="Left" Margin="222,203,0,0" VerticalAlignment="Top" Height="24" Width="504" Click="ButtonSelectUserType_Click"/>
 
     </Grid>
 </Window>

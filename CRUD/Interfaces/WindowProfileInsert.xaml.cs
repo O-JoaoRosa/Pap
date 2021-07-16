@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Media;
 using static CRUD.ClassesEntidades.SQL.SQL_Connection;
+using static CRUD.ClassesEntidades.Settings;
 
 
 namespace Desktop___interfaces.Interfaces
@@ -34,30 +35,23 @@ namespace Desktop___interfaces.Interfaces
         /// <param name="e"></param>
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            List<UserType> listaUserTypes = SqlUserType.GetAll(LIST_NULL, null, null);
-            ComboBoxUserType.ItemsSource = listaUserTypes;
-            ComboBoxUserType.DisplayMemberPath = "Descri";
-            List<User> listaUsers = SqlUser.GetAll(LIST_NULL, null, null, null, null, null, null);
-            ComboBoxUser.ItemsSource = listaUsers;
-            ComboBoxUser.DisplayMemberPath = "UserName";
-
             //altera a interface consuante a ação escolhida
             switch (dbAction)
             {
                 case SQL_DELETE:
                     LabelTitle.Content = "Eliminar prefil";
-                    ComboBoxUser.Text = profile.UserEscolhido.UserName;
-                    ComboBoxUserType.Text = profile.TipoUser.Descri;
+                    ButtonSelectUser.Content = profile.UserEscolhido.UserName;
+                    ButtonSelectUserType.Content = profile.TipoUser.Descri;
                     DatePicker.SelectedDate = profile.DateCreated;
-                    ComboBoxUser.IsEnabled = false;
-                    ComboBoxUserType.IsEnabled = false;
+                    ButtonSelectUser.IsEnabled = false;
+                    ButtonSelectUserType.IsEnabled = false;
                     DatePicker.IsEnabled = false;
                     ButtonAction.Content = "Eliminar";
                     break;
                 case SQL_UPDATE:
                     LabelTitle.Content = "Editar prefil";
-                    ComboBoxUser.Text = profile.UserEscolhido.UserName;
-                    ComboBoxUserType.Text = profile.TipoUser.Descri;
+                    ButtonSelectUser.Content = profile.UserEscolhido.UserName;
+                    ButtonSelectUserType.Content = profile.TipoUser.Descri;
                     DatePicker.SelectedDate = profile.DateCreated;
                     ButtonAction.Content = "Editar";
                     break;
@@ -91,22 +85,22 @@ namespace Desktop___interfaces.Interfaces
                 case SQL_INSERT:
 
                     //verifica se existem caracteres especiais
-                    if ((UserType)ComboBoxUserType.SelectedItem == null)
+                    if (userTemp == null)
                     {
                         openWarning++;
-                        ComboBoxUser.Background = Brushes.Red;
+                        ButtonSelectUser.Background = Brushes.Red;
                     }
                     else
                     {
                         //verifica se existem caracteres especiais
-                        if ((User)ComboBoxUser.SelectedItem == null)
+                        if (userTypeTemp == null)
                         {
-                            ComboBoxUser.Background = Brushes.Red;
+                            ButtonSelectUserType.Background = Brushes.Red;
                             openWarning++;
                         }
                         else
                         {
-                            Profile p = SqlProfile.Get(((User)ComboBoxUser.SelectedItem).Id, ((UserType)ComboBoxUserType.SelectedItem).Id);
+                            Profile p = SqlProfile.Get(userTemp.Id, userTypeTemp.Id);
                             if (p != null)
                             {
                                 MessageBox.Show("Erro: o perfil que tentou cirar já existe", "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -115,7 +109,7 @@ namespace Desktop___interfaces.Interfaces
                             {
                                 if (ValidaDados())
                                 {
-                                    Profile profileTemp = new Profile(DatePicker.SelectedDate.Value, (User)ComboBoxUser.SelectedItem, (UserType)ComboBoxUserType.SelectedItem);
+                                    Profile profileTemp = new Profile(DatePicker.SelectedDate.Value, userTemp, userTypeTemp);
                                     SqlProfile.Add(profileTemp);
                                 }
                             }
@@ -134,22 +128,22 @@ namespace Desktop___interfaces.Interfaces
                 //caso a ação escolhida seja Update então atualiza os atributos do objeto
                 case SQL_UPDATE:
                     //verifica se existem caracteres especiais
-                    if ((UserType)ComboBoxUserType.SelectedItem == null)
+                    if (userTypeTemp == null)
                     {
                         openWarning++;
-                        ComboBoxUser.Background = Brushes.Red;
+                        ButtonSelectUserType.Background = Brushes.Red;
                     }
                     else
                     {
                         //verifica se existem caracteres especiais
-                        if ((User)ComboBoxUser.SelectedItem == null)
+                        if (userTemp == null)
                         {
-                            ComboBoxUser.Background = Brushes.Red;
+                            ButtonSelectUser.Background = Brushes.Red;
                             openWarning++;
                         }
                         else
                         {
-                            Profile p = SqlProfile.Get(((User)ComboBoxUser.SelectedItem).Id, ((UserType)ComboBoxUserType.SelectedItem).Id);
+                            Profile p = SqlProfile.Get(userTemp.Id, userTypeTemp.Id);
                             if (p != null)
                             {
                                 MessageBox.Show("Erro: o perfil que tentou cirar já existe", "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -159,7 +153,7 @@ namespace Desktop___interfaces.Interfaces
                                 if (ValidaDados())
                                 {
                                     profile.DateCreated = DatePicker.SelectedDate.Value;
-                                    SqlProfile.Set(profile, ((User)ComboBoxUser.SelectedItem).Id, ((UserType)ComboBoxUserType.SelectedItem).Id);
+                                    SqlProfile.Set(profile, userTemp.Id, userTypeTemp.Id);
                                 }
                             }
                         }
@@ -177,35 +171,35 @@ namespace Desktop___interfaces.Interfaces
         private bool ValidaDados()
         {
             //verifica se existem caracteres especiais
-            if ( (User)ComboBoxUser.SelectedItem == null)
+            if ( userTemp == null)
             {
-                ComboBoxUser.Background = Brushes.Red;
+                ButtonSelectUser.Background = Brushes.Red;
                 openWarning++;
             }
             else
             {
-                ComboBoxUser.Background = Brushes.White;
+                ButtonSelectUser.Background = Brushes.White;
             }
 
             //verifica se existem caracteres especiais
             if (DatePicker.SelectedDate == null)
             {
-                ComboBoxUser.Background = Brushes.Red;
+                DatePicker.Background = Brushes.Red;
                 openWarning++;
             }
             else
             {
-                ComboBoxUser.Background = Brushes.White;
+                DatePicker.Background = Brushes.White;
             }
             //verifica se existem caracteres especiais
-            if ((UserType)ComboBoxUserType.SelectedItem == null)
+            if (userTypeTemp == null)
             {
                 openWarning++;
-                ComboBoxUser.Background = Brushes.Red;
+                ButtonSelectUserType.Background = Brushes.Red;
             }
             else
             {
-                ComboBoxUserType.Background = Brushes.White;
+                ButtonSelectUserType.Background = Brushes.White;
                 if (openWarning == 0)
                 {
                     switch (dbAction)
@@ -242,6 +236,42 @@ namespace Desktop___interfaces.Interfaces
             }
             return false;
         }
+
+        #region button select
+
+        /// <summary>
+        /// metodo que é executado quando o buttão é clickado, serve para escolher que entidade irá ser usada
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ButtonSelectUser_Click(object sender, RoutedEventArgs e)
+        {
+            WindowUserList w = new WindowUserList(LIST_ACTION_ID);
+            w.ShowDialog();
+            if (userTemp != null)
+            {
+                ButtonSelectUser.Content = userTemp.UserName;
+            }
+        }
+
+        /// <summary>
+        /// metodo que é executado quando o buttão é clickado, serve para escolher que entidade irá ser usada
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ButtonSelectUserType_Click(object sender, RoutedEventArgs e)
+        {
+            WindowUserTypeList w = new WindowUserTypeList(LIST_ACTION_ID);
+            w.ShowDialog();
+            if (userTypeTemp != null)
+            {
+                ButtonSelectUserType.Content = userTypeTemp.Descri;
+            }
+        }
+
         #endregion
+
+        #endregion
+
     }
 }

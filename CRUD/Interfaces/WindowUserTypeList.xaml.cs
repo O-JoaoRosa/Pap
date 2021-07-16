@@ -1,7 +1,7 @@
 ﻿using CRUD.ClassesEntidades.SQL;
-using Desktop___interfaces.ClassesEntidades;
 using System.Windows;
 using static CRUD.ClassesEntidades.SQL.SQL_Connection;
+using static CRUD.ClassesEntidades.Settings;
 
 namespace Desktop___interfaces.Interfaces
 {
@@ -11,13 +11,14 @@ namespace Desktop___interfaces.Interfaces
     public partial class WindowUserTypeList : Window
     {
         int listOrder = LIST_NULL;
-
+        int listAction = -1;
         /// <summary>
         /// metodo que é executade quando a window é chamada 
         /// </summary>
-        public WindowUserTypeList()
+        public WindowUserTypeList(int action)
         {
             InitializeComponent();
+            listAction = -1;
         }
 
         /// <summary>
@@ -27,7 +28,17 @@ namespace Desktop___interfaces.Interfaces
         /// <param name="e"></param>
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            ListView.ItemsSource = SqlUserType.GetAll(listOrder, null, null);
+            ListView.ItemsSource = SqlUserType.GetAll(listOrder, null, null); 
+            if (listAction != LIST_ACTION_ID && listAction != LIST_ACTION_ID_FRIEND)
+            {
+                LabelSubTitle.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                LabelSubTitle.Visibility = Visibility.Visible;
+                ButtonEliminar.Visibility = Visibility.Hidden;
+                ButtonEdit.Visibility = Visibility.Hidden;
+            }
         }
 
 
@@ -50,27 +61,51 @@ namespace Desktop___interfaces.Interfaces
         /// <param name="e"></param>
         private void ButtonEdit_Click(object sender, RoutedEventArgs e)
         {
-            //verifica se algum item foi selecionado 
-            if (ListView.SelectedItems.Count > 0)
+            if (true)
             {
-                //vai buscar o item selecionado
-                UserType userTypeClicked = (UserType)ListView.SelectedItems[0];
-
-                //verifica se o item selecionado está vazio ou não
-                if (userTypeClicked != null)
+                //verifica se algum item foi selecionado 
+                if (ListView.SelectedItems.Count > 0)
                 {
-                    //abre a janela de edição com a informação necessaria para definir o que fazer
-                    Window w = new WindowUserTypeInsert( userTypeClicked, SQL_Connection.SQL_UPDATE);
-                    w.ShowDialog();
+                    //vai buscar o item selecionado
+                    UserType userTypeClicked = (UserType)ListView.SelectedItems[0];
+
+                    //verifica se o item selecionado está vazio ou não
+                    if (userTypeClicked != null)
+                    {
+                        //abre a janela de edição com a informação necessaria para definir o que fazer
+                        Window w = new WindowUserTypeInsert(userTypeClicked, SQL_Connection.SQL_UPDATE);
+                        w.ShowDialog();
+                    }
                 }
+                else
+                {
+                    //avisa que nenhum item foi selecionado
+                    MessageBox.Show("Erro : nenhum item selecionado", "Erro!", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+
+                RefreshListView(listOrder, null, null);
             }
             else
             {
-                //avisa que nenhum item foi selecionado
-                MessageBox.Show("Erro : nenhum item selecionado", "Erro!", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+                //verifica se algum item foi selecionado 
+                if (ListView.SelectedItems.Count > 0)
+                {
+                    //vai buscar o item selecionado
+                    UserType userTypeClicked = (UserType)ListView.SelectedItems[0];
 
-            RefreshListView(listOrder, null , null);
+                    //verifica se o item selecionado está vazio ou não
+                    if (userTypeClicked != null)
+                    {
+                        userTypeTemp = userTypeClicked;
+                        Close();
+                    }
+                }
+                else
+                {
+                    //avisa que nenhum item foi selecionado
+                    MessageBox.Show("Erro : nenhum item selecionado", "Erro!", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
         }
 
         /// <summary>

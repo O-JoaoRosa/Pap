@@ -5,16 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Desktop___interfaces.Interfaces"
         mc:Ignorable="d"
-        Title="WindowUserCarInsert" Height="450" Width="900" ResizeMode="NoResize" Loaded="Window_Loaded">
+        Title="WindowUserCarInsert" Height="450" Width="900" ResizeMode="NoResize" Loaded="Window_Loaded" >
     <Grid>
         <Label x:Name="LabelTitle" Content="Inserir uma entidade Carro-Utilizador" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" FontSize="50"/>
-        <Label Content="Roda :" HorizontalAlignment="Left" Margin="35,251,0,0" VerticalAlignment="Top" FontSize="20"/>
-        <ComboBox x:Name="ComboBoxCar" HorizontalAlignment="Left" Margin="118,103,0,0" VerticalAlignment="Top" Width="747"/>
-        <ComboBox x:Name="ComboBoxPowerUp" HorizontalAlignment="Left" Margin="145,151,0,0" VerticalAlignment="Top" Width="291"/>
-        <ComboBox x:Name="ComboBoxUser" HorizontalAlignment="Left" Margin="532,151,0,0" VerticalAlignment="Top" Width="333"/>
+        <Label Content="Roda :" HorizontalAlignment="Left" Margin="35,259,0,0" VerticalAlignment="Top" FontSize="20"/>
         <Label Content="Corpo do Carro :" HorizontalAlignment="Left" Margin="35,0,0,0" VerticalAlignment="Center" FontSize="20"/>
-        <ComboBox x:Name="ComboBoxCarBodies" HorizontalAlignment="Left" Margin="206,0,0,0" VerticalAlignment="Center" Width="659"/>
-        <ComboBox x:Name="ComboBoxWheels" HorizontalAlignment="Left" Margin="118,258,0,0" VerticalAlignment="Top" Width="747"/>
         <Label Content="Power Up :" HorizontalAlignment="Left" Margin="35,144,0,0" VerticalAlignment="Top" FontSize="20"/>
         <DatePicker x:Name="DatePicker" HorizontalAlignment="Left" Margin="243,335,0,0" VerticalAlignment="Top" Height="31" Width="113"/>
         <CheckBox x:Name="CheckBoxUnlocked" Content="Esta desbloqueado" HorizontalAlignment="Left" Margin="405,335,0,0" VerticalAlignment="Top" Height="16" Width="108" FontSize="10" RenderTransformOrigin="0.519,0.467">
@@ -25,9 +20,14 @@
         <Label Content="Data de desbloqueio :" HorizontalAlignment="Left" Margin="35,329,0,0" VerticalAlignment="Top" FontSize="20"/>
         <Button x:Name="ButtonAction" Content="Inserir" HorizontalAlignment="Left" Margin="647,321,0,0" VerticalAlignment="Top" Height="48" Width="100" Click="ButtonAction_Click"/>
         <Button x:Name="ButtonCancel" Content="Cancelar" HorizontalAlignment="Left" Margin="772,322,0,0" VerticalAlignment="Top" Height="48" Width="93" Click="ButtonCancel_Click"/>
-       
-        <Label Content="User" HorizontalAlignment="Left" Margin="463,144,0,0" VerticalAlignment="Top" FontSize="20"/>
+
+        <Label Content="User" HorizontalAlignment="Left" Margin="475,144,0,0" VerticalAlignment="Top" FontSize="20"/>
         <Label Content="Car" HorizontalAlignment="Left" Margin="35,96,0,0" VerticalAlignment="Top" FontSize="20"/>
-       
+        <Button x:Name="ButtonSelectCar" Content="Selecione o Carro" HorizontalAlignment="Left" Margin="96,100,0,0" VerticalAlignment="Top" Height="28" Width="769" Click="ButtonSelectCar_Click"/>
+        <Button x:Name="ButtonSelectPowerUp" Content="Selecione o PowerUp" HorizontalAlignment="Left" Margin="140,152,0,0" VerticalAlignment="Top" Height="28" Width="318" Click="ButtonSelectPowerUp_Click"/>
+        <Button x:Name="ButtonSelectUser" Content="Selecione o utilizador" HorizontalAlignment="Left" Margin="525,152,0,0" VerticalAlignment="Top" Height="28" Width="340" Click="ButtonSelectUser_Click"/>
+        <Button x:Name="ButtonSelectCarBody" Content="Selecione o Corpo do carro" HorizontalAlignment="Left" Margin="197,206,0,0" VerticalAlignment="Top" Height="28" Width="668" Click="ButtonSelectCarBody_Click"/>
+        <Button x:Name="ButtonSelectWheel" Content="Selecione a Roda" HorizontalAlignment="Left" Margin="113,263,0,0" VerticalAlignment="Top" Height="28" Width="752" Click="ButtonSelectWheel_Click"/>
+
     </Grid>
 </Window>
