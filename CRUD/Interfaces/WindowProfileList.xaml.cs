@@ -13,6 +13,7 @@ namespace Desktop___interfaces.Interfaces
     public partial class WindowProfileList : Window
     {
         int listOrder = LIST_NULL;
+        int nPag = 1;
         List<Profile> listatemp = new List<Profile>();
 
         #region load
@@ -24,7 +25,7 @@ namespace Desktop___interfaces.Interfaces
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            List<Profile> lista = SqlProfile.GetAll(listOrder, null, null, null, null, null, null);
+            List<Profile> lista = SqlProfile.GetAll(listOrder, null, null, null, null, null, null , nPag , 10);
             Profile profile;
             listatemp = new List<Profile>();
             
@@ -118,7 +119,7 @@ namespace Desktop___interfaces.Interfaces
             ListView.ItemsSource = null;                  // Elimina a associação da List à listView
             ListView.Items.Clear();                       // Limpa a ListView
             listatemp = new List<Profile>();
-            List<Profile> lista = SqlProfile.GetAll(listOrder, TextBoxFromUserName.Text, TextBoxUntilUserName.Text, TextBoxFromUserType.Text, TextBoxUntilUserType.Text, TextBoxFromCreationDate.Text, TextBoxUntilCreationDate.Text);
+            List<Profile> lista = SqlProfile.GetAll(listOrder, TextBoxFromUserName.Text, TextBoxUntilUserName.Text, TextBoxFromUserType.Text, TextBoxUntilUserType.Text, TextBoxFromCreationDate.Text, TextBoxUntilCreationDate.Text , nPag, 10);
             Profile profile;
             foreach (Profile p in lista)
             {
@@ -190,6 +191,58 @@ namespace Desktop___interfaces.Interfaces
             }
 
         }
+
+        /// <summary>
+        /// metodo para a mudança de pagina
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ButtonNextPage_Click(object sender, RoutedEventArgs e)
+        {
+            nPag = nPag + 1;
+            ListView.ItemsSource = null;                  // Elimina a associação da List à listView
+            ListView.Items.Clear();                       // Limpa a ListView
+            List<Profile> lista = SqlProfile.GetAll(listOrder, null, null, null, null, null, null, nPag, 10);
+            Profile profile;
+            listatemp = new List<Profile>();
+
+            foreach (Profile p in lista)
+            {
+                profile = p;
+                profile.UserEscolhido = SqlUser.Get(p.UserEscolhido.Id);
+                profile.TipoUser = SqlUserType.Get(p.TipoUser.Id);
+                listatemp.Add(profile);
+            }
+            ListView.ItemsSource = listatemp;
+        }
+
+        /// <summary>
+        /// metodo para a mudança de pagina
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ButtonPreviousPage_Click(object sender, RoutedEventArgs e)
+        {
+            if (nPag != 1)
+            {
+                nPag = nPag - 1;
+                ListView.ItemsSource = null;                  // Elimina a associação da List à listView
+                ListView.Items.Clear();                       // Limpa a ListView
+                List<Profile> lista = SqlProfile.GetAll(listOrder, null, null, null, null, null, null, nPag, 10);
+                Profile profile;
+                listatemp = new List<Profile>();
+
+                foreach (Profile p in lista)
+                {
+                    profile = p;
+                    profile.UserEscolhido = SqlUser.Get(p.UserEscolhido.Id);
+                    profile.TipoUser = SqlUserType.Get(p.TipoUser.Id);
+                    listatemp.Add(profile);
+                }
+                ListView.ItemsSource = listatemp;
+            }
+        }
+
 
         /// <summary>
         /// metodo do butão de pesquisa

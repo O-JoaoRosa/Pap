@@ -31,15 +31,17 @@
             </ListView.View>
         </ListView>
         <Label Content="Lista de Tipos de Utilizadores" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="50" Width="658" Height="72"/>
-        <Button x:Name="ButtonCancel" Content="Cancelar" HorizontalAlignment="Left" Margin="657,447,0,0" VerticalAlignment="Top" Height="54" Width="90" Click="ButtonCancel_Click"/>
-        <Button x:Name="ButtonEdit" Content="Editar" HorizontalAlignment="Left" Margin="542,447,0,0" VerticalAlignment="Top" Height="54" Width="90" Click="ButtonEdit_Click"/>
-        <Button x:Name="ButtonEliminar" Content="Eliminar" HorizontalAlignment="Left" Margin="430,447,0,0" VerticalAlignment="Top" Height="54" Width="90" Click="ButtonEliminar_Click"/>
+        <Button x:Name="ButtonCancel" Content="Cancelar" HorizontalAlignment="Left" Margin="653,442,0,0" VerticalAlignment="Top" Height="54" Width="90" Click="ButtonCancel_Click"/>
+        <Button x:Name="ButtonEdit" Content="Editar" HorizontalAlignment="Left" Margin="538,442,0,0" VerticalAlignment="Top" Height="54" Width="90" Click="ButtonEdit_Click"/>
+        <Button x:Name="ButtonEliminar" Content="Eliminar" HorizontalAlignment="Left" Margin="426,442,0,0" VerticalAlignment="Top" Height="54" Width="90" Click="ButtonEliminar_Click"/>
         <TextBox x:Name="TextBoxFrom" HorizontalAlignment="Left" Margin="84,111,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="589" Height="26" MaxLength="80"/>
         <Label Content="De" HorizontalAlignment="Left" Margin="53,111,0,0" VerticalAlignment="Top" Width="26"/>
         <TextBox x:Name="TextBoxUntil" HorizontalAlignment="Left" Margin="84,142,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="589" Height="26" MaxLength="80"/>
         <Label Content="Ate" HorizontalAlignment="Left" Margin="53,142,0,0" VerticalAlignment="Top" Width="26"/>
         <Button x:Name="ButtonSearch" Content="Pesquisar" HorizontalAlignment="Left" Margin="687,115,0,0" VerticalAlignment="Top" Height="53" Width="60" Click="ButtonSearch_Click"/>
         <Label x:Name="LabelSubTitle" Content="Selecione um tipo de utilizador" HorizontalAlignment="Center" Margin="0,72,0,0" VerticalAlignment="Top" FontSize="18"/>
+        <Button x:Name="ButtonNextPage" Content="&gt;" HorizontalAlignment="Left" Height="48" Margin="185,440,0,0" VerticalAlignment="Top" Width="72" FontSize="24" Click="ButtonNextPage_Click"/>
+        <Button x:Name="ButtonPreviousPage" Content="&lt;" HorizontalAlignment="Left" Height="48" Margin="53,440,0,0" VerticalAlignment="Top" Width="74" FontSize="24" Click="ButtonPreviousPage_Click"/>
 
     </Grid>
 </Window>

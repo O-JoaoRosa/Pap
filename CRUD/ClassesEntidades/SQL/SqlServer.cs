@@ -80,7 +80,7 @@ namespace Desktop___interfaces.ClassesEntidades.SQL
         /// 2 - Completa a lista principal, preenchendo os obj FK, 
         /// </summary>
         /// <returns>Lista de objetos</returns>
-        static public List<Server> GetAll(int order, string fromDescri, string untilDescri, string fromCodeName, string untilCodeName)
+        static public List<Server> GetAll(int order, string fromDescri, string untilDescri, string fromCodeName, string untilCodeName, int nPag, int nItens)
         {
             List<Server> listaServers = new List<Server>();   // Lista Principal
             String query = "";
@@ -106,30 +106,29 @@ namespace Desktop___interfaces.ClassesEntidades.SQL
                     switch (order)
                     {
                         case LIST_DESCRI_ASC:
-                            query += " ORDER BY Descri ASC;";
+                            query += " ORDER BY Descri ASC";
                             break;
 
                         case LIST_DESCRI_DESC:
-                            query += " ORDER BY Descri DESC;";
+                            query += " ORDER BY Descri DESC";
                             break;
 
                         case LIST_OBS_ASC:
-                            query += " ORDER BY Obs ASC;";
+                            query += " ORDER BY Obs ASC";
                             break;
 
                         case LIST_OBS_DESC:
-                            query += " ORDER BY Obs DESC;";
-                            break;
-
-                        default:
-                            query += ";";
+                            query += " ORDER BY Obs DESC";
                             break;
                     }
+                    query += " LIMIT @nPag, @nItens;";
 
                     // Prepara e executa o SQL DML
                     using (MySqlCommand sqlCommand = new MySqlCommand())
                     {
                         // Config da ligação
+                        sqlCommand.Parameters.Add(new MySqlParameter("@nPag", (nPag - 1) * nItens));
+                        sqlCommand.Parameters.Add(new MySqlParameter("@nItens", nItens));
                         sqlCommand.CommandText = query;
                         sqlCommand.CommandType = CommandType.Text;
                         sqlCommand.Connection = ((MySqlConnection)conn);

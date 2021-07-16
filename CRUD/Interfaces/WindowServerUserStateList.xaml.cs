@@ -13,6 +13,7 @@ namespace Desktop___interfaces.Interfaces
     {
         int listOrder = LIST_NULL;
         int listAction = -1;
+        int nPag = 1;
         #region Loading
         public WindowServerUserStateList(int action)
         {
@@ -27,7 +28,7 @@ namespace Desktop___interfaces.Interfaces
         /// <param name="e"></param>
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            ListView.ItemsSource = SqlUserServerState.GetAll(listOrder,null,null);
+            ListView.ItemsSource = SqlUserServerState.GetAll(listOrder,null,null, nPag , 10);
             if (listAction != LIST_ACTION_ID && listAction != LIST_ACTION_ID_FRIEND)
             {
                 LabelSubTitle.Visibility = Visibility.Hidden;
@@ -146,7 +147,7 @@ namespace Desktop___interfaces.Interfaces
         {
             ListView.ItemsSource = null;                  // Elimina a associação da List à listView
             ListView.Items.Clear();                       // Limpa a ListView
-            ListView.ItemsSource = SqlUserServerState.GetAll(order, TextBoxFrom.Text, TextBoxUntil.Text);    // Reassocia a listAlunos à ListView
+            ListView.ItemsSource = SqlUserServerState.GetAll(order, TextBoxFrom.Text, TextBoxUntil.Text, nPag, 10);    // Reassocia a listAlunos à ListView
         }
 
         /// <summary>
@@ -176,6 +177,37 @@ namespace Desktop___interfaces.Interfaces
         {
             RefreshListView(listOrder);
         }
+
+
+        /// <summary>
+        /// metodo para a mudança de pagina
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ButtonNextPage_Click(object sender, RoutedEventArgs e)
+        {
+            nPag = nPag + 1;
+            ListView.ItemsSource = null;                  // Elimina a associação da List à listView
+            ListView.Items.Clear();                       // Limpa a ListView
+            ListView.ItemsSource = SqlUserServerState.GetAll(listOrder, null, null, nPag, 10);
+        }
+
+        /// <summary>
+        /// metodo para a mudança de pagina
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ButtonPreviousPage_Click(object sender, RoutedEventArgs e)
+        {
+            if (nPag != 1)
+            {
+                nPag = nPag - 1;
+                ListView.ItemsSource = null;                  // Elimina a associação da List à listView
+                ListView.Items.Clear();                       // Limpa a ListView
+                ListView.ItemsSource = SqlUserServerState.GetAll(listOrder, null, null, nPag, 10);
+            }
+        }
+
         #endregion
     }
 }

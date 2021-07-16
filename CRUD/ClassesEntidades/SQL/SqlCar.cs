@@ -86,7 +86,7 @@ namespace CRUD.ClassesEntidades.SQL
         /// 2 - Completa a lista principal, preenchendo os obj FK, 
         /// </summary>
         /// <returns>Lista de objetos</returns>
-        static public List<Car> GetAll(int order, string fromDescri, string untilDescri, string fromRepReq, string untilRepReq, string fromPrice, string untilPrice, string fromMaxSpeed, string untilMaxSpeed)
+        static public List<Car> GetAll(int order, string fromDescri, string untilDescri, string fromRepReq, string untilRepReq, string fromPrice, string untilPrice, string fromMaxSpeed, string untilMaxSpeed, int nPag, int nItens)
         {
             List<Car> listaCars = new List<Car>();   // Lista Principal
             String query = "";
@@ -115,46 +115,45 @@ namespace CRUD.ClassesEntidades.SQL
                     switch (order)
                     {
                         case LIST_PRICE_ASC:
-                            query += " ORDER BY Price ASC;";
+                            query += " ORDER BY Price ASC";
                             break;
 
                         case LIST_PRICE_DESC:
-                            query += " ORDER BY Price DESC;";
+                            query += " ORDER BY Price DESC";
                             break;
 
                         case LIST_DESCRI_ASC:
-                            query += " ORDER BY Descri ASC;";
+                            query += " ORDER BY Descri ASC";
                             break;
 
                         case LIST_DESCRI_DESC:
-                            query += " ORDER BY Descri DESC;";
+                            query += " ORDER BY Descri DESC";
                             break;
 
                         case LIST_REPREQ_ASC:
-                            query += " ORDER BY ReputationRequired ASC;";
+                            query += " ORDER BY ReputationRequired ASC";
                             break;
 
                         case LIST_REPREQ_DESC:
-                            query += " ORDER BY ReputationRequired DESC;";
+                            query += " ORDER BY ReputationRequired DESC";
                             break;
 
                         case LIST_MAXSPEED_ASC:
-                            query += " ORDER BY MaxSpeed ASC;";
+                            query += " ORDER BY MaxSpeed ASC";
                             break;
 
                         case LIST_MAXSPEED_DESC:
-                            query += " ORDER BY MaxSpeed DESC;";
-                            break;
-
-                        default:
-                            query += ";";
+                            query += " ORDER BY MaxSpeed DESC";
                             break;
                     }
+                    query += " LIMIT @nPag, @nItens;";
 
                     // Prepara e executa o SQL DML
                     using (MySqlCommand sqlCommand = new MySqlCommand())
                     {
                         // Config da ligação
+                        sqlCommand.Parameters.Add(new MySqlParameter("@nPag", (nPag - 1) * nItens));
+                        sqlCommand.Parameters.Add(new MySqlParameter("@nItens", nItens));
                         sqlCommand.CommandText = query;
                         sqlCommand.CommandType = CommandType.Text;
                         sqlCommand.Connection = ((MySqlConnection)conn);

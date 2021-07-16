@@ -11,8 +11,6 @@ namespace CRUD.ClassesEntidades.SQL
 {
     class SqlUserCar
     {
-
-
         #region Dados Locais
 
         private const bool DEBUG_LOCAL = false;       // Ativa debug local
@@ -87,7 +85,7 @@ namespace CRUD.ClassesEntidades.SQL
         /// 2 - Completa a lista principal, preenchendo os obj FK, 
         /// </summary>
         /// <returns>Lista de objetos</returns>
-        static public List<UserCar> GetAll(string fromUserName, string untilUserName, string fromCar, string untilCar)
+        static public List<UserCar> GetAll(string fromUserName, string untilUserName, string fromCar, string untilCar, int nPag, int nItens)
         {
             List<UserCar> listaUserCars = new List<UserCar>();   // Lista Principal
             String query = "";
@@ -112,11 +110,14 @@ namespace CRUD.ClassesEntidades.SQL
                             + " AND user.UserName >= '" + fromUserName + "' AND user.UserName <= '" + untilUserName +
                             "~' AND Car.Descri >= '" + fromCar + "' AND Car.Descri <= '" + untilCar + "~'";
                     }
+                    query += " LIMIT @nPag, @nItens;";
 
                     // Prepara e executa o SQL DML
                     using (MySqlCommand sqlCommand = new MySqlCommand())
                     {
                         // Config da ligação
+                        sqlCommand.Parameters.Add(new MySqlParameter("@nPag", (nPag - 1) * nItens));
+                        sqlCommand.Parameters.Add(new MySqlParameter("@nItens", nItens));
                         sqlCommand.CommandText = query;
                         sqlCommand.CommandType = CommandType.Text;
                         sqlCommand.Connection = ((MySqlConnection)conn);

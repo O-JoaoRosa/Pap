@@ -87,7 +87,7 @@ namespace CRUD.ClassesEntidades.SQL
         /// 2 - Completa a lista principal, preenchendo os obj FK, 
         /// </summary>
         /// <returns>Lista de objetos</returns>
-        static public List<ServerUser> GetAll(string fromUserName , string untilUserName, string fromServer, string untilServer)
+        static public List<ServerUser> GetAll(string fromUserName , string untilUserName, string fromServer, string untilServer, int nPag, int nItens)
         {
             List<ServerUser> listaServerUsers = new List<ServerUser>();   // Lista Principal
             String query = "";
@@ -110,13 +110,16 @@ namespace CRUD.ClassesEntidades.SQL
                         query += " INNER JOIN user ON serveruser.UserID = user.ID\n" +
                             "INNER JOIN server ON serveruser.ServerID = server.Id"
                             + " AND user.username >= '" + fromUserName + "' AND user.UserName <= '" + untilUserName +
-                            "~' AND server.Descri >= '" + fromServer + "' AND server.Descri <= '" + untilServer + "~';";
+                            "~' AND server.Descri >= '" + fromServer + "' AND server.Descri <= '" + untilServer + "~'";
                     }
+                    query += " LIMIT @nPag, @nItens;";
 
                     // Prepara e executa o SQL DML
                     using (MySqlCommand sqlCommand = new MySqlCommand())
                     {
                         // Config da ligação
+                        sqlCommand.Parameters.Add(new MySqlParameter("@nPag", (nPag - 1) * nItens));
+                        sqlCommand.Parameters.Add(new MySqlParameter("@nItens", nItens));
                         sqlCommand.CommandText = query;
                         sqlCommand.CommandType = CommandType.Text;
                         sqlCommand.Connection = ((MySqlConnection)conn);

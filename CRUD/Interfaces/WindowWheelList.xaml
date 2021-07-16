@@ -41,12 +41,14 @@
             </ListView.View>
         </ListView>
         <Label Content="Lista de Rodas" HorizontalAlignment="Center" Margin="0,-10,0,0" VerticalAlignment="Top" FontSize="50"/>
-        <Button x:Name="ButtonCancel" Content="Cancelar" HorizontalAlignment="Left" Margin="677,452,0,0" VerticalAlignment="Top" Height="49" Width="134" Click="ButtonCancel_Click"/>
-        <Button x:Name="ButtonEdit" Content="Editar" HorizontalAlignment="Left" Margin="513,452,0,0" VerticalAlignment="Top" Height="49" Width="138" Click="ButtonEdit_Click"/>
-        <Button x:Name="ButtonDel" Content="Eliminar" HorizontalAlignment="Left" Margin="338,452,0,0" VerticalAlignment="Top" Height="49" Width="135" Click="ButtonDel_Click"/>
+        <Button x:Name="ButtonCancel" Content="Cancelar" HorizontalAlignment="Left" Margin="678,448,0,0" VerticalAlignment="Top" Height="49" Width="134" Click="ButtonCancel_Click"/>
+        <Button x:Name="ButtonEdit" Content="Editar" HorizontalAlignment="Left" Margin="514,448,0,0" VerticalAlignment="Top" Height="49" Width="138" Click="ButtonEdit_Click"/>
+        <Button x:Name="ButtonDel" Content="Eliminar" HorizontalAlignment="Left" Margin="339,448,0,0" VerticalAlignment="Top" Height="49" Width="135" Click="ButtonDel_Click"/>
         <Label Content="De" HorizontalAlignment="Left" Margin="32,98,0,0" VerticalAlignment="Top" Width="26" RenderTransformOrigin="0.558,0.579"/>
         <Label Content="Ate" HorizontalAlignment="Left" Margin="32,128,0,0" VerticalAlignment="Top" Width="32"/>
         <Label x:Name="LabelSubTitle" Content="Selecione uma roda" HorizontalAlignment="Left" Margin="339,59,0,0" VerticalAlignment="Top" FontSize="18"/>
+        <Button x:Name="ButtonNextPage" Content="&gt;" HorizontalAlignment="Left" Height="48" Margin="164,448,0,0" VerticalAlignment="Top" Width="72" FontSize="24" Click="ButtonNextPage_Click"/>
+        <Button x:Name="ButtonPreviousPage" Content="&lt;" HorizontalAlignment="Left" Height="48" Margin="32,448,0,0" VerticalAlignment="Top" Width="74" FontSize="24" Click="ButtonPreviousPage_Click"/>
 
 
     </Grid>

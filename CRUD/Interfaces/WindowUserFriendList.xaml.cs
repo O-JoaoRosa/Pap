@@ -15,6 +15,7 @@ namespace Desktop___interfaces.Interfaces
     {
         int listOrder = LIST_NULL;
         List<UserFriend> listatemp = new List<UserFriend>();
+        int nPag = 1;
 
         #region load
         public WindowUserFriendList()
@@ -24,7 +25,7 @@ namespace Desktop___interfaces.Interfaces
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            List<UserFriend> lista = SqlUserFriend.GetAll(null,null,null,null);
+            List<UserFriend> lista = SqlUserFriend.GetAll(null,null,null,null,nPag , 10);
             listatemp = new List<UserFriend>();
             UserFriend userFriend;
             foreach (UserFriend p in lista)
@@ -119,7 +120,7 @@ namespace Desktop___interfaces.Interfaces
             ListView.ItemsSource = null;                  // Elimina a associação da List à listView
             ListView.Items.Clear();                       // Limpa a ListView
 
-            List<UserFriend> lista = SqlUserFriend.GetAll(TextBoxFromUserName.Text , TextBoxUntilUserName.Text, TextBoxFromFriend.Text, TextBoxUntilFriend.Text);
+            List<UserFriend> lista = SqlUserFriend.GetAll(TextBoxFromUserName.Text , TextBoxUntilUserName.Text, TextBoxFromFriend.Text, TextBoxUntilFriend.Text, nPag, 10);
             listatemp = new List<UserFriend>();
             UserFriend userFriend;
             foreach (UserFriend p in lista)
@@ -191,6 +192,55 @@ namespace Desktop___interfaces.Interfaces
         private void ButtonSearch_Click(object sender, RoutedEventArgs e)
         {
             RefreshListView();
+        }
+
+        /// <summary>
+        /// metodo para a mudança de pagina
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ButtonNextPage_Click(object sender, RoutedEventArgs e)
+        {
+            nPag = nPag + 1;
+            ListView.ItemsSource = null;                  // Elimina a associação da List à listView
+            ListView.Items.Clear();                       // Limpa a ListView
+            List<UserFriend> lista = SqlUserFriend.GetAll(null, null, null, null, nPag, 10);
+            listatemp = new List<UserFriend>();
+            UserFriend userFriend;
+            foreach (UserFriend p in lista)
+            {
+                userFriend = p;
+                userFriend.UserFriend1 = SqlUser.Get(p.UserFriend1.Id);
+                userFriend.User = SqlUser.Get(p.User.Id);
+                listatemp.Add(userFriend);
+            }
+            ListView.ItemsSource = listatemp;
+        }
+
+        /// <summary>
+        /// metodo para a mudança de pagina
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ButtonPreviousPage_Click(object sender, RoutedEventArgs e)
+        {
+            if (nPag != 1)
+            {
+                nPag = nPag - 1;
+                ListView.ItemsSource = null;                  // Elimina a associação da List à listView
+                ListView.Items.Clear();                       // Limpa a ListView
+                List<UserFriend> lista = SqlUserFriend.GetAll(null, null, null, null, nPag, 10);
+                listatemp = new List<UserFriend>();
+                UserFriend userFriend;
+                foreach (UserFriend p in lista)
+                {
+                    userFriend = p;
+                    userFriend.UserFriend1 = SqlUser.Get(p.UserFriend1.Id);
+                    userFriend.User = SqlUser.Get(p.User.Id);
+                    listatemp.Add(userFriend);
+                }
+                ListView.ItemsSource = listatemp;
+            }
         }
         #endregion
     }

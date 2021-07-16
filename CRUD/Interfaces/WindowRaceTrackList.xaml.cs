@@ -15,6 +15,7 @@ namespace Desktop___interfaces.Interfaces
     {
         int listOrder = LIST_NULL;
         int listAction = -1;
+        int nPag = 1;
 
         #region load
         public WindowRaceTrackList(int action)
@@ -30,7 +31,7 @@ namespace Desktop___interfaces.Interfaces
         /// <param name="e"></param>
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            ListView.ItemsSource = SqlRaceTrack.GetAll(listOrder, null, null , null, null); 
+            ListView.ItemsSource = SqlRaceTrack.GetAll(listOrder, null, null , null, null, nPag, 10); 
             
             //verifica qual o objetivo da lista
             if (listAction != LIST_ACTION_ID)
@@ -150,7 +151,7 @@ namespace Desktop___interfaces.Interfaces
         {
             ListView.ItemsSource = null;                  // Elimina a associação da List à listView
             ListView.Items.Clear();                       // Limpa a ListView
-            ListView.ItemsSource = SqlRaceTrack.GetAll(listOrder, TextBoxFrom.Text, TextBoxUntil.Text, TextBoxFromRepReq.Text, TextBoxUntilRepReq.Text);    // Reassocia a listAlunos à ListView
+            ListView.ItemsSource = SqlRaceTrack.GetAll(listOrder, TextBoxFrom.Text, TextBoxUntil.Text, TextBoxFromRepReq.Text, TextBoxUntilRepReq.Text, nPag, 10);    // Reassocia a listAlunos à ListView
         }
 
         /// <summary>
@@ -185,6 +186,35 @@ namespace Desktop___interfaces.Interfaces
                 }
             }
             RefreshListView();
+        }
+
+        /// <summary>
+        /// metodo para a mudança de pagina
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ButtonNextPage_Click(object sender, RoutedEventArgs e)
+        {
+            nPag = nPag + 1;
+            ListView.ItemsSource = null;                  // Elimina a associação da List à listView
+            ListView.Items.Clear();                       // Limpa a ListView
+            ListView.ItemsSource = SqlRaceTrack.GetAll(listOrder, null, null, null, null, nPag, 10);
+        }
+
+        /// <summary>
+        /// metodo para a mudança de pagina
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ButtonPreviousPage_Click(object sender, RoutedEventArgs e)
+        {
+            if (nPag != 1)
+            {
+                nPag = nPag - 1;
+                ListView.ItemsSource = null;                  // Elimina a associação da List à listView
+                ListView.Items.Clear();                       // Limpa a ListView
+                ListView.ItemsSource = SqlRaceTrack.GetAll(listOrder, null, null, null, null, nPag, 10);
+            }
         }
 
         /// <summary>

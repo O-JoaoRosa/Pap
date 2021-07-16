@@ -14,6 +14,7 @@ namespace Desktop___interfaces.Interfaces
     {
         int listOrder = LIST_NULL;
         List<UserRace> listatemp = new List<UserRace>();
+        int nPag =1;
 
         #region load
         public WindowUserRaceList()
@@ -24,7 +25,7 @@ namespace Desktop___interfaces.Interfaces
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             //cria uma lista temporaria e uma lista que irá ser assiciada a listView
-            List<UserRace> lista = SqlUserRace.GetAll(null, null,null,null,null,null);
+            List<UserRace> lista = SqlUserRace.GetAll(null, null,null,null,null,null, nPag, 10);
             listatemp = new List<UserRace>();
             UserRace userRace;
 
@@ -118,7 +119,7 @@ namespace Desktop___interfaces.Interfaces
             ListView.Items.Clear();                       // Limpa a ListView
 
             //cria uma lista temporaria e uma lista que irá ser assiciada a listView
-            List<UserRace> lista = SqlUserRace.GetAll(TextBoxFromUserName.Text, TextBoxUntilUserName.Text, TextBoxFromRaceTrack.Text, TextBoxUntilRaceTrack.Text, TextBoxFromDate.Text, TextBoxUntilDate.Text );
+            List<UserRace> lista = SqlUserRace.GetAll(TextBoxFromUserName.Text, TextBoxUntilUserName.Text, TextBoxFromRaceTrack.Text, TextBoxUntilRaceTrack.Text, TextBoxFromDate.Text, TextBoxUntilDate.Text, nPag, 10);
             listatemp = new List<UserRace>();
             UserRace userRace;
 
@@ -199,6 +200,61 @@ namespace Desktop___interfaces.Interfaces
                     ListView.ItemsSource = SortedList;
                     listOrder = 300;
                 }
+            }
+        }
+
+        /// <summary>
+        /// metodo para a mudança de pagina
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ButtonNextPage_Click(object sender, RoutedEventArgs e)
+        {
+            nPag = nPag + 1;
+            ListView.ItemsSource = null;                  // Elimina a associação da List à listView
+            ListView.Items.Clear();                       // Limpa a ListView
+            //cria uma lista temporaria e uma lista que irá ser assiciada a listView
+            List<UserRace> lista = SqlUserRace.GetAll(null, null, null, null, null, null, nPag, 10);
+            listatemp = new List<UserRace>();
+            UserRace userRace;
+
+            //vai a cada elemneto da lista GetAll e controi as fks de maneira completa
+            foreach (UserRace p in lista)
+            {
+                userRace = p;
+                userRace.User = SqlUser.Get(p.User.Id);
+                userRace.RaceTrack = SqlRaceTrack.Get(p.RaceTrack.Id);
+                listatemp.Add(userRace);
+            }
+            ListView.ItemsSource = listatemp;
+        }
+
+        /// <summary>
+        /// metodo para a mudança de pagina
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ButtonPreviousPage_Click(object sender, RoutedEventArgs e)
+        {
+            if (nPag != 1)
+            {
+                nPag = nPag - 1;
+                ListView.ItemsSource = null;                  // Elimina a associação da List à listView
+                ListView.Items.Clear();                       // Limpa a ListView
+                                                              //cria uma lista temporaria e uma lista que irá ser assiciada a listView
+                List<UserRace> lista = SqlUserRace.GetAll(null, null, null, null, null, null, nPag, 10);
+                listatemp = new List<UserRace>();
+                UserRace userRace;
+
+                //vai a cada elemneto da lista GetAll e controi as fks de maneira completa
+                foreach (UserRace p in lista)
+                {
+                    userRace = p;
+                    userRace.User = SqlUser.Get(p.User.Id);
+                    userRace.RaceTrack = SqlRaceTrack.Get(p.RaceTrack.Id);
+                    listatemp.Add(userRace);
+                }
+                ListView.ItemsSource = listatemp;
             }
         }
 

@@ -47,6 +47,8 @@
         <Button x:Name="ButtonSearch" Content="Pesquisar" HorizontalAlignment="Left" Margin="715,89,0,0" VerticalAlignment="Top" Height="53" Width="60" Click="ButtonSearch_Click"/>
         <Label x:Name="LabelSubTitle" Content="Seleciona um PowerUp" HorizontalAlignment="Center" Margin="0,51,0,0" VerticalAlignment="Top" FontSize="18"/>
         <Label Content="Label" HorizontalAlignment="Left" Margin="800,10,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="ButtonNextPage" Content="&gt;" HorizontalAlignment="Left" Height="48" Margin="170,393,0,0" VerticalAlignment="Top" Width="72" FontSize="24" Click="ButtonNextPage_Click"/>
+        <Button x:Name="ButtonPreviousPage" Content="&lt;" HorizontalAlignment="Left" Height="48" Margin="32,393,0,0" VerticalAlignment="Top" Width="74" FontSize="24" Click="ButtonPreviousPage_Click"/>
 
     </Grid>
 </Window>

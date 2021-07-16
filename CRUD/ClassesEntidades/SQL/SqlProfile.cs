@@ -81,7 +81,7 @@ namespace CRUD.ClassesEntidades.SQL
         /// 2 - Completa a lista principal, preenchendo os obj FK, 
         /// </summary>
         /// <returns>Lista de objetos</returns>
-        static public List<Profile> GetAll(int order, string fromUserName, string untilUserName, string fromUserType, string untilUserType, string fromDate, string untilDate)
+        static public List<Profile> GetAll(int order, string fromUserName, string untilUserName, string fromUserType, string untilUserType, string fromDate, string untilDate, int nPag, int nItens)
         {
             List<Profile> listaProfiles = new List<Profile>();   // Lista Principal
             String query = "";
@@ -111,30 +111,30 @@ namespace CRUD.ClassesEntidades.SQL
                     {
 
                         case LIST_USERTYPE_ASC:
-                            query += " ORDER BY UserTypeID ASC;";
+                            query += " ORDER BY UserTypeID ASC";
                             break;
 
                         case LIST_USERTYPE_DESC:
-                            query += " ORDER BY UserTypeID DESC;";
+                            query += " ORDER BY UserTypeID DESC";
                             break;
 
                         case LIST_DATECREATE_ASC:
-                            query += " ORDER BY DateCreated ASC;";
+                            query += " ORDER BY DateCreated ASC";
                             break;
 
                         case LIST_DATECREATE_DESC:
-                            query += " ORDER BY DateCreated DESC;";
+                            query += " ORDER BY DateCreated DESC";
                             break;
 
-                        default:
-                            query += ";";
-                            break;
                     }
+                    query += " LIMIT @nPag, @nItens;";
 
                     // Prepara e executa o SQL DML
                     using (MySqlCommand sqlCommand = new MySqlCommand())
                     {
                         // Config da ligação
+                        sqlCommand.Parameters.Add(new MySqlParameter("@nPag", (nPag - 1) * nItens));
+                        sqlCommand.Parameters.Add(new MySqlParameter("@nItens", nItens));
                         sqlCommand.CommandText = query;
                         sqlCommand.CommandType = CommandType.Text;
                         sqlCommand.Connection = ((MySqlConnection)conn);

@@ -85,7 +85,7 @@ namespace CRUD.ClassesEntidades.SQL
         /// 2 - Completa a lista principal, preenchendo os obj FK, 
         /// </summary>
         /// <returns>Lista de objetos</returns>
-        static public List<User> GetAll(int order, string fromUserName, string untilUserName, string fromEmail, string untilEmail, string fromDate, string untilDate)
+        static public List<User> GetAll(int order, string fromUserName, string untilUserName, string fromEmail, string untilEmail, string fromDate, string untilDate, int nPag, int nItens)
         {
             List<User> listaUsers = new List<User>();   // Lista Principal
             String query = "";
@@ -113,38 +113,37 @@ namespace CRUD.ClassesEntidades.SQL
                     switch (order)
                     {
                         case LIST_USERNAME_ASC:
-                            query += " ORDER BY UserName ASC;";
+                            query += " ORDER BY UserName ASC";
                             break;
 
                         case LIST_USERNAME_DESC:
-                            query += " ORDER BY UserName DESC;";
+                            query += " ORDER BY UserName DESC";
                             break;
 
                         case LIST_EMAIL_ASC:
-                            query += " ORDER BY Email ASC;";
+                            query += " ORDER BY Email ASC";
                             break;
 
                         case LIST_EMAIL_DESC:
-                            query += " ORDER BY Email DESC;";
+                            query += " ORDER BY Email DESC";
                             break;
 
                         case LIST_LASTTIMEONLINE_ASC:
-                            query += " ORDER BY LastTimeOnline ASC;";
+                            query += " ORDER BY LastTimeOnline ASC";
                             break;
 
                         case LIST_LASTTIMEONLINE_DESC:
-                            query += " ORDER BY LastTimeOnline DESC;";
-                            break;
-
-                        default:
-                            query += ";";
+                            query += " ORDER BY LastTimeOnline DESC";
                             break;
                     }
+                    query += " LIMIT @nPag, @nItens;";
 
                     // Prepara e executa o SQL DML
                     using (MySqlCommand sqlCommand = new MySqlCommand())
                     {
                         // Config da ligação
+                        sqlCommand.Parameters.Add(new MySqlParameter("@nPag", (nPag - 1) * nItens));
+                        sqlCommand.Parameters.Add(new MySqlParameter("@nItens", nItens));
                         sqlCommand.CommandText = query;
                         sqlCommand.CommandType = CommandType.Text;
                         sqlCommand.Connection = ((MySqlConnection)conn);

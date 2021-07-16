@@ -35,7 +35,7 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Header="Email" Width="500">
+                    <GridViewColumn Header="Email" Width="495">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding Email}" HorizontalAlignment="Left" />
@@ -56,6 +56,8 @@
         <Button x:Name="ButtonEdit" Content="Editar" HorizontalAlignment="Left" Height="60" Margin="643,485,0,0" VerticalAlignment="Top" Width="125" Click="ButtonEdit_Click"/>
         <Button x:Name="ButtonDel" Content="Eliminar" HorizontalAlignment="Left" Height="60" Margin="493,485,0,0" VerticalAlignment="Top" Width="125" Click="ButtonDel_Click"/>
         <Label x:Name="LabelSubTitle" Content="Seleciona o Utilizador" HorizontalAlignment="Center" Margin="0,59,0,0" VerticalAlignment="Top" Height="41" Width="194" FontSize="18"/>
+        <Button x:Name="ButtonNextPage" Content="&gt;" HorizontalAlignment="Left" Height="48" Margin="196,491,0,0" VerticalAlignment="Top" Width="73" FontSize="24" Click="ButtonNextPage_Click"/>
+        <Button x:Name="ButtonPreviousPage" Content="&lt;" HorizontalAlignment="Left" Height="48" Margin="75,491,0,0" VerticalAlignment="Top" Width="73" FontSize="24" Click="ButtonPreviousPage_Click"/>
 
     </Grid>
 </Window>

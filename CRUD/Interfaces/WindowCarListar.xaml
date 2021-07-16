@@ -65,6 +65,8 @@
         <TextBox x:Name="TextBoxFromMaxSpeed" HorizontalAlignment="Left" Margin="836,92,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="99" Height="26" MaxLength="12"/>
         <TextBox x:Name="TextBoxUntilMaxSpeed" HorizontalAlignment="Left" Margin="836,123,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="99" Height="26" MaxLength="12" RenderTransformOrigin="0.5,0.5"/>
         <Label x:Name="LabelSubTitle" Content="Selecione  um carro" HorizontalAlignment="Center" Margin="0,55,0,0" VerticalAlignment="Top" FontSize="20"/>
+        <Button x:Name="ButtonNextPage" Content="&gt;" HorizontalAlignment="Left" Height="48" Margin="156,443,0,0" VerticalAlignment="Top" Width="72" FontSize="24" Click="ButtonNextPage_Click"/>
+        <Button x:Name="ButtonPreviousPage" Content="&lt;" HorizontalAlignment="Left" Height="48" Margin="24,443,0,0" VerticalAlignment="Top" Width="74" FontSize="24" Click="ButtonPreviousPage_Click"/>
 
     </Grid>
 </Window>

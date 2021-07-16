@@ -46,6 +46,8 @@
         <Button x:Name="ButtonEliminar" Content="Eliminar" HorizontalAlignment="Left" Margin="453,430,0,0" VerticalAlignment="Top" Height="51" Width="100" RenderTransformOrigin="0.524,0.603" Click="ButtonDel_Click"/>
         <Label Content="De" HorizontalAlignment="Left" Margin="32,83,0,0" VerticalAlignment="Top"/>
         <Label Content="Até" HorizontalAlignment="Left" Margin="29,114,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="ButtonNextPage" Content="&gt;" HorizontalAlignment="Left" Height="48" Margin="171,430,0,0" VerticalAlignment="Top" Width="73" FontSize="24" Click="ButtonNextPage_Click"/>
+        <Button x:Name="ButtonPreviousPage" Content="&lt;" HorizontalAlignment="Left" Height="48" Margin="34,430,0,0" VerticalAlignment="Top" Width="73" FontSize="24" Click="ButtonPreviousPage_Click"/>
 
     </Grid>
 </Window>

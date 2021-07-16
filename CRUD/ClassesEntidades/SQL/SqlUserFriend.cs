@@ -82,7 +82,7 @@ namespace CRUD.ClassesEntidades.SQL
         /// 2 - Completa a lista principal, preenchendo os obj FK, 
         /// </summary>
         /// <returns>Lista de objetos</returns>
-        static public List<UserFriend> GetAll(string fromUserName, string untilUserName, string fromUserFriend , string untilUserFriend)
+        static public List<UserFriend> GetAll(string fromUserName, string untilUserName, string fromUserFriend , string untilUserFriend, int nPag, int nItens)
         {
             List<UserFriend> listaUserFriends = new List<UserFriend>();   // Lista Principal
             String query = "";
@@ -105,13 +105,16 @@ namespace CRUD.ClassesEntidades.SQL
                         query += " INNER JOIN user ON userFriend.UserID = user.ID\n" +
                             "INNER JOIN user as user2 ON userFriend.UserFriendID = user2.ID"
                             + " AND user.username >= '" + fromUserName + "' AND user.UserName <= '" + untilUserName +
-                            "~' AND user2.username >= '" + fromUserFriend + "' AND user2.UserName <= '" + untilUserFriend + "~';";
+                            "~' AND user2.username >= '" + fromUserFriend + "' AND user2.UserName <= '" + untilUserFriend + "~'";
                     }
+                    query += " LIMIT @nPag, @nItens;";
 
                     // Prepara e executa o SQL DML
                     using (MySqlCommand sqlCommand = new MySqlCommand())
                     {
                         // Config da ligação
+                        sqlCommand.Parameters.Add(new MySqlParameter("@nPag", (nPag - 1) * nItens));
+                        sqlCommand.Parameters.Add(new MySqlParameter("@nItens", nItens));
                         sqlCommand.CommandText = query;
                         sqlCommand.CommandType = CommandType.Text;
                         sqlCommand.Connection = ((MySqlConnection)conn);

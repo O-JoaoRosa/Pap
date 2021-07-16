@@ -49,6 +49,8 @@
         <Label Content="Ate" HorizontalAlignment="Left" Margin="42,158,0,0" VerticalAlignment="Top" Width="32"/>
         <Button x:Name="ButtonSearch" Content="Pesquisar" HorizontalAlignment="Left" Margin="698,131,0,0" VerticalAlignment="Top" Height="53" Width="60" Click="ButtonSearch_Click"/>
         <Label x:Name="LabelSubTitle" Content="Selecione um estado do server-user" HorizontalAlignment="Left" Margin="241,74,0,0" VerticalAlignment="Top" FontSize="18"/>
+        <Button x:Name="ButtonNextPage" Content="&gt;" HorizontalAlignment="Left" Height="48" Margin="174,462,0,0" VerticalAlignment="Top" Width="72" FontSize="24" Click="ButtonNextPage_Click"/>
+        <Button x:Name="ButtonPreviousPage" Content="&lt;" HorizontalAlignment="Left" Height="48" Margin="42,462,0,0" VerticalAlignment="Top" Width="74" FontSize="24" Click="ButtonPreviousPage_Click"/>
 
     </Grid>
 </Window>

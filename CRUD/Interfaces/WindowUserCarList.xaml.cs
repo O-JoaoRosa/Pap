@@ -13,6 +13,7 @@ namespace Desktop___interfaces.Interfaces
     public partial class WindowUserCarList : Window
     {
         int listOrder = LIST_NULL;
+        int nPag = 1;
         List<UserCar> listatemp = new List<UserCar>();
 
         #region load
@@ -24,7 +25,7 @@ namespace Desktop___interfaces.Interfaces
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            List<UserCar> lista = SqlUserCar.GetAll(null,null,null,null);
+            List<UserCar> lista = SqlUserCar.GetAll(null,null,null,null, nPag, 10);
             UserCar userCar;
             foreach (UserCar p in lista)
             {
@@ -115,7 +116,7 @@ namespace Desktop___interfaces.Interfaces
             ListView.ItemsSource = null;                  // Elimina a associação da List à listView
             ListView.Items.Clear();                       // Limpa a ListView
 
-            List<UserCar> lista = SqlUserCar.GetAll(TextBoxFrom.Text, TextBoxUntil.Text, TextBoxFromObs.Text, TextBoxUntilObs.Text);
+            List<UserCar> lista = SqlUserCar.GetAll(TextBoxFrom.Text, TextBoxUntil.Text, TextBoxFromObs.Text, TextBoxUntilObs.Text, nPag, 10);
             List<UserCar> listatemp = new List<UserCar>();
             UserCar userCar;
             foreach (UserCar p in lista)
@@ -128,6 +129,56 @@ namespace Desktop___interfaces.Interfaces
                 listatemp.Add(userCar);
             }
             ListView.ItemsSource = listatemp;
+        }
+
+        /// <summary>
+        /// metodo para a mudança de pagina
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ButtonNextPage_Click(object sender, RoutedEventArgs e)
+        {
+            nPag = nPag + 1;
+            ListView.ItemsSource = null;                  // Elimina a associação da List à listView
+            ListView.Items.Clear();                       // Limpa a ListView
+            List<UserCar> lista = SqlUserCar.GetAll(null,null,null,null, nPag, 10);
+            UserCar userCar;
+            foreach (UserCar p in lista)
+            {
+                userCar = p;
+                userCar.Car = SqlCar.Get(p.Car.Id);
+                userCar.User = SqlUser.Get(p.User.Id);
+                userCar.PowerUp = SqlPowerUp.Get(p.PowerUp.Id);
+                userCar.Roda = SqlWheel.Get(p.Roda.Id);
+                listatemp.Add(userCar);
+            }
+            ListView.ItemsSource = listatemp;
+        }
+
+        /// <summary>
+        /// metodo para a mudança de pagina
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ButtonPreviousPage_Click(object sender, RoutedEventArgs e)
+        {
+            if (nPag != 1)
+            {
+                nPag = nPag - 1;
+                ListView.ItemsSource = null;                  // Elimina a associação da List à listView
+                ListView.Items.Clear();                       // Limpa a ListView
+                List<UserCar> lista = SqlUserCar.GetAll(null, null, null, null, nPag, 10);
+                UserCar userCar;
+                foreach (UserCar p in lista)
+                {
+                    userCar = p;
+                    userCar.Car = SqlCar.Get(p.Car.Id);
+                    userCar.User = SqlUser.Get(p.User.Id);
+                    userCar.PowerUp = SqlPowerUp.Get(p.PowerUp.Id);
+                    userCar.Roda = SqlWheel.Get(p.Roda.Id);
+                    listatemp.Add(userCar);
+                }
+            }
         }
         #endregion
 

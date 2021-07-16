@@ -48,6 +48,8 @@
         <Button x:Name="ButtonCancel" Content="Cancelar" Margin="0,0,25,28" Click="ButtonCancel_Click" HorizontalAlignment="Right" Width="114" Height="49" VerticalAlignment="Bottom"/>
         <Button x:Name="ButtonEdit" Content="Editar" HorizontalAlignment="Left" Margin="530,0,0,28" Width="114" Height="49" VerticalAlignment="Bottom" Click="ButtonEdit_Click"/>
         <Button x:Name="ButtonDel" Content="Eliminar" HorizontalAlignment="Left" Margin="399,0,0,28" Width="114" Height="50" VerticalAlignment="Bottom" Click="ButtonDel_Click"/>
+        <Button x:Name="ButtonNextPage" Content="&gt;" HorizontalAlignment="Left" Height="48" Margin="162,442,0,0" VerticalAlignment="Top" Width="72" FontSize="24" Click="ButtonNextPage_Click"/>
+        <Button x:Name="ButtonPreviousPage" Content="&lt;" HorizontalAlignment="Left" Height="48" Margin="24,442,0,0" VerticalAlignment="Top" Width="74" FontSize="24" Click="ButtonPreviousPage_Click"/>
 
     </Grid>
 </Window>

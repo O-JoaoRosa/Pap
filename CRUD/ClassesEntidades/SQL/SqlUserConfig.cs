@@ -82,7 +82,7 @@ namespace CRUD.ClassesEntidades.SQL
         /// 2 - Completa a lista principal, preenchendo os obj FK, 
         /// </summary>
         /// <returns>Lista de objetos</returns>
-        static public List<UserConfig> GetAll(int order, string fromDescri, string untilDescri, string fromUserName, string untilUserName, string fromValue, string untilValue)
+        static public List<UserConfig> GetAll(int order, string fromDescri, string untilDescri, string fromUserName, string untilUserName, string fromValue, string untilValue, int nPag, int nItens)
         {
             List<UserConfig> listaUserConfigs = new List<UserConfig>();   // Lista Principal
             String query = "";
@@ -130,11 +130,14 @@ namespace CRUD.ClassesEntidades.SQL
                             query += ";";
                             break;
                     }
+                    query += " LIMIT @nPag, @nItens;";
 
                     // Prepara e executa o SQL DML
                     using (MySqlCommand sqlCommand = new MySqlCommand())
                     {
                         // Config da ligação
+                        sqlCommand.Parameters.Add(new MySqlParameter("@nPag", (nPag - 1) * nItens));
+                        sqlCommand.Parameters.Add(new MySqlParameter("@nItens", nItens));
                         sqlCommand.CommandText = query;
                         sqlCommand.CommandType = CommandType.Text;
                         sqlCommand.Connection = ((MySqlConnection)conn);

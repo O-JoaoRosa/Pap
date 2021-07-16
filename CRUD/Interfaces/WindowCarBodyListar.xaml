@@ -47,6 +47,8 @@
         <Label Content="De" HorizontalAlignment="Left" Margin="21,94,0,0" VerticalAlignment="Top" Width="26" RenderTransformOrigin="0.558,0.579"/>
         <Label Content="Ate" HorizontalAlignment="Left" Margin="21,125,0,0" VerticalAlignment="Top" Width="29"/>
         <Label x:Name="LabelSubTitle" Content="selecione um corpo de carro" HorizontalAlignment="Center" Margin="0,55,0,0" VerticalAlignment="Top" FontSize="18"/>
+        <Button x:Name="ButtonNextPage" Content="&gt;" HorizontalAlignment="Left" Height="48" Margin="159,427,0,0" VerticalAlignment="Top" Width="72" FontSize="24" Click="ButtonNextPage_Click"/>
+        <Button x:Name="ButtonPreviousPage" Content="&lt;" HorizontalAlignment="Left" Height="48" Margin="21,427,0,0" VerticalAlignment="Top" Width="74" FontSize="24" Click="ButtonPreviousPage_Click"/>
 
     </Grid>
 </Window>

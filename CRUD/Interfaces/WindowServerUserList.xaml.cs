@@ -14,6 +14,7 @@ namespace Desktop___interfaces.Interfaces
     public partial class WindowServerUserList : Window
     {
         int listOrder = LIST_NULL;
+        int nPag = 1;
         List<ServerUser> listatemp = new List<ServerUser>();
 
         #region load
@@ -25,7 +26,7 @@ namespace Desktop___interfaces.Interfaces
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            List<ServerUser> lista = SqlServerUser.GetAll(null,null,null,null);
+            List<ServerUser> lista = SqlServerUser.GetAll(null,null,null,null, nPag, 10);
             List<ServerUser> listatemp = new List<ServerUser>();
             ServerUser serverUser;
             foreach (ServerUser p in lista)
@@ -109,6 +110,57 @@ namespace Desktop___interfaces.Interfaces
             RefreshListView();
         }
 
+
+        /// <summary>
+        /// metodo para a mudança de pagina
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ButtonNextPage_Click(object sender, RoutedEventArgs e)
+        {
+            nPag = nPag + 1;
+            ListView.ItemsSource = null;                  // Elimina a associação da List à listView
+            ListView.Items.Clear();                       // Limpa a ListView
+            List<ServerUser> lista = SqlServerUser.GetAll(null, null, null, null, nPag, 10);
+            List<ServerUser> listatemp = new List<ServerUser>();
+            ServerUser serverUser;
+            foreach (ServerUser p in lista)
+            {
+                serverUser = p;
+                serverUser.Server = SqlServer.Get(p.Server.Id);
+                serverUser.User = SqlUser.Get(p.User.Id);
+                serverUser.ServerUserState = SqlUserServerState.Get(p.ServerUserState.Id);
+                listatemp.Add(serverUser);
+            }
+            ListView.ItemsSource = listatemp;
+        }
+
+        /// <summary>
+        /// metodo para a mudança de pagina
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ButtonPreviousPage_Click(object sender, RoutedEventArgs e)
+        {
+            if (nPag != 1)
+            {
+                nPag = nPag - 1;
+                ListView.ItemsSource = null;                  // Elimina a associação da List à listView
+                ListView.Items.Clear();                       // Limpa a ListView
+                List<ServerUser> lista = SqlServerUser.GetAll(null, null, null, null, nPag, 10);
+                List<ServerUser> listatemp = new List<ServerUser>();
+                ServerUser serverUser;
+                foreach (ServerUser p in lista)
+                {
+                    serverUser = p;
+                    serverUser.Server = SqlServer.Get(p.Server.Id);
+                    serverUser.User = SqlUser.Get(p.User.Id);
+                    serverUser.ServerUserState = SqlUserServerState.Get(p.ServerUserState.Id);
+                    listatemp.Add(serverUser);
+                }
+                ListView.ItemsSource = listatemp;
+            }
+        }
         #endregion
 
         #region List Updates
@@ -121,7 +173,7 @@ namespace Desktop___interfaces.Interfaces
             ListView.ItemsSource = null;                  // Elimina a associação da List à listView
             ListView.Items.Clear();                       // Limpa a ListView
 
-            List<ServerUser> lista = SqlServerUser.GetAll(TextBoxFromUser.Text, TextBoxUntilUser.Text, TextBoxFromServer.Text, TextBoxUntilServer.Text);
+            List<ServerUser> lista = SqlServerUser.GetAll(TextBoxFromUser.Text, TextBoxUntilUser.Text, TextBoxFromServer.Text, TextBoxUntilServer.Text, nPag, 10);
             listatemp = new List<ServerUser>();
             ServerUser serverUser;
             foreach (ServerUser p in lista)
@@ -195,9 +247,5 @@ namespace Desktop___interfaces.Interfaces
         }
         #endregion
 
-        private void ListView_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-
-        }
     }
 }
