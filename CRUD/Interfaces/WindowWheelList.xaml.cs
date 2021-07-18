@@ -145,7 +145,11 @@ namespace Desktop___interfaces.Interfaces
         {
             ListView.ItemsSource = null;                  // Elimina a associação da List à listView
             ListView.Items.Clear();                       // Limpa a ListView
-            ListView.ItemsSource = SqlWheel.GetAll(listOrder, TextBoxFrom.Text, TextBoxUntil.Text, TextBoxFromCodeName.Text, TextBoxUntilCodeName.Text, nPag, 10);    // Reassocia a listAlunos à ListView
+
+            ListView.ItemsSource = SqlWheel.GetAll(listOrder, 
+                TextBoxFrom.Text, TextBoxUntil.Text, 
+                TextBoxFromCodeName.Text, TextBoxUntilCodeName.Text, 
+                nPag, 10);    // Reassocia a listAlunos à ListView
         }
 
         /// <summary>

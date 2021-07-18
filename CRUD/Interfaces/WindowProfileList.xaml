@@ -44,7 +44,7 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <Label Content="Lista de PowerUp" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="50" Height="72" Margin="0,-3,0,0"/>
+        <Label Content="Lista de Perfis" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="50" Height="72" Margin="0,-3,0,0"/>
         <Button x:Name="ButtonCancel" Content="Cancelar" Margin="0,0,25,28" Click="ButtonCancel_Click" HorizontalAlignment="Right" Width="114" Height="49" VerticalAlignment="Bottom"/>
         <Button x:Name="ButtonEdit" Content="Editar" HorizontalAlignment="Left" Margin="530,0,0,28" Width="114" Height="49" VerticalAlignment="Bottom" Click="ButtonEdit_Click"/>
         <Button x:Name="ButtonDel" Content="Eliminar" HorizontalAlignment="Left" Margin="399,0,0,28" Width="114" Height="50" VerticalAlignment="Bottom" Click="ButtonDel_Click"/>

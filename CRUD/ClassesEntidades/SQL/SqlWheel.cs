@@ -81,7 +81,8 @@ namespace CRUD.ClassesEntidades.SQL
         /// 2 - Completa a lista principal, preenchendo os obj FK, 
         /// </summary>
         /// <returns>Lista de objetos</returns>
-        static public List<Wheel> GetAll(int order, string fromDescri, string untilDescri, string fromCodeName, string untilCodeName, int nPag, int nItens)
+        static public List<Wheel> GetAll(int order, string fromDescri, string untilDescri,
+            string fromCodeName, string untilCodeName, int nPag, int nItens)
         {
             List<Wheel> listaWheels = new List<Wheel>();   // Lista Principal
             String query = "";
@@ -99,10 +100,11 @@ namespace CRUD.ClassesEntidades.SQL
                 using (DbConnection conn = OpenConnection())
                 {
                     query = "SELECT * FROM wheel";
-                    if (fromDescri != null || untilDescri != null || fromCodeName != null || untilCodeName != null)
+                    if (fromDescri != null || untilDescri != null || fromCodeName != null
+                        || untilCodeName != null)
                     {
-                        query += " WHERE Descri >= '" + fromDescri + "' AND Descri <= '" + untilDescri +
-                            "~' AND CodeName >= '" + fromCodeName + "' AND CodeName <= '" + untilCodeName + "~'";
+                        query += " WHERE Descri >= '" + fromDescri + "' AND Descri <= '" + untilDescri +"~'"
+                            +" AND CodeName >= '" + fromCodeName + "' AND CodeName <= '" + untilCodeName + "~'";
                     }
                     switch (order)
                     {
@@ -250,8 +252,10 @@ namespace CRUD.ClassesEntidades.SQL
                                 }
 
                                 // Construção do objeto
-                                // Se objeto tem FKs, Não usar SQL***.get() para construir o fk dentro do construtor. gera exceção.
-                                // Criar o obj FK com o Construtor de Id e depois completar o objeto fora do domínio da Connection.
+                                // Se objeto tem FKs, Não usar SQL***.get() para construir o fk dentro do construtor.
+                                // gera exceção.
+                                // Criar o obj FK com o Construtor de Id e depois completar o objeto fora do
+                                // domínio da Connection.
                                 Wheel whee = new Wheel(
                                    reader.GetInt32(reader.GetOrdinal("Id")),
                                    reader.GetInt32(reader.GetOrdinal("Price")),

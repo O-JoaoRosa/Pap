@@ -21,7 +21,7 @@
         <Button x:Name="ButtonAction" Content="Inserir" HorizontalAlignment="Left" Margin="647,321,0,0" VerticalAlignment="Top" Height="48" Width="100" Click="ButtonAction_Click"/>
         <Button x:Name="ButtonCancel" Content="Cancelar" HorizontalAlignment="Left" Margin="772,322,0,0" VerticalAlignment="Top" Height="48" Width="93" Click="ButtonCancel_Click"/>
 
-        <Label Content="User" HorizontalAlignment="Left" Margin="475,144,0,0" VerticalAlignment="Top" FontSize="20"/>
+        <Label Content="User" HorizontalAlignment="Left" Margin="470,148,0,0" VerticalAlignment="Top" FontSize="20"/>
         <Label Content="Car" HorizontalAlignment="Left" Margin="35,96,0,0" VerticalAlignment="Top" FontSize="20"/>
         <Button x:Name="ButtonSelectCar" Content="Selecione o Carro" HorizontalAlignment="Left" Margin="96,100,0,0" VerticalAlignment="Top" Height="28" Width="769" Click="ButtonSelectCar_Click"/>
         <Button x:Name="ButtonSelectPowerUp" Content="Selecione o PowerUp" HorizontalAlignment="Left" Margin="140,152,0,0" VerticalAlignment="Top" Height="28" Width="318" Click="ButtonSelectPowerUp_Click"/>
