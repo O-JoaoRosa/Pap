@@ -149,7 +149,8 @@ namespace Desktop___interfaces.Interfaces
         {
             ListView.ItemsSource = null;                  // Elimina a associação da List à listView
             ListView.Items.Clear();                       // Limpa a ListView
-            ListView.ItemsSource = SqlServer.GetAll(listOrder, TextBoxFrom.Text, TextBoxUntil.Text, TextBoxFromObs.Text, TextBoxUntilObs.Text, nPag, 10);    // Reassocia a listAlunos à ListView
+            ListView.ItemsSource = SqlServer.GetAll(listOrder, TextBoxFrom.Text, TextBoxUntil.Text,
+                TextBoxFromObs.Text, TextBoxUntilObs.Text, nPag, 10);    // Reassocia a listAlunos à ListView
         }
 
 
