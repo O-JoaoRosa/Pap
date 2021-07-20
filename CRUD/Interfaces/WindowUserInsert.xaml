@@ -22,7 +22,7 @@
         <Label Content="Ultima vez online :" HorizontalAlignment="Left" Margin="577,292,0,0" VerticalAlignment="Top" FontSize="20" RenderTransformOrigin="0.506,0.602"/>
         <Image x:Name="ImagePerfil" HorizontalAlignment="Left" Height="141" Margin="362,366,0,0" VerticalAlignment="Top" Width="139" Source="\recursosComuns\download.jfif"/>
         <Button x:Name="ButtonImagePick" Content="Escolher uma imagem" HorizontalAlignment="Left" Height="39" Margin="208,412,0,0" VerticalAlignment="Top" Width="136" RenderTransformOrigin="0.512,0.616" Click="ButtonImagePick_Click"/>
-        <Button x:Name="ButtonAction" Content="Inserir" HorizontalAlignment="Left" Height="57" Margin="548,436,0,0" VerticalAlignment="Top" Width="157" Click="ButtonAction_Click"/>
+        <Button x:Name="ButtonAction" Content="Inserir" HorizontalAlignment="Left" Height="57" Margin="548,436,0,0" VerticalAlignment="Top" Width="157" Click="ButtonAction_ClickAsync"/>
         <Button x:Name="ButtonCancelar" Content="Cancelar" HorizontalAlignment="Left" Height="57" Margin="742,436,0,0" VerticalAlignment="Top" Width="157" Click="ButtonCancelar_Click" />
 
     </Grid>

@@ -6,6 +6,11 @@ using System.Windows.Media.Imaging;
 using CRUD.ClassesEntidades.SQL;
 using static CRUD.ClassesEntidades.SQL.SQL_Connection;
 using System.Windows.Media;
+using System.IO;
+using Firebase.Auth;
+using System.Threading;
+using Firebase.Storage;
+using System.Threading.Tasks;
 
 namespace Desktop___interfaces.Interfaces
 {
@@ -17,6 +22,7 @@ namespace Desktop___interfaces.Interfaces
         User userTemp;
         int dbAction = -1;
         int openWarning = 0;
+        string imageGlobal = @"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSrKIaJKJQyRPd518Qz0-VI3CFMwBcytEAv-A&usqp=CAU";
 
         #region Load
         public WindowUserInsert()
@@ -52,10 +58,12 @@ namespace Desktop___interfaces.Interfaces
                     TextBoxEmail.IsEnabled = false;
                     ButtonImagePick.IsEnabled = false;
                     DatePickerLastTimeOnline.IsEnabled = false;
+                    ImagePerfil.Source = new BitmapImage(new Uri(userTemp.Image));
                     break;
 
                 case SQL_UPDATE:
                     LabelTitle.Content = "Editar o User";
+                    ImagePerfil.Source = new BitmapImage(new Uri(userTemp.Image)); 
                     TextBoxUserName.Text = userTemp.UserName;
                     TextBoxMoney.Text = userTemp.Money.ToString();
                     TextBoxRep.Text = userTemp.Reputation.ToString();
@@ -63,6 +71,8 @@ namespace Desktop___interfaces.Interfaces
                     TextBoxEmail.Text = userTemp.Email;
                     DatePickerLastTimeOnline.SelectedDate = userTemp.LastTimeOnline;
                     ButtonAction.Content = "Editar";
+                    break;
+                default:
                     break;
 
             }
@@ -88,11 +98,17 @@ namespace Desktop___interfaces.Interfaces
             op.Filter = "JPEG Files (*.jpeg)|*.jpeg|PNG Files (*.png)|*.png|JPG Files (*.jpg)|*.jpg|GIF Files (*.gif)|*.gif";
             if (op.ShowDialog() == true)
             {
-                ImagePerfil.Source = new BitmapImage(new Uri(op.FileName));
+                BitmapImage image = new BitmapImage();
+                image.BeginInit();
+                image.CacheOption = BitmapCacheOption.OnLoad;
+                image.UriSource = new Uri(op.FileName);
+                image.EndInit();
+                ImagePerfil.Source = image;
+                imageGlobal = op.FileName;
             }
         }
 
-        private void ButtonAction_Click(object sender, RoutedEventArgs e)
+        private async void ButtonAction_ClickAsync(object sender, RoutedEventArgs e)
         {
             //muda a operação dependendo da action escolhida
             switch (dbAction)
@@ -102,13 +118,43 @@ namespace Desktop___interfaces.Interfaces
                     //verifica se os dados estão validos ou não
                     if (ValidaDados())
                     {
+                        //Colocar o Caminho da Imagem
+                        FileStream stream = File.Open(imageGlobal, FileMode.Open);
+                        //Colocar a API KEY da Firebase
+                        FirebaseAuthProvider auth = new FirebaseAuthProvider(new FirebaseConfig("AIzaSyDFcJX9irqR0GK5qPVIcZnfsaWPkfqpjGc"));
+                        //Colocar o Email e a Password criados na Firebase
+                        FirebaseAuthLink a = await auth.SignInWithEmailAndPasswordAsync("jonnypink007@gmail.com", "jonnyjonny");
+                        //Objeto para Cancelar caso exista algum problema
+                        CancellationTokenSource cancellation = new CancellationTokenSource();
+                        //Criar uma task para inserir na Firebase
+                        FirebaseStorageTask task = new FirebaseStorage(
+                        //Adicionar o Bucket da Storage
+                        "roadrush---pap.appspot.com",
+                        new FirebaseStorageOptions
+                        {
+                            AuthTokenAsyncFactory = () => Task.FromResult(a.FirebaseToken),
+                            //Caso exista algum problema dá exception aqui
+                            ThrowOnCancel = true
+                        })
+                        //Criar uma pasta User dentro da Storage
+                        .Child("Users")
+                        //Criar uma pasta com o UserName dentro da pasta User
+                        .Child(TextBoxUserName.Text)
+                        //Colocar o nome do ficheiro e a extensão
+                        .Child(TextBoxUserName.Text + ".png")
+                        //Colocar Async
+                        .PutAsync(stream, cancellation.Token);
+
+                        //Colocar a Url da Imagem dentro de uma variavel e colocar a tast em await
+                        string urlImagem = await task;
+
                         //insere um novo user na bd
                         User user = new User(-1, TextBoxUserName.Text,
                         Validações.EncodePasswordToBase64(TextBoxPassword.Password),
                         TextBoxEmail.Text,
                          Convert.ToInt32(TextBoxMoney.Text),
                         Convert.ToInt32(TextBoxRep.Text),
-                        "ola",
+                        urlImagem,
                         DatePickerLastTimeOnline.SelectedDate.Value
                         );
                         SqlUser.Add(user);
@@ -128,6 +174,36 @@ namespace Desktop___interfaces.Interfaces
                     //verifica se os dados estão validos ou não
                     if (ValidaDados())
                     {
+                        //Colocar o Caminho da Imagem
+                        FileStream stream = File.Open(imageGlobal, FileMode.Open);
+                        //Colocar a API KEY da Firebase
+                        FirebaseAuthProvider auth = new FirebaseAuthProvider(new FirebaseConfig("AIzaSyDFcJX9irqR0GK5qPVIcZnfsaWPkfqpjGc"));
+                        //Colocar o Email e a Password criados na Firebase
+                        FirebaseAuthLink a = await auth.SignInWithEmailAndPasswordAsync("jonnypink007@gmail.com", "jonnyjonny");
+                        //Objeto para Cancelar caso exista algum problema
+                        CancellationTokenSource cancellation = new CancellationTokenSource();
+                        //Criar uma task para inserir na Firebase
+                        FirebaseStorageTask task = new FirebaseStorage(
+                        //Adicionar o Bucket da Storage
+                        "roadrush---pap.appspot.com",
+                        new FirebaseStorageOptions
+                        {
+                            AuthTokenAsyncFactory = () => Task.FromResult(a.FirebaseToken),
+                            //Caso exista algum problema dá exception aqui
+                            ThrowOnCancel = true
+                        })
+                        //Criar uma pasta User dentro da Storage
+                        .Child("Users")
+                        //Criar uma pasta com o UserName dentro da pasta User
+                        .Child(TextBoxUserName.Text)
+                        //Colocar o nome do ficheiro e a extensão
+                        .Child(TextBoxUserName.Text + ".png")
+                        //Colocar Async
+                        .PutAsync(stream, cancellation.Token);
+
+                        //Colocar a Url da Imagem dentro de uma variavel e colocar a tast em await
+                        string urlImagem = await task;
+
                         //altera os atributos da entidade
                         userTemp.UserName = TextBoxUserName.Text;
                         userTemp.Money = Convert.ToInt32(TextBoxMoney.Text);
@@ -135,6 +211,7 @@ namespace Desktop___interfaces.Interfaces
                         userTemp.Password = TextBoxPassword.Password;
                         userTemp.Email = TextBoxEmail.Text;
                         userTemp.LastTimeOnline = (DateTime)DatePickerLastTimeOnline.SelectedDate;
+                        userTemp.Image = urlImagem;
 
                         SqlUser.Set(userTemp);
                     }
@@ -157,6 +234,17 @@ namespace Desktop___interfaces.Interfaces
             else
             {
                 TextBoxUserName.Background = Brushes.White;
+            }
+
+            //verifica se existem caracteres especiais
+            if (ImagePerfil.Source == null)
+            {
+                ButtonImagePick.Background = Brushes.Red;
+                openWarning++;
+            }
+            else
+            {
+                ButtonImagePick.Background = Brushes.White;
             }
 
             //verifica se existem caracteres especiais

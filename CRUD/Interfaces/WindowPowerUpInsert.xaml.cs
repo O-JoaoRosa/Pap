@@ -7,6 +7,11 @@ using Desktop___interfaces.ClassesEntidades.SQL;
 using static CRUD.ClassesEntidades.SQL.SQL_Connection;
 using System.Windows.Media;
 using CRUD.ClassesEntidades.SQL;
+using System.IO;
+using Firebase.Auth;
+using System.Threading;
+using Firebase.Storage;
+using System.Threading.Tasks;
 
 namespace Desktop___interfaces.Interfaces
 {
@@ -18,6 +23,7 @@ namespace Desktop___interfaces.Interfaces
         int dbAction;
         PowerUp powerUpTemp;
         int openWarning = 0;
+        string imageGlobal = @"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSrKIaJKJQyRPd518Qz0-VI3CFMwBcytEAv-A&usqp=CAU";
 
         #region Loads
 
@@ -43,12 +49,14 @@ namespace Desktop___interfaces.Interfaces
                     TextBoxDescri.IsEnabled = false;
                     SliderTime.IsEnabled = false;
                     ButtonImagePick.IsEnabled = false;
+                    ImagePerfil.Source = new BitmapImage(new Uri(powerUpTemp.ImageUrl));
                     break;
 
                 case SQL_UPDATE:
                     LabelTitle.Content = "Editar o PowerUp"; 
                     TextBoxDescri.Text = powerUpTemp.Descri;
                     SliderTime.Value = powerUpTemp.TimeCharge;
+                    ImagePerfil.Source = new BitmapImage(new Uri(powerUpTemp.ImageUrl));
                     ButtonAction.Content = "Editar";
                     break;
             }
@@ -140,7 +148,7 @@ namespace Desktop___interfaces.Interfaces
             return false;
         }
 
-        private void ButtonAction_Click(object sender, RoutedEventArgs e)
+        private async void ButtonAction_Click(object sender, RoutedEventArgs e)
         {
             //muda a operação dependendo da action escolhida
             switch (dbAction)
@@ -150,9 +158,39 @@ namespace Desktop___interfaces.Interfaces
                     //verifica se os dados estão validos ou não
                     if (ValidaDados())
                     {
+                        //Colocar o Caminho da Imagem
+                        FileStream stream = File.Open(imageGlobal, FileMode.Open);
+                        //Colocar a API KEY da Firebase
+                        FirebaseAuthProvider auth = new FirebaseAuthProvider(new FirebaseConfig("AIzaSyDFcJX9irqR0GK5qPVIcZnfsaWPkfqpjGc"));
+                        //Colocar o Email e a Password criados na Firebase
+                        FirebaseAuthLink a = await auth.SignInWithEmailAndPasswordAsync("jonnypink007@gmail.com", "jonnyjonny");
+                        //Objeto para Cancelar caso exista algum problema
+                        CancellationTokenSource cancellation = new CancellationTokenSource();
+                        //Criar uma task para inserir na Firebase
+                        FirebaseStorageTask task = new FirebaseStorage(
+                        //Adicionar o Bucket da Storage
+                        "roadrush---pap.appspot.com",
+                        new FirebaseStorageOptions
+                        {
+                            AuthTokenAsyncFactory = () => Task.FromResult(a.FirebaseToken),
+                            //Caso exista algum problema dá exception aqui
+                            ThrowOnCancel = true
+                        })
+                        //Criar uma pasta User dentro da Storage
+                        .Child("Users")
+                        //Criar uma pasta com o UserName dentro da pasta User
+                        .Child(TextBoxDescri.Text)
+                        //Colocar o nome do ficheiro e a extensão
+                        .Child(TextBoxDescri.Text + ".png")
+                        //Colocar Async
+                        .PutAsync(stream, cancellation.Token);
+
+                        //Colocar a Url da Imagem dentro de uma variavel e colocar a tast em await
+                        string urlImagem = await task;
+
                         //insere um novo user na bd
                         PowerUp user = new PowerUp(-1, TextBoxDescri.Text,
-                        "ola",
+                        urlImagem,
                         Convert.ToInt32(SliderTime.Value)
                         );
                         SqlPowerUp.Add(user);
@@ -172,6 +210,36 @@ namespace Desktop___interfaces.Interfaces
                     //verifica se os dados estão validos ou não
                     if (ValidaDados())
                     {
+                        //Colocar o Caminho da Imagem
+                        FileStream stream = File.Open(imageGlobal, FileMode.Open);
+                        //Colocar a API KEY da Firebase
+                        FirebaseAuthProvider auth = new FirebaseAuthProvider(new FirebaseConfig("AIzaSyDFcJX9irqR0GK5qPVIcZnfsaWPkfqpjGc"));
+                        //Colocar o Email e a Password criados na Firebase
+                        FirebaseAuthLink a = await auth.SignInWithEmailAndPasswordAsync("jonnypink007@gmail.com", "jonnyjonny");
+                        //Objeto para Cancelar caso exista algum problema
+                        CancellationTokenSource cancellation = new CancellationTokenSource();
+                        //Criar uma task para inserir na Firebase
+                        FirebaseStorageTask task = new FirebaseStorage(
+                        //Adicionar o Bucket da Storage
+                        "roadrush---pap.appspot.com",
+                        new FirebaseStorageOptions
+                        {
+                            AuthTokenAsyncFactory = () => Task.FromResult(a.FirebaseToken),
+                            //Caso exista algum problema dá exception aqui
+                            ThrowOnCancel = true
+                        })
+                        //Criar uma pasta User dentro da Storage
+                        .Child("Users")
+                        //Criar uma pasta com o UserName dentro da pasta User
+                        .Child(TextBoxDescri.Text)
+                        //Colocar o nome do ficheiro e a extensão
+                        .Child(TextBoxDescri.Text + ".png")
+                        //Colocar Async
+                        .PutAsync(stream, cancellation.Token);
+
+                        //Colocar a Url da Imagem dentro de uma variavel e colocar a tast em await
+                        string urlImagem = await task;
+
                         //altera os atributos da entidade
                         powerUpTemp.Descri = TextBoxDescri.Text;
                         powerUpTemp.ImageUrl = "ola";
