@@ -20,7 +20,7 @@ namespace Desktop___interfaces.Interfaces
         public WindowUserTypeList(int action)
         {
             InitializeComponent();
-            listAction = -1;
+            listAction = action;
         }
 
         /// <summary>
@@ -63,7 +63,7 @@ namespace Desktop___interfaces.Interfaces
         /// <param name="e"></param>
         private void ButtonEdit_Click(object sender, RoutedEventArgs e)
         {
-            if (true)
+            if (listAction != LIST_ACTION_ID)
             {
                 //verifica se algum item foi selecionado 
                 if (ListView.SelectedItems.Count > 0)
