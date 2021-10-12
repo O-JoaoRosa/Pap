@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-    
+
 [System.Serializable]
 public class AxleInfo {
     public WheelCollider leftWheel;
@@ -11,10 +11,13 @@ public class AxleInfo {
 }
 
 public class CarController : MonoBehaviour {
+
+    public Rigidbody rb;
     public List<AxleInfo> axleInfos; // the information about each individual axle
     public float maxMotorTorque; // maximum torque the motor can apply to wheel
     public float maxSteeringAngle; // maximum steer angle the wheel can have
-        
+    public float trust;
+
     /// <summary>
     /// metodo usado para orientar e posicionar as rodas
     /// </summary>
@@ -26,21 +29,35 @@ public class CarController : MonoBehaviour {
             return;
         }
 
+        //escolhe o primeiro modelo que seja child do wheel colider
         Transform visualWheel = collider.transform.GetChild(0);
 
         Vector3 position;
         Quaternion rotation;
         collider.GetWorldPose(out position, out rotation);
 
+        //adicion 90 no z das rodas, para estarem verticais
+        rotation = rotation * Quaternion.Euler(new Vector3(0, 0, 90));
         visualWheel.transform.position = position;
         visualWheel.transform.rotation = rotation;
     }
+
 
     public void FixedUpdate()
     {
         float motor = maxMotorTorque * Input.GetAxis("Vertical");
         float steering = maxSteeringAngle * Input.GetAxis("Horizontal");
-            
+
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            rb.AddForce(Vector3.forward * trust);
+        }
+        else if (Input.GetKeyUp(KeyCode.LeftShift))
+        {
+            rb.AddForce(Vector3.back * trust); 
+            rb.AddForce(Vector3.back * trust);
+        } 
+
         foreach (AxleInfo axleInfo in axleInfos) {
             if (axleInfo.steering) {
                 axleInfo.leftWheel.steerAngle = steering;
