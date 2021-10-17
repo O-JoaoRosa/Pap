@@ -15,15 +15,18 @@ public class CarController : MonoBehaviour {
     public float maxSpeed;
     public Rigidbody rb;
     public List<AxleInfo> axleInfos; // the information about each individual axle
-    public float maxMotorTorque; // maximum torque the motor can apply to wheel
-    public float maxSteeringAngle; // maximum steer angle the wheel can have
-    public float trust;
-    public float fowardFriction;
-    public float sidwaysFriction;
-    public float defaultFowardFriction;
-    public float defaultSidwaysFriction;
+    public float maxMotorTorque;     // maximum torque the motor can apply to wheel
+    public float maxSteeringAngle;   // maximum steer angle the wheel can have
+    public float trust;              // forca do impulso do nitro
+    public float fowardFriction;     // ficcao das rodas para a frente
+    public float sidwaysFriction;    // friccao das rodas de lado
+    public float defaultFowardFriction;     //friccao das rodas por defeito
+    public float defaultSidwaysFriction;    //friccao das rodas por defeito
     public WheelFrictionCurve curve;
     public float breakTorque;
+    public float actualFriction;
+    public float actualSideFriction;
+
 
     private void Start()
     {
@@ -78,15 +81,14 @@ public class CarController : MonoBehaviour {
     /// <param name="axleInfo"></param>
     private void DriftAndBreak(AxleInfo axleInfo)
     {
-        //verifica se tou a travar ou não
-        if (Input.GetKey(KeyCode.Space))
+        if (axleInfo.motor)
         {
-            axleInfo.rightWheel.brakeTorque = axleInfo.leftWheel.brakeTorque = breakTorque;
-
             //muda define as characteristicas das para dift
             curve = axleInfo.rightWheel.forwardFriction;
             curve.asymptoteValue = fowardFriction;
             axleInfo.rightWheel.forwardFriction = curve;
+
+            curve = axleInfo.rightWheel.sidewaysFriction;
             curve.asymptoteValue = sidwaysFriction;
             axleInfo.rightWheel.sidewaysFriction = curve;
 
@@ -94,18 +96,31 @@ public class CarController : MonoBehaviour {
             curve = axleInfo.leftWheel.forwardFriction;
             curve.asymptoteValue = fowardFriction;
             axleInfo.leftWheel.forwardFriction = curve;
+
+            curve = axleInfo.leftWheel.sidewaysFriction;
             curve.asymptoteValue = sidwaysFriction;
             axleInfo.leftWheel.sidewaysFriction = curve;
 
+            actualSideFriction = axleInfo.leftWheel.sidewaysFriction.asymptoteValue;
+            actualFriction = axleInfo.leftWheel.forwardFriction.asymptoteValue;
         }
-        else
-        {
-            axleInfo.rightWheel.brakeTorque = axleInfo.leftWheel.brakeTorque = 0f;
 
+    }
+
+    /// <summary>
+    /// devolve os valores originais as rodas
+    /// </summary>
+    /// <param name="axleInfo"></param>
+    private void ResetDrift(AxleInfo axleInfo)
+    {
+        if (axleInfo.motor)
+        {
             //muda define as characteristicas das rodas para default
             curve = axleInfo.rightWheel.forwardFriction;
             curve.asymptoteValue = defaultFowardFriction;
             axleInfo.rightWheel.forwardFriction = curve;
+
+            curve = axleInfo.rightWheel.sidewaysFriction;
             curve.asymptoteValue = defaultSidwaysFriction;
             axleInfo.rightWheel.sidewaysFriction = curve;
 
@@ -113,28 +128,16 @@ public class CarController : MonoBehaviour {
             curve = axleInfo.leftWheel.forwardFriction;
             curve.asymptoteValue = defaultFowardFriction;
             axleInfo.leftWheel.forwardFriction = curve;
+
+            curve = axleInfo.leftWheel.sidewaysFriction;
             curve.asymptoteValue = defaultSidwaysFriction;
             axleInfo.leftWheel.sidewaysFriction = curve;
 
-        }
-    }
 
-    private void Update()
-    {
-        foreach (AxleInfo axleInfo in axleInfos)
-        {
-            if (axleInfo.motor)
-            {
-                DriftAndBreak(axleInfo);
-            }
-
-            //verifica se tou a travar ou não
-            if (Input.GetKey(KeyCode.LeftControl))
-            {
-                axleInfo.rightWheel.brakeTorque = axleInfo.leftWheel.brakeTorque = breakTorque;
-            }
-            else if (!Input.GetKey(KeyCode.Space)) { axleInfo.rightWheel.brakeTorque = axleInfo.leftWheel.brakeTorque = 0f; }
+            actualSideFriction = axleInfo.leftWheel.sidewaysFriction.asymptoteValue;
+            actualFriction = axleInfo.leftWheel.forwardFriction.asymptoteValue;
         }
+
     }
 
     /// <summary>
@@ -156,6 +159,24 @@ public class CarController : MonoBehaviour {
 
                 axleInfo.leftWheel.motorTorque = motor;
                 axleInfo.rightWheel.motorTorque = motor;
+            }
+
+            //verifica se tou a travar ou não
+            if (Input.GetKey(KeyCode.Space))
+            {
+                DriftAndBreak(axleInfo);
+            }
+            //verifica se tou a travar ou não
+            else if (Input.GetKey(KeyCode.LeftControl))
+            {
+                axleInfo.rightWheel.brakeTorque = axleInfo.leftWheel.brakeTorque = breakTorque;
+                ResetDrift(axleInfo);
+            }
+            else
+            {
+                axleInfo.rightWheel.brakeTorque = axleInfo.leftWheel.brakeTorque = 0f;
+                ResetDrift(axleInfo);
+
             }
 
             ApllyLocalPositionToVisuals(axleInfo.leftWheel);
