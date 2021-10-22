@@ -164,18 +164,18 @@ public class CarController : MonoBehaviour {
             //verifica se tou a travar ou não
             if (Input.GetKey(KeyCode.Space))
             {
-                DriftAndBreak(axleInfo);
+                //DriftAndBreak(axleInfo);
             }
             //verifica se tou a travar ou não
             else if (Input.GetKey(KeyCode.LeftControl))
             {
                 axleInfo.rightWheel.brakeTorque = axleInfo.leftWheel.brakeTorque = breakTorque;
-                ResetDrift(axleInfo);
+                //ResetDrift(axleInfo);
             }
             else
             {
                 axleInfo.rightWheel.brakeTorque = axleInfo.leftWheel.brakeTorque = 0f;
-                ResetDrift(axleInfo);
+                //ResetDrift(axleInfo);
 
             }
 
