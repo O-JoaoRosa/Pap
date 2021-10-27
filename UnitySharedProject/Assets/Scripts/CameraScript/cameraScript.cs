@@ -5,24 +5,33 @@ using UnityEngine.UI;
 
 public class cameraScript : MonoBehaviour
 {
-    GameObject car;
-    GameObject textGO;
-    Text text;
-    Canvas canvas;
-    
+    public Rigidbody target;
+    public float speedOfSphere;
+
+    private Vector3 initialPossition;
+    private float lastMaxSpeed = 0f;
+
 
     // Start is called before the first frame update
     void Start()
     {
-        canvas = gameObject.GetComponent<Canvas>();  //vai buscar o primeiro objeto na hierarquia que seja um canvas
-        car = GameObject.Find("car_root");           //vai buscar o primeiro objeto que encontrar com o nome dado
-        textGO = GameObject.Find("Speed");             //vai buscar o primeiro objeto que encontrar com o nome dado
-        text = textGO.GetComponent<Text>();
+        initialPossition = transform.position;
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        text.text = ((int)car.GetComponent<Rigidbody>().velocity.magnitude).ToString() + " km";
+        speedOfSphere = target.velocity.magnitude;
+
+        if (target.velocity.magnitude >= lastMaxSpeed)
+        {
+            transform.position = Vector3.Lerp(initialPossition, transform.position - new Vector3(0, 0, 2), Time.deltaTime);
+        }
+        else if(target.velocity.magnitude < lastMaxSpeed)
+        {
+            transform.position = Vector3.Lerp(transform.position, initialPossition, Time.deltaTime);
+        }
+
+        lastMaxSpeed = target.velocity.magnitude;
     }
 }
