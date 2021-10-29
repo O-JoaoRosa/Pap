@@ -86,23 +86,15 @@ public class testScript : MonoBehaviour
         //checks to see if the car is touching the ground
         if (isCarGrounded)
         {
-            if (Input.GetKeyDown("space") && turningInput != 0)
+            if (Input.GetKeyDown("space") && turningInput != 0 && !isDrifting)
             {
                 carModel.transform.Rotate(0, turningInput * driftAngle, 0, Space.World);
                 isDrifting = true;
             }
-            else if (Input.GetKeyDown("space") && turningInput == 0)
+            else if (Input.GetKeyDown("space") && turningInput == 0 )
             {
                 isBreaking = true;
             }
-        }
-
-        if (!Input.GetKey("space") && isDrifting && isBreaking)
-        {
-            reseteRotationTest = true;
-            carModel.transform.Rotate(0, -turningInput * driftAngle, 0, Space.World);
-            isDrifting = false;
-            isBreaking = false;
         }
     }
 
@@ -116,13 +108,30 @@ public class testScript : MonoBehaviour
         //checks to see if the car is touching the ground
         if (isCarGrounded)
         {
+            if (!Input.GetKey("space") && (isDrifting || isBreaking))
+            {
+                //
+                if (isBreaking)
+                {
+                    isBreaking = false;
+                }
+
+                //
+                if (isDrifting)
+                {
+                    reseteRotationTest = true;
+                    carModel.transform.Rotate(0, -turningInput * driftAngle, 0, Space.World);
+                    isDrifting = false;
+                }
+            }
+
             //checks if the player is moving and trying to break
             if (isDrifting)
             {
                 //makes it easier to drift
                 turnSpeed = 100f;
                 sphereRB.drag = groundDrag / 3;
-                sphereRB.AddForce(transform.forward * moveInput, ForceMode.Acceleration);
+                sphereRB.AddForce(transform.forward * moveInput / 2, ForceMode.Acceleration);
             }
             else if (isBreaking) 
             {
