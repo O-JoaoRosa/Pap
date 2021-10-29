@@ -213,7 +213,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 493232890}
   m_LocalRotation: {x: -0.286044, y: -0, z: -0, w: 0.95821655}
-  m_LocalPosition: {x: 6.55, y: 0.37, z: 31.86}
+  m_LocalPosition: {x: 6.55, y: 0.41, z: 206.49}
   m_LocalScale: {x: 4.0978, y: 0.17547, z: 2.3869}
   m_Children: []
   m_Father: {fileID: 0}
@@ -514,6 +514,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5904479ad07ddc74b8a8fb4c25b788d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  reseteRotationTest: 0
   sphereRB: {fileID: 1086833066}
   carModel: {fileID: 1221411518}
   fowardSpeed: 55

@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class testScript : MonoBehaviour
 {
+    public bool reseteRotationTest;
+
     //rigid body
     public Rigidbody sphereRB;
     public GameObject carModel;
@@ -81,20 +83,24 @@ public class testScript : MonoBehaviour
         //makes the car parallel to the gorund 
         transform.rotation = Quaternion.FromToRotation(transform.up, hit.normal) * transform.rotation;
 
-
-
-        if (Input.GetKeyDown("space") && turningInput != 0)
+        //checks to see if the car is touching the ground
+        if (isCarGrounded)
         {
-            carModel.transform.Rotate(0, turningInput * driftAngle , 0, Space.World);
-            isDrifting = true;
+            if (Input.GetKeyDown("space") && turningInput != 0)
+            {
+                carModel.transform.Rotate(0, turningInput * driftAngle, 0, Space.World);
+                isDrifting = true;
+            }
+            else if (Input.GetKeyDown("space") && turningInput == 0)
+            {
+                isBreaking = true;
+            }
         }
-        else if(Input.GetKeyDown("space") && turningInput == 0)
+
+        if (!Input.GetKey("space") && isDrifting && isBreaking)
         {
-            isBreaking = true;
-        }
-        if (Input.GetKeyUp("space"))
-        {
-            carModel.transform.rotation = defaultRotation;
+            reseteRotationTest = true;
+            carModel.transform.Rotate(0, -turningInput * driftAngle, 0, Space.World);
             isDrifting = false;
             isBreaking = false;
         }
