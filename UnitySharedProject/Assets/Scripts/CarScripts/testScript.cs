@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class testScript : MonoBehaviour
 {
-    public bool reseteRotationTest;
 
     //rigid body
     public Rigidbody sphereRB;
@@ -15,9 +14,12 @@ public class testScript : MonoBehaviour
     private float moveInput;
     private float turningInput;
 
+    private ParticleSystem driftParticles;
+
     //raycast
     private bool isCarGrounded;
 
+    [Header("Speeds")]
     //speeds
     public float fowardSpeed;
     public float reverseSpeed;
@@ -26,28 +28,31 @@ public class testScript : MonoBehaviour
     public float airDrag;
     public float Speed;
 
+    [Header("Drift/Turning")]
     //drif
+    public float defaultTurnAngle;
+    public float DriftTurnAngle;
     private bool isDrifting;
     public float driftAngle;
+    private float driftingAngle; //variavel que guarda o angulo usado para rodar o carro
 
+    [Header("Break")]
     //brake
     public float breakForce; 
     private bool isBreaking;
-
+    
     //turn variable
     float newRotation;
 
-    //rotation variable
-    Quaternion defaultRotation;
-
+    [Header("Masks")]
     //layerMasks
     public LayerMask groundLayer; 
 
     // Start is called before the first frame update
     void Start()
     {
-        //stores the initial rotation of the modle
-        defaultRotation = carModel.transform.rotation;
+        //encontra o componente no car model que seja um sistema de particulas
+        driftParticles = carModel.GetComponent<ParticleSystem>();
 
         //puts the sphere out of the hierarchy
         sphereRB.transform.parent = null;
@@ -86,18 +91,47 @@ public class testScript : MonoBehaviour
         //checks to see if the car is touching the ground
         if (isCarGrounded)
         {
-            if (Input.GetKeyDown("space") && turningInput != 0 && !isDrifting)
-            {
-                carModel.transform.Rotate(0, turningInput * driftAngle, 0, Space.World);
-                isDrifting = true;
-            }
-            else if (Input.GetKeyDown("space") && turningInput == 0 )
-            {
-                isBreaking = true;
-            }
+            StartBreaking();
         }
     }
 
+    //metodo usado para verificar o que fazer quando o carro ta a travar
+    private void StartBreaking()
+    {
+        if (Input.GetKeyDown("space") && turningInput != 0 && !isDrifting)
+        {
+            driftingAngle = turningInput * driftAngle;
+            driftParticles.Play();
+            carModel.transform.Rotate(0, driftingAngle, 0, Space.World);
+            isDrifting = true;
+        }
+        else if (Input.GetKeyDown("space") && turningInput == 0)
+        {
+            isBreaking = true;
+        }
+    }
+
+    //metodo usado para parar de travar
+    private void StopBreaking()
+    {
+        //devolve os valores default as bools
+        if (!Input.GetKey("space") && (isDrifting || isBreaking))
+        {
+            //caso a ultima ação tenha cido travar
+            if (isBreaking)
+            {
+                isBreaking = false;
+            }
+
+            //caso tenha cido fazer drift
+            if (isDrifting)
+            {
+                driftParticles.Stop();
+                carModel.transform.Rotate(0, -driftingAngle, 0, Space.World);
+                isDrifting = false;
+            }
+        }
+    }
 
     //only used for physics updates
     private void FixedUpdate()
@@ -108,41 +142,26 @@ public class testScript : MonoBehaviour
         //checks to see if the car is touching the ground
         if (isCarGrounded)
         {
-            if (!Input.GetKey("space") && (isDrifting || isBreaking))
-            {
-                //
-                if (isBreaking)
-                {
-                    isBreaking = false;
-                }
-
-                //
-                if (isDrifting)
-                {
-                    reseteRotationTest = true;
-                    carModel.transform.Rotate(0, -turningInput * driftAngle, 0, Space.World);
-                    isDrifting = false;
-                }
-            }
+            StopBreaking();
 
             //checks if the player is moving and trying to break
             if (isDrifting)
             {
                 //makes it easier to drift
-                turnSpeed = 100f;
+                turnSpeed = DriftTurnAngle;
                 sphereRB.drag = groundDrag / 3;
                 sphereRB.AddForce(transform.forward * moveInput / 2, ForceMode.Acceleration);
             }
             else if (isBreaking) 
             {
                 //changes the turn speed and makes the car break
-                turnSpeed = 80f;
+                turnSpeed = defaultTurnAngle;
                 sphereRB.drag = groundDrag * 1.5f;
             }
             else
             {
                 //moves the sphere and changes the drag
-                turnSpeed = 80f;
+                turnSpeed = defaultTurnAngle;
                 sphereRB.AddForce(transform.forward * moveInput, ForceMode.Acceleration);
                 sphereRB.drag = groundDrag;
             }
