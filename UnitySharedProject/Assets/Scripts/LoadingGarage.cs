@@ -10,7 +10,7 @@ public class LoadingGarage : MonoBehaviour
     public Slider progressBar;
     public GameObject loadingText;
 
-    private void Awake()
+    private void Start()
     {
         loadingText.SetActive(false);
     }

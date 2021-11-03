@@ -34,7 +34,8 @@ public class testScript : MonoBehaviour
     public float DriftTurnAngle;
     private bool isDrifting;
     public float driftAngle;
-    private float driftingAngle; //variavel que guarda o angulo usado para rodar o carro
+    private float driftSide;
+    private float wrongSideDrift;
 
     [Header("Break")]
     //brake
@@ -44,13 +45,21 @@ public class testScript : MonoBehaviour
     //turn variable
     float newRotation;
 
+    [Header("Animation")]
+    //variable that will control the car animations
+    public Animator anim;
+
     [Header("Masks")]
     //layerMasks
-    public LayerMask groundLayer; 
+    public LayerMask groundLayer;
 
-    // Start is called before the first frame update
+    /// <summary>
+    ///  Start is called before the first frame update
+    /// </summary>
     void Start()
     {
+        wrongSideDrift = 2 / turnSpeed;
+
         //encontra o componente no car model que seja um sistema de particulas
         driftParticles = carModel.GetComponent<ParticleSystem>();
 
@@ -58,7 +67,9 @@ public class testScript : MonoBehaviour
         sphereRB.transform.parent = null;
     }
 
-    // Update is called once per frame
+    /// <summary>
+    /// Update is called once per frame
+    /// </summary>
     void Update()
     {
         //gets and prepares the input
@@ -69,18 +80,9 @@ public class testScript : MonoBehaviour
         //sets the car position the same as the spheres
         transform.position = sphereRB.transform.position;
 
+        //metodo para rodar o carro
+        Turn();
 
-        //rotates the car
-        if (sphereRB.velocity.magnitude > 0f && Input.GetAxisRaw("Vertical") != 0)
-        {
-            newRotation = turningInput * turnSpeed * Time.deltaTime * Input.GetAxisRaw("Vertical");
-        }
-        else if (sphereRB.velocity.magnitude > 0f)
-        {
-            newRotation = turningInput * turnSpeed * Time.deltaTime ;
-        }
-        transform.Rotate(0, newRotation, 0, Space.World);
-        
         //checks if the raycast is hitting the gound 
         RaycastHit hit;
         isCarGrounded = Physics.Raycast(transform.position, -transform.up, out hit,1f, groundLayer);
@@ -95,23 +97,90 @@ public class testScript : MonoBehaviour
         }
     }
 
-    //metodo usado para verificar o que fazer quando o carro ta a travar
+    /// <summary>
+    /// metod that turns the car
+    /// </summary>
+    private void Turn()
+    {
+        //normal rotation of the car
+        if (sphereRB.velocity.magnitude > 0f && Input.GetAxisRaw("Vertical") != 0 && !isDrifting)
+        {
+            newRotation = turningInput * turnSpeed * Time.deltaTime * Input.GetAxisRaw("Vertical");
+        }
+        else if (sphereRB.velocity.magnitude > 0f)
+        {
+            newRotation = turningInput * turnSpeed * Time.deltaTime;
+        }
+
+        //sees wich side is being and compares it with the side that is drifting
+        else if (sphereRB.velocity.magnitude > 0f && Input.GetAxisRaw("Vertical") != 0 && driftSide > 0) 
+        {
+            if (turningInput < 0)
+            {
+                newRotation = turningInput * wrongSideDrift * Time.deltaTime * Input.GetAxisRaw("Vertical");
+            }
+            else
+            {
+                newRotation = turningInput * turnSpeed * Time.deltaTime * Input.GetAxisRaw("Vertical");
+            }
+        }
+        else if (sphereRB.velocity.magnitude > 0f && Input.GetAxisRaw("Vertical") != 0 && driftSide < 0)
+        {
+            if (turningInput > 0)
+            {
+                newRotation = turningInput * wrongSideDrift * Time.deltaTime * Input.GetAxisRaw("Vertical");
+            }
+            else
+            {
+                newRotation = turningInput * turnSpeed * Time.deltaTime * Input.GetAxisRaw("Vertical");
+            }
+        }
+
+        //rotates the car model
+        transform.Rotate(0, newRotation, 0, Space.World);
+    }
+
+    /// <summary>
+    /// decides if the car should play the drift animation or not
+    /// </summary>
+    private void DriftAnimation()
+    {
+        if (turningInput > 0)
+        {
+            anim.SetBool("isRightDrifting", true);
+        }
+        else if (turningInput < 0)
+        {
+            anim.SetBool("isLeftDrifting", true);
+        }
+    }
+
+
+    /// <summary>
+    /// metodo usado para verificar o que fazer quando o carro ta a travar
+    /// </summary>
     private void StartBreaking()
     {
         if (Input.GetKeyDown("space") && turningInput != 0 && !isDrifting)
         {
-            driftingAngle = turningInput * driftAngle;
+            //sees if the car should be drifting or not
+            DriftAnimation();
+            driftSide = turningInput;
             driftParticles.Play();
-            carModel.transform.Rotate(0, driftingAngle, 0, Space.World);
             isDrifting = true;
         }
         else if (Input.GetKeyDown("space") && turningInput == 0)
         {
+            anim.SetBool("isLeftDrifting",false);
+            anim.SetBool("isRightDrifting",false);
+            anim.SetBool("isBreaking",true);
             isBreaking = true;
         }
     }
 
-    //metodo usado para parar de travar
+    /// <summary>
+    /// metodo usado para parar de travar
+    /// </summary>
     private void StopBreaking()
     {
         //devolve os valores default as bools
@@ -120,6 +189,8 @@ public class testScript : MonoBehaviour
             //caso a ultima ação tenha cido travar
             if (isBreaking)
             {
+                //stops the breaking animation
+                anim.SetBool("isBreaking", false);
                 isBreaking = false;
             }
 
@@ -127,13 +198,18 @@ public class testScript : MonoBehaviour
             if (isDrifting)
             {
                 driftParticles.Stop();
-                carModel.transform.Rotate(0, -driftingAngle, 0, Space.World);
                 isDrifting = false;
+
+                //stops the drifting animation
+                anim.SetBool("isLeftDrifting", false);
+                anim.SetBool("isRightDrifting", false);
             }
         }
     }
 
-    //only used for physics updates
+    /// <summary>
+    /// only used for physics updates
+    /// </summary>
     private void FixedUpdate()
     {
         //updates de var speed so i can see the speed of the car in unity
@@ -143,6 +219,16 @@ public class testScript : MonoBehaviour
         if (isCarGrounded)
         {
             StopBreaking();
+            
+            //checks to see if it should play the is moving animation based on the cars speed
+            if (sphereRB.velocity.magnitude > 2f)
+            {
+                anim.SetBool("isMoving", true);
+            }
+            else
+            {
+                anim.SetBool("isMoving", false);
+            }
 
             //checks if the player is moving and trying to break
             if (isDrifting)
