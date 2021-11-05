@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class testScript : MonoBehaviour
 {
-
     //rigid body
     public Rigidbody sphereRB;
     public GameObject carModel;
@@ -33,9 +32,8 @@ public class testScript : MonoBehaviour
     public float defaultTurnAngle;
     public float DriftTurnAngle;
     private bool isDrifting;
-    public float driftAngle;
     private float driftSide;
-    private float wrongSideDrift;
+    public float wrongSideDrift;
 
     [Header("Break")]
     //brake
@@ -58,7 +56,7 @@ public class testScript : MonoBehaviour
     /// </summary>
     void Start()
     {
-        wrongSideDrift = 2 / turnSpeed;
+        wrongSideDrift = turnSpeed / 4;
 
         //encontra o componente no car model que seja um sistema de particulas
         driftParticles = carModel.GetComponent<ParticleSystem>();
@@ -103,36 +101,20 @@ public class testScript : MonoBehaviour
     private void Turn()
     {
         //normal rotation of the car
-        if (sphereRB.velocity.magnitude > 0f && Input.GetAxisRaw("Vertical") != 0 && !isDrifting)
+        if (sphereRB.velocity.magnitude > 1f && Input.GetAxisRaw("Vertical") != 0 && !isDrifting)
         {
             newRotation = turningInput * turnSpeed * Time.deltaTime * Input.GetAxisRaw("Vertical");
         }
         else if (sphereRB.velocity.magnitude > 0f)
         {
-            newRotation = turningInput * turnSpeed * Time.deltaTime;
-        }
-
-        //sees wich side is being and compares it with the side that is drifting
-        else if (sphereRB.velocity.magnitude > 0f && Input.GetAxisRaw("Vertical") != 0 && driftSide > 0) 
-        {
-            if (turningInput < 0)
+            //sees wich side is being and compares it with the side that is drifting
+            if (turningInput != driftSide)
             {
-                newRotation = turningInput * wrongSideDrift * Time.deltaTime * Input.GetAxisRaw("Vertical");
+                newRotation = turningInput * wrongSideDrift * Time.deltaTime;
             }
             else
             {
-                newRotation = turningInput * turnSpeed * Time.deltaTime * Input.GetAxisRaw("Vertical");
-            }
-        }
-        else if (sphereRB.velocity.magnitude > 0f && Input.GetAxisRaw("Vertical") != 0 && driftSide < 0)
-        {
-            if (turningInput > 0)
-            {
-                newRotation = turningInput * wrongSideDrift * Time.deltaTime * Input.GetAxisRaw("Vertical");
-            }
-            else
-            {
-                newRotation = turningInput * turnSpeed * Time.deltaTime * Input.GetAxisRaw("Vertical");
+                newRotation = turningInput * turnSpeed * Time.deltaTime;
             }
         }
 
@@ -148,10 +130,12 @@ public class testScript : MonoBehaviour
         if (turningInput > 0)
         {
             anim.SetBool("isRightDrifting", true);
+            driftSide = 1;
         }
         else if (turningInput < 0)
         {
             anim.SetBool("isLeftDrifting", true);
+            driftSide = -1;
         }
     }
 
@@ -165,7 +149,6 @@ public class testScript : MonoBehaviour
         {
             //sees if the car should be drifting or not
             DriftAnimation();
-            driftSide = turningInput;
             driftParticles.Play();
             isDrifting = true;
         }
@@ -236,7 +219,7 @@ public class testScript : MonoBehaviour
                 //makes it easier to drift
                 turnSpeed = DriftTurnAngle;
                 sphereRB.drag = groundDrag / 3;
-                sphereRB.AddForce(transform.forward * moveInput / 2, ForceMode.Acceleration);
+                sphereRB.AddForce(transform.forward * moveInput / 3, ForceMode.Acceleration);
             }
             else if (isBreaking) 
             {
