@@ -31,9 +31,10 @@ public class testScript : MonoBehaviour
     //drif
     public float defaultTurnAngle;
     public float DriftTurnAngle;
+    public float wrongSideDrift;
     private bool isDrifting;
     private float driftSide;
-    public float wrongSideDrift;
+    private nitro test;
 
     [Header("Break")]
     //brake
@@ -105,8 +106,10 @@ public class testScript : MonoBehaviour
         {
             newRotation = turningInput * turnSpeed * Time.deltaTime * Input.GetAxisRaw("Vertical");
         }
-        else if (sphereRB.velocity.magnitude > 0f)
+        else if (sphereRB.velocity.magnitude > 0f && isDrifting)
         {
+            gameObject.GetComponent<nitro>().NitroPoints();
+
             //sees wich side is being and compares it with the side that is drifting
             if (turningInput != driftSide)
             {
@@ -158,6 +161,14 @@ public class testScript : MonoBehaviour
             anim.SetBool("isRightDrifting",false);
             anim.SetBool("isBreaking",true);
             isBreaking = true;
+        }
+        else if (!Input.GetKey("space"))
+        {
+            anim.SetBool("isLeftDrifting", false);
+            anim.SetBool("isRightDrifting", false);
+            anim.SetBool("isBreaking", false);
+            isBreaking = false;
+            isDrifting = false;
         }
     }
 
