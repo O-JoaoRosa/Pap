@@ -10,9 +10,10 @@ public class nitro : MonoBehaviour
     [SerializeField] private Image nitroImageOrange;
     [SerializeField] private Image nitroImageBlue;
     [SerializeField] private Image nitroImagePurple;
-    public float distanceTravelled = 0;
-    public float distanceTravelled2 = 0;
-    public float distanceTravelled3 = 0;
+    [SerializeField] private Rigidbody carMotor;
+    private float distanceTravelled = 0;
+    private float distanceTravelled2 = 0;
+    private float distanceTravelled3 = 0;
     private Vector3 lastPosition;
 
 
