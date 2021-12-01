@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: 480f2d1a56ed03d4aa9e8b732c0882d4
   - enabled: 1
+    path: Assets/Scenes/GarageLobby.unity
+    guid: b8218a2ad01ebec48b3d3b4961e5c7e9
+  - enabled: 1
     path: Assets/Scenes/TestWorld.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   m_configObjects: {}

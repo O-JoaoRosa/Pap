@@ -12,9 +12,9 @@ TagManager:
   - Water
   - UI
   - groundLayer
-  - 
-  - 
-  - 
+  - Limites
+  - CarroHitBox
+  - RbHitBox
   - 
   - 
   - 
