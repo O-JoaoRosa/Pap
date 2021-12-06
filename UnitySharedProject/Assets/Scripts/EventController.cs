@@ -14,11 +14,23 @@ public class EventController : MonoBehaviour
 
     //cria um evento que ira verificar se o jogador entorou na garagem
     public event Action onGarageTriggerEnter;
+
     public void GarageTriggerEnter()
     {
         if (onGarageTriggerEnter != null)
         {
             onGarageTriggerEnter();
+        }
+    }
+
+    //cria um evento que ira verificar se o jogador Saiu da garagem
+    public event Action onGarageTriggerExit;
+
+    public void GarageTriggerExit()
+    {
+        if (onGarageTriggerExit != null)
+        {
+            onGarageTriggerExit();
         }
     }
 }

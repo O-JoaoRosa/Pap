@@ -40,7 +40,7 @@ public class LoadingGarage : MonoBehaviour
         //mostra o texto de loading e carrega cena
         loadingText.SetActive(true);
         yield return new WaitForSecondsRealtime(1);
-        loadingOperation = SceneManager.LoadSceneAsync("TestWorld", LoadSceneMode.Single);
+        loadingOperation = SceneManager.LoadSceneAsync("GarageLobby", LoadSceneMode.Single);
     }
     void Update()
     {

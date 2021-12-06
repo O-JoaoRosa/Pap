@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class CarControllerLobby : MonoBehaviour
 {
+    public GameObject pauseMenu;
+
     //rigid body
     public Rigidbody sphereRB;
     public GameObject carModel;
@@ -43,6 +45,7 @@ public class CarControllerLobby : MonoBehaviour
     /// </summary>
     void Start()
     {
+
         //encontra o componente no car model que seja um sistema de particulas
         driftParticles = carModel.GetComponent<ParticleSystem>();
 
@@ -55,23 +58,27 @@ public class CarControllerLobby : MonoBehaviour
     /// </summary>
     void Update()
     {
-        //gets and prepares the input
-        moveInput = Input.GetAxisRaw("Vertical");
-        moveInput *= moveInput > 0 ? fowardSpeed : reverseSpeed;
-        turningInput = Input.GetAxisRaw("Horizontal");
+        //checks to see if the player is in a menu or not
+        if (!pauseMenu.activeSelf)
+        {
+            //gets and prepares the input
+            moveInput = Input.GetAxisRaw("Vertical");
+            moveInput *= moveInput > 0 ? fowardSpeed : reverseSpeed;
+            turningInput = Input.GetAxisRaw("Horizontal");
 
-        //sets the car position the same as the spheres
-        transform.position = sphereRB.transform.position;
+            //sets the car position the same as the spheres
+            transform.position = sphereRB.transform.position;
 
-        //metodo para rodar o carro
-        Turn();
+            //metodo para rodar o carro
+            Turn();
 
-        //checks if the raycast is hitting the gound 
-        RaycastHit hit;
-        isCarGrounded = Physics.Raycast(transform.position, -transform.up, out hit, 4f, groundLayer);
+            //checks if the raycast is hitting the gound 
+            RaycastHit hit;
+            isCarGrounded = Physics.Raycast(transform.position, -transform.up, out hit, 4f, groundLayer);
 
-        //makes the car parallel to the gorund 
-        transform.rotation = Quaternion.FromToRotation(transform.up, hit.normal) * transform.rotation;
+            //makes the car parallel to the gorund 
+            transform.rotation = Quaternion.FromToRotation(transform.up, hit.normal) * transform.rotation;
+        }
     }
 
     /// <summary>
@@ -100,8 +107,6 @@ public class CarControllerLobby : MonoBehaviour
         //checks to see if the car is touching the ground
         if (isCarGrounded)
         {
-            
-            
             //checks to see if it should play the is moving animation based on the cars speed
             if (sphereRB.velocity.magnitude > 2f)
             {
