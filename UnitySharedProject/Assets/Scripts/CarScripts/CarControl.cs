@@ -177,6 +177,7 @@ public class CarControl : MonoBehaviour
     /// </summary>
     private void StopBreaking()
     {
+
         //devolve os valores default as bools
         if (!Input.GetKey("space") && (isDrifting || isBreaking))
         {
