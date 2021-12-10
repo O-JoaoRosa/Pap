@@ -15,7 +15,7 @@ public class lookAt : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
         camera.transform.LookAt(car.transform);
     }
