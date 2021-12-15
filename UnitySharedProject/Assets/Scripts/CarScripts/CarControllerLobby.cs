@@ -91,6 +91,10 @@ public class CarControllerLobby : MonoBehaviour
         {
             newRotation = turningInput * turnSpeed * Time.deltaTime * Input.GetAxisRaw("Vertical");
         }
+        else
+        {
+            newRotation = 0;
+        }
 
         //rotates the car model
         transform.Rotate(0, newRotation, 0, Space.World);

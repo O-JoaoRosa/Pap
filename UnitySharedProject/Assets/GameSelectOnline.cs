@@ -2,6 +2,9 @@ using UnityEngine;
 
 public class GameSelectOnline : MonoBehaviour
 {
+    [Header("Menus")]
+    public GameObject menuBackground;
+
     [Header("Offline")]
     public GameObject OfflineOption1;
     public GameObject OfflineOption2;
@@ -15,6 +18,20 @@ public class GameSelectOnline : MonoBehaviour
 
     private bool areOnlineOptionsHidden = true;
     private bool areOfflineOptionsHidden = true;
+
+    public void ButtonNextClick()
+    {
+        menuBackground.transform.LeanMoveLocal(new Vector3(0, 0, 10f), 0.4f).setEaseInQuart();
+        menuBackground.transform.LeanMoveLocal(new Vector3(-2467, 0, 10f), 1f).setEaseInQuart().setDelay(0.5f);
+        menuBackground.transform.LeanMoveLocal(new Vector3(-2467, 0, 0f), 0.4f).setEaseInQuart().setDelay(1.6f);
+    }
+    
+    public void ButtonBackClick()
+    {
+        menuBackground.transform.LeanMoveLocal(new Vector3(-2467, 0, 10f), 0.4f).setEaseInQuart();
+        menuBackground.transform.LeanMoveLocal(new Vector3(0, 0, 10f), 1f).setEaseInQuart().setDelay(0.5f);
+        menuBackground.transform.LeanMoveLocal(new Vector3(0, 0, 0f), 0.4f).setEaseInQuart().setDelay(1.6f);
+    }
 
     /// <summary>
     /// metodo que é executado quando o butao é carregado

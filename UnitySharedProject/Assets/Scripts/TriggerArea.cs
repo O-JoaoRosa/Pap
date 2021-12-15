@@ -5,7 +5,7 @@ using UnityEngine;
 public class TriggerArea : MonoBehaviour
 {
     bool canTrigger = true;
-    public Animator anim;
+    public GameObject menuBackground;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -20,7 +20,7 @@ public class TriggerArea : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         //miranha
-        anim.SetTrigger("Reset");
+        menuBackground.transform.localPosition = new Vector3(0, 0, 0);
         EventController.current.GarageTriggerExit();
         canTrigger = true;
 

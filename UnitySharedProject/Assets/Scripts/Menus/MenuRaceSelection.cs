@@ -6,7 +6,6 @@ public class MenuRaceSelection : MonoBehaviour
 {
     [SerializeField] private GameObject menu;
 
-    // Start is called before the first frame update
     void Start()
     {
         menu.SetActive(false);
@@ -17,15 +16,28 @@ public class MenuRaceSelection : MonoBehaviour
 
     private void Update()
     {
+        //verifica se o botão esc foi carregado para sair da pausa
         if ((Input.GetKey(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Escape)) && menu.activeSelf)
         {
-            menu.SetActive(false);
+            CloseMenu();
         }
     }
 
-    //metodo que é chamado quando o evento é acionado
+    /// <summary>
+    /// fecha o menu e resume o tempo
+    /// </summary>
+    public void CloseMenu()
+    {
+        menu.SetActive(false);
+        Time.timeScale = 1;
+    }
+
+    /// <summary>
+    /// metodo que é chamado quando o evento é acionado
+    /// </summary>
     void onGarageEnter()
     {
+        Time.timeScale = 0;
         menu.SetActive(true);
     }
 }
