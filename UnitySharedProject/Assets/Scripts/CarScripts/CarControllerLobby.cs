@@ -58,27 +58,25 @@ public class CarControllerLobby : MonoBehaviour
     /// </summary>
     void Update()
     {
-        //checks to see if the player is in a menu or not
-        if (!pauseMenu.activeSelf)
-        {
-            //gets and prepares the input
-            moveInput = Input.GetAxisRaw("Vertical");
-            moveInput *= moveInput > 0 ? fowardSpeed : reverseSpeed;
-            turningInput = Input.GetAxisRaw("Horizontal");
+        
+        //gets and prepares the input
+        moveInput = Input.GetAxisRaw("Vertical");
+        moveInput *= moveInput > 0 ? fowardSpeed : reverseSpeed;
+        turningInput = Input.GetAxisRaw("Horizontal");
 
-            //sets the car position the same as the spheres
-            transform.position = sphereRB.transform.position;
+        //sets the car position the same as the spheres
+        transform.position = sphereRB.transform.position;
 
-            //metodo para rodar o carro
-            Turn();
+        //metodo para rodar o carro
+        Turn();
 
-            //checks if the raycast is hitting the gound 
-            RaycastHit hit;
-            isCarGrounded = Physics.Raycast(transform.position, -transform.up, out hit, 4f, groundLayer);
+        //checks if the raycast is hitting the gound 
+        RaycastHit hit;
+        isCarGrounded = Physics.Raycast(transform.position, -transform.up, out hit, 4f, groundLayer);
 
-            //makes the car parallel to the gorund 
-            transform.rotation = Quaternion.FromToRotation(transform.up, hit.normal) * transform.rotation;
-        }
+        //makes the car parallel to the gorund 
+        transform.rotation = Quaternion.FromToRotation(transform.up, hit.normal) * transform.rotation;
+        
     }
 
     /// <summary>

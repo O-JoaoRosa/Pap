@@ -19,18 +19,27 @@ public class GameSelectOnline : MonoBehaviour
     private bool areOnlineOptionsHidden = true;
     private bool areOfflineOptionsHidden = true;
 
+    /// <summary>
+    /// metodo executado ao carregar no botão next para executar as animações
+    /// </summary>
     public void ButtonNextClick()
     {
-        menuBackground.transform.LeanMoveLocal(new Vector3(0, 0, 10f), 0.4f).setEaseInQuart();
-        menuBackground.transform.LeanMoveLocal(new Vector3(-2467, 0, 10f), 1f).setEaseInQuart().setDelay(0.5f);
-        menuBackground.transform.LeanMoveLocal(new Vector3(-2467, 0, 0f), 0.4f).setEaseInQuart().setDelay(1.6f);
+
+        //sequencia de animações que vai mudar de menu
+        menuBackground.transform.LeanMoveLocal(new Vector3(0, 0, 20f), 0.5f).setEaseInBack().setIgnoreTimeScale(true);
+        menuBackground.transform.LeanMoveLocal(new Vector3(-2467, 0, 20f), 1.2f).setEaseInBack().setIgnoreTimeScale(true).setDelay(0.6f);
+        menuBackground.transform.LeanMoveLocal(new Vector3(-2467, 0, 0f), 0.5f).setEaseInBack().setIgnoreTimeScale(true).setDelay(1.9f);
     }
-    
+
+    /// <summary>
+    /// metodo executado ao carregar no botão back para executar as animações
+    /// </summary>
     public void ButtonBackClick()
     {
-        menuBackground.transform.LeanMoveLocal(new Vector3(-2467, 0, 10f), 0.4f).setEaseInQuart();
-        menuBackground.transform.LeanMoveLocal(new Vector3(0, 0, 10f), 1f).setEaseInQuart().setDelay(0.5f);
-        menuBackground.transform.LeanMoveLocal(new Vector3(0, 0, 0f), 0.4f).setEaseInQuart().setDelay(1.6f);
+        //sequencia de animações que vai mudar de menu
+        menuBackground.transform.LeanMoveLocal(new Vector3(-2467, 0, 20f), 0.5f).setEaseInBack().setIgnoreTimeScale(true);
+        menuBackground.transform.LeanMoveLocal(new Vector3(0, 0, 20f), 1.2f).setEaseInBack().setIgnoreTimeScale(true).setDelay(0.6f);
+        menuBackground.transform.LeanMoveLocal(new Vector3(0, 0, 0f), 0.5f).setEaseInBack().setIgnoreTimeScale(true).setDelay(1.9f);
     }
 
     /// <summary>
@@ -41,16 +50,18 @@ public class GameSelectOnline : MonoBehaviour
         //verifica se a as opções estão a mostra ou nao 
         if (areOnlineOptionsHidden)
         {
-            OnlineOption1.transform.LeanMoveLocal(new Vector3(-83f, 30f, 0), 0.5f).setEaseSpring();
-            OnlineOption2.transform.LeanMoveLocal(new Vector3(-53.7f, 39f, 0), 0.5f).setEaseSpring();
-            OnlineOption3.transform.LeanMoveLocal(new Vector3(-22f, 30f, 0), 0.5f).setEaseSpring();
+            //executa as animações dos butões online
+            OnlineOption1.transform.LeanMoveLocal(new Vector3(-83f, 30f, 0), 0.5f).setEaseSpring().setIgnoreTimeScale(true);
+            OnlineOption2.transform.LeanMoveLocal(new Vector3(-53.7f, 39f, 0), 0.5f).setEaseSpring().setIgnoreTimeScale(true);
+            OnlineOption3.transform.LeanMoveLocal(new Vector3(-22f, 30f, 0), 0.5f).setEaseSpring().setIgnoreTimeScale(true);
             areOnlineOptionsHidden = false;
         }
         else
         {
-            OnlineOption1.transform.LeanMoveLocal(new Vector3(-67f, 4.3f, 0), 0.45f).setEaseInBack();
-            OnlineOption2.transform.LeanMoveLocal(new Vector3(-53.7f, 4.3f, 0), 0.45f).setEaseInBack();
-            OnlineOption3.transform.LeanMoveLocal(new Vector3(-40f, 4.3f, 0), 0.45f).setEaseInBack();
+            //esconde os botões caso eles estejam a mostra
+            OnlineOption1.transform.LeanMoveLocal(new Vector3(-67f, 4.3f, 0), 0.45f).setEaseInBack().setIgnoreTimeScale(true);
+            OnlineOption2.transform.LeanMoveLocal(new Vector3(-53.7f, 4.3f, 0), 0.45f).setEaseInBack().setIgnoreTimeScale(true);
+            OnlineOption3.transform.LeanMoveLocal(new Vector3(-40f, 4.3f, 0), 0.45f).setEaseInBack().setIgnoreTimeScale(true);
             areOnlineOptionsHidden = true;
         }
     }
@@ -63,16 +74,18 @@ public class GameSelectOnline : MonoBehaviour
         //verifica se a as opções estão a mostra ou nao 
         if (areOfflineOptionsHidden)
         {
-            OfflineOption1.transform.LeanMoveLocal(new Vector3(30f, -30f, 0), 0.5f).setEaseSpring();
-            OfflineOption2.transform.LeanMoveLocal(new Vector3(59f, -41.6f, 0), 0.5f).setEaseSpring();
-            OfflineOption3.transform.LeanMoveLocal(new Vector3(89f, -30f, 0), 0.5f).setEaseSpring();
+            //faz as animações para mostrar as opções
+            OfflineOption1.transform.LeanMoveLocal(new Vector3(30f, -30f, 0), 0.5f).setIgnoreTimeScale(true).setEaseSpring();
+            OfflineOption2.transform.LeanMoveLocal(new Vector3(59f, -41.6f, 0), 0.5f).setIgnoreTimeScale(true).setEaseSpring();
+            OfflineOption3.transform.LeanMoveLocal(new Vector3(89f, -30f, 0), 0.5f).setIgnoreTimeScale(true).setEaseSpring();
             areOfflineOptionsHidden = false;
         }
         else
         {
-            OfflineOption1.transform.LeanMoveLocal(new Vector3(44.8f, -4.5f, 0), 0.45f).setEaseInBack();
-            OfflineOption2.transform.LeanMoveLocal(new Vector3(59f, -4.5f, 0), 0.45f).setEaseInBack();
-            OfflineOption3.transform.LeanMoveLocal(new Vector3(73f, -4.5f, 0), 0.45f).setEaseInBack();
+            //esconde as opções 
+            OfflineOption1.transform.LeanMoveLocal(new Vector3(44.8f, -4.5f, 0), 0.45f).setIgnoreTimeScale(true).setEaseInBack();
+            OfflineOption2.transform.LeanMoveLocal(new Vector3(59f, -4.5f, 0), 0.45f).setIgnoreTimeScale(true).setEaseInBack();
+            OfflineOption3.transform.LeanMoveLocal(new Vector3(73f, -4.5f, 0), 0.45f).setIgnoreTimeScale(true).setEaseInBack();
             areOfflineOptionsHidden = true;
         }
     }
