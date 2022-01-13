@@ -6,6 +6,8 @@ public class MenuRaceSelection : MonoBehaviour
 {
     [SerializeField] private GameObject menu;
 
+    //TODO : acabar a mudança de pistas com o menu 
+
     void Start()
     {
         menu.SetActive(false);

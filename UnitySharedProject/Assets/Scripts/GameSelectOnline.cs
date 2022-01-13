@@ -2,8 +2,12 @@ using UnityEngine;
 
 public class GameSelectOnline : MonoBehaviour
 {
+    //TODO : guardar qual a race track escolhida
+    //TODO : fazer os menus desaparecerem
+
     [Header("Menus")]
     public GameObject menuBackground;
+    public GameObject menuAreYouReady;
 
     [Header("Offline")]
     public GameObject OfflineOption1;
@@ -24,7 +28,6 @@ public class GameSelectOnline : MonoBehaviour
     /// </summary>
     public void ButtonNextClick()
     {
-
         //sequencia de animações que vai mudar de menu
         menuBackground.transform.LeanMoveLocal(new Vector3(0, 0, 20f), 0.5f).setEaseInBack().setIgnoreTimeScale(true);
         menuBackground.transform.LeanMoveLocal(new Vector3(-2467, 0, 20f), 1.2f).setEaseInBack().setIgnoreTimeScale(true).setDelay(0.6f);
@@ -88,5 +91,65 @@ public class GameSelectOnline : MonoBehaviour
             OfflineOption3.transform.LeanMoveLocal(new Vector3(73f, -4.5f, 0), 0.45f).setIgnoreTimeScale(true).setEaseInBack();
             areOfflineOptionsHidden = true;
         }
+    }
+
+    /// <summary>
+    /// botão que vai decidir oq vai acontecer
+    /// </summary>
+    public void ButtonOnlineOption1Pressed()
+    {
+        menuAreYouReady.SetActive(true);
+        gameObject.SetActive(false);
+
+    }
+    
+    /// <summary>
+    /// botão que vai decidir oq vai acontecer
+    /// </summary>
+    public void ButtonOnlineOption2Pressed()
+    {
+        menuAreYouReady.SetActive(true);
+        gameObject.SetActive(false);
+
+    }
+    
+    /// <summary>
+    /// botão que vai decidir oq vai acontecer
+    /// </summary>
+    public void ButtonOnlineOption3Pressed()
+    {
+        menuAreYouReady.SetActive(true);
+        gameObject.SetActive(false);
+
+    }
+
+    /// <summary>
+    /// botão que vai decidir oq vai acontecer
+    /// </summary>
+    public void ButtonOfflineOption1Pressed()
+    {
+        menuAreYouReady.SetActive(true);
+        gameObject.SetActive(false);
+
+    }
+    
+    /// <summary>
+    /// botão que vai decidir oq vai acontecer
+    /// </summary>
+    public void ButtonOfflineOption2Pressed()
+    {
+        menuAreYouReady.SetActive(true);
+        gameObject.SetActive(false);
+
+    }
+    
+    /// <summary>
+    /// botão que vai decidir oq vai acontecer
+    /// </summary>
+    public void ButtonOfflineOption3Pressed()
+    {
+        menuAreYouReady.SetActive(true);
+        gameObject.SetActive(false);
+
     }
 }
