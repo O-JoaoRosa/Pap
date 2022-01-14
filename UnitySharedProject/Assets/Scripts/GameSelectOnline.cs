@@ -2,9 +2,6 @@ using UnityEngine;
 
 public class GameSelectOnline : MonoBehaviour
 {
-    //TODO : guardar qual a race track escolhida
-    //TODO : fazer os menus desaparecerem
-
     [Header("Menus")]
     public GameObject menuBackground;
     public GameObject menuAreYouReady;

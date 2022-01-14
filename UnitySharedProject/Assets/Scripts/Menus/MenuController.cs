@@ -1,18 +1,19 @@
 using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using static MenuRaceSelectionController;
 
 public class MenuController : MonoBehaviour
 {
-    private string trackOne = "TestWorld";
-    private string track2 = "tutorialRace";
     public GameObject loadingGarage;
-    public string activeTrack;
+    static public string activeTrack;
 
+    
     // Start is called before the first frame update
     void Awake()
     {
         gameObject.SetActive(false);
+        
     }
 
     // Update is called once per frame
@@ -26,10 +27,13 @@ public class MenuController : MonoBehaviour
         }
     }
 
-    void OkayClick()
+    /// <summary>
+    /// quando o botão de ready é carregado ele verifica qual pista foi selecionada e faz o loading
+    /// </summary>
+    public void OkayClick()
     {
         loadingGarage.transform.LeanMoveLocal(new Vector3(0f, -1.25f, 2.2f), 1f).setEaseSpring().setIgnoreTimeScale(true);
+        Time.timeScale = 1;
         SceneManager.LoadSceneAsync(activeTrack);
-
     }
 }

@@ -12,6 +12,9 @@ EditorBuildSettings:
     path: Assets/Scenes/GarageLobby.unity
     guid: b8218a2ad01ebec48b3d3b4961e5c7e9
   - enabled: 1
+    path: Assets/Scenes/tutorialRace.unity
+    guid: 55b9a8dcd5abde74c9dd5e0807b335d0
+  - enabled: 1
     path: Assets/Scenes/TestWorld.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   m_configObjects: {}
