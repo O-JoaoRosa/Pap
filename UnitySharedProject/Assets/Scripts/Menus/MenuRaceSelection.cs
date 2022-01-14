@@ -39,7 +39,8 @@ public class MenuRaceSelection : MonoBehaviour
     /// </summary>
     void onGarageEnter()
     {
-        Time.timeScale = 0;
         menu.SetActive(true);
+        menu.SetActive(true);
+        Time.timeScale = 0;
     }
 }

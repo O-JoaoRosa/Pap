@@ -1,4 +1,5 @@
 using System;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using static MenuRaceSelectionController;
@@ -34,6 +35,7 @@ public class MenuController : MonoBehaviour
     {
         loadingGarage.transform.LeanMoveLocal(new Vector3(0f, -1.25f, 2.2f), 1f).setEaseSpring().setIgnoreTimeScale(true);
         Time.timeScale = 1;
+        Thread.Sleep(1000);
         SceneManager.LoadSceneAsync(activeTrack);
     }
 }

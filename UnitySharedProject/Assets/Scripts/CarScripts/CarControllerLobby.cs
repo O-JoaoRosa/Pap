@@ -45,7 +45,6 @@ public class CarControllerLobby : MonoBehaviour
     /// </summary>
     void Start()
     {
-
         //encontra o componente no car model que seja um sistema de particulas
         driftParticles = carModel.GetComponent<ParticleSystem>();
 

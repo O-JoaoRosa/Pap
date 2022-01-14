@@ -33,4 +33,22 @@ public class EventController : MonoBehaviour
             onGarageTriggerExit();
         }
     }
+
+    public event Action onCarSelectorEnter;
+    public void CarSelectorEnter()
+    {
+        if (onCarSelectorEnter != null)
+        {
+            onCarSelectorEnter();
+        }
+    }
+
+    public event Action onCarSelectorExit;
+    public void CarSelectorExit()
+    {
+        if (onCarSelectorExit != null)
+        {
+            onCarSelectorExit();
+        }
+    }
 }
