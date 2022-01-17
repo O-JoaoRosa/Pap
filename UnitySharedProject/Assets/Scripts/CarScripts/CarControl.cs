@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static Stats;
 
 public class CarControl : MonoBehaviour
 {
@@ -18,13 +19,6 @@ public class CarControl : MonoBehaviour
     //raycast
     private bool isCarGrounded;
 
-    [Header("Speeds")]
-    //speeds
-    public float fowardSpeed;
-    public float reverseSpeed;
-    public float turnSpeed;
-    public float groundDrag;
-    public float airDrag;
     public float Speed;
 
     [Header("Drift/Turning")]

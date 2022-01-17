@@ -108,6 +108,7 @@ GameObject:
   - component: {fileID: 2676612356238723138}
   - component: {fileID: 2676612356238723149}
   - component: {fileID: 2676612356238723143}
+  - component: {fileID: 6770757035563493627}
   m_Layer: 0
   m_Name: CarRoot
   m_TagString: Untagged
@@ -165,7 +166,7 @@ MonoBehaviour:
   carModel: {fileID: 8268244080592683089}
   fowardSpeed: 40
   reverseSpeed: 25
-  turnSpeed: 90
+  turnSpeed: 50
   groundDrag: 0.8
   airDrag: 0.2
   Speed: 0
@@ -173,6 +174,18 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
+--- !u!114 &6770757035563493627
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2676612356238723136}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81d1e526c193a394e89f1408283947c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2676612356796405020
 GameObject:
   m_ObjectHideFlags: 0

@@ -13,6 +13,7 @@ public class TriggerArea : MonoBehaviour
         if (canTrigger)
         {
             EventController.current.GarageTriggerEnter();
+            menuBackground.SetActive(true);
             canTrigger = false;
         }
     }
