@@ -1,17 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Stats : MonoBehaviour
 {
+    [SerializeField] static public float rarity {get; set;}
+    [SerializeField] static public float fowardSpeed {get; set;}
+    [SerializeField] static public float reverseSpeed { get; set; }
+    [SerializeField] static public float turnSpeed { get; set; }
+    [SerializeField] static public float groundDrag { get; set; }
+    [SerializeField] static public float airDrag { get; set; }
+    [SerializeField] static public string carName { get; set; }
 
-    [Header("Speeds")]
-    //speeds
-
-    static public int rarity = 1;
-    [SerializeField] static public float fowardSpeed = 80;
-    [SerializeField] static public float reverseSpeed = 35;
-    [SerializeField] static public float turnSpeed = 40;
-    [SerializeField] static public float groundDrag = 0.8f;
-    [SerializeField] static public float airDrag = 0.5f;
+    private void Awake()
+    {
+        fowardSpeed = 80f;
+        reverseSpeed = fowardSpeed * 0.45f;
+        turnSpeed = 45f;
+        groundDrag = 0.75f;
+        airDrag = 0.4f;
+        carName = "carName";
+    }
 }
