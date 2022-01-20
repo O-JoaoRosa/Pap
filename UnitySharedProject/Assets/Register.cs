@@ -1,18 +1,33 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using static UnityEngine.Rendering.DebugUI;
 
 public class Register : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public InputField nameField, emailField, passwordField;
+
+    public Button submitButton;
+
+    public void CallRegister()
     {
-        
+        StartCoroutine(RegisterUser());
     }
 
-    // Update is called once per frame
-    void Update()
+    IEnumerator RegisterUser()
     {
-        
+        WWWForm form = new WWWForm();
+        form.AddField("UserName", nameField.text);
+        form.AddField("Password", passwordField.text);
+        form.AddField("Email", emailField.text);
+
+        WWW url = new WWW("link" , form);
+        yield return url;
+        if (url.text == "0")
+        {
+            Debug.Log("Feito !");
+        }
     }
+
 }
