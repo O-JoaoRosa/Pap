@@ -12,6 +12,8 @@
 		// Ativa/destaiva as mensagens de debug para postman
 		$debug_On = false;
 
+
+
 		// controla o nº registos devolvidos. 0 pode elin«minar. Maior que zero,não pode
 		$recordsFound = -1;
 		// Este script deve receber um url com 3 keyValuePair, a partir do método
@@ -29,8 +31,16 @@
 
 		if($debug_On) echo "DEBUG: Dados \n UserName='$Name'\n \n Password='$Password' \n Email='$Email' \n Image=$Image \n Money=$Money \n Reputation='$Reputation' \n LastTimeOnline='$LastTimeOnline'";
 
+		$emailCheckquerry = "SELECT Email FROM user WHERE Email = '$Email';";
+		$emailCheck = mysqli_query($con, $emailCheckquerry) or die("2: email check failed"); //erro caso o check falhe
+
+		if(mysqli_num_rows($emailCheck) > 0){
+			echo "3 : email already register";
+			exit();
+		}
+
 		// Construção da DML Insert com os dados recebidos do Android
-		$sql = "Insert INTO `User` (UserName, Password, Email, Image, Money, Reputation, LastTimeOnline, UserCarIDSelected) Values ('$Name',sha2('$Password',512),'$Email',$Image,'$Money','$Reputation','$LastTimeOnline')";
+		$sql = "Insert INTO `user` (UserName, Password, Email, Image, Money, Reputation, LastTimeOnline, UserCarIDSelected) Values ('$Name',sha2('$Password',512),'$Email',$Image,'$Money','$Reputation','$LastTimeOnline')";
 
 		if($debug_On) echo " \nDEBUG: QUERY:".$sql ."\n";
 

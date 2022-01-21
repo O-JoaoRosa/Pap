@@ -6,27 +6,147 @@ using static UnityEngine.Rendering.DebugUI;
 
 public class Register : MonoBehaviour
 {
-    public InputField nameField, emailField, passwordField;
+    [Header("Inputs")]
+    public InputField nameField;
+    public InputField emailField;
+    public InputField passwordField;
+    public InputField confirmPasswordField;
 
-    public Button submitButton;
+    [Header("Ckecks")]
+    public GameObject CheckName;
+    public GameObject CheckEmail;
+    public GameObject CheckPasword;
+    public GameObject CheckComfirmPassword;
+
+    [Header("Loading")]
+    public GameObject loading;
+    public GameObject loadingImage;
+
+    [Header("Button")]
+    public UnityEngine.UI.Button submitButton;
+
+    private bool nameIsOk = false, emailIsOk = false, passwordIsOk = false, isLoading = false;
+
+    private void Awake()
+    {
+        submitButton.interactable = false;
+        loading.SetActive(false);
+        CheckComfirmPassword.SetActive(false);
+        CheckEmail.SetActive(false);
+        CheckName.SetActive(false);
+        CheckPasword.SetActive(false);
+    }
 
     public void CallRegister()
     {
         StartCoroutine(RegisterUser());
     }
 
+    public void Update()
+    {
+        CheckRegister();
+    }
+
     IEnumerator RegisterUser()
     {
+        isLoading = true;
+
+        //cria um formolário para enviar para a api
         WWWForm form = new WWWForm();
         form.AddField("UserName", nameField.text);
         form.AddField("Password", passwordField.text);
         form.AddField("Email", emailField.text);
 
-        WWW url = new WWW("link" , form);
+        //envia o formulário para o link escolhido
+        WWW url = new WWW("https://t05-jrosa.vigion.pt/API/Objects/UserAdd.php", form);
         yield return url;
         if (url.text == "0")
         {
             Debug.Log("Feito !");
+            AccountControll.RegistrationComplete();
+        }
+        else
+        {
+            Debug.Log("ERRO: " + url.text);
+        }
+    }
+
+
+    public void StartLoading()
+    {
+        if (isLoading)
+        {
+            loading.SetActive(true);
+            loadingImage.transform.LeanRotate(new Vector3(0, 0, 360f), 3f).callOnCompletes();
+        }
+    }
+
+    /// <summary>
+    /// verifica se pode registar o user
+    /// </summary>
+    private void CheckRegister()
+    {
+        //verifica o tamanho do nome
+        if ((nameField.text.Length > 4 && nameField.text.Length < 16))
+        {
+            CheckName.SetActive(true);
+            nameIsOk = true;
+            nameField.selectionColor = Color.green;
+        }
+        else
+        {
+            CheckName.SetActive(false);
+            nameIsOk = false;
+            nameField.selectionColor = Color.red;
+        }
+
+        if (passwordField.text.Length > 5)
+        {
+            CheckPasword.SetActive(true);
+
+            //verifica se a palavra pass é igual a sua confirmação
+            if (passwordField.text == confirmPasswordField.text)
+            {
+                CheckComfirmPassword.SetActive(true);
+                passwordIsOk = true;
+                passwordField.selectionColor = Color.green;
+                confirmPasswordField.selectionColor = Color.green;
+            }
+            else
+            {
+                CheckComfirmPassword.SetActive(false);
+                passwordIsOk = false;
+                confirmPasswordField.selectionColor = Color.red;
+            }
+        }
+        else
+        {
+            CheckPasword.SetActive(false);
+        }
+
+        //verifica se o emial tem o necessario para ser um email
+        if (emailField.text.Contains("@") && (emailField.text.Contains(".com") || emailField.text.Contains(".pt")))
+        {
+            CheckEmail.SetActive(true);
+            emailIsOk = true;
+            emailField.selectionColor = Color.green;
+        }
+        else
+        {
+            CheckEmail.SetActive(false);
+            emailIsOk = false;
+            emailField.selectionColor = Color.red;
+        }
+
+
+        //verifica se todas as verificações estão correctas e permite ou não registar o user
+        if (nameIsOk && passwordIsOk && emailIsOk)
+        {
+            submitButton.interactable = true;
+        }
+        else
+        {
+            submitButton.interactable = false;
         }
     }
 

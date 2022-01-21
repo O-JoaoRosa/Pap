@@ -7,13 +7,6 @@ public class LoadingGarage : MonoBehaviour
 {
     public Animator anim;
     AsyncOperation loadingOperation;
-    public Slider progressBar;
-    public GameObject loadingText;
-
-    private void Start()
-    {
-        loadingText.SetActive(false);
-    }
 
     //closes the game
     public void ExitGame()
@@ -38,12 +31,7 @@ public class LoadingGarage : MonoBehaviour
         yield return new WaitForSecondsRealtime(1);
 
         //mostra o texto de loading e carrega cena
-        loadingText.SetActive(true);
         yield return new WaitForSecondsRealtime(1);
         loadingOperation = SceneManager.LoadSceneAsync("GarageLobby", LoadSceneMode.Single);
-    }
-    void Update()
-    {
-        progressBar.value = Mathf.Clamp01(loadingOperation.progress / 0.9f);
     }
 }
