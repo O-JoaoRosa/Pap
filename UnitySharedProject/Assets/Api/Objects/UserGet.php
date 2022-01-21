@@ -11,12 +11,13 @@ if($_SERVER['REQUEST_METHOD'] == "GET") {
     $recordsFound = -1;
 
     // Obtém oo id do url enviado pela app Android
-    $id = $_GET['id'];
+    $userInfo = $_GET['UserInfo'];
+    $Password = $_GET['Password'];
 
     if($debug_On) echo "DEBUG: Dados \n ID='$id";
 
     // Prepara e executa a query e recebe o resultado num objeto dataset
-    $sql = "SELECT * FROM `User` WHERE ID = $id;";
+    $sql = "SELECT * FROM `User` WHERE UserName = $userInfo OR Email = $userInfo AND Password = sha2('$Password',512);";
 
     //resposta do dbms
     $dbmsResponse = mysqli_query($con, $sql);

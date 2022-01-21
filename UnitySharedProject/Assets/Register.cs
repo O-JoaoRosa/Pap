@@ -12,6 +12,11 @@ public class Register : MonoBehaviour
     public InputField passwordField;
     public InputField confirmPasswordField;
 
+    [Header("Menus")]
+    public GameObject MenuLogin;
+    public GameObject MenuPrincipal;
+
+
     [Header("Ckecks")]
     public GameObject CheckName;
     public GameObject CheckEmail;
@@ -45,6 +50,7 @@ public class Register : MonoBehaviour
     public void Update()
     {
         CheckRegister();
+        StartLoading();
     }
 
     IEnumerator RegisterUser()
@@ -63,7 +69,9 @@ public class Register : MonoBehaviour
         if (url.text == "0")
         {
             Debug.Log("Feito !");
-            AccountControll.RegistrationComplete();
+            gameObject.SetActive(false);
+            MenuLogin.SetActive(false);
+            MenuPrincipal.SetActive(true);
         }
         else
         {

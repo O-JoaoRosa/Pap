@@ -12,8 +12,6 @@
 		// Ativa/destaiva as mensagens de debug para postman
 		$debug_On = false;
 
-
-
 		// controla o nº registos devolvidos. 0 pode elin«minar. Maior que zero,não pode
 		$recordsFound = -1;
 		// Este script deve receber um url com 3 keyValuePair, a partir do método
@@ -40,7 +38,7 @@
 		}
 
 		// Construção da DML Insert com os dados recebidos do Android
-		$sql = "Insert INTO `user` (UserName, Password, Email, Image, Money, Reputation, LastTimeOnline, UserCarIDSelected) Values ('$Name',sha2('$Password',512),'$Email',$Image,'$Money','$Reputation','$LastTimeOnline')";
+		$sql = "Insert INTO `user` (UserName, Password, Email, Image, Money, Reputation, LastTimeOnline, UserCarIDSelected) Values ('$Name',sha2('$Password',512),'$Email','$Image','$Money','$Reputation','$LastTimeOnline',$UserCarIdSelected)";
 
 		if($debug_On) echo " \nDEBUG: QUERY:".$sql ."\n";
 

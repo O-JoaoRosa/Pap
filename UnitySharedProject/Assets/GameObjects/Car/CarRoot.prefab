@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 2664431000097464869}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_Children: []
   m_Father: {fileID: 2664431000579981179}
   m_RootOrder: 0
@@ -72,6 +72,7 @@ GameObject:
   - component: {fileID: 2664431000579981179}
   - component: {fileID: 2664431000579981178}
   - component: {fileID: 2664431000579981172}
+  - component: {fileID: 583423532}
   m_Layer: 0
   m_Name: CarRoot
   m_TagString: Untagged
@@ -109,17 +110,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sphereRB: {fileID: 2664431000097464870}
   carModel: {fileID: 8314345362419119976}
-  fowardSpeed: 40
-  reverseSpeed: 25
-  turnSpeed: 60
-  groundDrag: 1.3
-  airDrag: 0.5
   Speed: 0
   defaultTurnAngle: 50
   DriftTurnAngle: 90
   wrongSideDrift: 0
   breakForce: 100
-  anim: {fileID: 0}
+  anim: {fileID: 165585585}
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -140,7 +136,19 @@ MonoBehaviour:
   nitroImageBlue: {fileID: 0}
   nitroImagePurple: {fileID: 0}
   carMotor: {fileID: 2664431000097464870}
---- !u!198 &2641611911112056749
+--- !u!114 &583423532
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2664431000579981177}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81d1e526c193a394e89f1408283947c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!198 &165585588
 ParticleSystem:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4847,7 +4855,7 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
---- !u!96 &2553965460728869105
+--- !u!96 &165585586
 TrailRenderer:
   serializedVersion: 2
   m_ObjectHideFlags: 0
@@ -4945,7 +4953,7 @@ TrailRenderer:
   m_MinVertexDistance: 0.1
   m_Autodestruct: 0
   m_Emitting: 1
---- !u!199 &7630043024720845662
+--- !u!199 &165585587
 ParticleSystemRenderer:
   serializedVersion: 6
   m_ObjectHideFlags: 0
@@ -5012,7 +5020,7 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
---- !u!95 &1013744272334415038
+--- !u!95 &165585585
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 0

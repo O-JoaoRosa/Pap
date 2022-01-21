@@ -15,7 +15,7 @@ public class Stats : MonoBehaviour
 
     private void Awake()
     {
-        fowardSpeed = 80f;
+        fowardSpeed = 20f;
         reverseSpeed = fowardSpeed * 0.45f;
         turnSpeed = 45f;
         groundDrag = 0.75f;

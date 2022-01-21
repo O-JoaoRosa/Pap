@@ -11,7 +11,7 @@
         // Credenciais da Base de dados no Server IberWeb
         define("DB2_HOST", "188.93.230.170");
         define("DB2_USER", "vigionpt_vigio_t05jrosa");
-        define("DB2_PASSWORD", "Jr2003!;");
+        define("DB2_PASSWORD", "Jr2003!;"); 
         define("DB2_DATABASE", "vigionpt_tgpsi05_jrosa");
         define("DB2_PORT", "3306");
 
