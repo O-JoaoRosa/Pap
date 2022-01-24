@@ -46,6 +46,7 @@ public class AccountControll : MonoBehaviour
     public void ActivateMenuLogin()
     {
         gameObject.SetActive(true);
+        RegisterMenu.SetActive(false);
         LoginMenu.SetActive(true);
         MainMenu.SetActive(false);
     }
@@ -54,6 +55,7 @@ public class AccountControll : MonoBehaviour
     public void ActivateMenuRegister()
     {
         gameObject.SetActive(true);
+        LoginMenu.SetActive(false);
         RegisterMenu.SetActive(true);
         MainMenu.SetActive(false);
     }

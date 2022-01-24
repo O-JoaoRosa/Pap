@@ -5,6 +5,7 @@ using UnityEngine;
 public static class DBManager
 {
     public static string username;
+    public static string userEmail;
     public static int userCarIdSelected;
     public static int Reputation;
     public static int Money;

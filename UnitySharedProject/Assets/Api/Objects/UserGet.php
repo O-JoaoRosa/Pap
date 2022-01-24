@@ -14,13 +14,27 @@ if($_SERVER['REQUEST_METHOD'] == "GET") {
     $userInfo = $_GET['UserInfo'];
     $Password = $_GET['Password'];
 
-    if($debug_On) echo "DEBUG: Dados \n ID='$id";
-
     // Prepara e executa a query e recebe o resultado num objeto dataset
-    $sql = "SELECT * FROM `User` WHERE UserName = $userInfo OR Email = $userInfo AND Password = sha2('$Password',512);";
+    $sql = "SELECT * FROM user WHERE UserName = '$userInfo' OR Email = '$userInfo' AND Password = sha2('$Password',512);";
 
     //resposta do dbms
-    $dbmsResponse = mysqli_query($con, $sql);
+    $dbmsResponse = mysqli_query($con, $sql) or die("Erro #002: query failed");
+
+    if (mysqli_num_rows($dbmsResponse) > 0){
+        echo "5: erro more than 1 user with the same info found";
+
+        // fecha a ligação
+        mysqli_close($con);
+
+        exit();
+    }
+
+    $row = mysqli_fetch_assoc($dbmsResponse);
+    echo "0\t" + $row["UserName"] +"\t" + $row["Email"] + "\t" + $row["Money"] + "\t" + $row["Reputation"] + "\t" +  $row["UserCarIDSelected"];
+
+    // fecha a ligação
+    mysqli_close($con);
+    exit();
 
     //obtém número de linhas da tabela
     $recordsFound = intval(mysqli_affected_rows($con));
@@ -34,25 +48,13 @@ if($_SERVER['REQUEST_METHOD'] == "GET") {
             if($debug_On) echo "\n DEBUG: GET: Registo obtido com sucesso.";
 
             // Row recebe o registo da base de dados
-            $row = mysqli_fetch_array($dbmsResponse);
+            $row = mysqli_fetch_assoc($dbmsResponse);
 
             // Array result para receber o registo
             $result = array();
 
-            // Grava o registo no array result
-            array_push($result,array(
-                "ID"=>$row['ID'],							// Atributo ID, seguido do seu valor
-                "UserName"=>$row['UserName'],						// Atributo Name, seguido do seu valor
-                "Image"=>$row['Image'],			    // Atributo Nickname, seguido do seu valor
-                "Email"=>$row['Email'],			            // Atributo Email, seguido do seu valor
-                "Money"=>$row['Money'],	                // Atributo Gender, seguido do seu valor
-                "Reputation"=>$row['Reputation'],			    // Atributo BornDate, seguido do seu valor
-                "Password"=>$row['Password'],			    // Atributo Password, seguido do seu valor
-                "LastTimeOnline"=>$row['UsLastTimeOnlineerPicURL'],
-                "UserCarIDSelected"=>$row['UserCarIDSelected'],	        // Atributo UserPicURL, seguido do seu valor
-            ));
+            echo "0\t" + $row["UserName"] +"\t" . $row["Email"] + "\t" + $row["Money"] + "\t" + $row["Reputation"] + "\t" +  $row["UserCarIDSelected"];
 
-            echo json_encode(array('result' => $result));
         } else {
             echo "Nenhum registo foi encontrado.";
         }
