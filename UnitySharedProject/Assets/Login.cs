@@ -6,56 +6,61 @@ using UnityEngine.UI;
 
 public class Login : MonoBehaviour
 {
-    public InputField UserNameEmailField;
+    public InputField UserNameField;
     public InputField PasswordField;
+    public Text errorMessages;
+    public GameObject loadingIcon;
     public GameObject MenuPrincipal;
     public GameObject PopUp;
+    public Button loginButton;
+    string url = "https://t05-jrosa.vigion.pt/API/Objects/UserGet.php";
+    WWWForm form;
 
-    public void CallLogin()
+    /// <summary>
+    /// metodo que vai chamar o login de modo asycrono
+    /// </summary>
+    public void OnLoginClick()
     {
+        loginButton.interactable = false;
+        loadingIcon.SetActive(true);
         StartCoroutine(LoginUser());
     }
 
+    /// <summary>
+    /// faz login
+    /// </summary>
+    /// <returns></returns>
     IEnumerator LoginUser()
     {
-        //cria um formolário para enviar para a api
-        WWWForm form = new WWWForm();
+        form = new WWWForm();
+        form.AddField("username", UserNameField.text);
+        form.AddField("password", PasswordField.text);
+        WWW w = new WWW(url, form);
+        yield return w;
 
-        UnityWebRequest www = new UnityWebRequest("https://t05-jrosa.vigion.pt/API/Objects/UserGet.php");
-        List<IMultipartFormSection> formData = new List<IMultipartFormSection>();
-        formData.Add(new MultipartFormDataSection("UserInfo", UserNameEmailField.text));
-        formData.Add(new MultipartFormDataSection("Password", PasswordField.text));
-
-        www = UnityWebRequest.Post("https://t05-jrosa.vigion.pt/API/Objects/UserGet.php", formData);
-        yield return www.SendWebRequest();
-
-        www = UnityWebRequest.Get("https://t05-jrosa.vigion.pt/API/Objects/UserGet.php");
-        yield return www.SendWebRequest();
-
-
-        //form.AddField("UserInfo", UserNameEmailField.text);
-        //form.AddField("Password", PasswordField.text);
-
-        ////envia o formulário para o link escolhido
-        //WWW url = new WWW("https://t05-jrosa.vigion.pt/API/Objects/UserGet.php", form);
-
-        //yield return url;
-
-        if (www.result == UnityWebRequest.Result.Success)
+        if (w.error != null)
         {
-            Debug.Log("Feito !");
-            DBManager.username = UserNameEmailField.text;
-            DBManager.username = www.downloadHandler.text.Split('\t')[1];
-            DBManager.userEmail= www.downloadHandler.text.Split('\t')[2];
-            DBManager.Money = int.Parse(www.downloadHandler.text.Split('\t')[3]);
-            DBManager.Reputation = int.Parse(www.downloadHandler.text.Split('\t')[4]);
-            DBManager.userCarIdSelected = int.Parse(www.downloadHandler.text.Split('\t')[5]);
+            errorMessages.text = "404 not found!";
         }
         else
         {
-            Debug.Log("ERRO: " + www.downloadHandler.text);
-            PopUp.SetActive(true);
-
+            if (w.isDone)
+            {
+                if (w.text.Contains("error"))
+                {
+                    errorMessages.text = "invalid username or password!";
+                }
+                else
+                {
+                    Debug.Log(w.text);
+                }
+            }
         }
+
+        loginButton.interactable = false;
+        loadingIcon.SetActive(false);
+        w.Dispose();
     }
+
+    
 }
