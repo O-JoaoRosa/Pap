@@ -102,7 +102,7 @@ public class CarControl : MonoBehaviour
         }
         else if (sphereRB.velocity.magnitude > 0f && isDrifting)
         {
-            gameObject.GetComponent<nitro>().NitroPoints();
+            //gameObject.GetComponent<nitro>().NitroPoints();
 
             //sees wich side is being and compares it with the side that is drifting
             if (turningInput != driftSide)
@@ -113,6 +113,10 @@ public class CarControl : MonoBehaviour
             {
                 newRotation = turningInput * turnSpeed * Time.deltaTime;
             }
+        }
+        else
+        {
+            newRotation = 0;
         }
 
         //rotates the car model

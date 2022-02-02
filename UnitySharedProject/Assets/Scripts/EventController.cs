@@ -12,6 +12,8 @@ public class EventController : MonoBehaviour
         current = this;
     }
 
+    #region Garagem
+
     //cria um evento que ira verificar se o jogador entorou na garagem
     public event Action onGarageTriggerEnter;
 
@@ -49,6 +51,17 @@ public class EventController : MonoBehaviour
         if (onCarSelectorExit != null)
         {
             onCarSelectorExit();
+        }
+    }
+    
+    #endregion
+
+    public event Action onRaceStartExit;
+    public void RaceStartExist()
+    {
+        if (onRaceStartExit != null)
+        {
+            onRaceStartExit();
         }
     }
 }
