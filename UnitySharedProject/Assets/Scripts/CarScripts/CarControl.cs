@@ -78,7 +78,7 @@ public class CarControl : MonoBehaviour
 
         //checks if the raycast is hitting the gound 
         RaycastHit hit;
-        isCarGrounded = Physics.Raycast(transform.position, -transform.up, out hit,1f, groundLayer);
+        isCarGrounded = Physics.Raycast(transform.position, -transform.up, out hit,3f, groundLayer);
 
         //makes the car parallel to the gorund 
         transform.rotation = Quaternion.FromToRotation(transform.up, hit.normal) * transform.rotation;
