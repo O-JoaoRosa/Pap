@@ -21,6 +21,7 @@ public class MenuRaceSelection : MonoBehaviour
         //verifica se o botão esc foi carregado para sair da pausa
         if ((Input.GetKey(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Escape)) && menu.activeSelf)
         {
+
             CloseMenu();
         }
     }

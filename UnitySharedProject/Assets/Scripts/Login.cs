@@ -21,7 +21,7 @@ public class Login : MonoBehaviour
     /// </summary>
     public void OnLoginClick()
     {
-        loginButton.interactable = false;
+        loginButton.interactable = true;
         loadingIcon.SetActive(true);
         StartCoroutine(LoginUser());
     }
@@ -35,29 +35,43 @@ public class Login : MonoBehaviour
         form = new WWWForm();
         form.AddField("username", UserNameField.text);
         form.AddField("password", PasswordField.text);
+        UnityWebRequest ww = new UnityWebRequest(url, "GET");
+
+
         WWW w = new WWW(url, form);
         yield return w;
-
-        if (w.error != null)
+        
+        Debug.Log(ww);
+        if (ww.error != null)
         {
             errorMessages.text = "404 not found!";
+            Debug.Log(ww.error);
         }
         else
         {
-            if (w.isDone)
+            Debug.Log(ww.downloadHandler.text);
+            if (ww.isDone)
             {
-                if (w.text.Contains("error"))
+                Debug.Log(ww.downloadHandler.text);
+                if (ww.downloadHandler.text.Contains("error"))
                 {
+                    Debug.Log(ww.downloadHandler.text);
                     errorMessages.text = "invalid username or password!";
                 }
                 else
                 {
-                    Debug.Log(w.text);
+                    Debug.Log(ww.downloadHandler.text);
+                    jsonData jsn = JsonUtility.FromJson<jsonData>(ww.downloadHandler.text);
+                    Debug.Log(jsn.UserName);
+                    Debug.Log(jsn.money);
+                    Debug.Log(jsn.reputation);
+                    Debug.Log(jsn.ID);
+                    Debug.Log(jsn.userCarIDSelected);
                 }
             }
         }
 
-        loginButton.interactable = false;
+        loginButton.interactable = true;
         loadingIcon.SetActive(false);
         w.Dispose();
     }
