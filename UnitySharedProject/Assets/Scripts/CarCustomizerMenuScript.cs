@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 using static Stats;
 
@@ -29,6 +30,7 @@ public class CarCustomizerMenuScript : MonoBehaviour
 
     void ShowMenu()
     {
+        Thread.Sleep(500);
         ChangeCarsMenu.SetActive(false);
 
         gameObject.SetActive(true);

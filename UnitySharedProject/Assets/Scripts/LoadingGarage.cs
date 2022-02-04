@@ -16,25 +16,32 @@ public class LoadingGarage : MonoBehaviour
 
     AsyncOperation loadingOperation;
 
+
+    private void Awake()
+    {
+
+    }
+
     private void Update()
     {
-        ////verifica se o user esta loggado ou nao
-        //if (DBManager.loggedIn)
-        //{
-        //    welcome.GetComponent<Text>().text = "Welcome " + DBManager.username;
-        //    buttonPlay.SetActive(true);
-        //    buttonSettings.SetActive(true);
-        //    buttonLogin.SetActive(false);
-        //    buttonRegister.SetActive(false);
-        //}
-        //else
-        //{
-        //    buttonPlay.SetActive(false);
-        //    buttonSettings.SetActive(false);
-        //    buttonLogin.SetActive(true);
-        //    buttonRegister.SetActive(true);
-        //    welcome.GetComponent<Text>().text = "";
-        //}
+
+        //verifica se o user esta loggado ou nao
+        if (Data.Player != null)
+        {
+            welcome.GetComponent<Text>().text = "WELCOME " + Data.Player.UserName.ToUpper();
+            buttonPlay.SetActive(true);
+            buttonSettings.SetActive(true);
+            buttonLogin.SetActive(false);
+            buttonRegister.SetActive(false);
+        }
+        else
+        {
+            buttonPlay.SetActive(false);
+            buttonSettings.SetActive(false);
+            buttonLogin.SetActive(true);
+            buttonRegister.SetActive(true);
+            welcome.GetComponent<Text>().text = "";
+        }
     }
 
     //closes the game

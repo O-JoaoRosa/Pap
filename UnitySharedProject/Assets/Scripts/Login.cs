@@ -14,14 +14,21 @@ public class Login : MonoBehaviour
     public GameObject PopUp;
     public Button loginButton;
     string url = "https://t05-jrosa.vigion.pt/API/Objects/UserGet.php";
-    WWWForm form;
+    public static bool isRemembered = false;
+
+    public void RememberMe()
+    {
+        isRemembered = !isRemembered;
+
+    }
+
 
     /// <summary>
     /// metodo que vai chamar o login de modo asycrono
     /// </summary>
     public void OnLoginClick()
     {
-        loginButton.interactable = true;
+        loginButton.interactable = false;
         loadingIcon.SetActive(true);
         StartCoroutine(LoginUser());
     }
@@ -32,57 +39,68 @@ public class Login : MonoBehaviour
     /// <returns></returns>
     IEnumerator LoginUser()
     {
-        form = new WWWForm();
-        List<IMultipartFormSection> formData = new List<IMultipartFormSection>();
-        formData.Add(new MultipartFormDataSection("username=joaofixe&password=joaofixe"));
+        Debug.Log(UserNameField.text);
 
+        WWWForm form = new WWWForm();
+
+        //cria um formulario que vai enviar a informação de login
         form.AddField("username", UserNameField.text);
         form.AddField("password", PasswordField.text);
+
+        //cria um web request que vai ligar a api e enviar a informação
         UnityWebRequest ww = UnityWebRequest.Post(url, form);
 
-
-
-        WWW www = new WWW("https://t05-jrosa.vigion.pt/API/Objects/UserGet.php", form);
-
+        //inicia o web request
         yield return ww.SendWebRequest();
         
-        Debug.Log(ww.error);
+        //caso haja erros mostra no debug log
         if (ww.error != null)
         {
             errorMessages.text = "404 not found!";
             Debug.Log(ww.error);
+
+            //ativa o butao outra vez
+            loginButton.interactable = true;
         }
         else
         {
-            Debug.Log(ww.downloadHandler.text);
+            //verifica se a se os dados foram enviados ou nao
             if (ww.isDone)
             {
-                Debug.Log(ww.downloadHandler.text);
+                //verifica se o texto enviado tem algum erro
                 if (ww.downloadHandler.text.Contains("error"))
                 {
-                    Debug.Log(ww.downloadHandler.text);
+                    //informa o user que houve um erro
                     errorMessages.text = "invalid username or password!";
+                    loginButton.interactable = true;
                 }
                 else
                 {
-                    Debug.Log(ww.downloadHandler.text);
+                    //guarda o informação mandada pela api
                     string data = ww.downloadHandler.text;
 
-                    Debug.Log(data);
+                    //converte a informação recebida da api para um player
                     jsonData player = JsonUtility.FromJson<jsonData>(data);
+                    
+                    //mostar os dados do jogador
                     Debug.Log(player.UserName);
                     Debug.Log(player.money);
                     Debug.Log(player.reputation);
                     Debug.Log(player.ID);
                     Debug.Log(player.userCarIDSelected);
-                    
+
+                    //passa o player para um objecto que vai manter os dados guardados
+                    Data.Player = player;
+                    loginButton.interactable = false;
                 }
             }
         }
 
-        loginButton.interactable = true;
         loadingIcon.SetActive(false);
         ww.Dispose();
+
+        MenuPrincipal.SetActive(true);
+        gameObject.SetActive(false);
     }
 
     
