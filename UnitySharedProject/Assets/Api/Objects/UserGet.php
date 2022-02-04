@@ -1,6 +1,4 @@
 <?php // Executa o select(id) do Profile na BD
-
-if($_SERVER['REQUEST_METHOD'] == "GET") {
     // Abre a lisgação
     require_once('../dbConnect.php');
 
@@ -11,13 +9,13 @@ if($_SERVER['REQUEST_METHOD'] == "GET") {
     $recordsFound = -1;
 
     // Obtém oo id do url enviado pela app Android
-    $username = $_GET['username'];
-    $password = $_GET['password'];
+    $username = $_POST['username'];
+    $password = $_POST['password'];
 
-    if($debug_On) echo "DEBUG: Dados \n Nickname='$username \n Password=********";
+    if($debug_On) echo "DEBUG: Dados \n username='$username \n password=********";
 
     // Prepara e executa a query e recebe o resultado num objeto dataset
-    $sql = "SELECT `user`.* FROM `user` WHERE `UserName` = '$username' and `Password` = SHA2('$password', 512);";
+    $sql = "SELECT `ID`,`UserName`,`Money`,`Reputation`,`Image`,`UserCarIDSelected` FROM `user` WHERE `UserName` = '$username' and `Password` = SHA2('$password', 512);";
 
     //resposta do dbms
     $dbmsResponse = mysqli_query($con, $sql);
@@ -51,7 +49,7 @@ if($_SERVER['REQUEST_METHOD'] == "GET") {
                 "UserCarIDSelected"=>$row['UserCarIDSelected'],            // Atributo LoginStatus, seguido do seu valor
             ));
 
-            echo json_encode(array($result));
+            echo json_encode($row);
         } else {
             echo "\nNenhum registo foi encontrado.";
         }
@@ -59,5 +57,4 @@ if($_SERVER['REQUEST_METHOD'] == "GET") {
 
     // fecha a ligação
     mysqli_close($con);
-}
 ?>

@@ -33,15 +33,20 @@ public class Login : MonoBehaviour
     IEnumerator LoginUser()
     {
         form = new WWWForm();
+        List<IMultipartFormSection> formData = new List<IMultipartFormSection>();
+        formData.Add(new MultipartFormDataSection("username=joaofixe&password=joaofixe"));
+
         form.AddField("username", UserNameField.text);
         form.AddField("password", PasswordField.text);
-        UnityWebRequest ww = new UnityWebRequest(url, "GET");
+        UnityWebRequest ww = UnityWebRequest.Post(url, form);
 
 
-        WWW w = new WWW(url, form);
-        yield return w;
+
+        WWW www = new WWW("https://t05-jrosa.vigion.pt/API/Objects/UserGet.php", form);
+
+        yield return ww.SendWebRequest();
         
-        Debug.Log(ww);
+        Debug.Log(ww.error);
         if (ww.error != null)
         {
             errorMessages.text = "404 not found!";
@@ -61,19 +66,23 @@ public class Login : MonoBehaviour
                 else
                 {
                     Debug.Log(ww.downloadHandler.text);
-                    jsonData jsn = JsonUtility.FromJson<jsonData>(ww.downloadHandler.text);
-                    Debug.Log(jsn.UserName);
-                    Debug.Log(jsn.money);
-                    Debug.Log(jsn.reputation);
-                    Debug.Log(jsn.ID);
-                    Debug.Log(jsn.userCarIDSelected);
+                    string data = ww.downloadHandler.text;
+
+                    Debug.Log(data);
+                    jsonData player = JsonUtility.FromJson<jsonData>(data);
+                    Debug.Log(player.UserName);
+                    Debug.Log(player.money);
+                    Debug.Log(player.reputation);
+                    Debug.Log(player.ID);
+                    Debug.Log(player.userCarIDSelected);
+                    
                 }
             }
         }
 
         loginButton.interactable = true;
         loadingIcon.SetActive(false);
-        w.Dispose();
+        ww.Dispose();
     }
 
     

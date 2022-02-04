@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 [Serializable]
 public class jsonData
@@ -10,3 +11,6 @@ public class jsonData
     public int money;
     public int userCarIDSelected;
 }
+
+public class ActivePlayer { public jsonData activePlayer { get; set; } }
+
