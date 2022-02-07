@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Data : MonoBehaviour
 {
-
     public static jsonData Player;
     [SerializeField]public jsonData plyr;
 

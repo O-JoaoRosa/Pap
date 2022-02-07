@@ -12,8 +12,8 @@ public class TriggerArea : MonoBehaviour
         //Checks if he can trigger the menu again or not
         if (canTrigger)
         {
-            EventController.current.GarageTriggerEnter();
             menuBackground.SetActive(true);
+            EventController.current.GarageTriggerEnter();
             canTrigger = false;
         }
     }

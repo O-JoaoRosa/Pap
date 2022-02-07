@@ -55,7 +55,7 @@ public class TriggerCarSelector : MonoBehaviour
     {
         ModelCar = PlayerCar.transform.Find("CarModel/Car").gameObject;
 
-        Destroy(PlayerCar,0);
+        PlayerCar.SetActive(false);
 
         mainCamera.transform.LeanMoveLocal(new Vector3(6.32f, 12.13f, -31.54f), 2f).setEaseOutExpo();
         mainCamera.transform.LeanRotate(new Vector3(5f,88f,0.728f),1f);
