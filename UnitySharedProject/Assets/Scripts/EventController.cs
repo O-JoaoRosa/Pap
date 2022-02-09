@@ -64,4 +64,23 @@ public class EventController : MonoBehaviour
             onRaceStartExit();
         }
     }
+
+    public event Action onCheck1;
+    public void Check1Exit()
+    {
+        if (onCheck1 != null)
+        {
+            onCheck1();
+        }
+    }
+
+    public event Action onCheck2;
+    public void Check2Exit()
+    {
+        if (onCheck2 != null)
+        {
+            onCheck2();
+        }
+    }
+
 }
