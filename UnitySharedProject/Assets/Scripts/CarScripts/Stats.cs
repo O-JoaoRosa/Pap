@@ -8,13 +8,13 @@ public class Stats : MonoBehaviour
     //TODO : preciso de comentar isto para saber oq cada faz
     //TODO : nao esquecer de enquanto tiver no meu pc é melhor fazer a api para os carros 
 
-    [SerializeField] static public float rarity {get; set;}
-    [SerializeField] static public float fowardSpeed {get; set;}
-    [SerializeField] static public float reverseSpeed { get; set; }
-    [SerializeField] static public float turnSpeed { get; set; }
-    [SerializeField] static public float groundDrag { get; set; }
-    [SerializeField] static public float airDrag { get; set; }
-    [SerializeField] static public string carName { get; set; }
+    static public float rarity {get; set;}
+    static public float fowardSpeed {get; set;}
+    static public float reverseSpeed { get; set; }
+    static public float turnSpeed { get; set; }
+    static public float groundDrag { get; set; }
+    static public float airDrag { get; set; }
+    static public string carName { get; set; }
     static public float defaultTurnAngle { get; set; }
     static public float DriftTurnAngle { get; set; }
 

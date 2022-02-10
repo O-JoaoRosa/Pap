@@ -5,6 +5,7 @@ using UnityEngine;
 public class Data : MonoBehaviour
 {
     public static jsonData Player;
+    public static List<CarData> cars = new List<CarData>();
     [SerializeField]public jsonData plyr;
 
     // Start is called before the first frame update
