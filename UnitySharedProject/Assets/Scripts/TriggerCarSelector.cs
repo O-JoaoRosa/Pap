@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class TriggerCarSelector : MonoBehaviour
 {
-    bool canTrigger = true;
+    static bool canTrigger = true;
 
     [SerializeField]
     [Header("camera")]
@@ -13,7 +13,7 @@ public class TriggerCarSelector : MonoBehaviour
     [Header("player")]
     private GameObject PlayerCar;
 
-    private Transform cameraOriginalPos;
+    public static Vector3 cameraOriginalPos;
     private GameObject ModelCar;
 
 
@@ -21,7 +21,8 @@ public class TriggerCarSelector : MonoBehaviour
     {
         //associa o evento criado no script eventController com o metodo
         EventController.current.onCarSelectorEnter += CamaraSet;
-        cameraOriginalPos = mainCamera.transform;
+        EventController.current.onCarSelectorExit += ResetCam;
+        cameraOriginalPos = mainCamera.transform.position;
     }
 
     private void Update()
@@ -50,6 +51,15 @@ public class TriggerCarSelector : MonoBehaviour
         canTrigger = true;
 
     }
+
+    private void ResetCam()
+    {
+        PlayerCar.transform.position = GameObject.Find("Car(Clone)").transform.position;
+        mainCamera.transform.LeanMoveLocal(cameraOriginalPos, 2f).setEaseOutExpo();
+        PlayerCar.SetActive(true);
+
+    }
+
 
     private void CamaraSet()
     {

@@ -49,7 +49,7 @@
                 "UserCarIDSelected"=>$row['UserCarIDSelected'],            // Atributo LoginStatus, seguido do seu valor
             ));
 
-            echo json_encode($row);
+            echo json_encode($result);
         } else {
             echo "\nNenhum registo foi encontrado.";
         }

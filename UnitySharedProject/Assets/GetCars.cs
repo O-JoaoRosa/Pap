@@ -45,7 +45,12 @@ public class GetCars : MonoBehaviour
                     i++;
 
                 }while (test.Length > i);
-                Debug.Log(Data.cars[0].Descri);
+
+                Debug.Log(Data.cars[0]);
+                Debug.Log(Data.cars[1]);
+                Debug.Log(Data.cars[2]);
+                Debug.Log(Data.cars[3]);
+                Debug.Log(Data.cars[4]);
             }
         }
 

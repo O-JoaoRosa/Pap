@@ -76,8 +76,14 @@ public class Login : MonoBehaviour
                 }
                 else
                 {
+
+
+                    Debug.Log(ww.downloadHandler.text);
+
                     //guarda o informação mandada pela api
                     string data = ww.downloadHandler.text;
+                    data = data.Replace("[", "");
+                    data = data.Replace("]", "");
 
                     //converte a informação recebida da api para um player
                     jsonData player = JsonUtility.FromJson<jsonData>(data);
@@ -87,7 +93,7 @@ public class Login : MonoBehaviour
                     Debug.Log(player.money);
                     Debug.Log(player.reputation);
                     Debug.Log(player.ID);
-                    Debug.Log(player.userCarIDSelected);
+                    Debug.Log(player.UserCarIDSelected);
 
                     //passa o player para um objecto que vai manter os dados guardados
                     Data.Player = player;

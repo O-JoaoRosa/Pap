@@ -5,53 +5,98 @@ using UnityEngine;
 public class CarManager : MonoBehaviour
 {
     [SerializeField] GameObject CarParent;
-    [SerializeField] Vector3 pos;
-    [SerializeField] Quaternion rot;
+    static GameObject CarParentst;
+    [SerializeField] static Vector3 pos;
+    [SerializeField] static Quaternion rot;
 
-    [Header("Models")][SerializeField]
-    GameObject car1;
-    GameObject car2;
-    GameObject car3;
-    GameObject car4;
-    GameObject car5;
-    GameObject car6;
-    GameObject car0;
+    public GameObject carId1;
 
-    // Start is called before the first frame update
-    void Awake()
+    public GameObject carId2;
+
+    public GameObject car3;
+
+    public GameObject car4;
+
+    public GameObject car5;
+
+    public GameObject car6;
+
+    public GameObject car0;
+
+
+
+    static GameObject carId1st;
+    static GameObject carId2st;
+    static GameObject car3st;
+    static GameObject car4st;
+    static GameObject car5st;
+    static GameObject car6st;
+    static GameObject car0st;
+     
+
+    public static void UpdateCarUsed() 
     {
-        pos = CarParent.transform.GetChild(0).localPosition;
-        rot = CarParent.transform.GetChild(0).rotation;
-        Destroy(CarParent.transform.GetChild(0));
-        switch (Data.Player.userCarIDSelected)
+        pos = CarParentst.transform.GetChild(0).localPosition;
+        rot = CarParentst.transform.GetChild(0).rotation;
+
+        if (GameObject.Find("CarRoot/CarModel/Car"))
+        {
+            Destroy(GameObject.Find("CarRoot/CarModel/Car"));
+        }
+        else
+        {
+            Destroy(GameObject.Find("CarRoot/CarModel/Car(Clone)"));
+        }
+
+        switch (Data.Player.UserCarIDSelected)
         {
             case 1:
-                car1 = Instantiate(car1,CarParent.transform.position, rot, CarParent.transform);
-                break; 
+                carId1st.transform.localScale = new Vector3(0.45f, 0.45f, 0.45f);
+                carId1st = Instantiate(carId1st, CarParentst.transform.position, rot, CarParentst.transform);
+                carId1st.name = "Car";
+                break;
 
             case 2:
-                car2 = Instantiate(car2, CarParent.transform.position, rot, CarParent.transform);
+                carId2st = Instantiate(carId2st, CarParentst.transform.position, rot, CarParentst.transform);
                 break;
 
             case 3:
-                car3 = Instantiate(car3, CarParent.transform.position, rot, CarParent.transform);
+                car3st = Instantiate(car3st, CarParentst.transform.position, rot, CarParentst.transform);
                 break;
 
             case 4:
-                car4 = Instantiate(car4, CarParent.transform.position, rot, CarParent.transform);
+                car4st = Instantiate(car4st, CarParentst.transform.position, rot, CarParentst.transform);
                 break;
 
             case 5:
-                car5 = Instantiate(car5, CarParent.transform.position, rot, CarParent.transform);
+                car5st = Instantiate(car5st, CarParentst.transform.position, rot, CarParentst.transform);
                 break;
 
             case 6:
-                car6 = Instantiate(car6, CarParent.transform.position, rot, CarParent.transform);
+                car6st = Instantiate(car6st, CarParentst.transform.position, rot, CarParentst.transform);
                 break;
 
             default:
-                car0 = Instantiate(car0, CarParent.transform.position, rot, CarParent.transform);
+                car0st = Instantiate(car0st, CarParentst.transform.position, rot, CarParentst.transform);
                 break;
         }
+    }
+
+    private void Awake()
+    {
+        CarParentst = CarParent;
+        car0st = car0;
+        carId1st = carId1;
+        carId2st = carId2;
+        car3st = car3;
+        car4st = car4;
+        car5st = car5;
+        car6st = car6;
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        UpdateCarUsed();
     }
 }

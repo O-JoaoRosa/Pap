@@ -1,9 +1,5 @@
 <?php // Executa o Update do User na BD
 
-	// Extrai o método de comunicação.
-	// É apenas mais um keyValuePair que vem na comunicação e que nos permite
-	// destinguir o que fazer a seguir.
-	if($_SERVER['REQUEST_METHOD']=='POST'){
 
 		// Abre a ligação
 		require_once('../dbConnect.php');
@@ -16,17 +12,13 @@
 
 		// Extrai os dados, a partir de 4 keyValuePairs do url
         $ID = $_POST['ID'];
-        $Name = $_POST['Name'];
-        $Nickname = $_POST['Nickname'];
-        $Email = $_POST['Email'];
-        $Gender = intval($_POST['Gender']);
-        $BornDate = $_POST['BornDate'];
-        $BornDate = date("Y-m-d", strtotime($BornDate));	// dateTime para mySQL tem que ser formatada
-        $Password = $_POST['Password'];
-        $UserPicURL = $_POST['UserPicURL'];
+        $UserName = $_POST['UserName'];
+        $Money = $_POST['Money'];
+        $Reputation = $_POST['Reputation'];
+        $UserCarIDSelected = $_POST['UserCarIDSelected'];
 
 		// Construção da DML Update com os dados recebidos do Android
-		$sql = "UPDATE `User` SET Name='$Name', Nickname='$Nickname', Email='$Email', Gender=$Gender, BornDate='$BornDate', Password='$Password', UserPicURL='$UserPicURL' WHERE ID = $ID;";
+		$sql = "UPDATE `User` SET UserName='$UserName', Money='$Money', Reputation='$Reputation', UserCarIDSelected=$UserCarIDSelected WHERE ID = $ID;";
 
         //Executa a query e guarda o resultado.
         $dbmsResponse = mysqli_query($con,$sql);
@@ -52,5 +44,4 @@
 
 		//fecha ligação
 		mysqli_close($con);
-	}
 ?>

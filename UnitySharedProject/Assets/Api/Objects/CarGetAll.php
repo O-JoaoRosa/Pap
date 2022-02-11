@@ -43,6 +43,8 @@
 					"DefaultTurnAngle"=>$row['DefaultTurnAngle'],
 					"GroundDrag"=>$row['GroundDrag'],
 					"AirDrag"=>$row['AirDrag'],
+					"TurnSpeed"=>$row['TurnSpeed'],
+					"Rarity"=>$row['Rarity'],
 				));
 
 				// NOTA: Atributos são case sensitive.
