@@ -45,6 +45,13 @@ public class Register : MonoBehaviour
     public void CallRegister()
     {
         StartCoroutine(RegisterUser());
+        gameObject.SetActive(false);
+        MenuLogin.SetActive(false);
+    }
+
+    public void Cancel()
+    {
+        MenuPrincipal.SetActive(true);
     }
 
     public void Update()
@@ -77,6 +84,8 @@ public class Register : MonoBehaviour
         {
             Debug.Log("ERRO: " + url.text);
         }
+
+        isLoading = false;
     }
 
 
@@ -86,6 +95,10 @@ public class Register : MonoBehaviour
         {
             loading.SetActive(true);
             loadingImage.transform.LeanRotate(new Vector3(0, 0, 360f), 3f).callOnCompletes();
+        }
+        else
+        {
+            loading.SetActive(false);
         }
     }
 

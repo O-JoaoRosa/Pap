@@ -5,6 +5,7 @@ using UnityEngine;
 public class Data : MonoBehaviour
 {
     public static jsonData Player;
+    public static CarData ActiveCar;
     public static List<CarData> cars = new List<CarData>();
     [SerializeField]public jsonData plyr;
 
@@ -25,6 +26,8 @@ public class Data : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         plyr = Player;
+        ActiveCar = cars[Player.UserCarIDSelected];
     }
 }

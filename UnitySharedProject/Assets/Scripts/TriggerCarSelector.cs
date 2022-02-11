@@ -30,7 +30,7 @@ public class TriggerCarSelector : MonoBehaviour
         //verifica se o botão esc foi carregado para sair da pausa
         if (Input.GetKey(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Escape) && !canTrigger)
         {
-            mainCamera.transform.LeanMoveLocal(cameraOriginalPos.position, 2f).setEaseInOutExpo();
+            mainCamera.transform.LeanMoveLocal(cameraOriginalPos, 2f).setEaseInOutExpo();
             EventController.current.CarSelectorExit();
             canTrigger = true;
         }
@@ -54,8 +54,17 @@ public class TriggerCarSelector : MonoBehaviour
 
     private void ResetCam()
     {
-        PlayerCar.transform.position = GameObject.Find("Car(Clone)").transform.position;
-        mainCamera.transform.LeanMoveLocal(cameraOriginalPos, 2f).setEaseOutExpo();
+        CarManager.UpdateCarUsed();
+        if (GameObject.Find("Car(Clone)"))
+        {
+            PlayerCar.transform.position = GameObject.Find("Car(Clone)").transform.position;
+        }
+        else
+        {
+            PlayerCar.transform.position = GameObject.Find("Car").transform.position;
+        }
+       
+        mainCamera.transform.LeanMoveLocal(cameraOriginalPos, 1.5f).setEaseOutExpo();
         PlayerCar.SetActive(true);
 
     }
@@ -63,7 +72,7 @@ public class TriggerCarSelector : MonoBehaviour
 
     private void CamaraSet()
     {
-        ModelCar = PlayerCar.transform.Find("CarModel/Car").gameObject;
+        ModelCar = GameObject.Find("CarRoot/CarModel/Car");
 
         PlayerCar.SetActive(false);
 

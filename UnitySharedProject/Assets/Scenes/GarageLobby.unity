@@ -2608,8 +2608,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CarParent: {fileID: 678489212}
-  pos: {x: 0, y: 0, z: 0}
-  rot: {x: 0, y: 0, z: 0, w: 0}
   carId1: {fileID: 919132149155446097, guid: 08bbade38a32acc42b408a069661da4d, type: 3}
   carId2: {fileID: 919132149155446097, guid: 60d11316d03cb8145a7473d95cc50f10, type: 3}
   car3: {fileID: 919132149155446097, guid: 062524b40ba102d498bbdb1fe3265ce9, type: 3}
@@ -7085,7 +7083,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1395362085
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8049,10 +8047,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6382b0e193ea3744f8f62a34c89e0ff7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  car1: {fileID: 919132149155446097, guid: 08bbade38a32acc42b408a069661da4d, type: 3}
-  car2: {fileID: 919132149155446097, guid: 60d11316d03cb8145a7473d95cc50f10, type: 3}
-  car3: {fileID: 919132149155446097, guid: 062524b40ba102d498bbdb1fe3265ce9, type: 3}
-  car4: {fileID: 919132149155446097, guid: 716f83e888a54e749aa44182dbfaad41, type: 3}
+  car1Prefab: {fileID: 919132149155446097, guid: 08bbade38a32acc42b408a069661da4d, type: 3}
+  car2Prefab: {fileID: 919132149155446097, guid: 60d11316d03cb8145a7473d95cc50f10, type: 3}
+  car3Prefab: {fileID: 919132149155446097, guid: 062524b40ba102d498bbdb1fe3265ce9, type: 3}
+  car4Prefab: {fileID: 919132149155446097, guid: 716f83e888a54e749aa44182dbfaad41, type: 3}
   player: {fileID: 2012175185}
 --- !u!1 &1594306006
 GameObject:
@@ -8984,7 +8982,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1713762113
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9874,7 +9872,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1891924128
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11052,7 +11050,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2146190652
 RectTransform:
   m_ObjectHideFlags: 0
@@ -11700,10 +11698,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1633759658938756383, guid: a88bea83f723f78489acc2fc1dc16791, type: 3}
-      propertyPath: CarParent
-      value: 
-      objectReference: {fileID: 678489212}
     - target: {fileID: 2676612356238723136, guid: a88bea83f723f78489acc2fc1dc16791, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 0

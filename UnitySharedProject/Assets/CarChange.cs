@@ -5,8 +5,10 @@ using UnityEngine.Networking;
 
 public class CarChange : MonoBehaviour
 {
-    public GameObject car1, car2, car3, car4;
+    public GameObject car1Prefab, car2Prefab, car3Prefab, car4Prefab;
+    private GameObject car1, car2, car3, car4;
     public GameObject player;
+    Vector3 pos;
     string url = "https://t05-jrosa.vigion.pt/API/Objects/CarGetAll.php";
 
 
@@ -24,10 +26,18 @@ public class CarChange : MonoBehaviour
 
     public void onClickCar1()
     {
-        Vector3 pos  = GameObject.Find("Car(Clone)").transform.position;
-        pos.y = pos.y - 4.9f; 
-        Destroy(GameObject.Find("Car(Clone)"));
-        Instantiate(car1, pos, new Quaternion(0, 0f, 0, 0)).LeanRotate(new Vector3(0, -144f, 0), 0f);
+        if (GameObject.Find("Car(Clone)"))
+        {
+            pos = GameObject.Find("Car(Clone)").transform.position;
+            Destroy(GameObject.Find("Car(Clone)"));
+        }
+        else
+        {
+            pos = GameObject.Find("Car").transform.position;
+            Destroy(GameObject.Find("Car"));
+        }
+        car1 = Instantiate(car1Prefab, pos, new Quaternion(0, 0f, 0, 0));
+        car1.LeanRotate(new Vector3(0, -144f, 0), 0f);
         car1.name = "Car";
         Data.Player.UserCarIDSelected = 1;
 
@@ -36,10 +46,18 @@ public class CarChange : MonoBehaviour
 
     public void onClickCar2()
     {
-        Vector3 pos  = GameObject.Find("Car(Clone)").transform.position;
-        pos.y = pos.y - 4.9f; 
-        Destroy(GameObject.Find("Car(Clone)"));
-        Instantiate(car2, pos, new Quaternion(0, 0f, 0, 0)).LeanRotate(new Vector3(0, -144f, 0), 0f);
+        if (GameObject.Find("Car(Clone)"))
+        {
+            pos = GameObject.Find("Car(Clone)").transform.position;
+            Destroy(GameObject.Find("Car(Clone)"));
+        }
+        else
+        {
+            pos = GameObject.Find("Car").transform.position;
+            Destroy(GameObject.Find("Car"));
+        }
+        car2 = Instantiate(car2Prefab, pos, new Quaternion(0, 0f, 0, 0));
+        car2.LeanRotate(new Vector3(0, -144f, 0), 0f);
         car2.name = "Car";
         Data.Player.UserCarIDSelected = 2;
 
@@ -47,10 +65,18 @@ public class CarChange : MonoBehaviour
 
     public void onClickCar3()
     {
-        Vector3 pos  = GameObject.Find("Car(Clone)").transform.position;
-        pos.y = pos.y - 4.9f; 
-        Destroy(GameObject.Find("Car(Clone)"));
-        Instantiate(car3, pos, new Quaternion(0, 0f, 0, 0)).LeanRotate(new Vector3(0, -144f, 0), 0f);
+        if (GameObject.Find("Car(Clone)"))
+        {
+            pos = GameObject.Find("Car(Clone)").transform.position;
+            Destroy(GameObject.Find("Car(Clone)"));
+        }
+        else
+        {
+            pos = GameObject.Find("Car").transform.position;
+            Destroy(GameObject.Find("Car"));
+        }
+        car3 = Instantiate(car3Prefab, pos, new Quaternion(0, 0f, 0, 0));
+        car3.LeanRotate(new Vector3(0, -144f, 0), 0f);
         car3.name = "Car";
         Data.Player.UserCarIDSelected = 3;
 
@@ -58,10 +84,18 @@ public class CarChange : MonoBehaviour
 
     public void onClickCar4()
     {
-        Vector3 pos  = GameObject.Find("Car(Clone)").transform.position;
-        pos.y = pos.y - 4.9f; 
-        Destroy(GameObject.Find("Car(Clone)"));
-        Instantiate(car4, pos, new Quaternion(0, 0f, 0, 0)).LeanRotate(new Vector3(0, -144f, 0), 0f);
+        if (GameObject.Find("Car(Clone)"))
+        {
+            pos = GameObject.Find("Car(Clone)").transform.position;
+            Destroy(GameObject.Find("Car(Clone)"));
+        }
+        else
+        {
+            pos = GameObject.Find("Car").transform.position;
+            Destroy(GameObject.Find("Car"));
+        }
+        car4 = Instantiate(car4Prefab, pos, new Quaternion(0, 0f, 0, 0));
+        car4.LeanRotate(new Vector3(0, -144f, 0), 0f);
         car4.name = "Car";
         Data.Player.UserCarIDSelected = 0;
 
@@ -71,6 +105,7 @@ public class CarChange : MonoBehaviour
     public void UpdateCar()
     {
         StartCoroutine(UpdateCarSelected());
+        EventController.current.CarSelectorExit();
     }
 
     IEnumerator UpdateCarSelected()
@@ -87,10 +122,12 @@ public class CarChange : MonoBehaviour
 
         //inicia o web request
         yield return ww.SendWebRequest();
+        Debug.Log(ww.downloadHandler.text);
 
         //caso haja erros mostra no debug log
         if (ww.error != null)
         {
+            Debug.Log(ww.downloadHandler.text);
             Debug.LogError(ww.error);
         }
         else
@@ -99,9 +136,11 @@ public class CarChange : MonoBehaviour
             {
                 if (ww.downloadHandler.text.Contains("sucesso"))
                 {
+                    Debug.Log(ww.downloadHandler.text);
                     //TODO : Pop up a confirmar que funcionou
                 }
             }
         }
+        ww.Dispose();
     }
 }

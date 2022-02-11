@@ -51,33 +51,39 @@ public class CarManager : MonoBehaviour
         switch (Data.Player.UserCarIDSelected)
         {
             case 1:
-                carId1st.transform.localScale = new Vector3(0.45f, 0.45f, 0.45f);
+                carId1st.transform.localScale = new Vector3(0.38f, 0.38f, 0.38f);
                 carId1st = Instantiate(carId1st, CarParentst.transform.position, rot, CarParentst.transform);
                 carId1st.name = "Car";
                 break;
 
             case 2:
                 carId2st = Instantiate(carId2st, CarParentst.transform.position, rot, CarParentst.transform);
+                carId2st.name = "Car";
                 break;
 
             case 3:
                 car3st = Instantiate(car3st, CarParentst.transform.position, rot, CarParentst.transform);
+                car3st.name = "Car";
                 break;
 
             case 4:
                 car4st = Instantiate(car4st, CarParentst.transform.position, rot, CarParentst.transform);
+                car4st.name = "Car";
                 break;
 
             case 5:
                 car5st = Instantiate(car5st, CarParentst.transform.position, rot, CarParentst.transform);
+                car5st.name = "Car";
                 break;
 
             case 6:
                 car6st = Instantiate(car6st, CarParentst.transform.position, rot, CarParentst.transform);
+                car6st.name = "Car";
                 break;
 
             default:
                 car0st = Instantiate(car0st, CarParentst.transform.position, rot, CarParentst.transform);
+                car0st.name = "Car";
                 break;
         }
     }
