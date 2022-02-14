@@ -26,8 +26,7 @@ public class Data : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        plyr = Player;
-        ActiveCar = cars[Player.UserCarIDSelected];
+        //plyr = Player;
+        //ActiveCar = cars[Player.UserCarIDSelected];
     }
 }

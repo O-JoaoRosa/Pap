@@ -50,7 +50,6 @@ public class GetCars : MonoBehaviour
                 Debug.Log(Data.cars[1]);
                 Debug.Log(Data.cars[2]);
                 Debug.Log(Data.cars[3]);
-                Debug.Log(Data.cars[4]);
             }
         }
 

@@ -51,6 +51,7 @@ public class Register : MonoBehaviour
 
     public void Cancel()
     {
+        gameObject.SetActive(false);
         MenuPrincipal.SetActive(true);
     }
 
