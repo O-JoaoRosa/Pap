@@ -11,15 +11,23 @@ public class LoadingGarage : MonoBehaviour
     [Header("Buttons")]
     public GameObject buttonPlay;
     public GameObject buttonSettings;
+    public GameObject buttonQuit;
     public GameObject buttonLogin;
     public GameObject buttonRegister;
+    public GameObject buttonMusic;
+    public GameObject buttonLogOut;
+    public GameObject buttonBack;
+
+
 
     AsyncOperation loadingOperation;
 
 
     private void Awake()
     {
-
+        buttonBack.SetActive(false);
+        buttonMusic.SetActive(false);
+        buttonLogOut.SetActive(false);
     }
 
     private void Update()
@@ -55,6 +63,45 @@ public class LoadingGarage : MonoBehaviour
     {
         StartCoroutine(loadingAnimation());
     }
+
+    public void SetttingsClick()
+    {
+        buttonBack.SetActive(true);
+        buttonMusic.SetActive(true);
+        buttonLogOut.SetActive(true);
+
+        buttonSettings.SetActive(false);
+        buttonPlay.SetActive(false);
+        buttonQuit.SetActive(false);
+    }
+
+    public void BackClick()
+    {
+        buttonSettings.SetActive(true);
+        buttonPlay.SetActive(true);
+        buttonQuit.SetActive(true);
+
+        buttonBack.SetActive(false);
+        buttonMusic.SetActive(false);
+        buttonLogOut.SetActive(false);
+    }
+
+    public void LogOut()
+    {
+        Data.Player = null;
+
+        buttonSettings.SetActive(true);
+        buttonPlay.SetActive(true);
+        buttonQuit.SetActive(true);
+
+        buttonBack.SetActive(false);
+        buttonMusic.SetActive(false);
+        buttonLogOut.SetActive(false);
+
+        PlayerPrefs.SetString("isRemembered", "false");
+        PlayerPrefs.Save();
+    }
+
 
     //metod used to play the animations before loading the game
     private IEnumerator loadingAnimation()

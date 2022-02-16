@@ -2,12 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
+using UnityEngine.UI;
 using static Stats;
 
 public class CarCustomizerMenuScript : MonoBehaviour
 {
     public GameObject ChangeCarsMenu;
     public GameObject FirstMenu;
+    public GameObject CarStatsMenu;
+    public GameObject CarListMenu;
+
+    [Header("Stats")]
+    public GameObject AccelarationBar;
+    public GameObject TurningBar;
+    public GameObject MaxSpeedBar;
+    public Text CarName;
 
     // Start is called before the first frame update
     void Start()
@@ -40,6 +49,18 @@ public class CarCustomizerMenuScript : MonoBehaviour
             GameObject.Find("Star" + i);
         }
     }
+
+    void ChangeCar()
+    {
+        FirstMenu.SetActive(false);
+        CarStatsMenu.SetActive(true);
+    }
+
+    void NextCar()
+    {
+        
+    }
+
 
     public void ChangeCarsButton()
     {

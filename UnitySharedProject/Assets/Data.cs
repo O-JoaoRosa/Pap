@@ -27,6 +27,6 @@ public class Data : MonoBehaviour
     void Update()
     {
         //plyr = Player;
-        //ActiveCar = cars[Player.UserCarIDSelected];
+        ActiveCar = cars[Player.UserCarIDSelected];
     }
 }

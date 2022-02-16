@@ -81,7 +81,6 @@ public class TriggerCarSelector : MonoBehaviour
 
         Vector3 pos = gameObject.transform.position;
         pos.y = pos.y + 4.82f;
-        ModelCar.transform.localScale *= 3.3f;
         Instantiate(ModelCar, pos, new Quaternion(0,0f,0,0)).LeanRotate(new Vector3(0,-144f,0), 0f);
     }
 }

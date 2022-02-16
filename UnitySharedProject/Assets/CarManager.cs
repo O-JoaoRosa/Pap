@@ -37,6 +37,7 @@ public class CarManager : MonoBehaviour
     public static void UpdateCarUsed() 
     {
         pos = CarParentst.transform.GetChild(0).localPosition;
+        pos.y = pos.y - 3f;
         rot = CarParentst.transform.GetChild(0).rotation;
 
         if (GameObject.Find("CarRoot/CarModel/Car"))
@@ -51,7 +52,6 @@ public class CarManager : MonoBehaviour
         switch (Data.Player.UserCarIDSelected)
         {
             case 1:
-                carId1st.transform.localScale = new Vector3(0.38f, 0.38f, 0.38f);
                 carId1st = Instantiate(carId1st, CarParentst.transform.position, rot, CarParentst.transform);
                 carId1st.name = "Car";
                 break;

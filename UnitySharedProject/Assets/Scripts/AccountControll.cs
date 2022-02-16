@@ -25,6 +25,21 @@ public class AccountControll : MonoBehaviour
         RegisterMenuSt = RegisterMenu;
         LoginMenuSt = LoginMenu;
         MainMenuSt = MainMenu;
+
+        if (bool.Parse(PlayerPrefs.GetString("isRemembered")))
+        {
+            Debug.Log("Account Remembered");
+            Debug.Log("getting data from player prefs");
+
+            username = PlayerPrefs.GetString("username");
+            Debug.Log(username);
+
+            password = PlayerPrefs.GetString("password");
+            Debug.Log(password);
+
+            StartCoroutine(rememberedLogin());
+
+        }
     }
 
     // Update is called once per frame
@@ -45,26 +60,9 @@ public class AccountControll : MonoBehaviour
 
     public void ActivateMenuLogin()
     {
-        if (Login.isRemembered)
-        {
-            Debug.Log("Account Remembered");
-            Debug.Log("getting data from player prefs");
-
-            username = PlayerPrefs.GetString("username");
-            Debug.Log(username);
-
-            password = PlayerPrefs.GetString("password");
-            Debug.Log(password);
-
-            StartCoroutine(rememberedLogin());
-           
-        }
-        else
-        {
-            RegisterMenu.SetActive(false);
-            LoginMenu.SetActive(true);
-            MainMenu.SetActive(false);
-        }
+        RegisterMenu.SetActive(false);
+        LoginMenu.SetActive(true);
+        MainMenu.SetActive(false);
     }
 
 

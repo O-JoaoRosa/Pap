@@ -105,6 +105,8 @@ public class CarChange : MonoBehaviour
     public void UpdateCar()
     {
         StartCoroutine(UpdateCarSelected());
+        gameObject.SetActive(false);
+        Destroy(GameObject.Find("Car(Clone)"));
         EventController.current.CarSelectorExit();
     }
 

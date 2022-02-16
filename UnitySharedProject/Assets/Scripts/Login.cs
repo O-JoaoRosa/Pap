@@ -27,9 +27,12 @@ public class Login : MonoBehaviour
 
     private void Awake()
     {
-
-        loadingIcon.SetActive(false);
-        isRemembered = bool.Parse(PlayerPrefs.GetString("isRemembered"));
+        if (PlayerPrefs.GetString("isRemembered") != null || PlayerPrefs.GetString("isRemembered") != "")
+        {
+            Debug.Log(PlayerPrefs.GetString("isRemembered"));
+            loadingIcon.SetActive(false);
+            isRemembered = bool.Parse(PlayerPrefs.GetString("isRemembered"));
+        }
     }
 
     public void RememberMe()
