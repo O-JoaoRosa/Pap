@@ -20,13 +20,39 @@ public class Data : MonoBehaviour
         }
 
         DontDestroyOnLoad(this.gameObject);
-
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        //plyr = Player;
-        ActiveCar = cars[Player.UserCarIDSelected];
+        plyr = Player;
+
+        if (Player != null)
+        {
+            if (ActiveCar != null)
+            {
+                if (ActiveCar.ID != Player.UserCarIDSelected)
+                {
+                    Debug.Log("mudança no carro selecionado encontrada");
+                    ActiveCar = cars[Player.UserCarIDSelected];
+                    Debug.Log(ActiveCar.ID);
+                    Debug.Log(ActiveCar.FowardSpeed);
+                    Debug.Log(ActiveCar.DefaultTurnAngle);
+                    Debug.Log(ActiveCar.TurnSpeed);
+                    Debug.Log(ActiveCar.DriftTurnAngle);
+                }
+            }
+            else
+            {
+                ActiveCar = cars[Player.UserCarIDSelected];
+                Debug.Log(ActiveCar.ID);
+                Debug.Log(ActiveCar.FowardSpeed);
+                Debug.Log(ActiveCar.DefaultTurnAngle);
+                Debug.Log(ActiveCar.TurnSpeed);
+                Debug.Log(ActiveCar.DriftTurnAngle);
+            }
+        }
+        
     }
 }

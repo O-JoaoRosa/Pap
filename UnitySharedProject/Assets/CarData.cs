@@ -5,16 +5,16 @@ using UnityEngine;
 [SerializeField]
 public class CarData
 {
-    public static int ID;
-    public static string Descri;
-    public static int ReputationRequired;
-    public static int Price;
-    public static float FowardSpeed;
-    public static float DriftTurnAngle;
-    public static float DefaultTurnAngle;
-    public static float GroundDrag;
-    public static float AirDrag;
-    public static float TurnSpeed;
-    public static int Rarity;
+    public int ID;
+    public string Descri;
+    public int ReputationRequired;
+    public int Price;
+    public float FowardSpeed;
+    public float DriftTurnAngle;
+    public float DefaultTurnAngle;
+    public float GroundDrag;
+    public float AirDrag;
+    public float TurnSpeed;
+    public int Rarity;
 
 }

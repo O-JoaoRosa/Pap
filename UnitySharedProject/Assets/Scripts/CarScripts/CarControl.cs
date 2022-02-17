@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static CarData;
+using static Data;
 
 public class CarControl : MonoBehaviour
 {
@@ -20,7 +20,7 @@ public class CarControl : MonoBehaviour
     private bool isCarGrounded;
 
     public float Speed;
-    public float ReverseSpeed = FowardSpeed * 0.45f;
+    public float ReverseSpeed = ActiveCar.FowardSpeed * 0.45f;
 
     [Header("Drift/Turning")]
     //drif
@@ -50,7 +50,7 @@ public class CarControl : MonoBehaviour
     /// </summary>
     void Start()
     {
-        wrongSideDrift = TurnSpeed / 4;
+        wrongSideDrift = ActiveCar.TurnSpeed / 4;
 
         //encontra o componente no car model que seja um sistema de particulas
         driftParticles = carModel.GetComponent<ParticleSystem>();
@@ -66,7 +66,7 @@ public class CarControl : MonoBehaviour
     {
         //gets and prepares the input
         moveInput = Input.GetAxisRaw("Vertical");
-        moveInput *= moveInput > 0 ? FowardSpeed : ReverseSpeed;
+        moveInput *= moveInput > 0 ? ActiveCar.FowardSpeed : ReverseSpeed;
         turningInput = Input.GetAxisRaw("Horizontal");
 
         //sets the car position the same as the spheres
@@ -97,7 +97,7 @@ public class CarControl : MonoBehaviour
         //normal rotation of the car
         if (Speed > 1f && !isDrifting)
         {
-            newRotation = turningInput * TurnSpeed * Time.deltaTime * Input.GetAxisRaw("Vertical");
+            newRotation = turningInput * ActiveCar.TurnSpeed * Time.deltaTime * Input.GetAxisRaw("Vertical");
         }
         else if (Speed > 1f && isDrifting)
         {
@@ -110,7 +110,7 @@ public class CarControl : MonoBehaviour
             }
             else
             {
-                newRotation = turningInput * TurnSpeed * Time.deltaTime;
+                newRotation = turningInput * ActiveCar.TurnSpeed * Time.deltaTime;
             }
         }
         else
@@ -226,28 +226,28 @@ public class CarControl : MonoBehaviour
             if (isDrifting)
             {
                 //makes it easier to drift
-                TurnSpeed = DriftTurnAngle;
-                sphereRB.drag = GroundDrag / 3;
+                ActiveCar.TurnSpeed = ActiveCar.DriftTurnAngle;
+                sphereRB.drag = ActiveCar.GroundDrag / 3;
                 sphereRB.AddForce(transform.forward * moveInput / 3, ForceMode.Acceleration);
             }
             else if (isBreaking) 
             {
                 //changes the turn speed and makes the car break
-                TurnSpeed = DefaultTurnAngle;
-                sphereRB.drag = GroundDrag * 1.5f;
+                ActiveCar.TurnSpeed = ActiveCar.DefaultTurnAngle;
+                sphereRB.drag = ActiveCar.GroundDrag * 1.5f;
             }
             else
             {
                 //moves the sphere and changes the drag
-                TurnSpeed = DefaultTurnAngle;
+                ActiveCar.TurnSpeed = ActiveCar.DefaultTurnAngle;
                 sphereRB.AddForce(transform.forward * moveInput, ForceMode.Acceleration);
-                sphereRB.drag = GroundDrag;
+                sphereRB.drag = ActiveCar.GroundDrag;
             }
         }
         else
         {
             //changes the drag
-            sphereRB.drag = AirDrag;
+            sphereRB.drag = ActiveCar.AirDrag;
             
             //makes the car fall 
             sphereRB.AddForce(transform.up * -9.8f);

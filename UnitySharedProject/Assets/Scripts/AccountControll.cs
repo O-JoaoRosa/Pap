@@ -128,6 +128,13 @@ public class AccountControll : MonoBehaviour
 
                     //passa o player para um objecto que vai manter os dados guardados
                     Data.Player = player;
+
+                    //mostar os dados do jogador
+                    Debug.Log(Data.Player.UserName);
+                    Debug.Log(Data.Player.money);
+                    Debug.Log(Data.Player.reputation);
+                    Debug.Log(Data.Player.ID);
+                    Debug.Log(Data.Player.UserCarIDSelected);
                 }
             }
         }
