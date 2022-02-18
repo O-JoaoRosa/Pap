@@ -122,8 +122,8 @@ public class Login : MonoBehaviour
 
                         //mostar os dados do jogador
                         Debug.Log(player.UserName);
-                        Debug.Log(player.money);
-                        Debug.Log(player.reputation);
+                        Debug.Log(player.Money);
+                        Debug.Log(player.Reputation);
                         Debug.Log(player.ID);
                         Debug.Log(player.UserCarIDSelected);
 

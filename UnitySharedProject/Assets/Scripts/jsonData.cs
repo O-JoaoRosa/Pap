@@ -6,9 +6,9 @@ public class jsonData
 {
     public string UserName;
     public int ID;
-    public int reputation;
+    public int Reputation;
     public int image;
-    public int money;
+    public int Money;
     public int UserCarIDSelected;
 }
 

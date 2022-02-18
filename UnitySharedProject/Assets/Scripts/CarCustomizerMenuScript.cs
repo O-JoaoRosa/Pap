@@ -38,6 +38,12 @@ public class CarCustomizerMenuScript : MonoBehaviour
     public Slider MaxSpeedBar;
     public Text CarName;
 
+    [Header("Fisrt Menu")]
+    public Text FirstMenuCarName;
+
+    [Header("Menu Cars List")]
+    public Text CarsListName;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -65,7 +71,11 @@ public class CarCustomizerMenuScript : MonoBehaviour
         AccelarationBar.value = Data.ActiveCar.FowardSpeed;
         TurningBar.value = (Data.ActiveCar.TurnSpeed + Data.ActiveCar.DriftTurnAngle + Data.ActiveCar.DefaultTurnAngle) / 3 ;
         MaxSpeedBar.value = -Data.ActiveCar.GroundDrag;
+
+        //muda os nomes
         CarName.text = (Data.ActiveCar.Descri).ToUpper();
+        FirstMenuCarName.text = (Data.ActiveCar.Descri).ToUpper();
+        CarsListName.text = (Data.ActiveCar.Descri).ToUpper();
     }
 
     /// <summary>
@@ -91,11 +101,13 @@ public class CarCustomizerMenuScript : MonoBehaviour
         for (int i = 1; i <= Data.ActiveCar.Rarity; i++)
         {
             GameObject.Find("Canvas/Menus/RawImage/Title/Star" + i).GetComponent<Image>().color = Color.white;
+            GameObject.Find("Canvas/CarListMenuBackground/CarName/Star" + i).GetComponent<Image>().color = Color.white;
         }
 
         for (int i = 4; i > Data.ActiveCar.Rarity; i--)
         {
             GameObject.Find("Canvas/Menus/RawImage/Title/Star" + i).GetComponent<Image>().color = Color.gray;
+            GameObject.Find("Canvas/CarListMenuBackground/CarName/Star" + i).GetComponent<Image>().color = Color.gray;
         }
     }
 

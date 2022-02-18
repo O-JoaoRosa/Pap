@@ -121,8 +121,8 @@ public class AccountControll : MonoBehaviour
 
                     //mostar os dados do jogador
                     Debug.Log(player.UserName);
-                    Debug.Log(player.money);
-                    Debug.Log(player.reputation);
+                    Debug.Log(player.Money);
+                    Debug.Log(player.Reputation);
                     Debug.Log(player.ID);
                     Debug.Log(player.UserCarIDSelected);
 
@@ -131,8 +131,8 @@ public class AccountControll : MonoBehaviour
 
                     //mostar os dados do jogador
                     Debug.Log(Data.Player.UserName);
-                    Debug.Log(Data.Player.money);
-                    Debug.Log(Data.Player.reputation);
+                    Debug.Log(Data.Player.Money);
+                    Debug.Log(Data.Player.Reputation);
                     Debug.Log(Data.Player.ID);
                     Debug.Log(Data.Player.UserCarIDSelected);
                 }
