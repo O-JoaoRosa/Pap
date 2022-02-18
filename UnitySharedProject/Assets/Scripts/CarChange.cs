@@ -1,15 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.UI;
 
 public class CarChange : MonoBehaviour
 {
     public GameObject car1Prefab, car2Prefab, car3Prefab, car4Prefab;
     private GameObject car1, car2, car3, car4;
+    [Header("Stars")]
+    public GameObject Star1, Star2, Star3, Star4;
     public GameObject player;
     Vector3 pos;
-    string url = "https://t05-jrosa.vigion.pt/API/Objects/CarGetAll.php";
+    string url = "https://t05-jrosa.vigion.pt/API/Objects/UserCommonUpdate.php";
 
 
     // Start is called before the first frame update
@@ -21,11 +25,60 @@ public class CarChange : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        ChangeRarity();
     }
+
+    /// <summary>
+    /// muda a quantidade de estrelas que o carro tem no menu
+    /// </summary>
+    void ChangeRarity()
+    {
+        switch (Data.ActiveCar.Rarity)
+        {
+            case 1:
+
+                Star1.GetComponent<Image>().color = Color.white;
+                Star2.GetComponent<Image>().color = Color.gray;
+                Star3.GetComponent<Image>().color = Color.gray;
+                Star4.GetComponent<Image>().color = Color.gray;
+
+                break;
+
+            case 2:
+
+                Star1.GetComponent<Image>().color = Color.white;
+                Star2.GetComponent<Image>().color = Color.white;
+                Star3.GetComponent<Image>().color = Color.gray;
+                Star4.GetComponent<Image>().color = Color.gray;
+
+                break;
+
+            case 3:
+
+                Star1.GetComponent<Image>().color = Color.white;
+                Star2.GetComponent<Image>().color = Color.white;
+                Star3.GetComponent<Image>().color = Color.white;
+                Star4.GetComponent<Image>().color = Color.gray;
+
+                break;
+
+            case 4:
+
+                Star1.GetComponent<Image>().color = Color.white;
+                Star2.GetComponent<Image>().color = Color.white;
+                Star3.GetComponent<Image>().color = Color.white;
+                Star4.GetComponent<Image>().color = Color.white;
+
+                break;
+        }
+    }
+
+    #region Clicks
 
     public void onClickCar1()
     {
+
+        Data.Player.UserCarIDSelected = 0;
         if (GameObject.Find("Car(Clone)"))
         {
             pos = GameObject.Find("Car(Clone)").transform.position;
@@ -46,6 +99,8 @@ public class CarChange : MonoBehaviour
 
     public void onClickCar2()
     {
+
+        Data.Player.UserCarIDSelected = 0;
         if (GameObject.Find("Car(Clone)"))
         {
             pos = GameObject.Find("Car(Clone)").transform.position;
@@ -65,6 +120,8 @@ public class CarChange : MonoBehaviour
 
     public void onClickCar3()
     {
+
+        Data.Player.UserCarIDSelected = 0;
         if (GameObject.Find("Car(Clone)"))
         {
             pos = GameObject.Find("Car(Clone)").transform.position;
@@ -84,6 +141,7 @@ public class CarChange : MonoBehaviour
 
     public void onClickCar4()
     {
+
         if (GameObject.Find("Car(Clone)"))
         {
             pos = GameObject.Find("Car(Clone)").transform.position;
@@ -101,17 +159,28 @@ public class CarChange : MonoBehaviour
 
     }
 
+    #endregion
 
     public void UpdateCar()
     {
+        Debug.Log("Starting Corutine");
         StartCoroutine(UpdateCarSelected());
         gameObject.SetActive(false);
-        Destroy(GameObject.Find("Car(Clone)"));
+        if (GameObject.Find("Car(Clone)"))
+        {
+            Destroy(GameObject.Find("Car(Clone)"));
+        }
+        else
+        {
+            Destroy(GameObject.Find("Car"));
+        }
+        Debug.Log("Executando o evento CarSelectorExit()");
         EventController.current.CarSelectorExit();
     }
 
     IEnumerator UpdateCarSelected()
     {
+        Debug.Log("Making The web form");
         WWWForm form = new WWWForm();
         form.AddField("ID",Data.Player.ID);
         form.AddField("UserName",Data.Player.UserName);
@@ -136,9 +205,12 @@ public class CarChange : MonoBehaviour
         {
             if (ww.isDone)
             {
+                Debug.Log("feito");
+                Debug.Log(ww.downloadHandler.text);
                 if (ww.downloadHandler.text.Contains("sucesso"))
                 {
                     Debug.Log(ww.downloadHandler.text);
+                    Debug.Log("feito");
                     //TODO : Pop up a confirmar que funcionou
                 }
             }

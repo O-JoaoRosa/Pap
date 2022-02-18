@@ -6,6 +6,7 @@ public class TriggerArea : MonoBehaviour
 {
     bool canTrigger = true;
     public GameObject menuBackground;
+    public GameObject PlayerInfo;
 
     private void Start()
     {
@@ -27,6 +28,7 @@ public class TriggerArea : MonoBehaviour
     public void CloseMenu()
     {
         menuBackground.SetActive(false);
+        PlayerInfo.SetActive(true);
         Time.timeScale = 1;
     }
 
@@ -37,6 +39,7 @@ public class TriggerArea : MonoBehaviour
         {
             Debug.LogWarning("entrou na garagem");
             menuBackground.SetActive(true);
+            PlayerInfo.SetActive(false);
 
             EventController.current.GarageTriggerEnter();
             Time.timeScale = 0;

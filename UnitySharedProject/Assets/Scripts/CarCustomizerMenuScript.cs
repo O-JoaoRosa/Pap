@@ -69,7 +69,7 @@ public class CarCustomizerMenuScript : MonoBehaviour
 
         //muda as barras para mostrar os stats dos carros
         AccelarationBar.value = Data.ActiveCar.FowardSpeed;
-        TurningBar.value = (Data.ActiveCar.TurnSpeed + Data.ActiveCar.DriftTurnAngle + Data.ActiveCar.DefaultTurnAngle) / 3 ;
+        TurningBar.value = (Data.ActiveCar.DriftTurnAngle + Data.ActiveCar.DefaultTurnAngle) / 2 ;
         MaxSpeedBar.value = -Data.ActiveCar.GroundDrag;
 
         //muda os nomes
@@ -100,12 +100,14 @@ public class CarCustomizerMenuScript : MonoBehaviour
     {
         for (int i = 1; i <= Data.ActiveCar.Rarity; i++)
         {
+            Debug.Log(Data.ActiveCar.Rarity);
             GameObject.Find("Canvas/Menus/RawImage/Title/Star" + i).GetComponent<Image>().color = Color.white;
             GameObject.Find("Canvas/CarListMenuBackground/CarName/Star" + i).GetComponent<Image>().color = Color.white;
         }
 
         for (int i = 4; i > Data.ActiveCar.Rarity; i--)
         {
+            ChangeRarity();
             GameObject.Find("Canvas/Menus/RawImage/Title/Star" + i).GetComponent<Image>().color = Color.gray;
             GameObject.Find("Canvas/CarListMenuBackground/CarName/Star" + i).GetComponent<Image>().color = Color.gray;
         }

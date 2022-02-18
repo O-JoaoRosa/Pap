@@ -36,9 +36,9 @@ public class CarManager : MonoBehaviour
 
     public static void UpdateCarUsed() 
     {
-        pos = CarParentst.transform.GetChild(0).localPosition;
+        pos = Vector3.zero;
         pos.y = pos.y - 3f;
-        rot = CarParentst.transform.GetChild(0).rotation;
+        rot = new Quaternion(0,0,0,0);
 
         if (GameObject.Find("CarRoot/CarModel/Car"))
         {
