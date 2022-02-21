@@ -18,6 +18,8 @@ public class LoadingGarage : MonoBehaviour
     public GameObject buttonLogOut;
     public GameObject buttonBack;
 
+    private bool isInSettings = false;
+
 
 
     AsyncOperation loadingOperation;
@@ -34,7 +36,7 @@ public class LoadingGarage : MonoBehaviour
     {
 
         //verifica se o user esta loggado ou nao
-        if (Data.Player != null)
+        if (Data.Player != null && !isInSettings)
         {
             welcome.GetComponent<Text>().text = "WELCOME " + Data.Player.UserName.ToUpper();
             buttonPlay.SetActive(true);
@@ -42,7 +44,7 @@ public class LoadingGarage : MonoBehaviour
             buttonLogin.SetActive(false);
             buttonRegister.SetActive(false);
         }
-        else
+        else if (Data.Player == null)
         {
             buttonPlay.SetActive(false);
             buttonSettings.SetActive(false);
@@ -66,6 +68,7 @@ public class LoadingGarage : MonoBehaviour
 
     public void SetttingsClick()
     {
+        isInSettings = true;
         buttonBack.SetActive(true);
         buttonMusic.SetActive(true);
         buttonLogOut.SetActive(true);
@@ -77,6 +80,7 @@ public class LoadingGarage : MonoBehaviour
 
     public void BackClick()
     {
+        isInSettings = false;
         buttonSettings.SetActive(true);
         buttonPlay.SetActive(true);
         buttonQuit.SetActive(true);
@@ -88,6 +92,7 @@ public class LoadingGarage : MonoBehaviour
 
     public void LogOut()
     {
+        isInSettings = false;
         Data.Player = null;
 
         buttonSettings.SetActive(true);

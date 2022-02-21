@@ -2398,6 +2398,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainCamera: {fileID: 1370837591}
   PlayerCar: {fileID: 2012175185}
+  Sphere: {fileID: 8726777516166203535}
 --- !u!136 &424257809
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -2495,7 +2496,7 @@ RectTransform:
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 0.21666667, y: 1}
   m_AnchoredPosition: {x: 0.25, y: -84.51999}
   m_SizeDelta: {x: -5.98, y: -63.32}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -2591,7 +2592,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: d9bbc069432034141b7bbf7677706beb, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2875,7 +2876,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: d9bbc069432034141b7bbf7677706beb, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3827,7 +3828,7 @@ RectTransform:
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 0.56285715, y: 1}
   m_AnchoredPosition: {x: 18.540009, y: -79.73001}
   m_SizeDelta: {x: 6.73, y: -60.51}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -3899,7 +3900,7 @@ RectTransform:
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 0.8, y: 1}
   m_AnchoredPosition: {x: -1.3000183, y: -84.600006}
   m_SizeDelta: {x: -6.97, y: -62.45}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -3967,6 +3968,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1193576748}
+  - {fileID: 2054139419}
   m_Father: {fileID: 0}
   m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4251,14 +4253,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.8396226, g: 0.6832119, b: 0.18614274, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 0}
+  m_Texture: {fileID: 2800000, guid: 14484969ef5756746bcaa1d58da5951c, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -4852,7 +4854,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: d9bbc069432034141b7bbf7677706beb, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -6456,7 +6458,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -1, y: 254}
-  m_SizeDelta: {x: 484.13, y: 105.34}
+  m_SizeDelta: {x: 694.89, y: 105.34}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1315795525
 MonoBehaviour:
@@ -6979,6 +6981,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   camera: {fileID: 1370837591}
   car: {fileID: 2012175185}
+  carSelectionLookAt: {fileID: 2054139417}
 --- !u!114 &1370837595
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8241,7 +8244,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1558173093
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8285,14 +8288,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.41438237, g: 0.9056604, b: 0.6562095, a: 1}
+  m_Color: {r: 0.9292453, g: 1, b: 0.9637736, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 7d3243de5e3184b42b915fb72a0cee98, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -8906,7 +8909,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: d9bbc069432034141b7bbf7677706beb, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -9275,7 +9278,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1713762113
 RectTransform:
   m_ObjectHideFlags: 0
@@ -11404,6 +11407,45 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 871a70091fd80754ebc7073610c1c6f0, type: 3}
   m_PrefabInstance: {fileID: 2053043021}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2054139417
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2054139419}
+  - component: {fileID: 2054139418}
+  m_Layer: 0
+  m_Name: camera look at
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!33 &2054139418
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2054139417}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &2054139419
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2054139417}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -49.9, y: 2.4, z: -3}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 804176172}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2125425472
 GameObject:
   m_ObjectHideFlags: 0
@@ -11480,7 +11522,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2146190652
 RectTransform:
   m_ObjectHideFlags: 0
@@ -11525,7 +11567,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 0}
+  m_Texture: {fileID: 2800000, guid: 14484969ef5756746bcaa1d58da5951c, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -12308,3 +12350,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a88bea83f723f78489acc2fc1dc16791, type: 3}
+--- !u!1 &8726777516166203535 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2676612356796405020, guid: a88bea83f723f78489acc2fc1dc16791, type: 3}
+  m_PrefabInstance: {fileID: 8726777516166203534}
+  m_PrefabAsset: {fileID: 0}

@@ -11,6 +11,7 @@ public class CarChange : MonoBehaviour
     private GameObject car1, car2, car3, car4;
     [Header("Stars")]
     public GameObject Star1, Star2, Star3, Star4;
+    public GameObject FirstMenuStar1, FirstMenuStar2, FirstMenuStar3, FirstMenuStar4;
     public GameObject player;
     Vector3 pos;
     string url = "https://t05-jrosa.vigion.pt/API/Objects/UserCommonUpdate.php";
@@ -37,37 +38,65 @@ public class CarChange : MonoBehaviour
         {
             case 1:
 
+                //muda as estrelas do segundo menu
                 Star1.GetComponent<Image>().color = Color.white;
                 Star2.GetComponent<Image>().color = Color.gray;
                 Star3.GetComponent<Image>().color = Color.gray;
                 Star4.GetComponent<Image>().color = Color.gray;
 
+                //muda as estrelas do primeiro menu
+                FirstMenuStar1.GetComponent<Image>().color = Color.white;
+                FirstMenuStar2.GetComponent<Image>().color = Color.gray;
+                FirstMenuStar3.GetComponent<Image>().color = Color.gray;
+                FirstMenuStar4.GetComponent<Image>().color = Color.gray;
+
                 break;
 
             case 2:
 
+                //muda as estrelas do segundo menu
                 Star1.GetComponent<Image>().color = Color.white;
                 Star2.GetComponent<Image>().color = Color.white;
                 Star3.GetComponent<Image>().color = Color.gray;
                 Star4.GetComponent<Image>().color = Color.gray;
 
+                //muda as estrelas do primeiro menu
+                FirstMenuStar1.GetComponent<Image>().color = Color.white;
+                FirstMenuStar2.GetComponent<Image>().color = Color.white;
+                FirstMenuStar3.GetComponent<Image>().color = Color.gray;
+                FirstMenuStar4.GetComponent<Image>().color = Color.gray;
+
                 break;
 
             case 3:
 
+                //muda as estrelas do segundo menu
                 Star1.GetComponent<Image>().color = Color.white;
                 Star2.GetComponent<Image>().color = Color.white;
                 Star3.GetComponent<Image>().color = Color.white;
                 Star4.GetComponent<Image>().color = Color.gray;
 
+                //muda as estrelas do primeiro menu
+                FirstMenuStar1.GetComponent<Image>().color = Color.white;
+                FirstMenuStar2.GetComponent<Image>().color = Color.white;
+                FirstMenuStar3.GetComponent<Image>().color = Color.white;
+                FirstMenuStar4.GetComponent<Image>().color = Color.gray;
+
                 break;
 
             case 4:
 
+                //muda as estrelas do segundo menu
                 Star1.GetComponent<Image>().color = Color.white;
                 Star2.GetComponent<Image>().color = Color.white;
                 Star3.GetComponent<Image>().color = Color.white;
                 Star4.GetComponent<Image>().color = Color.white;
+
+                //muda as estrelas do primeiro menu
+                FirstMenuStar1.GetComponent<Image>().color = Color.white;
+                FirstMenuStar2.GetComponent<Image>().color = Color.white;
+                FirstMenuStar3.GetComponent<Image>().color = Color.white;
+                FirstMenuStar4.GetComponent<Image>().color = Color.white;
 
                 break;
         }
@@ -175,6 +204,8 @@ public class CarChange : MonoBehaviour
             Destroy(GameObject.Find("Car"));
         }
         Debug.Log("Executando o evento CarSelectorExit()");
+
+        //executa o evento para que no script CarCustomizerMenuScript o menu desapareça 
         EventController.current.CarSelectorExit();
     }
 

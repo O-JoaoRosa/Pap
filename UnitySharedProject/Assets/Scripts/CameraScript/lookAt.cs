@@ -7,15 +7,14 @@ public class lookAt : MonoBehaviour
     public new Camera camera;
 
     public GameObject car;
+    public GameObject carSelectionLookAt;
 
-    private bool islooking = true;
+    private static bool islooking = true;
 
     // Start is called before the first frame update
     void Start()
     {
-        //adiciona ações caso os triggers sejam ligados
-        EventController.current.onCarSelectorEnter += StopLooking;
-        EventController.current.onCarSelectorExit += StartLooking;
+
     }
 
     // Update is called once per frame
@@ -23,17 +22,25 @@ public class lookAt : MonoBehaviour
     {
         if (islooking)
         {
+            Debug.Log("isLooking true");
             camera.transform.LookAt(car.transform);
+        }
+        else
+        {
+
+            Debug.Log("isLooking false");
+            camera.transform.LookAt(carSelectionLookAt.transform);
         }
     }
 
-    private void StartLooking()
-    {
+    public static void StartLooking()
+    { 
         islooking = true;
     }
 
-    private void StopLooking()
+    static public void StopLooking()
     {
+        Debug.Log("isLooking false");
         islooking = false;
     }
 }
