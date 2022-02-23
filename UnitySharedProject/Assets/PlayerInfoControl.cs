@@ -5,6 +5,10 @@ using UnityEngine.UI;
 
 public class PlayerInfoControl : MonoBehaviour
 {
+    [Header("UI Objects")]
+    public GameObject PlayerInfo;
+    public GameObject Money;
+
     [Header("UI Elements")]
     public Text PlayerName;
     public Text MoneyValue;
@@ -40,6 +44,12 @@ public class PlayerInfoControl : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //associa os eventos criados no script eventController com os metodos
+        EventController.current.onCarSelectorEnter += ChangeCoinLoc;
+        EventController.current.onCarSelectorExit += ResetPos;
+        EventController.current.onGarageTriggerEnter += HidePlayerInfo;
+        EventController.current.onGarageTriggerExit += ShowPlayerInfo;
+
         PlayerName.text = Data.Player.UserName.ToUpper();
         MoneyValue.text = Data.Player.Money.ToString();
         
@@ -132,6 +142,42 @@ public class PlayerInfoControl : MonoBehaviour
         LevelSlider.value = Data.Player.Reputation;
 
     }
+
+    /// <summary>
+    /// muda a posição das moedas para não tapar o menu
+    /// </summary>
+    private void ChangeCoinLoc()
+    {
+        Money.transform.localPosition = new Vector3(-742.603f, -462.254f, -1.549f);
+    }
+
+    /// <summary>
+    /// mete as moedas de volta na posição original
+    /// </summary>
+    private void ResetPos()
+    {
+        Money.transform.localPosition = new Vector3(728.31f, 456f, -1.549f);
+    }
+
+    /// <summary>
+    /// esconde a info do jogador
+    /// </summary>
+    private void HidePlayerInfo()
+    {
+        Money.SetActive(false);
+        PlayerInfo.SetActive(false);
+    }
+    
+    /// <summary>
+    /// mostra a info do jogador
+    /// </summary>
+    private void ShowPlayerInfo()
+    {
+        Money.SetActive(false);
+        PlayerInfo.SetActive(false);
+    }
+
+    
 
     // Update is called once per frame
     void Update()

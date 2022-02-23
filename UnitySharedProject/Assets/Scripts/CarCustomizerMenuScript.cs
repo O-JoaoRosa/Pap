@@ -92,25 +92,7 @@ public class CarCustomizerMenuScript : MonoBehaviour
         CarStatsMenu.SetActive(false);
         CarListMenu.SetActive(false);
         FirstMenu.SetActive(true);
-        ChangeRarity();
 
-    }
-
-    void ChangeRarity()
-    {
-        for (int i = 1; i <= Data.ActiveCar.Rarity; i++)
-        {
-            Debug.Log(Data.ActiveCar.Rarity);
-            GameObject.Find("Canvas/Menus/RawImage/Title/Star" + i).GetComponent<Image>().color = Color.white;
-            GameObject.Find("Canvas/CarListMenuBackground/CarName/Star" + i).GetComponent<Image>().color = Color.white;
-        }
-
-        for (int i = 4; i > Data.ActiveCar.Rarity; i--)
-        {
-            ChangeRarity();
-            GameObject.Find("Canvas/Menus/RawImage/Title/Star" + i).GetComponent<Image>().color = Color.gray;
-            GameObject.Find("Canvas/CarListMenuBackground/CarName/Star" + i).GetComponent<Image>().color = Color.gray;
-        }
     }
 
     public void ShowCarStats()
@@ -210,7 +192,6 @@ public class CarCustomizerMenuScript : MonoBehaviour
             default:
                 break;
         }
-        ChangeRarity();
     }
 
 
@@ -298,7 +279,6 @@ public class CarCustomizerMenuScript : MonoBehaviour
             default:
                 break;
         }
-        ChangeRarity();
     } 
     #endregion
 
