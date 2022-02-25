@@ -7,6 +7,9 @@ public class AiCarController : MonoBehaviour
 {
     //AiVars
     private Vector3 targetPosition;
+    public float distanceToWaypoint;
+    public float angleToTurn;
+    public float dot;
 
     //waypoints
     private int WaypointID = 0;
@@ -55,7 +58,7 @@ public class AiCarController : MonoBehaviour
 
     private void Awake()
     {
-        ActiveCar = Data.cars[Random.Range(0, 3)];
+        ActiveCar = Data.cars[0];
         ReverseSpeed = ActiveCar.FowardSpeed * 0.45f;
         Debug.Log("ID do carro da Ia - " + ActiveCar.ID);
         Debug.Log(ActiveCar.DefaultTurnAngle);
@@ -85,12 +88,12 @@ public class AiCarController : MonoBehaviour
         //controlo do ai
         targetPosition = waypoints[WaypointID].transform.position;
 
-        float distanceToWaypoint = Vector3.Distance(transform.position, targetPosition);
+        distanceToWaypoint = Vector3.Distance(transform.position, targetPosition);
 
-        if(distanceToWaypoint > 5f)
+        if (distanceToWaypoint > 5f)
         {
             Vector3 dirToMove = (targetPosition - transform.position).normalized;
-            float dot = Vector3.Dot(transform.position, dirToMove);
+            dot = Vector3.Dot(transform.position, dirToMove);
 
             if (dot > 0)
             {
@@ -101,16 +104,17 @@ public class AiCarController : MonoBehaviour
                 moveInput = -1f;
             }
 
-            float angleToTurn = Vector3.SignedAngle(carModel.transform.forward, dirToMove, Vector3.up);
+            angleToTurn = Vector3.SignedAngle(carModel.transform.forward, dirToMove, Vector3.up);
             Debug.Log(angleToTurn);
-            if (angleToTurn > 0)
+            if (angleToTurn > 20)
             {
                 turningInput = 1f;
             }
-            else if(angleToTurn == 0 || (angleToTurn < 10 && angleToTurn > -10))
+            else if (angleToTurn == 0 || (angleToTurn < 10 && angleToTurn > -10))
             {
                 turningInput = 0;
-            }else
+            }
+            else
             {
                 turningInput = -1f;
             }
@@ -152,7 +156,7 @@ public class AiCarController : MonoBehaviour
         //normal rotation of the car
         if (Speed > 1f && !isDrifting)
         {
-            newRotation = turningInput * ActiveCar.TurnSpeed * moveInput;
+            newRotation = turningInput * ActiveCar.TurnSpeed * moveInput * Time.deltaTime;
         }
         else if (Speed > 1f && isDrifting)
         {
@@ -259,6 +263,7 @@ public class AiCarController : MonoBehaviour
     /// </summary>
     private void FixedUpdate()
     {
+
         //updates de var speed so i can see the speed of the car in unity
         Speed = sphereRB.velocity.magnitude;
 
