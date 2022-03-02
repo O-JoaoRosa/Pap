@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class Data : MonoBehaviour
 {
+    public static string activeGameMode;
+    public static string GameModeStory = "Story";
+    public static string GameModeTimeAttack = "Time Attack";
+    public static string GameModeVs = "Vs";
     public static jsonData Player;
     public static CarData ActiveCar;
     public static List<CarData> cars = new List<CarData>();
