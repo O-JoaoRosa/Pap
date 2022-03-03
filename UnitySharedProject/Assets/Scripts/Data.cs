@@ -24,7 +24,6 @@ public class Data : MonoBehaviour
         }
 
         DontDestroyOnLoad(this.gameObject);
-        
     }
 
     // Update is called once per frame

@@ -11,7 +11,7 @@ public class check1trigger : MonoBehaviour
     void Start()
     {
         //associa o evento criado no script eventController com o metodo
-        EventController.current.onCheck1 += ShowCheck1;
+        //EventController.current.onCheck1 += ShowCheck1;
     }
 
     // Update is called once per frame

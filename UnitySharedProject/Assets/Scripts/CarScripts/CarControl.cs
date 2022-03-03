@@ -20,7 +20,7 @@ public class CarControl : MonoBehaviour
     private bool isCarGrounded;
 
     public float Speed;
-    public float ReverseSpeed = ActiveCar.FowardSpeed * 0.45f;
+    public float ReverseSpeed = ActiveCar.FowardSpeed * 0.90f;
 
     [Header("Drift/Turning")]
     //drif
@@ -52,6 +52,9 @@ public class CarControl : MonoBehaviour
     {
         wrongSideDrift = ActiveCar.TurnSpeed / 4;
 
+
+        ReverseSpeed = ActiveCar.FowardSpeed * 0.90f;
+
         //encontra o componente no car model que seja um sistema de particulas
         driftParticles = carModel.GetComponent<ParticleSystem>();
 
@@ -66,7 +69,21 @@ public class CarControl : MonoBehaviour
     {
         //gets and prepares the input
         moveInput = Input.GetAxisRaw("Vertical");
-        moveInput *= moveInput > 0 ? ActiveCar.FowardSpeed : ReverseSpeed;
+
+        Debug.Log("input : " + moveInput);
+        if (moveInput > 0f)
+        {
+            Debug.Log(moveInput);
+            Debug.Log(ActiveCar.FowardSpeed);
+            moveInput *= ActiveCar.FowardSpeed;
+        }
+        else if (moveInput < 0f)
+        {
+            moveInput *= ReverseSpeed;
+            Debug.Log("move input : "+moveInput);
+            Debug.Log("Reverse speed" + ReverseSpeed);
+        }
+        
         turningInput = Input.GetAxisRaw("Horizontal");
 
         //sets the car position the same as the spheres
@@ -227,8 +244,8 @@ public class CarControl : MonoBehaviour
             {
                 //makes it easier to drift
                 ActiveCar.TurnSpeed = ActiveCar.DriftTurnAngle;
-                sphereRB.drag = ActiveCar.GroundDrag / 3;
-                sphereRB.AddForce(transform.forward * moveInput / 3, ForceMode.Acceleration);
+                sphereRB.drag = ActiveCar.GroundDrag / 2;
+                sphereRB.AddForce(transform.forward * moveInput / 2, ForceMode.Acceleration);
             }
             else if (isBreaking) 
             {
