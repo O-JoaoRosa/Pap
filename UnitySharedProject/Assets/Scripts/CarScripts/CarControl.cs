@@ -118,7 +118,7 @@ public class CarControl : MonoBehaviour
         }
         else if (Speed > 1f && isDrifting)
         {
-            //gameObject.GetComponent<nitro>().NitroPoints();
+            gameObject.GetComponent<nitro>().NitroPoints();
 
             //sees wich side is being and compares it with the side that is drifting
             if (turningInput != driftSide)

@@ -17866,9 +17866,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxNitro: 100
-  nitroImageOrange: {fileID: 0}
-  nitroImageBlue: {fileID: 0}
-  nitroImagePurple: {fileID: 0}
+  nitroImageOrange: {fileID: 492710227}
+  nitroImageBlue: {fileID: 477948221}
+  nitroImagePurple: {fileID: 2049790930}
   carMotor: {fileID: 1115948268734628630}
 --- !u!1 &1115948269493640777
 GameObject:
