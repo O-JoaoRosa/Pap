@@ -114,8 +114,10 @@ public class Login : MonoBehaviour
 
                         //guarda o informação mandada pela api
                         string data = ww.downloadHandler.text;
+                        Debug.Log(ww.downloadHandler.text);
                         data = data.Replace("[", "");
                         data = data.Replace("]", "");
+                        Debug.Log(ww.downloadHandler.text);
 
                         //converte a informação recebida da api para um player
                         jsonData player = JsonUtility.FromJson<jsonData>(data);

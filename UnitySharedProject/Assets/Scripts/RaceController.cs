@@ -43,6 +43,10 @@ public class RaceController : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         EventController.current.RaceStartExist();
+        if (Data.activeGameMode == Data.GameModeTimeAttack)
+        {
+            isTimeCounting = true;
+        }
 
     }
 

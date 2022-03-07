@@ -14,7 +14,8 @@ public class CarControl : MonoBehaviour
     private float moveInput;
     private float turningInput;
 
-    private ParticleSystem driftParticles;
+    public ParticleSystem driftParticlesLeft;
+    public ParticleSystem driftParticlesRight;
 
     //raycast
     private bool isCarGrounded;
@@ -54,9 +55,6 @@ public class CarControl : MonoBehaviour
 
 
         ReverseSpeed = ActiveCar.FowardSpeed * 0.90f;
-
-        //encontra o componente no car model que seja um sistema de particulas
-        driftParticles = carModel.GetComponent<ParticleSystem>();
 
         //puts the sphere out of the hierarchy
         sphereRB.transform.parent = null;
@@ -166,7 +164,8 @@ public class CarControl : MonoBehaviour
         {
             //sees if the car should be drifting or not
             DriftAnimation();
-            driftParticles.Play();
+            driftParticlesRight.Play();
+            driftParticlesLeft.Play();
             isDrifting = true;
         }
         else if (Input.GetKeyDown("space") && turningInput == 0)
@@ -206,7 +205,8 @@ public class CarControl : MonoBehaviour
             //caso tenha cido fazer drift
             if (isDrifting)
             {
-                driftParticles.Stop();
+                driftParticlesRight.Stop();
+                driftParticlesLeft.Stop();
                 isDrifting = false;
 
                 //stops the drifting animation
