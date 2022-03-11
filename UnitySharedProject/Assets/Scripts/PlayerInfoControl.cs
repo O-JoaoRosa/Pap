@@ -164,8 +164,8 @@ public class PlayerInfoControl : MonoBehaviour
     /// </summary>
     private void HidePlayerInfo()
     {
+        PlayerInfo.transform.localPosition = new Vector3(-500f, 378f, 0);
         Money.SetActive(false);
-        PlayerInfo.SetActive(false);
     }
     
     /// <summary>
@@ -173,8 +173,8 @@ public class PlayerInfoControl : MonoBehaviour
     /// </summary>
     private void ShowPlayerInfo()
     {
-        Money.SetActive(false);
-        PlayerInfo.SetActive(false);
+        PlayerInfo.transform.localPosition = new Vector3(-554f, 456f, 0);
+        Money.SetActive(true);
     }
 
     

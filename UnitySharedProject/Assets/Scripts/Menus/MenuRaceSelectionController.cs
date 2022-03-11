@@ -37,30 +37,35 @@ public class MenuRaceSelectionController : MonoBehaviour
     /// </summary>
     public void ButtonTrack1Click()
     {
+        Data.Track.TrackName = "Track 1";
         trackImg.texture = texture1;
         activeTrack = track1;
     }
 
     public void ButtonTrack2Click()
     {
+        Data.Track.TrackName = "Noob Shredder";
         trackImg.texture = texture2;
         activeTrack = track2;
     }
 
     public void ButtonTrack3Click()
     {
+        Data.Track.TrackName = "Track 3";
         trackImg.texture = texture3;
         activeTrack = track1;
     }
 
     public void ButtonTrack4Click()
     {
+        Data.Track.TrackName = "Track 4";
         trackImg.texture = texture4;
         activeTrack = track1;
     }
 
     public void ButtonTrack5Click()
     {
+        Data.Track.TrackName = "Track 5";
         trackImg.texture = texture5;
         activeTrack = track1;
     }

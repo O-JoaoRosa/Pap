@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 
 public class TriggerArea : MonoBehaviour
@@ -19,6 +20,7 @@ public class TriggerArea : MonoBehaviour
         if ((Input.GetKey(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Escape)) && menuBackground.activeSelf)
         {
             CloseMenu();
+            EventController.current.GarageTriggerExit();
         }
     }
 
@@ -39,9 +41,9 @@ public class TriggerArea : MonoBehaviour
         {
             Debug.LogWarning("entrou na garagem");
             menuBackground.SetActive(true);
-            PlayerInfo.SetActive(false);
 
             EventController.current.GarageTriggerEnter();
+            Thread.Sleep(100);
             Time.timeScale = 0;
             canTrigger = false;
         }
@@ -51,7 +53,6 @@ public class TriggerArea : MonoBehaviour
     {
         //miranha
         menuBackground.transform.localPosition = new Vector3(0, 0, 0);
-        EventController.current.GarageTriggerExit();
         canTrigger = true;
     }
 }

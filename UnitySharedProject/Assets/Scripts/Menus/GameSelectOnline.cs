@@ -125,6 +125,9 @@ public class GameSelectOnline : MonoBehaviour
     /// </summary>
     public void ButtonOfflineOption1Pressed()
     {
+        Data.Track.TypeOfRace = Data.GameModeTimeAttack;
+        Data.Track.NumberOfLaps = 3;
+        Data.Track.TrackName = 
         menuAreYouReady.SetActive(true);
         gameObject.SetActive(false);
 
