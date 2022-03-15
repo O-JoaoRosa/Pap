@@ -127,7 +127,6 @@ public class GameSelectOnline : MonoBehaviour
     {
         Data.Track.TypeOfRace = Data.GameModeTimeAttack;
         Data.Track.NumberOfLaps = 3;
-        Data.Track.TrackName = 
         menuAreYouReady.SetActive(true);
         gameObject.SetActive(false);
 

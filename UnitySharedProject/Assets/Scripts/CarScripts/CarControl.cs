@@ -21,7 +21,7 @@ public class CarControl : MonoBehaviour
     private bool isCarGrounded;
 
     public float Speed;
-    public float ReverseSpeed = ActiveCar.FowardSpeed * 0.90f;
+    public float ReverseSpeed = ActiveCar.FowardSpeed * 0.40f;
 
     [Header("Drift/Turning")]
     //drif
@@ -182,6 +182,8 @@ public class CarControl : MonoBehaviour
             anim.SetBool("isBreaking", false);
             isBreaking = false;
             isDrifting = false;
+            driftParticlesRight.Stop();
+            driftParticlesLeft.Stop();
         }
     }
 
@@ -244,7 +246,7 @@ public class CarControl : MonoBehaviour
             {
                 //makes it easier to drift
                 ActiveCar.TurnSpeed = ActiveCar.DriftTurnAngle;
-                sphereRB.drag = ActiveCar.GroundDrag / 2;
+                sphereRB.drag = ActiveCar.GroundDrag;
                 sphereRB.AddForce(transform.forward * moveInput / 2, ForceMode.Acceleration);
             }
             else if (isBreaking) 
