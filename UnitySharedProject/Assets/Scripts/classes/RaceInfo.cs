@@ -9,5 +9,5 @@ public class RaceInfo
     public string TrackName;
     public int NumberOfLaps;
     public string TypeOfRace;
-    public string[,] lapTimes;
+    public List<string> lapTimes = new List<string>();
 }

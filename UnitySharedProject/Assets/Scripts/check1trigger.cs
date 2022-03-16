@@ -5,13 +5,19 @@ using UnityEngine.UI;
 
 public class check1trigger : MonoBehaviour
 {
-
+    int checkCount = 0;
+    public static int numberToCheck = 1;
+    public int nmbrTChck;
 
     // Start is called before the first frame update
     void Start()
     {
         //associa o evento criado no script eventController com o metodo
-        //EventController.current.onCheck1 += ShowCheck1;
+        if (Data.Track.TypeOfRace == Data.GameModeStory)
+        {
+            EventController.current.onCheck1 += ShowCheck1;
+        }
+       
     }
 
     // Update is called once per frame
@@ -20,9 +26,26 @@ public class check1trigger : MonoBehaviour
         
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (gameObject.name.Contains(numberToCheck.ToString()))
+        {
+            numberToCheck += 1;
+            nmbrTChck = numberToCheck;
+        }
+        else if (gameObject.name.Contains("15") && numberToCheck == 12)
+        {
+            numberToCheck = 16;
+            nmbrTChck = numberToCheck;
+        }
+    }
+
     private void OnTriggerExit(Collider other)
     {
-        EventController.current.Check1Exit();
+        if (Data.Track.TypeOfRace == Data.GameModeStory)
+        {
+            EventController.current.Check1Exit();
+        }
     }
 
     public void ShowCheck1()

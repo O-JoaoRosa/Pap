@@ -9,6 +9,7 @@ public class Data : MonoBehaviour
     public static string GameModeTimeAttack = "Time Attack";
     public static string GameModeVs = "Vs";
     public static RaceInfo Track = new RaceInfo();
+    public RaceInfo trck;
     public static jsonData Player;
     public static CarData ActiveCar;
     public static List<CarData> cars = new List<CarData>();
@@ -34,6 +35,8 @@ public class Data : MonoBehaviour
 
         if (Player != null)
         {
+            trck = Track;
+
             if (ActiveCar != null)
             {
                 if (ActiveCar.ID != Player.UserCarIDSelected)

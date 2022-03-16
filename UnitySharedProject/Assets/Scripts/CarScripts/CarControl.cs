@@ -68,7 +68,6 @@ public class CarControl : MonoBehaviour
         //gets and prepares the input
         moveInput = Input.GetAxisRaw("Vertical");
 
-        Debug.Log("input : " + moveInput);
         if (moveInput > 0f)
         {
             Debug.Log(moveInput);

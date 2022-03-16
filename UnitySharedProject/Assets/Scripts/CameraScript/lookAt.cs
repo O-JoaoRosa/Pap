@@ -22,7 +22,6 @@ public class lookAt : MonoBehaviour
     {
         if (islooking)
         {
-            Debug.Log("isLooking true");
             camera.transform.LookAt(car.transform);
         }
         else
