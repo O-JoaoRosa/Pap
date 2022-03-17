@@ -83,4 +83,14 @@ public class EventController : MonoBehaviour
         }
     }
 
+
+    public event Action onCrossingTheLine;
+    public void OnCrossingTheLine()
+    {
+        if (onCrossingTheLine != null)
+        {
+            onCrossingTheLine();
+        }
+    }
+
 }

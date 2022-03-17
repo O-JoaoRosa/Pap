@@ -38,7 +38,7 @@ public class cameraScript : MonoBehaviour
 	void FixedUpdate()
 	{
 		Vector3 localVelocity = car.InverseTransformDirection(sphere.GetComponent<Rigidbody>().velocity);
-		if (localVelocity.z < -0.1f && Input.GetAxisRaw("Vertical") == -1)
+		if ((localVelocity.z < -0.1f && Input.GetAxisRaw("Vertical") == -1) || Input.GetKey(KeyCode.F))
 		{
 			Vector3 temp = rotationVector; //because temporary variables seem to be removed after a closing bracket "}" we can use the same variable name multiple times.
 			temp.y = car.eulerAngles.y + 180;

@@ -22,7 +22,6 @@ public class RaceController : MonoBehaviour
     {
         //associa o evento criado no script eventController com o metodo
         EventController.current.onRaceStartExit += StartRace;
-        StartTime = Time.time;
         totalLaps = Data.Track.NumberOfLaps;
         lapCounter.text = $"LAP {lap}/{totalLaps}";
         Data.Track.lapTimes.Clear();
@@ -51,19 +50,17 @@ public class RaceController : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         EventController.current.RaceStartExist();
-        if (Data.activeGameMode == Data.GameModeTimeAttack)
-        {
-            isTimeCounting = true;
-        }
+        
 
     }
     private void OnTriggerEnter(Collider other)
     {
         //verifica se passou por todos os checks
-        if (lastTriggerA.nmbrTChck == 15 && lastTriggerB.nmbrTChck == 17)
+        if (lastTriggerA.nmbrTChck == 18 || lastTriggerB.nmbrTChck == 21)
         {
             //salva o tempo na variavel
             Data.Track.lapTimes.Add(TimerString);
+            StartTime = Time.time;
 
             //verifica se foi a ultima volta ou se deve adicionar mais uma
             if (lap == totalLaps)
@@ -73,7 +70,7 @@ public class RaceController : MonoBehaviour
             else
             {
                 lap += 1;
-                check1trigger.numberToCheck = 0;
+                EventController.current.OnCrossingTheLine();
             }
 
         }
@@ -83,5 +80,19 @@ public class RaceController : MonoBehaviour
     void StartRace()
     {
         isTimeCounting = true;
+
+        Debug.Log("Active mode " + Data.Track.TypeOfRace);
+        Debug.Log("Compared GameMode" + Data.GameModeTimeAttack);
+
+        if (Data.Track.TypeOfRace == Data.GameModeTimeAttack)
+        {
+            isTimeCounting = true;
+            if (lap == 0)
+            {
+                Debug.Log("Time stored");
+                StartTime = Time.time;
+                lap += 1;
+            }
+        }
     }
 }

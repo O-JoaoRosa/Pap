@@ -70,15 +70,11 @@ public class CarControl : MonoBehaviour
 
         if (moveInput > 0f)
         {
-            Debug.Log(moveInput);
-            Debug.Log(ActiveCar.FowardSpeed);
             moveInput *= ActiveCar.FowardSpeed;
         }
         else if (moveInput < 0f)
         {
             moveInput *= ReverseSpeed;
-            Debug.Log("move input : "+moveInput);
-            Debug.Log("Reverse speed" + ReverseSpeed);
         }
         
         turningInput = Input.GetAxisRaw("Horizontal");
@@ -246,7 +242,7 @@ public class CarControl : MonoBehaviour
                 //makes it easier to drift
                 ActiveCar.TurnSpeed = ActiveCar.DriftTurnAngle;
                 sphereRB.drag = ActiveCar.GroundDrag;
-                sphereRB.AddForce(transform.forward * moveInput / 2, ForceMode.Acceleration);
+                sphereRB.AddForce(transform.forward * (moveInput * 0.80f), ForceMode.Acceleration);
             }
             else if (isBreaking) 
             {

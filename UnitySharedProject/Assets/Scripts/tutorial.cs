@@ -19,7 +19,7 @@ public class tutorial : MonoBehaviour
     void Start()
     {
         //verifica qual o modo de jogo activo
-        if (Data.activeGameMode == Data.GameModeStory)
+        if (Data.Track.TypeOfRace == Data.GameModeStory)
         {
             Time.timeScale = 0.1f;
 
@@ -52,7 +52,10 @@ public class tutorial : MonoBehaviour
 
     private void Update()
     {
-        ChangeText();
+        if (Data.Track.TypeOfRace == Data.GameModeStory)
+        {
+            ChangeText();
+        }
     }
 
     void ChangeText()

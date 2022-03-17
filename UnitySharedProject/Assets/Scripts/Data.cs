@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Data : MonoBehaviour
 {
-    public static string activeGameMode;
     public static string GameModeStory = "Story";
     public static string GameModeTimeAttack = "Time Attack";
     public static string GameModeVs = "Vs";
