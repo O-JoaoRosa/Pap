@@ -47,6 +47,8 @@ public class Register : MonoBehaviour
         StartCoroutine(RegisterUser());
         gameObject.SetActive(false);
         MenuLogin.SetActive(false);
+        MenuPrincipal.SetActive(true);
+
     }
 
     public void Cancel()

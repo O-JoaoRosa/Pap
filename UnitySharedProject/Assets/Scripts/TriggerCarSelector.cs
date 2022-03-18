@@ -58,6 +58,15 @@ public class TriggerCarSelector : MonoBehaviour
 
     private void ResetCam()
     {
+
+        if (GameObject.Find("Car(Clone)"))
+        {
+            Destroy(GameObject.Find("Car(Clone)"));
+        }
+        else
+        {
+            Destroy(GameObject.Find("Car"));
+        }
         lookAt.StartLooking();
         CarManager.UpdateCarUsed();
         if (GameObject.Find("Car(Clone)"))

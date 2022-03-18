@@ -195,18 +195,7 @@ public class CarChange : MonoBehaviour
         Debug.Log("Starting Corutine");
         StartCoroutine(UpdateCarSelected());
         gameObject.SetActive(false);
-        if (GameObject.Find("Car(Clone)"))
-        {
-            Destroy(GameObject.Find("Car(Clone)"));
-        }
-        else
-        {
-            Destroy(GameObject.Find("Car"));
-        }
         Debug.Log("Executando o evento CarSelectorExit()");
-
-        //executa o evento para que no script CarCustomizerMenuScript o menu desapareça 
-        EventController.current.CarSelectorExit();
     }
 
     IEnumerator UpdateCarSelected()
