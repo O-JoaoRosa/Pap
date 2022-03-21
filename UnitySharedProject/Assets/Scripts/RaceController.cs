@@ -56,7 +56,7 @@ public class RaceController : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         //verifica se passou por todos os checks
-        if (lastTriggerA.nmbrTChck == 18 || lastTriggerB.nmbrTChck == 21)
+        if (lastTriggerA.nmbrTChck == 1 || lastTriggerB.nmbrTChck == 21)
         {
             //salva o tempo na variavel
             Data.Track.lapTimes.Add(TimerString);

@@ -12,12 +12,16 @@ public class check1trigger : MonoBehaviour
     public float lastClosest;
     public GameObject plyr;
     public GameObject wrongWaySignal;
+    public GameObject CheckPoint;
+    public bool isTimeCouting = false;
+    public float time;
 
     // Start is called before the first frame update
     void Start()
     {
+        CheckPoint = transform.GetChild(0).gameObject;
         distance = Vector3.Distance(plyr.transform.position, gameObject.transform.position);
-        lastClosest = distance;
+        lastClosest = distance + 10f;
         //associa o evento criado no script eventController com o metodo
         if (Data.Track.TypeOfRace == Data.GameModeStory)
         {
@@ -42,6 +46,21 @@ public class check1trigger : MonoBehaviour
             }
             else if (distance > lastClosest)
             {
+                if (!isTimeCouting)
+                {
+                    time = Time.time;
+                    isTimeCouting = true;
+                }
+
+                if(((Time.time - time) > 10f) && isTimeCouting)
+                {
+                    CheckPoint.SetActive(true);
+                }
+                else if(!isTimeCouting)
+                {
+                    CheckPoint.SetActive(false);
+                }
+
                 lastClosest = distance;
                 wrongWaySignal.SetActive(true);
                 Debug.LogWarning("going Back : " + lastClosest + " Object name : " + obj.name);
@@ -60,6 +79,8 @@ public class check1trigger : MonoBehaviour
             {
                 ResetValues();
             }
+
+            isTimeCouting = false;
 
         }
         else if (gameObject.name.Contains("18-") && numberToCheck == 14)
