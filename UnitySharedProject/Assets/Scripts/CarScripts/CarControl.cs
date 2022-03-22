@@ -19,6 +19,7 @@ public class CarControl : MonoBehaviour
 
     //raycast
     private bool isCarGrounded;
+    private bool isCarOutOfRoad;
 
     public float Speed;
     public float ReverseSpeed = ActiveCar.FowardSpeed * 0.40f;
@@ -45,16 +46,17 @@ public class CarControl : MonoBehaviour
     [Header("Masks")]
     //layerMasks
     public LayerMask groundLayer;
+    public LayerMask outOfRoadLayer;
 
     /// <summary>
     ///  Start is called before the first frame update
     /// </summary>
     void Start()
     {
-        wrongSideDrift = ActiveCar.TurnSpeed / 4;
+        wrongSideDrift = ActiveCar.TurnSpeed / 3;
 
 
-        ReverseSpeed = ActiveCar.FowardSpeed * 0.90f;
+        ReverseSpeed = ActiveCar.FowardSpeed * 0.80f;
 
         //puts the sphere out of the hierarchy
         sphereRB.transform.parent = null;
@@ -87,13 +89,22 @@ public class CarControl : MonoBehaviour
 
         //checks if the raycast is hitting the gound 
         RaycastHit hit;
-        isCarGrounded = Physics.Raycast(transform.position, -transform.up, out hit,3f, groundLayer);
+        RaycastHit hit2;
+        isCarGrounded = Physics.Raycast(transform.position, -transform.up, out hit,2f, groundLayer);
+        isCarOutOfRoad = Physics.Raycast(transform.position, -transform.up, out hit2, 2f, outOfRoadLayer);
 
         //makes the car parallel to the gorund 
-        transform.rotation = Quaternion.FromToRotation(transform.up, hit.normal) * transform.rotation;
+        if (isCarGrounded)
+        {
+            transform.rotation = Quaternion.FromToRotation(transform.up, hit.normal) * transform.rotation;
+        }
+        else if(isCarOutOfRoad)
+        {
+            transform.rotation = Quaternion.FromToRotation(transform.up, hit2.normal) * transform.rotation;
+        }
 
         //checks to see if the car is touching the ground
-        if (isCarGrounded)
+        if (isCarGrounded || isCarOutOfRoad)
         {
             StartBreaking();
         }
@@ -107,9 +118,19 @@ public class CarControl : MonoBehaviour
         //normal rotation of the car
         if (Speed > 1f && !isDrifting)
         {
-            newRotation = turningInput * ActiveCar.TurnSpeed * Time.deltaTime * Input.GetAxisRaw("Vertical");
+            //verifica se o jogador esta a andar para a frente ou não, caso não inverte as direções 
+            newRotation = Input.GetAxisRaw("Vertical") < 0f ? turningInput * ActiveCar.TurnSpeed * Time.deltaTime * Input.GetAxisRaw("Vertical") : turningInput * ActiveCar.TurnSpeed * Time.deltaTime;
+
+            //if (Input.GetAxisRaw("Vertical") < 0f)
+            //{
+            //    newRotation = turningInput * ActiveCar.TurnSpeed * Time.deltaTime * Input.GetAxisRaw("Vertical");
+            //}
+            //else
+            //{
+            //    newRotation = turningInput * ActiveCar.TurnSpeed * Time.deltaTime;
+            //}
         }
-        else if (Speed > 1f && isDrifting)
+        else if (Speed > 1f && isDrifting) //verifica se o jogador esta a andar e a fazer drift para contar os pontos
         {
             gameObject.GetComponent<nitro>().NitroPoints();
 
@@ -137,6 +158,7 @@ public class CarControl : MonoBehaviour
     /// </summary>
     private void DriftAnimation()
     {
+        //inicia as animações dependendo do lado em que o jogador esta a tentar virar
         if (turningInput > 0)
         {
             anim.SetBool("isRightDrifting", true);
@@ -155,22 +177,23 @@ public class CarControl : MonoBehaviour
     /// </summary>
     private void StartBreaking()
     {
-        if (Input.GetKeyDown("space") && turningInput != 0 && !isDrifting)
+        if (Input.GetKeyDown("space") && turningInput != 0 && !isDrifting) //verifica se o jogador quer fazer drift ou não 
         {
             //sees if the car should be drifting or not
             DriftAnimation();
             driftParticlesRight.Play();
             driftParticlesLeft.Play();
             isDrifting = true;
+            turningInput += 0.2f;
         }
-        else if (Input.GetKeyDown("space") && turningInput == 0)
+        else if (Input.GetKeyDown("space") && turningInput == 0) //verifica se o jogador estava a virar antes quando carregou no travão
         {
             anim.SetBool("isLeftDrifting",false);
             anim.SetBool("isRightDrifting",false);
             anim.SetBool("isBreaking",true);
             isBreaking = true;
         }
-        else if (!Input.GetKey("space"))
+        else if (!Input.GetKey("space")) //caso nao esteja a travar desativa as animações 
         {
             anim.SetBool("isLeftDrifting", false);
             anim.SetBool("isRightDrifting", false);
@@ -191,7 +214,7 @@ public class CarControl : MonoBehaviour
         //devolve os valores default as bools
         if (!Input.GetKey("space") && (isDrifting || isBreaking))
         {
-            //caso a ultima ação tenha cido travar
+            //caso a ultima ação tenha sido travar
             if (isBreaking)
             {
                 //stops the breaking animation
@@ -199,7 +222,7 @@ public class CarControl : MonoBehaviour
                 isBreaking = false;
             }
 
-            //caso tenha cido fazer drift
+            //caso tenha sido fazer drift
             if (isDrifting)
             {
                 driftParticlesRight.Stop();
@@ -248,7 +271,7 @@ public class CarControl : MonoBehaviour
             {
                 //changes the turn speed and makes the car break
                 ActiveCar.TurnSpeed = ActiveCar.DefaultTurnAngle;
-                sphereRB.drag = ActiveCar.GroundDrag * 1.5f;
+                sphereRB.drag = ActiveCar.GroundDrag * 2f;
             }
             else
             {
@@ -256,6 +279,42 @@ public class CarControl : MonoBehaviour
                 ActiveCar.TurnSpeed = ActiveCar.DefaultTurnAngle;
                 sphereRB.AddForce(transform.forward * moveInput, ForceMode.Acceleration);
                 sphereRB.drag = ActiveCar.GroundDrag;
+            }
+        }
+        else if(isCarOutOfRoad) //verifica se o carro esta fora da estrada e penaliza o jogador caso esteja
+        {
+            StopBreaking();
+
+            //checks to see if it should play the is moving animation based on the cars speed
+            if (sphereRB.velocity.magnitude > 2f)
+            {
+                anim.SetBool("isMoving", true);
+            }
+            else
+            {
+                anim.SetBool("isMoving", false);
+            }
+
+            //checks if the player is moving and trying to break
+            if (isDrifting)
+            {
+                //makes it easier to drift
+                ActiveCar.TurnSpeed = ActiveCar.DriftTurnAngle;
+                sphereRB.drag = ActiveCar.GroundDrag;
+                sphereRB.AddForce(transform.forward * (moveInput * 0.70f), ForceMode.Acceleration);
+            }
+            else if (isBreaking)
+            {
+                //changes the turn speed and makes the car break
+                ActiveCar.TurnSpeed = ActiveCar.DefaultTurnAngle;
+                sphereRB.drag = ActiveCar.GroundDrag * 2.3f;
+            }
+            else
+            {
+                //moves the sphere and changes the drag
+                ActiveCar.TurnSpeed = ActiveCar.DefaultTurnAngle;
+                sphereRB.AddForce(transform.forward * (moveInput * 0.75f), ForceMode.Acceleration);
+                sphereRB.drag = ActiveCar.GroundDrag * 0.95f;
             }
         }
         else

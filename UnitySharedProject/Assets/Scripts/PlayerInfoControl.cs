@@ -52,7 +52,11 @@ public class PlayerInfoControl : MonoBehaviour
 
         PlayerName.text = Data.Player.UserName.ToUpper();
         MoneyValue.text = Data.Player.Money.ToString();
-        
+        UpdatePlayerLeve();
+    }
+    void UpdatePlayerLeve()
+    {
+
         #region Level Limits & Frame Changes
 
         //verifica o level do player e muda o nivel e o maximo do nivel do player
@@ -128,7 +132,7 @@ public class PlayerInfoControl : MonoBehaviour
             LevelSliderImage.sprite = SliderType4;
             //9
         }
-        else if(Data.Player.Reputation < 500)
+        else if (Data.Player.Reputation < 500)
         {
             LevelSlider.minValue = 0;
             LevelSlider.maxValue = 500;
@@ -136,11 +140,12 @@ public class PlayerInfoControl : MonoBehaviour
             LevelFrame.sprite = LevelType1;
             LevelSliderImage.sprite = SliderType1;
             //default
-        } 
+        }
         #endregion
 
         LevelSlider.value = Data.Player.Reputation;
 
+        MoneyValue.text = Data.Player.Money.ToString();
     }
 
     /// <summary>
@@ -182,6 +187,6 @@ public class PlayerInfoControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        UpdatePlayerLeve();
     }
 }

@@ -50,7 +50,6 @@ public class RaceController : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         EventController.current.RaceStartExist();
-        
 
     }
     private void OnTriggerEnter(Collider other)
@@ -65,7 +64,7 @@ public class RaceController : MonoBehaviour
             //verifica se foi a ultima volta ou se deve adicionar mais uma
             if (lap == totalLaps)
             {
-                SceneManager.LoadSceneAsync("GarageLobby",LoadSceneMode.Single);
+                EventController.current.OnRaceFinish();
             }
             else
             {

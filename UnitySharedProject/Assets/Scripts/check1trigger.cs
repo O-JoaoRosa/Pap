@@ -14,12 +14,14 @@ public class check1trigger : MonoBehaviour
     public GameObject wrongWaySignal;
     public GameObject CheckPoint;
     public bool isTimeCouting = false;
+    bool isThisObject = false;
     public float time;
 
     // Start is called before the first frame update
     void Start()
     {
         CheckPoint = transform.GetChild(0).gameObject;
+        CheckPoint.SetActive(false);
         distance = Vector3.Distance(plyr.transform.position, gameObject.transform.position);
         lastClosest = distance + 10f;
         //associa o evento criado no script eventController com o metodo
@@ -31,18 +33,22 @@ public class check1trigger : MonoBehaviour
        
     }
 
+    private void Update()
+    {
+        isThisObject = gameObject == GameObject.Find($"Check{numberToCheck}-") ? true : false;
+    }
+
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (gameObject.name.Contains(nmbrTChck.ToString() + "-"))
+        if (isThisObject)
         {
-            GameObject obj = GameObject.Find("Check" + numberToCheck + "-");
-            distance = Vector3.Distance(plyr.transform.position, obj.transform.position);
+            distance = Vector3.Distance(plyr.transform.position, gameObject.transform.position);
             if (distance < lastClosest)
             {
                 lastClosest = distance;
                 wrongWaySignal.SetActive(false);
-                Debug.LogWarning("Getting closer : " + lastClosest + " Object name : " + obj.name);
+                Debug.LogWarning("Getting closer : " + lastClosest + " Object name : " + gameObject.name);
             }
             else if (distance > lastClosest)
             {
@@ -63,8 +69,12 @@ public class check1trigger : MonoBehaviour
 
                 lastClosest = distance;
                 wrongWaySignal.SetActive(true);
-                Debug.LogWarning("going Back : " + lastClosest + " Object name : " + obj.name);
+                Debug.LogWarning("going Back : " + lastClosest + " Object name : " + gameObject.name);
             }
+        }
+        else
+        {
+            CheckPoint.SetActive(false);
         }
         
     }
@@ -73,6 +83,7 @@ public class check1trigger : MonoBehaviour
     {
         if (gameObject.name.Contains(numberToCheck.ToString() + "-"))
         {
+            CheckPoint.SetActive(false);
             numberToCheck += 1;
             nmbrTChck = numberToCheck;
             if (numberToCheck == 18)
@@ -85,6 +96,7 @@ public class check1trigger : MonoBehaviour
         }
         else if (gameObject.name.Contains("18-") && numberToCheck == 14)
         {
+            CheckPoint.SetActive(false);
             numberToCheck = 19;
             nmbrTChck = numberToCheck;
         }

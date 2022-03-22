@@ -93,4 +93,12 @@ public class EventController : MonoBehaviour
         }
     }
 
+    public event Action onRaceFinish;
+    public void OnRaceFinish()
+    {
+        if (onRaceFinish != null)
+        {
+            onRaceFinish();
+        }
+    }
 }

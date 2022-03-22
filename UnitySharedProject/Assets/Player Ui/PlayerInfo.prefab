@@ -624,6 +624,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68ee15765de0325448976e4afd6cc94e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PlayerInfo: {fileID: 770853850102670540}
+  Money: {fileID: 3664341072695229444}
   PlayerName: {fileID: 3062112630959838145}
   MoneyValue: {fileID: 8212600833007044747}
   LevelSlider: {fileID: 3131928784617601634}
