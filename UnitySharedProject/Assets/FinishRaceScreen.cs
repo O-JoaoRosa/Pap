@@ -36,6 +36,7 @@ public class FinishRaceScreen : MonoBehaviour
     float mili;
     float sec;
     float minu;
+    private Text txt;
 
 
     // Start is called before the first frame update
@@ -57,16 +58,25 @@ public class FinishRaceScreen : MonoBehaviour
         if (isLapTimeUpdatable)
         {
             #region Updates nos tempos
-            Text txt = TimeLap1;
             switch (lapToUpdate)
             {
                 case 0:
                     txt = TimeLap1;
                     break;
                 case 1:
+                    if ((min + secs) <= 60f && txt != TimeLap2)
+                    {
+                        nStars += 1;
+                        Debug.LogWarning("Star added : " + nStars);
+                    }
                     txt = TimeLap2;
                     break;
                 case 2:
+                    if ((min + secs) <= 60f && txt != TimeLap3)
+                    {
+                        nStars += 1;
+                        Debug.LogWarning("Star added : " + nStars);
+                    }
                     txt = TimeLap3;
                     break;
                 default:
@@ -74,39 +84,41 @@ public class FinishRaceScreen : MonoBehaviour
                     isLapTimeUpdatable = false;
                     isMoneyUpdatable = true;
                     updateStars = true;
+                    
                     break;
             }
-
-            if (mili < milisecs)
+            if (isLapTimeUpdatable)
             {
-                mili += 1;
-                txt.text = $"00 : 00 : {mili}";
-            }
-            else if (sec < secs)
-            {
-                sec += 1;
-                txt.text = $"00 : {sec} : {mili}";
-            }
-            else if (minu < min)
-            {
-                minu += 1;
-                txt.text = $"{minu} : {sec} : {mili}";
-                if (min < 1 && secs < 59)
+                if (mili < milisecs)
                 {
-                    nStars += 1;
+                    mili += 1;
+                    string mil = mili.ToString("00");
+                    txt.text = $"00 : 00 : {mil}";
                 }
-            }
-            else
-            {
-                lapToUpdate += 1;
+                else if (sec < secs)
+                {
+                    sec += 1;
+                    string se = sec.ToString("00");
+                    txt.text = $"00 : {sec} : {mili}";
+                }
+                else if (minu < min)
+                {
+                    minu += 1;
+                    string mi = minu.ToString("00");
+                    txt.text = $"{mi} : {sec} : {mili}";
+                }
+                else
+                {
+                    lapToUpdate += 1;
 
-                mili = 00;
-                sec = 00;
-                minu = 00;
+                    mili = 00;
+                    sec = 00;
+                    minu = 00;
 
-                milisecs = float.Parse(Data.Track.lapTimes[lapToUpdate].Split(':')[2]);
-                secs = float.Parse(Data.Track.lapTimes[lapToUpdate].Split(':')[1]);
-                min = float.Parse(Data.Track.lapTimes[lapToUpdate].Split(':')[0]);
+                    milisecs = float.Parse(Data.Track.lapTimes[lapToUpdate].Split(':')[2]);
+                    secs = float.Parse(Data.Track.lapTimes[lapToUpdate].Split(':')[1]);
+                    min = float.Parse(Data.Track.lapTimes[lapToUpdate].Split(':')[0]);
+                }
             }
             #endregion
         }
@@ -114,6 +126,7 @@ public class FinishRaceScreen : MonoBehaviour
         {
             if (updateStars)
             {
+                Debug.LogWarning("Number of stars : " + nStars);
                 switch (nStars)
                 {
                     case 0:
@@ -163,9 +176,15 @@ public class FinishRaceScreen : MonoBehaviour
         sec = 00;
         minu = 00;
 
-        milisecs = float.Parse(Data.Track.lapTimes[lapToUpdate].Split(':')[0]);
+        milisecs = float.Parse(Data.Track.lapTimes[lapToUpdate].Split(':')[2]);
         secs = float.Parse(Data.Track.lapTimes[lapToUpdate].Split(':')[1]);
-        min = float.Parse(Data.Track.lapTimes[lapToUpdate].Split(':')[2]);
+        min = float.Parse(Data.Track.lapTimes[lapToUpdate].Split(':')[0]);
+
+        if ((min + secs) <= 60f)
+        {
+            nStars = 1;
+            Debug.LogWarning("Star added : " + nStars);
+        }
 
         gameObject.SetActive(true);
 

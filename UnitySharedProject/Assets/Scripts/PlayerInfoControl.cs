@@ -49,6 +49,7 @@ public class PlayerInfoControl : MonoBehaviour
         EventController.current.onCarSelectorExit += ResetPos;
         EventController.current.onGarageTriggerEnter += HidePlayerInfo;
         EventController.current.onGarageTriggerExit += ShowPlayerInfo;
+        EventController.current.onRaceFinish += UpdatePlayerLeve;
 
         PlayerName.text = Data.Player.UserName.ToUpper();
         MoneyValue.text = Data.Player.Money.ToString();
