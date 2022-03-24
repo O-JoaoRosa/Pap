@@ -48,6 +48,8 @@ public class CarControl : MonoBehaviour
     public LayerMask groundLayer;
     public LayerMask outOfRoadLayer;
 
+    public static bool canMove = true;
+
     /// <summary>
     ///  Start is called before the first frame update
     /// </summary>
@@ -55,6 +57,7 @@ public class CarControl : MonoBehaviour
     {
         wrongSideDrift = ActiveCar.TurnSpeed / 3;
 
+        canMove = true;
 
         ReverseSpeed = ActiveCar.FowardSpeed * 0.80f;
 
@@ -67,46 +70,49 @@ public class CarControl : MonoBehaviour
     /// </summary>
     void Update()
     {
-        //gets and prepares the input
-        moveInput = Input.GetAxisRaw("Vertical");
-
-        if (moveInput > 0f)
+        if (canMove)
         {
-            moveInput *= ActiveCar.FowardSpeed;
-        }
-        else if (moveInput < 0f)
-        {
-            moveInput *= ReverseSpeed;
-        }
-        
-        turningInput = Input.GetAxisRaw("Horizontal");
+            //gets and prepares the input
+            moveInput = Input.GetAxisRaw("Vertical");
 
-        //sets the car position the same as the spheres
-        transform.position = sphereRB.transform.position;
+            if (moveInput > 0f)
+            {
+                moveInput *= ActiveCar.FowardSpeed;
+            }
+            else if (moveInput < 0f)
+            {
+                moveInput *= ReverseSpeed;
+            }
 
-        //metodo para rodar o carro
-        Turn();
+            turningInput = Input.GetAxisRaw("Horizontal");
 
-        //checks if the raycast is hitting the gound 
-        RaycastHit hit;
-        RaycastHit hit2;
-        isCarGrounded = Physics.Raycast(transform.position, -transform.up, out hit,2f, groundLayer);
-        isCarOutOfRoad = Physics.Raycast(transform.position, -transform.up, out hit2, 2f, outOfRoadLayer);
+            //sets the car position the same as the spheres
+            transform.position = sphereRB.transform.position;
 
-        //makes the car parallel to the gorund 
-        if (isCarGrounded)
-        {
-            transform.rotation = Quaternion.FromToRotation(transform.up, hit.normal) * transform.rotation;
-        }
-        else if(isCarOutOfRoad)
-        {
-            transform.rotation = Quaternion.FromToRotation(transform.up, hit2.normal) * transform.rotation;
-        }
+            //metodo para rodar o carro
+            Turn();
 
-        //checks to see if the car is touching the ground
-        if (isCarGrounded || isCarOutOfRoad)
-        {
-            StartBreaking();
+            //checks if the raycast is hitting the gound 
+            RaycastHit hit;
+            RaycastHit hit2;
+            isCarGrounded = Physics.Raycast(transform.position, -transform.up, out hit, 2f, groundLayer);
+            isCarOutOfRoad = Physics.Raycast(transform.position, -transform.up, out hit2, 2f, outOfRoadLayer);
+
+            //makes the car parallel to the gorund 
+            if (isCarGrounded)
+            {
+                transform.rotation = Quaternion.FromToRotation(transform.up, hit.normal) * transform.rotation;
+            }
+            else if (isCarOutOfRoad)
+            {
+                transform.rotation = Quaternion.FromToRotation(transform.up, hit2.normal) * transform.rotation;
+            }
+
+            //checks to see if the car is touching the ground
+            if (isCarGrounded || isCarOutOfRoad)
+            {
+                StartBreaking();
+            }
         }
     }
 
@@ -241,89 +247,93 @@ public class CarControl : MonoBehaviour
     /// </summary>
     private void FixedUpdate()
     {
-        //updates de var speed so i can see the speed of the car in unity
-        Speed = sphereRB.velocity.magnitude;
-
-        //checks to see if the car is touching the ground
-        if (isCarGrounded)
+        if (canMove)
         {
-            StopBreaking();
-            
-            //checks to see if it should play the is moving animation based on the cars speed
-            if (sphereRB.velocity.magnitude > 2f)
-            {
-                anim.SetBool("isMoving", true);
-            }
-            else
-            {
-                anim.SetBool("isMoving", false);
-            }
 
-            //checks if the player is moving and trying to break
-            if (isDrifting)
-            {
-                //makes it easier to drift
-                ActiveCar.TurnSpeed = ActiveCar.DriftTurnAngle;
-                sphereRB.drag = ActiveCar.GroundDrag;
-                sphereRB.AddForce(transform.forward * (moveInput * 0.80f), ForceMode.Acceleration);
-            }
-            else if (isBreaking) 
-            {
-                //changes the turn speed and makes the car break
-                ActiveCar.TurnSpeed = ActiveCar.DefaultTurnAngle;
-                sphereRB.drag = ActiveCar.GroundDrag * 2f;
-            }
-            else
-            {
-                //moves the sphere and changes the drag
-                ActiveCar.TurnSpeed = ActiveCar.DefaultTurnAngle;
-                sphereRB.AddForce(transform.forward * moveInput, ForceMode.Acceleration);
-                sphereRB.drag = ActiveCar.GroundDrag;
-            }
-        }
-        else if(isCarOutOfRoad) //verifica se o carro esta fora da estrada e penaliza o jogador caso esteja
-        {
-            StopBreaking();
+            //updates de var speed so i can see the speed of the car in unity
+            Speed = sphereRB.velocity.magnitude;
 
-            //checks to see if it should play the is moving animation based on the cars speed
-            if (sphereRB.velocity.magnitude > 2f)
+            //checks to see if the car is touching the ground
+            if (isCarGrounded)
             {
-                anim.SetBool("isMoving", true);
-            }
-            else
-            {
-                anim.SetBool("isMoving", false);
-            }
+                StopBreaking();
 
-            //checks if the player is moving and trying to break
-            if (isDrifting)
-            {
-                //makes it easier to drift
-                ActiveCar.TurnSpeed = ActiveCar.DriftTurnAngle;
-                sphereRB.drag = ActiveCar.GroundDrag;
-                sphereRB.AddForce(transform.forward * (moveInput * 0.70f), ForceMode.Acceleration);
+                //checks to see if it should play the is moving animation based on the cars speed
+                if (sphereRB.velocity.magnitude > 2f)
+                {
+                    anim.SetBool("isMoving", true);
+                }
+                else
+                {
+                    anim.SetBool("isMoving", false);
+                }
+
+                //checks if the player is moving and trying to break
+                if (isDrifting)
+                {
+                    //makes it easier to drift
+                    ActiveCar.TurnSpeed = ActiveCar.DriftTurnAngle;
+                    sphereRB.drag = ActiveCar.GroundDrag;
+                    sphereRB.AddForce(transform.forward * (moveInput * 0.80f), ForceMode.Acceleration);
+                }
+                else if (isBreaking)
+                {
+                    //changes the turn speed and makes the car break
+                    ActiveCar.TurnSpeed = ActiveCar.DefaultTurnAngle;
+                    sphereRB.drag = ActiveCar.GroundDrag * 2f;
+                }
+                else
+                {
+                    //moves the sphere and changes the drag
+                    ActiveCar.TurnSpeed = ActiveCar.DefaultTurnAngle;
+                    sphereRB.AddForce(transform.forward * moveInput, ForceMode.Acceleration);
+                    sphereRB.drag = ActiveCar.GroundDrag;
+                }
             }
-            else if (isBreaking)
+            else if (isCarOutOfRoad) //verifica se o carro esta fora da estrada e penaliza o jogador caso esteja
             {
-                //changes the turn speed and makes the car break
-                ActiveCar.TurnSpeed = ActiveCar.DefaultTurnAngle;
-                sphereRB.drag = ActiveCar.GroundDrag * 2.3f;
+                StopBreaking();
+
+                //checks to see if it should play the is moving animation based on the cars speed
+                if (sphereRB.velocity.magnitude > 2f)
+                {
+                    anim.SetBool("isMoving", true);
+                }
+                else
+                {
+                    anim.SetBool("isMoving", false);
+                }
+
+                //checks if the player is moving and trying to break
+                if (isDrifting)
+                {
+                    //makes it easier to drift
+                    ActiveCar.TurnSpeed = ActiveCar.DriftTurnAngle;
+                    sphereRB.drag = ActiveCar.GroundDrag;
+                    sphereRB.AddForce(transform.forward * (moveInput * 0.70f), ForceMode.Acceleration);
+                }
+                else if (isBreaking)
+                {
+                    //changes the turn speed and makes the car break
+                    ActiveCar.TurnSpeed = ActiveCar.DefaultTurnAngle;
+                    sphereRB.drag = ActiveCar.GroundDrag * 2.3f;
+                }
+                else
+                {
+                    //moves the sphere and changes the drag
+                    ActiveCar.TurnSpeed = ActiveCar.DefaultTurnAngle;
+                    sphereRB.AddForce(transform.forward * (moveInput * 0.75f), ForceMode.Acceleration);
+                    sphereRB.drag = ActiveCar.GroundDrag * 0.95f;
+                }
             }
             else
             {
-                //moves the sphere and changes the drag
-                ActiveCar.TurnSpeed = ActiveCar.DefaultTurnAngle;
-                sphereRB.AddForce(transform.forward * (moveInput * 0.75f), ForceMode.Acceleration);
-                sphereRB.drag = ActiveCar.GroundDrag * 0.95f;
+                //changes the drag
+                sphereRB.drag = ActiveCar.AirDrag;
+
+                //makes the car fall 
+                sphereRB.AddForce(transform.up * -9.8f);
             }
-        }
-        else
-        {
-            //changes the drag
-            sphereRB.drag = ActiveCar.AirDrag;
-            
-            //makes the car fall 
-            sphereRB.AddForce(transform.up * -9.8f);
         }
     }
 }

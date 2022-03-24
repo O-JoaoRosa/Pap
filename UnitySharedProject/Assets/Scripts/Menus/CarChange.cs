@@ -195,7 +195,6 @@ public class CarChange : MonoBehaviour
         Debug.Log("Starting Corutine");
         StartCoroutine(UpdateCarSelected());
         gameObject.SetActive(false);
-        Debug.Log("Executando o evento CarSelectorExit()");
     }
 
     IEnumerator UpdateCarSelected()

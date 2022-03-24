@@ -101,4 +101,19 @@ public class EventController : MonoBehaviour
             onRaceFinish();
         }
     }
+
+    public event Action onResetActions;
+    public void OnResetActions()
+    {
+        onCarSelectorEnter = null;
+        onCarSelectorExit = null;
+        onCheck1 = null;
+        onCheck2 = null;
+        onCrossingTheLine = null;
+        onGarageTriggerEnter = null;
+        onGarageTriggerExit = null;
+        onRaceFinish = null;
+        onRaceStartExit = null;
+        onResetActions = null;
+    }
 }

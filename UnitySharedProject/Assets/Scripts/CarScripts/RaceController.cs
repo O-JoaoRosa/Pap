@@ -50,12 +50,12 @@ public class RaceController : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         EventController.current.RaceStartExist();
-
     }
+
     private void OnTriggerEnter(Collider other)
     {
         //verifica se passou por todos os checks
-        if (lastTriggerA.nmbrTChck == 1 || lastTriggerB.nmbrTChck == 21)
+        if ((lastTriggerA.nmbrTChck == 1 || lastTriggerB.nmbrTChck == 21) && lastTriggerB.nmbrTChck == 21)
         {
             //salva o tempo na variavel
             Data.Track.lapTimes.Add(TimerString);
@@ -65,6 +65,7 @@ public class RaceController : MonoBehaviour
             if (lap == totalLaps)
             {
                 EventController.current.OnRaceFinish();
+                CarControl.canMove = false;
             }
             else
             {

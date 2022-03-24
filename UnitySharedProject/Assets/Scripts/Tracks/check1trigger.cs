@@ -20,17 +20,26 @@ public class check1trigger : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        CheckPoint = transform.GetChild(0).gameObject;
-        CheckPoint.SetActive(false);
-        distance = Vector3.Distance(plyr.transform.position, gameObject.transform.position);
-        lastClosest = distance + 10f;
         //associa o evento criado no script eventController com o metodo
         if (Data.Track.TypeOfRace == Data.GameModeStory)
         {
             EventController.current.onCheck1 += ShowCheck1;
             EventController.current.onCrossingTheLine += ResetValues;
         }
-       
+        else if (Data.Track.TypeOfRace == Data.GameModeTimeAttack)
+        {
+            EventController.current.onCrossingTheLine += ResetValues;
+
+            CheckPoint = transform.GetChild(0).gameObject;
+            CheckPoint.SetActive(false);
+            distance = Vector3.Distance(plyr.transform.position, gameObject.transform.position);
+            lastClosest = distance + 10f;
+        }
+    }
+
+    private void OnDestroy()
+    {
+        EventController.current.OnResetActions();
     }
 
     private void Update()
@@ -68,7 +77,12 @@ public class check1trigger : MonoBehaviour
                 }
 
                 lastClosest = distance;
-                wrongWaySignal.SetActive(true);
+
+                if (gameObject == GameObject.Find($"Check{numberToCheck}-"))
+                {
+                    wrongWaySignal.SetActive(true);
+                }
+
                 Debug.LogWarning("going Back : " + lastClosest + " Object name : " + gameObject.name);
             }
         }
@@ -90,9 +104,6 @@ public class check1trigger : MonoBehaviour
             {
                 ResetValues();
             }
-
-            isTimeCouting = false;
-
         }
         else if (gameObject.name.Contains("18-") && numberToCheck == 14)
         {
@@ -118,6 +129,7 @@ public class check1trigger : MonoBehaviour
 
     public void ResetValues()
     {
+        isTimeCouting = false;
         nmbrTChck = 1;
         numberToCheck = 1;
     }

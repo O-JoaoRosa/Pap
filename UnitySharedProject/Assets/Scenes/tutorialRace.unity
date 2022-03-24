@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028355, g: 0.22571374, b: 0.30692255, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1087,14 +1087,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Finish: {fileID: 244233177}
-  Star1: {fileID: 1704898496}
-  Star2: {fileID: 1457631177}
-  Star3: {fileID: 2009598831}
+  Star1: {fileID: 1704898498}
+  Star2: {fileID: 1457631179}
+  Star3: {fileID: 2009598833}
   TimeLap1: {fileID: 1908918713}
   TimeLap2: {fileID: 1666580050}
   TimeLap3: {fileID: 469295461}
   MoneyGained: {fileID: 2089415343}
   MoneyShadow: {fileID: 1714219181}
+  ButtonContinue: {fileID: 467718267}
+  ButtonRetry: {fileID: 2141147610}
+  startColor: {r: 0.27450982, g: 0.27450982, b: 0.27450982, a: 1}
+  endColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &98333200
 GameObject:
   m_ObjectHideFlags: 0
@@ -3993,7 +3997,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 467718268}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 96698284}
+        m_TargetAssemblyTypeName: FinishRaceScreen, Assembly-CSharp
+        m_MethodName: ContinueButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &467718268
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12031,12 +12047,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerInfo: {fileID: 1115932238845028533}
   Money: {fileID: 3968889263788945533}
-  PlayerName: {fileID: 3062112630959838145, guid: 237373817b89e3d47b42d70f262372aa, type: 3}
-  MoneyValue: {fileID: 8212600833007044747, guid: 237373817b89e3d47b42d70f262372aa, type: 3}
-  LevelSlider: {fileID: 3131928784617601634, guid: 237373817b89e3d47b42d70f262372aa, type: 3}
-  LevelSliderImage: {fileID: 4617458084171496119, guid: 237373817b89e3d47b42d70f262372aa, type: 3}
-  LevelNumber: {fileID: 3102363155102373625, guid: 237373817b89e3d47b42d70f262372aa, type: 3}
-  LevelFrame: {fileID: 5885179824076168369, guid: 237373817b89e3d47b42d70f262372aa, type: 3}
+  PlayerName: {fileID: 3436464483835715512}
+  MoneyValue: {fileID: 8374177396855227634}
+  LevelSlider: {fileID: 3366671248060642843}
+  LevelSliderImage: {fileID: 5033485765801359054}
+  LevelNumber: {fileID: 3369756647285856896}
+  LevelFrame: {fileID: 6080513521978970312}
   Number1: {fileID: 2800000, guid: 92b0da9be51c9ee41b1e7c53ab4ccf8c, type: 3}
   Number2: {fileID: 2800000, guid: b7635e4f0eeeb5a4b898795f5704f840, type: 3}
   Number3: {fileID: 2800000, guid: ceb653200b3575047966ae28bb3ff0cf, type: 3}
@@ -18084,6 +18100,50 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
+--- !u!1 &1076669179
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1076669180}
+  - component: {fileID: 1076669181}
+  m_Layer: 0
+  m_Name: FinalCutsceneBox
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1076669180
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1076669179}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1489680837}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &1076669181
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1076669179}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 27.351315, y: 8.913339, z: 19.374533}
+  m_Center: {x: -19.850843, y: 3.9566693, z: -2.763072}
 --- !u!1 &1081561432
 GameObject:
   m_ObjectHideFlags: 0
@@ -20726,7 +20786,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.28627452, g: 0.28627452, b: 0.28627452, a: 1}
+  m_Color: {r: 0.27450982, g: 0.27450982, b: 0.27450982, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -20993,8 +21053,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 13.371853, y: 6.929531, z: 12.545175}
-  m_Center: {x: -8.6751995, y: 2.9647655, z: -2.218886}
+  m_Size: {x: 4.942856, y: 8.380809, z: 20.671574}
+  m_Center: {x: -5.5826416, y: 4.575318, z: -2.13476}
 --- !u!4 &1489680837
 Transform:
   m_ObjectHideFlags: 0
@@ -21007,6 +21067,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 747637994}
+  - {fileID: 1076669180}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -23120,7 +23181,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.2830189, g: 0.2830189, b: 0.2830189, a: 1}
+  m_Color: {r: 0.27450982, g: 0.27450982, b: 0.27450982, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -26234,7 +26295,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.28627452, g: 0.28627452, b: 0.28627452, a: 1}
+  m_Color: {r: 0.27450982, g: 0.27450982, b: 0.27450982, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -27271,7 +27332,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2141147611}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 96698284}
+        m_TargetAssemblyTypeName: FinishRaceScreen, Assembly-CSharp
+        m_MethodName: RetryButtonClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2141147611
 MonoBehaviour:
   m_ObjectHideFlags: 0
