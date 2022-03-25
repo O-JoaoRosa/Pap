@@ -40,6 +40,8 @@ public class CarControllerLobby : MonoBehaviour
     //layerMasks
     public LayerMask groundLayer;
 
+    static public bool canMove;
+
     /// <summary>
     ///  Start is called before the first frame update
     /// </summary>
@@ -50,6 +52,8 @@ public class CarControllerLobby : MonoBehaviour
 
         //puts the sphere out of the hierarchy
         sphereRB.transform.parent = null;
+
+        canMove = false;
     }
 
     /// <summary>
@@ -57,11 +61,13 @@ public class CarControllerLobby : MonoBehaviour
     /// </summary>
     void Update()
     {
-        
-        //gets and prepares the input
-        moveInput = Input.GetAxisRaw("Vertical");
-        moveInput *= moveInput > 0 ? fowardSpeed : reverseSpeed;
-        turningInput = Input.GetAxisRaw("Horizontal");
+        if (canMove)
+        {
+            //gets and prepares the input
+            moveInput = Input.GetAxisRaw("Vertical");
+            moveInput *= moveInput > 0 ? fowardSpeed : reverseSpeed;
+            turningInput = Input.GetAxisRaw("Horizontal");
+        }
 
         //sets the car position the same as the spheres
         transform.position = sphereRB.transform.position;
@@ -75,7 +81,6 @@ public class CarControllerLobby : MonoBehaviour
 
         //makes the car parallel to the gorund 
         transform.rotation = Quaternion.FromToRotation(transform.up, hit.normal) * transform.rotation;
-        
     }
 
     /// <summary>
@@ -86,7 +91,8 @@ public class CarControllerLobby : MonoBehaviour
         //normal rotation of the car
         if (sphereRB.velocity.magnitude > 1f && Input.GetAxisRaw("Vertical") != 0)
         {
-            newRotation = turningInput * turnSpeed * Time.deltaTime * Input.GetAxisRaw("Vertical");
+            Debug.Log("turn value " + (turningInput * turnSpeed * Time.deltaTime * Input.GetAxisRaw("Vertical")) + " speed value : " + (Speed * turningInput));
+            newRotation = (turningInput * turnSpeed * Time.deltaTime * Input.GetAxisRaw("Vertical")) - (Speed * turningInput * Time.deltaTime);
         }
         else
         {
@@ -125,8 +131,8 @@ public class CarControllerLobby : MonoBehaviour
         else
         {
             //changes the drag
-            sphereRB.drag = airDrag;
-            
+            sphereRB.drag = groundDrag;
+
             //makes the car fall 
             sphereRB.AddForce(transform.up * -9.8f);
         }

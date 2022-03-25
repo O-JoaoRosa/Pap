@@ -6,7 +6,7 @@
 ; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
 AppId={{A9F76773-AA71-408E-8E2F-514552ED0919}
 AppName=Road Rush
-AppVersion=0.1
+AppVersion=0.2
 ;AppVerName=Road Rush 0.1
 AppPublisher=Pink Madness
 DefaultDirName={autopf}\Road Rush

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CarManager : MonoBehaviour
 {
@@ -57,6 +58,12 @@ public class CarManager : MonoBehaviour
             case 1:
                 
                 carId1st = Instantiate(carId1st, CarParentst.transform.position, rot, CarParentst.transform);
+
+                if (SceneManager.GetActiveScene().name == "tutorialRace")
+                {
+                    carId1st.gameObject.transform.localScale = new Vector3(0.15f, 0.15f, 0.15f);
+                }
+
                 carId1st.name = "Car";
                 carId1st = null;
                 ResetValues();
@@ -65,6 +72,10 @@ public class CarManager : MonoBehaviour
             case 2:
                 
                 carId2st = Instantiate(carId2st, CarParentst.transform.position, rot, CarParentst.transform);
+                if (SceneManager.GetActiveScene().name == "tutorialRace")
+                {
+                    carId2st.gameObject.transform.localScale = new Vector3(0.15f, 0.15f, 0.15f);
+                }
                 carId2st.name = "Car";
                 carId2st = null;
                 ResetValues();
@@ -73,6 +84,10 @@ public class CarManager : MonoBehaviour
             case 3:
                
                 car3st = Instantiate(car3st, CarParentst.transform.position, rot, CarParentst.transform);
+                if (SceneManager.GetActiveScene().name == "tutorialRace")
+                {
+                    car3st.gameObject.transform.localScale = new Vector3(0.15f, 0.15f, 0.15f);
+                }
                 car3st.name = "Car";
                 car3st = null;
                 ResetValues();
@@ -81,6 +96,10 @@ public class CarManager : MonoBehaviour
             case 4:
                 
                 car4st = Instantiate(car4st, CarParentst.transform.position, rot, CarParentst.transform);
+                if (SceneManager.GetActiveScene().name == "tutorialRace")
+                {
+                    car4st.gameObject.transform.localScale = new Vector3(0.15f, 0.15f, 0.15f);
+                }
                 car4st.name = "Car";
                 car4st = null;
                 ResetValues();
@@ -89,6 +108,10 @@ public class CarManager : MonoBehaviour
             case 5:
                 
                 car5st = Instantiate(car5st, CarParentst.transform.position, rot, CarParentst.transform);
+                if (SceneManager.GetActiveScene().name == "tutorialRace")
+                {
+                    car5st.gameObject.transform.localScale = new Vector3(0.15f, 0.15f, 0.15f);
+                }
                 car5st.name = "Car";
                 car5st = null;
                 ResetValues();
@@ -97,6 +120,10 @@ public class CarManager : MonoBehaviour
             case 6:
                 
                 car6st = Instantiate(car6st, CarParentst.transform.position, rot, CarParentst.transform);
+                if (SceneManager.GetActiveScene().name == "tutorialRace")
+                {
+                    car6st.gameObject.transform.localScale = new Vector3(0.15f, 0.15f, 0.15f);
+                }
                 car6st.name = "Car";
                 car6st = null;
                 ResetValues();
@@ -105,6 +132,10 @@ public class CarManager : MonoBehaviour
             default:
                 
                 car0st = Instantiate(car0st, CarParentst.transform.position, rot, CarParentst.transform);
+                if (SceneManager.GetActiveScene().name == "tutorialRace")
+                {
+                    car0st.gameObject.transform.localScale = new Vector3(0.15f, 0.15f, 0.15f);
+                }
                 car0st.name = "Car";
                 car0st = null;
                 ResetValues();
@@ -112,7 +143,7 @@ public class CarManager : MonoBehaviour
         }
     }
 
-    private void Awake()
+    private void Start()
     {
         CarParentst = CarParent;
         car0st = car0;
@@ -131,6 +162,7 @@ public class CarManager : MonoBehaviour
         car4stbck = car4;
         car5stbck = car5;
         car6stbck = car6;
+        UpdateCarUsed();
     }
     public static void ResetValues()
     {
@@ -142,11 +174,5 @@ public class CarManager : MonoBehaviour
         car4st = car4stbck;
         car5st = car5stbck;
         car6st = car6stbck;
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        UpdateCarUsed();
     }
 }

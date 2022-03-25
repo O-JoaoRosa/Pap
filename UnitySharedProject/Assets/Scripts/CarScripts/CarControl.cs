@@ -57,7 +57,7 @@ public class CarControl : MonoBehaviour
     {
         wrongSideDrift = ActiveCar.TurnSpeed / 3;
 
-        canMove = true;
+        canMove = false;
 
         ReverseSpeed = ActiveCar.FowardSpeed * 0.80f;
 
@@ -70,6 +70,22 @@ public class CarControl : MonoBehaviour
     /// </summary>
     void Update()
     {
+        if (anim == null)
+        {
+            Debug.Log("animator was null");
+            anim = GameObject.Find("CarRoot/CarModel/Car").GetComponent<Animator>();
+        }
+
+        if (driftParticlesLeft == null )
+        {
+            driftParticlesLeft = GameObject.Find("CarRoot/CarModel/Car/particulas left").GetComponent<ParticleSystem>();
+        }
+
+        if (driftParticlesRight == null)
+        {
+            driftParticlesRight = GameObject.Find("CarRoot/CarModel/Car/particulas right").GetComponent<ParticleSystem>();
+        }
+
         if (canMove)
         {
             //gets and prepares the input
