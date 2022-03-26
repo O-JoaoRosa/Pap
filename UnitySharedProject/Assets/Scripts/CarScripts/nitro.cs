@@ -45,9 +45,9 @@ public class nitro : MonoBehaviour
                 //adiciona força ao motor do carro
                 carMotor.AddForce(transform.forward * 10f, ForceMode.Acceleration);
 
-                if (cameraScript.defaultFOV < 65)
+                if (cameraScript.defaultFOV < 70)
                 {
-                    cameraScript.defaultFOV += 1;
+                    cameraScript.defaultFOV += 0.1f;
                 }
 
                 //gasta o nitro
@@ -58,11 +58,10 @@ public class nitro : MonoBehaviour
                 //adiciona força ao motor do carro
                 carMotor.AddForce(transform.forward * 20f, ForceMode.Acceleration);
 
-                if (cameraScript.defaultFOV < 70)
+                if (cameraScript.defaultFOV < 75)
                 {
-                    cameraScript.defaultFOV += 2;
+                    cameraScript.defaultFOV += 0.2f;
                 }
-
 
                 //gasta o nitro
                 nitroImageBlue.fillAmount -= 0.009f;
@@ -72,9 +71,9 @@ public class nitro : MonoBehaviour
                 //adiciona força ao motor do carro
                 carMotor.AddForce(transform.forward * 30f, ForceMode.Acceleration);
 
-                if (cameraScript.defaultFOV < 75)
+                if (cameraScript.defaultFOV < 85)
                 {
-                    cameraScript.defaultFOV += 5;
+                    cameraScript.defaultFOV += 0.5f;
                 }
 
                 //gasta o nitro
@@ -89,7 +88,7 @@ public class nitro : MonoBehaviour
         }
         else if (cameraScript.defaultFOV > 60)
         {
-            cameraScript.defaultFOV -= 1;
+            cameraScript.defaultFOV -= 0.1f;
         }
     }
 

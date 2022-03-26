@@ -179,7 +179,7 @@ public class FinishRaceScreen : MonoBehaviour
                         RepGained = 50;
 
                         //anima a estrela que ganhou 
-                        Star1.gameObject.LeanScale(new Vector3(1.3f, 1.3f), 0.2f).setOnComplete(() => { Star1.color = Color.Lerp(startColor, endColor, 0.3f); Star1.gameObject.LeanScale(new Vector3(1f, 1f), 0.2f); });
+                        Star1.gameObject.LeanScale(new Vector3(1.3f, 1.3f), 0.2f).setOnComplete(() => { Star1.color = Color.Lerp(startColor, endColor, 1f); Star1.gameObject.LeanScale(new Vector3(1f, 1f), 0.2f); });
                         break;
                     case 2:
                         //muda os valores ganhos
@@ -189,7 +189,7 @@ public class FinishRaceScreen : MonoBehaviour
                         //anima as estrelas que ganhou
                         Star1.gameObject.LeanScale(new Vector3(1.3f, 1.3f), 0.2f).setOnComplete(() => { 
 
-                            Star1.color = Color.Lerp(startColor, endColor, 0.3f); Star1.gameObject.LeanScale(new Vector3(1f, 1f), 0.2f);
+                            Star1.color = Color.Lerp(startColor, endColor, 1f); Star1.gameObject.LeanScale(new Vector3(1f, 1f), 0.2f);
 
                             Star2.gameObject.LeanScale(new Vector3(1.3f, 1.3f), 0.2f).setOnComplete(() => {
 

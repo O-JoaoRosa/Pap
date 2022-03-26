@@ -23192,18 +23192,6 @@ PrefabInstance:
       value: WebGetCars
       objectReference: {fileID: 0}
     - target: {fileID: 6720508645240689660, guid: f897a60444a912e4a94dbb5bfc341218, type: 3}
-      propertyPath: car3
-      value: 
-      objectReference: {fileID: 6833432535104221119, guid: eacd962b7e6169e49af3fa0f2bfc57ee, type: 3}
-    - target: {fileID: 6720508645240689660, guid: f897a60444a912e4a94dbb5bfc341218, type: 3}
-      propertyPath: carId1
-      value: 
-      objectReference: {fileID: 5445031136101395407, guid: 38caa403e3de1f346b473ffa18bf8011, type: 3}
-    - target: {fileID: 6720508645240689660, guid: f897a60444a912e4a94dbb5bfc341218, type: 3}
-      propertyPath: carId2
-      value: 
-      objectReference: {fileID: 5283027257523128859, guid: 754af940a7ce88842b5163f9858faa9d, type: 3}
-    - target: {fileID: 6720508645240689660, guid: f897a60444a912e4a94dbb5bfc341218, type: 3}
       propertyPath: CarParent
       value: 
       objectReference: {fileID: 1028862145}
@@ -24277,7 +24265,6 @@ MonoBehaviour:
   rotationDamping: 3
   heightDamping: 2
   zoomRatio: 1
-  defaultFOV: 60
 --- !u!114 &1778072592
 MonoBehaviour:
   m_ObjectHideFlags: 0

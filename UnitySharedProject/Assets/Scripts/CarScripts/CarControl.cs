@@ -14,8 +14,15 @@ public class CarControl : MonoBehaviour
     private float moveInput;
     private float turningInput;
 
+    //extras
     public ParticleSystem driftParticlesLeft;
     public ParticleSystem driftParticlesRight;
+    public GameObject FrontWheelParentLeft;
+    public GameObject FrontWheelParentRight;
+    public GameObject FrontWheelChildLeft;
+    public GameObject FrontWheelChildRight;
+    public GameObject BackWheels;
+
 
     //raycast
     private bool isCarGrounded;
@@ -86,6 +93,23 @@ public class CarControl : MonoBehaviour
             driftParticlesRight = GameObject.Find("CarRoot/CarModel/Car/particulas right").GetComponent<ParticleSystem>();
         }
 
+        if (FrontWheelParentLeft == null)
+        {
+            FrontWheelParentLeft = GameObject.Find("CarRoot/CarModel/Car/FrontWheelLeft");
+            FrontWheelChildLeft = GameObject.Find("CarRoot/CarModel/Car/FrontWheelLeft/Wheel");
+        }
+
+        if (FrontWheelParentRight == null)
+        {
+            FrontWheelParentRight = GameObject.Find("CarRoot/CarModel/Car/FrontWheelRight");
+            FrontWheelChildRight = GameObject.Find("CarRoot/CarModel/Car/FrontWheelRight/Wheel");
+        }
+
+        if (BackWheels == null)
+        {
+            BackWheels = GameObject.Find("CarRoot/CarModel/Car/BackWheels");
+        }
+
         //verifica se ja se pode mover
         if (canMove)
         {
@@ -95,10 +119,20 @@ public class CarControl : MonoBehaviour
             if (moveInput > 0f)
             {
                 moveInput *= ActiveCar.FowardSpeed;
+                BackWheels.transform.Rotate(new Vector3(BackWheels.transform.rotation.x + Speed , 0 , 0), Space.Self);
+                FrontWheelChildRight.transform.Rotate(new Vector3(FrontWheelChildRight.transform.rotation.x + Speed, 0, 0), Space.Self);
+                FrontWheelChildLeft.transform.Rotate(new Vector3(FrontWheelChildLeft.transform.rotation.x + Speed, 0, 0), Space.Self);
             }
             else if (moveInput < 0f)
             {
                 moveInput *= ReverseSpeed;
+                BackWheels.transform.Rotate(new Vector3(BackWheels.transform.rotation.x - Speed, 0, 0), Space.Self);
+                FrontWheelChildRight.transform.Rotate(new Vector3(FrontWheelChildRight.transform.rotation.x - Speed, 0, 0), Space.Self);
+                FrontWheelChildLeft.transform.Rotate(new Vector3(FrontWheelChildLeft.transform.rotation.x - Speed, 0, 0), Space.Self);
+            }
+            else
+            {
+                BackWheels.transform.Rotate(new Vector3(BackWheels.transform.rotation.x + Speed, 0, 0), Space.Self);
             }
 
             turningInput = Input.GetAxisRaw("Horizontal");
@@ -138,6 +172,22 @@ public class CarControl : MonoBehaviour
     /// </summary>
     private void Turn()
     {
+        if (turningInput > 0 && FrontWheelParentRight.transform.rotation.y < 25f)
+        {
+            FrontWheelParentRight.transform.Rotate(new Vector3(0, FrontWheelParentRight.transform.rotation.y + 2, 0), Space.Self);
+            FrontWheelParentLeft.transform.Rotate(new Vector3(0, FrontWheelParentLeft.transform.rotation.y + 2, 0), Space.Self);
+        }
+        else if (turningInput < 0 && FrontWheelParentRight.transform.rotation.y > -25f)
+        {
+            FrontWheelParentRight.transform.Rotate(new Vector3(0, FrontWheelParentRight.transform.rotation.y - 2, 0), Space.Self);
+            FrontWheelParentLeft.transform.Rotate(new Vector3(0, FrontWheelParentLeft.transform.rotation.y - 2, 0), Space.Self);
+        }
+        else if (turningInput == 0)
+        {
+            FrontWheelParentRight.transform.Rotate(new Vector3(0, 0, 0), Space.Self);
+            FrontWheelParentLeft.transform.Rotate(new Vector3(0, 0, 0), Space.Self);
+        }
+
         //normal rotation of the car
         if (Speed > 1f && !isDrifting)
         {
