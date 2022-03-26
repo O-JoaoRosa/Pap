@@ -55,11 +55,11 @@ public class CarControl : MonoBehaviour
     /// </summary>
     void Start()
     {
-        wrongSideDrift = ActiveCar.TurnSpeed / 3;
+        wrongSideDrift = ActiveCar.TurnSpeed / 2.5f;
 
         canMove = false;
 
-        ReverseSpeed = ActiveCar.FowardSpeed * 0.80f;
+        ReverseSpeed = ActiveCar.FowardSpeed * 0.75f;
 
         //puts the sphere out of the hierarchy
         sphereRB.transform.parent = null;
@@ -86,6 +86,7 @@ public class CarControl : MonoBehaviour
             driftParticlesRight = GameObject.Find("CarRoot/CarModel/Car/particulas right").GetComponent<ParticleSystem>();
         }
 
+        //verifica se ja se pode mover
         if (canMove)
         {
             //gets and prepares the input
@@ -101,34 +102,34 @@ public class CarControl : MonoBehaviour
             }
 
             turningInput = Input.GetAxisRaw("Horizontal");
+        }
 
-            //sets the car position the same as the spheres
-            transform.position = sphereRB.transform.position;
+        //sets the car position the same as the spheres
+        transform.position = sphereRB.transform.position;
 
-            //metodo para rodar o carro
-            Turn();
+        //metodo para rodar o carro
+        Turn();
 
-            //checks if the raycast is hitting the gound 
-            RaycastHit hit;
-            RaycastHit hit2;
-            isCarGrounded = Physics.Raycast(transform.position, -transform.up, out hit, 2f, groundLayer);
-            isCarOutOfRoad = Physics.Raycast(transform.position, -transform.up, out hit2, 2f, outOfRoadLayer);
+        //checks if the raycast is hitting the gound 
+        RaycastHit hit;
+        RaycastHit hit2;
+        isCarGrounded = Physics.Raycast(transform.position, -transform.up, out hit, 2f, groundLayer);
+        isCarOutOfRoad = Physics.Raycast(transform.position, -transform.up, out hit2, 2f, outOfRoadLayer);
 
-            //makes the car parallel to the gorund 
-            if (isCarGrounded)
-            {
-                transform.rotation = Quaternion.FromToRotation(transform.up, hit.normal) * transform.rotation;
-            }
-            else if (isCarOutOfRoad)
-            {
-                transform.rotation = Quaternion.FromToRotation(transform.up, hit2.normal) * transform.rotation;
-            }
+        //makes the car parallel to the gorund 
+        if (isCarGrounded)
+        {
+            transform.rotation = Quaternion.FromToRotation(transform.up, hit.normal) * transform.rotation;
+        }
+        else if (isCarOutOfRoad)
+        {
+            transform.rotation = Quaternion.FromToRotation(transform.up, hit2.normal) * transform.rotation;
+        }
 
-            //checks to see if the car is touching the ground
-            if (isCarGrounded || isCarOutOfRoad)
-            {
-                StartBreaking();
-            }
+        //checks to see if the car is touching the ground
+        if (isCarGrounded || isCarOutOfRoad)
+        {
+            StartBreaking();
         }
     }
 
@@ -185,11 +186,13 @@ public class CarControl : MonoBehaviour
         {
             anim.SetBool("isRightDrifting", true);
             driftSide = 1;
+            turningInput += 0.5f;
         }
         else if (turningInput < 0)
         {
             anim.SetBool("isLeftDrifting", true);
             driftSide = -1;
+            turningInput -= 0.5f;
         }
     }
 
@@ -206,7 +209,6 @@ public class CarControl : MonoBehaviour
             driftParticlesRight.Play();
             driftParticlesLeft.Play();
             isDrifting = true;
-            turningInput += 0.2f;
         }
         else if (Input.GetKeyDown("space") && turningInput == 0) //verifica se o jogador estava a virar antes quando carregou no travão
         {
@@ -214,6 +216,8 @@ public class CarControl : MonoBehaviour
             anim.SetBool("isRightDrifting",false);
             anim.SetBool("isBreaking",true);
             isBreaking = true;
+            driftParticlesRight.Stop();
+            driftParticlesLeft.Stop();
         }
         else if (!Input.GetKey("space")) //caso nao esteja a travar desativa as animações 
         {

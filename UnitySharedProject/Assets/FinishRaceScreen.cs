@@ -90,7 +90,7 @@ public class FinishRaceScreen : MonoBehaviour
                 case 1:
 
                     //verifica se o tempo é bom o suficiente para receber uma estrela
-                    if ((min + secs) <= 60f && TimeLapToUpdate != TimeLap2)
+                    if (min < 1 && secs < 59f && TimeLapToUpdate != TimeLap2)
                     {
                         nStars += 1;
                         Debug.LogWarning("Star added : " + nStars);
@@ -100,7 +100,7 @@ public class FinishRaceScreen : MonoBehaviour
                     TimeLapToUpdate = TimeLap2;
                     break;
                 case 2:
-                    if ((min + secs) <= 60f && TimeLapToUpdate != TimeLap3)
+                    if (min < 1 && secs < 59f && TimeLapToUpdate != TimeLap3)
                     {
                         nStars += 1;
                         Debug.LogWarning("Star added : " + nStars);
@@ -302,7 +302,7 @@ public class FinishRaceScreen : MonoBehaviour
         secs = float.Parse(Data.Track.lapTimes[lapToUpdate].Split(':')[1]);
         min = float.Parse(Data.Track.lapTimes[lapToUpdate].Split(':')[0]);
 
-        if ((min + secs) <= 60f)
+        if (min < 1 && secs < 59f)
         {
             nStars = 1;
             Debug.LogWarning("Star added : " + nStars);

@@ -12,7 +12,7 @@ public class cameraScript : MonoBehaviour
 	public float rotationDamping = 3.0f;
 	public float heightDamping = 2.0f;
 	public float zoomRatio = 0.5f;
-	public float defaultFOV = 60f;
+	static public float defaultFOV = 60f;
 
 	private Vector3 rotationVector;
 

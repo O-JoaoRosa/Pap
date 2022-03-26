@@ -9,7 +9,7 @@ public class StartScene : MonoBehaviour
     void Start()
     {
         Thread.Sleep(800);
-        gameObject.LeanMoveLocal(new Vector3(0f, 1.83f, 2.2f), 1f).setEaseOutBounce().setOnComplete(()=> { CarControllerLobby.canMove = true; CarControl.canMove = true; });
+        gameObject.LeanMoveLocal(new Vector3(0f, 1.83f, 2.2f), 0.8f).setEaseOutBounce().setOnComplete(()=> { CarControllerLobby.canMove = true; CarControl.canMove = true; });
     }
 
     // Update is called once per frame

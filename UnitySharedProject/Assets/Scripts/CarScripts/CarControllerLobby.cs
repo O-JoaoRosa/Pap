@@ -91,7 +91,6 @@ public class CarControllerLobby : MonoBehaviour
         //normal rotation of the car
         if (sphereRB.velocity.magnitude > 1f && Input.GetAxisRaw("Vertical") != 0)
         {
-            Debug.Log("turn value " + (turningInput * turnSpeed * Time.deltaTime * Input.GetAxisRaw("Vertical")) + " speed value : " + (Speed * turningInput));
             newRotation = (turningInput * turnSpeed * Time.deltaTime * Input.GetAxisRaw("Vertical")) - (Speed * turningInput * Time.deltaTime);
         }
         else
