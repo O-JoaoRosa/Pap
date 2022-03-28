@@ -172,21 +172,21 @@ public class CarControl : MonoBehaviour
     /// </summary>
     private void Turn()
     {
-        if (turningInput > 0 && FrontWheelParentRight.transform.rotation.y < 25f)
-        {
-            FrontWheelParentRight.transform.Rotate(new Vector3(0, FrontWheelParentRight.transform.rotation.y + 2, 0), Space.Self);
-            FrontWheelParentLeft.transform.Rotate(new Vector3(0, FrontWheelParentLeft.transform.rotation.y + 2, 0), Space.Self);
-        }
-        else if (turningInput < 0 && FrontWheelParentRight.transform.rotation.y > -25f)
-        {
-            FrontWheelParentRight.transform.Rotate(new Vector3(0, FrontWheelParentRight.transform.rotation.y - 2, 0), Space.Self);
-            FrontWheelParentLeft.transform.Rotate(new Vector3(0, FrontWheelParentLeft.transform.rotation.y - 2, 0), Space.Self);
-        }
-        else if (turningInput == 0)
-        {
-            FrontWheelParentRight.transform.Rotate(new Vector3(0, 0, 0), Space.Self);
-            FrontWheelParentLeft.transform.Rotate(new Vector3(0, 0, 0), Space.Self);
-        }
+        //if (turningInput > 0 && (FrontWheelParentRight.transform.localEulerAngles.y < 28 || FrontWheelParentRight.transform.localEulerAngles.y > 340))
+        //{
+        //    FrontWheelParentRight.transform.Rotate(new Vector3(0, FrontWheelParentRight.transform.localEulerAngles.y + (1f * Time.deltaTime), 0), Space.Self);
+        //    FrontWheelParentLeft.transform.Rotate(new Vector3(0, FrontWheelParentLeft.transform.localEulerAngles.y + (1f * Time.deltaTime), 0), Space.Self);
+        //}
+        //else if (turningInput < 0 && FrontWheelParentRight.transform.localEulerAngles.y < 340 )
+        //{
+        //    FrontWheelParentRight.transform.Rotate(new Vector3(0, FrontWheelParentRight.transform.localEulerAngles.y - (1f * Time.deltaTime), 0), Space.Self);
+        //    FrontWheelParentLeft.transform.Rotate(new Vector3(0, FrontWheelParentLeft.transform.localEulerAngles.y - (1f * Time.deltaTime), 0), Space.Self);
+        //}
+        //else if (turningInput == 0)
+        //{
+        //    FrontWheelParentRight.transform.Rotate(new Vector3(0, 0, 0), Space.Self);
+        //    FrontWheelParentLeft.transform.Rotate(new Vector3(0, 0, 0), Space.Self);
+        //}
 
         //normal rotation of the car
         if (Speed > 1f && !isDrifting)
