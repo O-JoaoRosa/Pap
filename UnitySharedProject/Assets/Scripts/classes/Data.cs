@@ -7,6 +7,7 @@ public class Data : MonoBehaviour
     public static string GameModeStory = "Story";
     public static string GameModeTimeAttack = "Time Attack";
     public static string GameModeVs = "Vs";
+
     public static RaceInfo Track = new RaceInfo();
     public RaceInfo trck;
     public static jsonData Player;

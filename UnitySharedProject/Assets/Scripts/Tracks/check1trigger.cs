@@ -8,6 +8,7 @@ public class check1trigger : MonoBehaviour
     int checkCount = 0;
     public static int numberToCheck = 1;
     public int nmbrTChck;
+    public static int TutorialCheck = 1;
     public float distance;
     public float lastClosest;
     public GameObject plyr;
@@ -20,6 +21,9 @@ public class check1trigger : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        CheckPoint = transform.GetChild(0).gameObject;
+        CheckPoint.SetActive(false);
+
         //associa o evento criado no script eventController com o metodo
         if (Data.Track.TypeOfRace == Data.GameModeStory)
         {
@@ -30,8 +34,6 @@ public class check1trigger : MonoBehaviour
         {
             EventController.current.onCrossingTheLine += ResetValues;
 
-            CheckPoint = transform.GetChild(0).gameObject;
-            CheckPoint.SetActive(false);
             distance = Vector3.Distance(plyr.transform.position, gameObject.transform.position);
             lastClosest = distance + 10f;
         }
@@ -102,7 +104,8 @@ public class check1trigger : MonoBehaviour
             nmbrTChck = numberToCheck;
             if (numberToCheck == 18)
             {
-                ResetValues();
+                nmbrTChck = 1;
+                numberToCheck = 1;
             }
         }
         else if (gameObject.name.Contains("18-") && numberToCheck == 14)
@@ -117,7 +120,10 @@ public class check1trigger : MonoBehaviour
     {
         if (Data.Track.TypeOfRace == Data.GameModeStory)
         {
-            EventController.current.Check1Exit();
+            if (gameObject.name.Contains($"{TutorialCheck}-"))
+            {
+                EventController.current.Check1Exit();
+            }
         }
     }
 

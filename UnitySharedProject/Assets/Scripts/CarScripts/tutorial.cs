@@ -13,6 +13,7 @@ public class tutorial : MonoBehaviour
     public static int numOfMessages = 0;
     public static List<string> messages = new List<string>();
     public static bool isTextShowing = true;
+    public GameObject TempBarrier;
 
 
     // Start is called before the first frame update
@@ -41,11 +42,25 @@ public class tutorial : MonoBehaviour
             messages.Add("Of course you know you can use 'W A S D' to drive and steer right?"); //10
             messages.Add("And you also know that you can drift if you press 'Space' while turning right?"); //11
             messages.Add("I mean only idiots don't know that! HA HA!"); //12
+            messages.Add("Anyways i see that you aren't a complete idiot"); //13
+            messages.Add("Let me see how you handle those thight corners"); //14
+            messages.Add("Meh.. i've seen better "); //15
+            messages.Add("you see that icon on the bottom left of the screen?"); //16
+            messages.Add("whell at least you arent blind, that's your power up!"); //17
+            messages.Add("It fills up while you drift and can be activated with 'Shift'"); //18
+            messages.Add("Well, thats all i got to teach you i guess"); //19
+            messages.Add("Ups I forgot to mention but the red road blocks aren't imovable"); //20
+            messages.Add("Anyways good luck finishing the race!"); //21
+
             isTextShowing = true;
             bigScreen.SetActive(true);
             smallScreen.SetActive(false);
 
             Debug.Log(messages[numOfMessages]);
+        }
+        else
+        {
+            TempBarrier.SetActive(false);
         }
     }
 
@@ -85,11 +100,32 @@ public class tutorial : MonoBehaviour
         {
             if (numOfMessages == 10)
             {
+                check1trigger.TutorialCheck = 1;
                 isTextShowing = false;
                 Time.timeScale = 1;
             }
             else if (numOfMessages == 12)
             {
+                check1trigger.TutorialCheck = 2;
+                isTextShowing = false;
+                Time.timeScale = 1;
+            }
+            else if (numOfMessages == 14)
+            {
+                check1trigger.TutorialCheck = 10;
+                isTextShowing = false;
+                Time.timeScale = 1;
+            }
+            else if (numOfMessages == 18)
+            {
+                check1trigger.TutorialCheck = 17;
+                isTextShowing = false;
+                Time.timeScale = 1;
+            }
+            else if (numOfMessages == 21)
+            {
+                check1trigger.TutorialCheck = 100;
+                TempBarrier.SetActive(false);
                 isTextShowing = false;
                 Time.timeScale = 1;
             }

@@ -10,6 +10,7 @@ public class GameSelectOnline : MonoBehaviour
     public GameObject OfflineOption1;
     public GameObject OfflineOption2;
     public GameObject OfflineOption3;
+    public GameObject StoryOption;
 
     [Header("Online")]
     public GameObject OnlineOption1;
@@ -78,6 +79,7 @@ public class GameSelectOnline : MonoBehaviour
             OfflineOption1.transform.LeanMoveLocal(new Vector3(30f, -30f, 0), 0.5f).setIgnoreTimeScale(true).setEaseSpring();
             OfflineOption2.transform.LeanMoveLocal(new Vector3(59f, -41.6f, 0), 0.5f).setIgnoreTimeScale(true).setEaseSpring();
             OfflineOption3.transform.LeanMoveLocal(new Vector3(89f, -30f, 0), 0.5f).setIgnoreTimeScale(true).setEaseSpring();
+            StoryOption.transform.LeanMoveLocal(new Vector3(59f, 29.8f, 0), 0.5f).setIgnoreTimeScale(true).setEaseSpring();
             areOfflineOptionsHidden = false;
         }
         else
@@ -86,12 +88,13 @@ public class GameSelectOnline : MonoBehaviour
             OfflineOption1.transform.LeanMoveLocal(new Vector3(44.8f, -4.5f, 0), 0.45f).setIgnoreTimeScale(true).setEaseInBack();
             OfflineOption2.transform.LeanMoveLocal(new Vector3(59f, -4.5f, 0), 0.45f).setIgnoreTimeScale(true).setEaseInBack();
             OfflineOption3.transform.LeanMoveLocal(new Vector3(73f, -4.5f, 0), 0.45f).setIgnoreTimeScale(true).setEaseInBack();
+            StoryOption.transform.LeanMoveLocal(new Vector3(59f, -7.1526f, 0), 0.5f).setIgnoreTimeScale(true).setEaseInBack();
             areOfflineOptionsHidden = true;
         }
     }
 
     /// <summary>
-    /// botão que vai decidir oq vai acontecer
+    /// botão que vai decidir o que vai acontecer
     /// </summary>
     public void ButtonOnlineOption1Pressed()
     {
@@ -99,9 +102,9 @@ public class GameSelectOnline : MonoBehaviour
         gameObject.SetActive(false);
 
     }
-    
+
     /// <summary>
-    /// botão que vai decidir oq vai acontecer
+    /// botão que vai decidir o que vai acontecer
     /// </summary>
     public void ButtonOnlineOption2Pressed()
     {
@@ -109,9 +112,9 @@ public class GameSelectOnline : MonoBehaviour
         gameObject.SetActive(false);
 
     }
-    
+
     /// <summary>
-    /// botão que vai decidir oq vai acontecer
+    /// botão que vai decidir o que vai acontecer
     /// </summary>
     public void ButtonOnlineOption3Pressed()
     {
@@ -121,7 +124,7 @@ public class GameSelectOnline : MonoBehaviour
     }
 
     /// <summary>
-    /// botão que vai decidir oq vai acontecer
+    /// botão que vai decidir o que vai acontecer
     /// </summary>
     public void ButtonOfflineOption1Pressed()
     {
@@ -131,9 +134,9 @@ public class GameSelectOnline : MonoBehaviour
         gameObject.SetActive(false);
 
     }
-    
+
     /// <summary>
-    /// botão que vai decidir oq vai acontecer
+    /// botão que vai decidir o que vai acontecer
     /// </summary>
     public void ButtonOfflineOption2Pressed()
     {
@@ -141,12 +144,25 @@ public class GameSelectOnline : MonoBehaviour
         gameObject.SetActive(false);
 
     }
-    
+
     /// <summary>
-    /// botão que vai decidir oq vai acontecer
+    /// botão que vai decidir o que vai acontecer
     /// </summary>
     public void ButtonOfflineOption3Pressed()
     {
+        menuAreYouReady.SetActive(true);
+        gameObject.SetActive(false);
+
+    }
+
+    /// <summary>
+    /// botão que vai decidir o que vai acontecer
+    /// </summary>
+    public void ButtonStoryPressed()
+    {
+
+        Data.Track.TypeOfRace = Data.GameModeStory;
+        Data.Track.NumberOfLaps = 3;
         menuAreYouReady.SetActive(true);
         gameObject.SetActive(false);
 

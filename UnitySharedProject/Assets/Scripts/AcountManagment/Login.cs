@@ -63,7 +63,7 @@ public class Login : MonoBehaviour
     /// <returns></returns>
     IEnumerator LoginUser()
     {
-
+        //verifica se os inputs estão vazios
         if (UserNameField.text == "" || PasswordField.text == "")
         {
             PopUp.SetActive(true);

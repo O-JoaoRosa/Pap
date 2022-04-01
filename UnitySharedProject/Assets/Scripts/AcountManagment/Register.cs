@@ -128,7 +128,7 @@ public class Register : MonoBehaviour
         {
             CheckPasword.SetActive(true);
 
-            //verifica se a palavra pass é igual a sua confirmação
+            //verifica se a palavra pass é igual à sua confirmação
             if (passwordField.text == confirmPasswordField.text)
             {
                 CheckComfirmPassword.SetActive(true);

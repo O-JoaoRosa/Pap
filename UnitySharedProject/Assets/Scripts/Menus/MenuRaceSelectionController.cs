@@ -6,7 +6,7 @@ using static MenuController;
 
 public class MenuRaceSelectionController : MonoBehaviour
 {
-    private string track1 = "TestWorld";
+    private string track1 = "tutorialRace";
     private string track2 = "tutorialRace";
 
     [Header("imagens")]
@@ -37,7 +37,7 @@ public class MenuRaceSelectionController : MonoBehaviour
     /// </summary>
     public void ButtonTrack1Click()
     {
-        Data.Track.TrackName = "Track 1";
+        Data.Track.TrackName = "Noob Shredder";
         trackImg.texture = texture1;
         activeTrack = track1;
     }
