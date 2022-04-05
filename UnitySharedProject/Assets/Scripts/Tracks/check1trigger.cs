@@ -104,8 +104,8 @@ public class check1trigger : MonoBehaviour
             nmbrTChck = numberToCheck;
             if (numberToCheck == 18)
             {
-                nmbrTChck = 1;
-                numberToCheck = 1;
+                nmbrTChck = 100;
+                numberToCheck = 100;
             }
         }
         else if (gameObject.name.Contains("18-") && numberToCheck == 14)
