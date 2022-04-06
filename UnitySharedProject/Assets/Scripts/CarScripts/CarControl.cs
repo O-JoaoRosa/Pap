@@ -17,11 +17,11 @@ public class CarControl : MonoBehaviour
     //extras
     public ParticleSystem driftParticlesLeft;
     public ParticleSystem driftParticlesRight;
-    public GameObject FrontWheelParentLeft;
-    public GameObject FrontWheelParentRight;
-    public GameObject FrontWheelChildLeft;
-    public GameObject FrontWheelChildRight;
-    public GameObject BackWheels;
+    private GameObject FrontWheelParentLeft;
+    private GameObject FrontWheelParentRight;
+    private GameObject FrontWheelChildLeft;
+    private GameObject FrontWheelChildRight;
+    private GameObject BackWheels;
 
 
     //raycast
@@ -119,20 +119,20 @@ public class CarControl : MonoBehaviour
             if (moveInput > 0f)
             {
                 moveInput *= ActiveCar.FowardSpeed;
-                BackWheels.transform.Rotate(new Vector3(BackWheels.transform.rotation.x + Speed , 0 , 0), Space.Self);
-                FrontWheelChildRight.transform.Rotate(new Vector3(FrontWheelChildRight.transform.rotation.x + Speed, 0, 0), Space.Self);
-                FrontWheelChildLeft.transform.Rotate(new Vector3(FrontWheelChildLeft.transform.rotation.x + Speed, 0, 0), Space.Self);
+                BackWheels.transform.Rotate(new Vector3(BackWheels.transform.rotation.x + 5 , 0 , 0), Space.Self);
+                FrontWheelChildRight.transform.Rotate(new Vector3(FrontWheelChildRight.transform.rotation.x + 5, 0, 0), Space.Self);
+                FrontWheelChildLeft.transform.Rotate(new Vector3(FrontWheelChildLeft.transform.rotation.x + 5, 0, 0), Space.Self);
             }
             else if (moveInput < 0f)
             {
                 moveInput *= ReverseSpeed;
-                BackWheels.transform.Rotate(new Vector3(BackWheels.transform.rotation.x - Speed, 0, 0), Space.Self);
-                FrontWheelChildRight.transform.Rotate(new Vector3(FrontWheelChildRight.transform.rotation.x - Speed, 0, 0), Space.Self);
-                FrontWheelChildLeft.transform.Rotate(new Vector3(FrontWheelChildLeft.transform.rotation.x - Speed, 0, 0), Space.Self);
+                BackWheels.transform.Rotate(new Vector3(BackWheels.transform.rotation.x - 5, 0, 0), Space.Self);
+                FrontWheelChildRight.transform.Rotate(new Vector3(FrontWheelChildRight.transform.rotation.x - 5, 0, 0), Space.Self);
+                FrontWheelChildLeft.transform.Rotate(new Vector3(FrontWheelChildLeft.transform.rotation.x - 5, 0, 0), Space.Self);
             }
             else
             {
-                BackWheels.transform.Rotate(new Vector3(BackWheels.transform.rotation.x + Speed, 0, 0), Space.Self);
+                BackWheels.transform.Rotate(new Vector3(BackWheels.transform.rotation.x + 5, 0, 0), Space.Self);
             }
 
             turningInput = Input.GetAxisRaw("Horizontal");

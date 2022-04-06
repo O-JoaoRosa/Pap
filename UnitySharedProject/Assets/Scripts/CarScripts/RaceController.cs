@@ -84,18 +84,11 @@ public class RaceController : MonoBehaviour
         Debug.Log("Active mode " + Data.Track.TypeOfRace);
         Debug.Log("Compared GameMode" + Data.GameModeTimeAttack);
 
-        if (Data.Track.TypeOfRace == Data.GameModeTimeAttack)
+        isTimeCounting = true;
+        if (lap == 0)
         {
-            isTimeCounting = true;
-            if (lap == 0)
-            {
-                Debug.Log("Time stored");
-                StartTime = Time.time;
-                lap += 1;
-            }
-        }
-        else
-        {
+            Debug.Log("Time stored");
+            StartTime = Time.time;
             lap += 1;
         }
     }
